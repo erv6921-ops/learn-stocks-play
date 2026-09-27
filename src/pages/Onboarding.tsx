@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
+import { Trans, useTranslation } from "react-i18next"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { supabase } from "@/integrations/supabase/client"
 import { useApp } from "@/contexts/AppContext"
@@ -11,6 +12,7 @@ import { shuffleQuestion } from "@/lib/mcqEngine"
 import { saveBenchmarkProgress, loadBenchmarkProgress, clearBenchmarkProgress } from "@/lib/benchmarkProgress"
 import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
 import { eligibleForFloridaTracks, US_STATES } from "@/lib/geography"
+import { applyClassTrack } from "@/lib/classTrack"
 import { JeffMascot } from "@/components/JeffMascot"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
@@ -27,22 +29,22 @@ import Confetti from "@/components/Confetti"
 import { EnrollmentTrack } from "@/types"
 
 type UserRole = "student" | "teacher"
-// Each student data point is its own screen (one question per tab). Order:
-// role -> name -> grade -> age -> state/course -> class code -> program ->
-// login. Teachers keep their short two-screen path.
+// Shortened student sign-up: exactly four screens after the role gate -
+// name -> grade -> track -> login. Non-default tracks (Biz Lab / Gulliver
+// Intro) are no longer pickable here; they are joined via a class code.
+// Teachers keep their own short path (name -> school -> details).
 type OnboardingStep =
   | "role-select" | "name" | "teacher-school" | "teacher-details"
-  | "grade" | "age" | "state-course" | "class-code"
-  | "program-select" | "student-account"
+  | "grade" | "track" | "student-account"
   | "welcome" | "assessment" | "results"
 
-// Progress-dot index for each student screen (role-select is 0). Teachers use a
-// separate 3-dot count (see totalSteps).
+// Progress-dot index for each student data screen. role-select is the entry
+// gate (shown before these four) and isn't counted. Teachers use their own
+// count (see totalSteps).
 const STUDENT_STEP_INDEX: Record<string, number> = {
-  "role-select": 0, "name": 1, "grade": 2, "age": 3,
-  "state-course": 4, "class-code": 5, "program-select": 6, "student-account": 7,
+  "name": 0, "grade": 1, "track": 2, "student-account": 3,
 }
-const STUDENT_TOTAL_STEPS = 8
+const STUDENT_TOTAL_STEPS = 4
 
 // US_STATES lives in @/lib/geography (shared with the Florida-track gating).
 
@@ -215,7 +217,7 @@ function StepHeader({
 // this so the whole flow shares one polished animation and Jeff on each screen.
 function FieldStep({
   stepKey, current, total, mood, message, title, subtitle,
-  onBack, onContinue, continueDisabled = false, continueLabel = "Continue",
+  onBack, onContinue, continueDisabled = false, continueLabel,
   loading = false, children,
 }: {
   stepKey: string
@@ -232,6 +234,7 @@ function FieldStep({
   loading?: boolean
   children: ReactNode
 }) {
+  const { t } = useTranslation()
   // Enter submits when the step is completable, so keyboard users fly through.
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !continueDisabled && !loading) { e.preventDefault(); onContinue() }
@@ -258,11 +261,11 @@ function FieldStep({
       <div className="flex gap-3 mt-6">
         {onBack && (
           <Button variant="outline" onClick={onBack} disabled={loading}>
-            <ArrowLeft className="mr-2 w-4 h-4" /> Back
+            <ArrowLeft className="mr-2 w-4 h-4" /> {t("onboarding.back")}
           </Button>
         )}
         <Button size="xl" variant="hero" disabled={continueDisabled || loading} onClick={onContinue}>
-          {loading ? <Loader2 className="mr-2 animate-spin" /> : <>{continueLabel} <ArrowRight className="ml-2" /></>}
+          {loading ? <Loader2 className="mr-2 animate-spin" /> : <>{continueLabel ?? t("onboarding.continue")} <ArrowRight className="ml-2" /></>}
         </Button>
       </div>
     </motion.div>
@@ -272,7 +275,7 @@ function FieldStep({
 // Password field with a show/hide eye toggle. Manages its own reveal state so
 // the password and confirm fields can be revealed independently.
 function PasswordInput({
-  value, onChange, placeholder = "At least 6 characters", autoFocus = false,
+  value, onChange, placeholder, autoFocus = false,
 }: {
   value: string
   onChange: (v: string) => void
@@ -280,13 +283,14 @@ function PasswordInput({
   autoFocus?: boolean
 }) {
   const [show, setShow] = useState(false)
+  const { t } = useTranslation()
   return (
     <div className="relative">
       <Input
         type={show ? "text" : "password"}
         value={value}
         onChange={e => onChange(e.target.value)}
-        placeholder={placeholder}
+        placeholder={placeholder ?? t("onboarding.passwordPlaceholder")}
         minLength={6}
         autoFocus={autoFocus}
         className="pr-10"
@@ -295,7 +299,7 @@ function PasswordInput({
         type="button"
         tabIndex={-1}
         onClick={() => setShow(s => !s)}
-        aria-label={show ? "Hide password" : "Show password"}
+        aria-label={show ? t("onboarding.hidePassword") : t("onboarding.showPassword")}
         className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground transition-colors"
       >
         {show ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -309,6 +313,7 @@ export default function Onboarding() {
   const [searchParams] = useSearchParams()
   const { user, setUser } = useApp()
   const { toast } = useToast()
+  const { t } = useTranslation()
 
   const [step, setStep] = useState<OnboardingStep>("role-select")
   const [loading, setLoading] = useState(false)
@@ -331,6 +336,8 @@ export default function Onboarding() {
   const [grade, setGrade] = useState("")
   const [age, setAge] = useState("")
   const [classCode, setClassCode] = useState("")
+  // Track step: the class-code entry is hidden behind a link until requested.
+  const [showClassCode, setShowClassCode] = useState(false)
   const [stateCourse, setStateCourse] = useState("")
   const [stateOpen, setStateOpen] = useState(false)
   const [password, setPassword] = useState("")
@@ -449,8 +456,8 @@ export default function Onboarding() {
     if (nextQ) setCurrentQuestion(shuffleQuestion(nextQ) as BenchmarkQuestion)
 
     toast({
-      title: "Resuming your benchmark",
-      description: `Picking up where you left off - question ${saved.answers.length + 1} of ${BENCHMARK_TOTAL}.`,
+      title: t("onboarding.resumingBenchmark"),
+      description: t("onboarding.resumingBenchmarkDesc", { current: saved.answers.length + 1, total: BENCHMARK_TOTAL }),
     })
   }, [step, benchmarkRestored, questionPool])
 
@@ -503,8 +510,8 @@ export default function Onboarding() {
     const uid = data.session?.user?.id
     if (!uid) {
       toast({
-        title: "Log in to save progress",
-        description: "Your account needs to be signed in before progress can save across devices.",
+        title: t("onboarding.logInToSave"),
+        description: t("onboarding.logInToSaveDesc"),
         variant: "destructive",
       })
       navigate("/auth")
@@ -538,11 +545,16 @@ export default function Onboarding() {
     const { error } = await supabase.from("profiles").upsert(payload, { onConflict: "id" })
     if (error) {
       console.error("[Onboarding] Failed to save profile", error)
-      toast({ title: "Couldn't save progress", description: error.message, variant: "destructive" })
+      toast({ title: t("onboarding.couldntSaveProgress"), description: error.message, variant: "destructive" })
       return false
     }
 
     // If a join code was entered, look up the class and enroll the student.
+    // Joining a class is now the ONLY way a student can land on a non-default
+    // (locked) track: the class carries a `track`, and on join we copy it to the
+    // student's assigned_track + track. The class_members insert must happen
+    // BEFORE the profiles.track update so the server-side lock trigger sees the
+    // membership and allows the write.
     const trimmedCode = classCode.trim().toUpperCase()
     if (trimmedCode) {
       const { data: classData, error: lookupError } = await supabase
@@ -551,18 +563,21 @@ export default function Onboarding() {
 
       if (lookupError || !classData) {
         toast({
-          title: "Invalid class code",
-          description: `No class found for code "${trimmedCode}". You can add it later from the Leaderboard.`,
+          title: t("onboarding.invalidClassCode"),
+          description: t("onboarding.invalidClassCodeDesc", { code: trimmedCode }),
           variant: "destructive",
         })
       } else {
+        const klass = classData as { id: string; track?: EnrollmentTrack | null }
         const { error: joinError } = await supabase
           .from("class_members")
-          .insert({ class_id: (classData as { id: string }).id, user_id: uid })
+          .insert({ class_id: klass.id, user_id: uid })
 
         // 23505 = already a member; treat as success.
         if (joinError && joinError.code !== "23505") {
-          toast({ title: "Couldn't join class", description: joinError.message, variant: "destructive" })
+          toast({ title: t("dashboard.couldntJoinClass"), description: joinError.message, variant: "destructive" })
+        } else {
+          await applyClassTrack(uid, klass.track ?? "regular")
         }
       }
     }
@@ -587,7 +602,7 @@ export default function Onboarding() {
       setEmailCode("")
       setEmailStep("done")
     } catch (err: any) {
-      toast({ title: "Invalid or expired code", description: err.message, variant: "destructive" })
+      toast({ title: t("auth.invalidCode"), description: err.message, variant: "destructive" })
     } finally {
       setSignupLoading(false)
     }
@@ -597,8 +612,8 @@ export default function Onboarding() {
     setSignupLoading(true)
     const { error } = await supabase.auth.resend({ type: "signup", email: email.trim() })
     setSignupLoading(false)
-    if (error) toast({ title: "Couldn't resend", description: error.message, variant: "destructive" })
-    else toast({ title: "New code sent", description: "Check your inbox (and spam folder)." })
+    if (error) toast({ title: t("auth.couldntResend"), description: error.message, variant: "destructive" })
+    else toast({ title: t("auth.newCodeSent"), description: t("auth.newCodeSentDesc") })
   }
 
   // From the confetti "Email confirmed" screen - save the collected profile and
@@ -610,15 +625,9 @@ export default function Onboarding() {
         const saved = await persistProfile({})
         if (saved) navigate("/teacher-dashboard")
       } else {
-        const saved = await persistProfile({
-          literacy_level: "explorer",
-          assessment_score: 0,
-          reward_multiplier: 1,
-          benchmark_scores: {},
-          benchmark_category_scores: {},
-          onboarding_complete: false,
-        })
-        if (saved) { setEmailStep(""); setStep("welcome") }
+        // Shortened flow: no benchmark. Complete onboarding and enter the app.
+        setEmailStep("")
+        await finishStudentOnboarding()
       }
     } finally {
       setSignupLoading(false)
@@ -679,8 +688,8 @@ export default function Onboarding() {
       if (seedErr) {
         console.error("[benchmark seed] student_ability upsert failed", seedErr)
         toast({
-          title: "Heads up: couldn't personalize question difficulty",
-          description: "Your results saved, but seeding the adaptive engine failed. Lessons will still work, starting at the default level.",
+          title: t("onboarding.seedFailed"),
+          description: t("onboarding.seedFailedDesc"),
           variant: "destructive",
         })
       } else {
@@ -694,7 +703,7 @@ export default function Onboarding() {
       ? user
       : {
           id: session.session?.user?.id ?? `student-${Date.now()}`,
-          firstName: firstName || "Student",
+          firstName: firstName || t("common.student"),
           age: parseInt(age) || 14,
           schoolName: schoolName || "",
           grade: grade ? GRADE_MAP[grade] ?? 9 : 9,
@@ -742,7 +751,7 @@ export default function Onboarding() {
     const { data: session } = await supabase.auth.getSession()
     const localUser = {
       id: session.session?.user?.id ?? `student-${Date.now()}`,
-      firstName: firstName || "Student",
+      firstName: firstName || t("common.student"),
       age: parseInt(age) || 14,
       schoolName: schoolName || "",
       grade: grade ? GRADE_MAP[grade] ?? 9 : 9,
@@ -765,6 +774,73 @@ export default function Onboarding() {
     navigate("/dashboard")
   }
 
+  // Finish the shortened student sign-up (name -> grade -> track -> login).
+  // There is no benchmark step any more, so the assessment-derived fields get
+  // sensible defaults (literacy "explorer", score 0, multiplier 1, empty
+  // benchmark maps) and the IRT engine seeds itself at its flat default on the
+  // first lesson instead of from a benchmark. persistProfile writes the profile
+  // (onboarding_complete = true) and, when a class code was entered, joins the
+  // class and applies its track. Called once, after the account exists.
+  const finishStudentOnboarding = async () => {
+    setLoading(true)
+    clearBenchmarkProgress()
+
+    const saved = await persistProfile({
+      literacy_level: "explorer",
+      assessment_score: 0,
+      reward_multiplier: 1,
+      benchmark_scores: {},
+      benchmark_category_scores: {},
+      track,
+      biz_lab_enrolled: track === "biz_lab",
+    })
+    if (!saved) {
+      setLoading(false)
+      return
+    }
+
+    const { data: session } = await supabase.auth.getSession()
+    // If a class code moved the student onto a locked track, applyClassTrack has
+    // already stashed it as the pending track; reflect it locally so the
+    // dashboard opens on the right course without waiting for the next hydrate.
+    let pendingTrack: EnrollmentTrack = track
+    try {
+      const p = localStorage.getItem("investiplay_track_pending")
+      if (p === "biz_lab" || p === "gulliver_intro" || p === "regular") pendingTrack = p
+    } catch { /* storage unavailable */ }
+
+    const localUser = {
+      id: session.session?.user?.id ?? `student-${Date.now()}`,
+      firstName: firstName || t("common.student"),
+      lastName: lastName || undefined,
+      age: parseInt(age) || 14,
+      schoolName: schoolName || "",
+      grade: grade ? GRADE_MAP[grade] ?? 9 : 9,
+      literacyLevel: "explorer" as const,
+      onboardingComplete: true,
+      assessmentScore: 0,
+      benchmarkScores: {},
+      benchmarkCategoryScores: {},
+      rewardMultiplier: 1,
+      track: pendingTrack,
+      stateCourse: stateCourse || undefined,
+      bizLabEnrolled: pendingTrack === "biz_lab",
+      createdAt: new Date(),
+    }
+
+    setUser(localUser)
+    setLoading(false)
+    try { localStorage.setItem("investiplay_show_tour", "1") } catch { /* ignore */ }
+    navigate("/dashboard")
+  }
+
+  // From the track step: a brand-new student goes on to create a login; an
+  // already-authenticated student (resuming an unfinished profile) has no login
+  // to make, so we complete onboarding straight away.
+  const proceedFromTrack = () => {
+    if (resumeAuthed) { void finishStudentOnboarding() } else { setStep("student-account") }
+  }
+
   const literacyLevel = calculateLiteracyLevel(score)
   const categoryScoresPreview = computeCategoryScores(
     answeredQuestions as any,
@@ -772,27 +848,27 @@ export default function Onboarding() {
   )
 
   const categoryGroups = [
-    { label: "Money Foundations", cats: ["psychology-of-money", "income-earning", "budgeting"] },
-    { label: "Banking & Credit", cats: ["banking", "credit-debt"] },
-    { label: "Investing Core", cats: ["investing-intro", "stocks", "stock-market"] },
-    { label: "Portfolio Strategy", cats: ["portfolio", "etfs-funds", "bonds"] },
-    { label: "Company Analysis", cats: ["financial-statements", "financial-ratios", "valuation"] },
-    { label: "Behavioral Finance", cats: ["behavioral-finance", "bubbles-crashes"] },
-    { label: "Macro Economics", cats: ["macro-economics", "economic-indicators"] },
-    { label: "Entrepreneurship", cats: ["entrepreneurship", "competitive-strategy"] },
-    { label: "Advanced Investing", cats: ["options", "alternatives"] },
-    { label: "Real-World Application", cats: ["financial-planning", "simulations"] },
+    { label: t("onboarding.categories.moneyFoundations"), cats: ["psychology-of-money", "income-earning", "budgeting"] },
+    { label: t("onboarding.categories.bankingCredit"), cats: ["banking", "credit-debt"] },
+    { label: t("onboarding.categories.investingCore"), cats: ["investing-intro", "stocks", "stock-market"] },
+    { label: t("onboarding.categories.portfolioStrategy"), cats: ["portfolio", "etfs-funds", "bonds"] },
+    { label: t("onboarding.categories.companyAnalysis"), cats: ["financial-statements", "financial-ratios", "valuation"] },
+    { label: t("onboarding.categories.behavioralFinance"), cats: ["behavioral-finance", "bubbles-crashes"] },
+    { label: t("onboarding.categories.macroEconomics"), cats: ["macro-economics", "economic-indicators"] },
+    { label: t("onboarding.categories.entrepreneurship"), cats: ["entrepreneurship", "competitive-strategy"] },
+    { label: t("onboarding.categories.advancedInvesting"), cats: ["options", "alternatives"] },
+    { label: t("onboarding.categories.realWorld"), cats: ["financial-planning", "simulations"] },
   ]
 
   // Adaptive difficulty indicator
   const difficultyLabel = useMemo(() => {
-    if (correctHistory.length < 2) return "Strategic"
+    if (correctHistory.length < 2) return t("onboarding.difficulty.strategic")
     const recent = correctHistory.slice(-4)
     const rate = recent.filter(Boolean).length / recent.length
-    if (rate >= 0.75) return "Advanced"
-    if (rate >= 0.4) return "Applied"
-    return "Foundational"
-  }, [correctHistory])
+    if (rate >= 0.75) return t("onboarding.difficulty.advanced")
+    if (rate >= 0.4) return t("onboarding.difficulty.applied")
+    return t("onboarding.difficulty.foundational")
+  }, [correctHistory, t])
 
   // How many dots the sign-up progress bar shows. Teachers: name → school →
   // account.
@@ -822,13 +898,13 @@ export default function Onboarding() {
           >
             <PartyPopper className="h-12 w-12 text-white" />
           </motion.div>
-          <h1 className="font-display text-3xl md:text-4xl font-extrabold mb-2">Email confirmed! 🎉</h1>
+          <h1 className="font-display text-3xl md:text-4xl font-extrabold mb-2">{t("auth.emailConfirmed")}</h1>
           <p className="text-muted-foreground mb-8">
-            <span className="font-medium text-foreground">{email}</span> is verified. You're logged in. Let's get you into InvestiPlay.
+            <Trans i18nKey="onboarding.emailVerifiedLoggedIn" values={{ email }} components={{ email: <span className="font-medium text-foreground" /> }} />
           </p>
           <Button size="lg" className="w-full text-base font-bold" onClick={handleEnterApp} disabled={signupLoading}>
             {signupLoading ? <Loader2 className="mr-2 animate-spin" /> : (
-              <>{selectedRole === "teacher" ? "Go to my dashboard" : "Start learning"} <ArrowRight className="ml-1.5 h-4 w-4" /></>
+              <>{selectedRole === "teacher" ? t("onboarding.goToMyDashboard") : t("dashboard.startLearning")} <ArrowRight className="ml-1.5 h-4 w-4" /></>
             )}
           </Button>
         </motion.div>
@@ -845,15 +921,15 @@ export default function Onboarding() {
           className="w-full max-w-md relative z-10"
         >
           <div className="text-center mb-6">
-            <JeffMascot size="sm" message="I just emailed you a 6 digit code. Pop it in here to confirm your email!" />
+            <JeffMascot size="sm" message={t("auth.jeffCodeMessage")} />
           </div>
           <Card variant="elevated">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2"><MailCheck className="h-5 w-5 text-primary" /> Enter your code</CardTitle>
+              <CardTitle className="flex items-center gap-2"><MailCheck className="h-5 w-5 text-primary" /> {t("auth.enterYourCode")}</CardTitle>
               <CardDescription>
-                We sent a 6-digit code to <span className="font-medium text-foreground">{email}</span>. It expires in 1 hour.
+                <Trans i18nKey="auth.weSentCode" values={{ email }} components={{ email: <span className="font-medium text-foreground" /> }} />
                 <br />
-                <span className="font-semibold text-foreground">Don't see it?</span> Check your spam or junk folder.
+                <span className="font-semibold text-foreground">{t("auth.dontSeeIt")}</span> {t("auth.checkSpam")}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -870,15 +946,15 @@ export default function Onboarding() {
                   required
                 />
                 <Button type="submit" className="w-full" disabled={signupLoading || emailCode.length !== 6}>
-                  {signupLoading ? <Loader2 className="mr-2 animate-spin" /> : "Confirm email"}
+                  {signupLoading ? <Loader2 className="mr-2 animate-spin" /> : t("auth.confirmEmail")}
                 </Button>
               </form>
               <div className="mt-4 flex items-center justify-between text-sm">
                 <button type="button" onClick={handleResendCode} disabled={signupLoading} className="text-primary hover:underline disabled:opacity-50">
-                  Resend code
+                  {t("auth.resendCode")}
                 </button>
                 <button type="button" onClick={() => { setEmailStep(""); setEmailCode("") }} className="text-muted-foreground hover:underline">
-                  Back
+                  {t("onboarding.back")}
                 </button>
               </div>
             </CardContent>
@@ -928,9 +1004,9 @@ export default function Onboarding() {
               current={0}
               total={totalSteps}
               mood="excited"
-              message="Hi, I'm Jeff! I'll guide you through setup. First up, who are you?"
-              title="Welcome to InvestiPlay"
-              subtitle="Let's get started. Are you a student or a teacher?"
+              message={t("onboarding.jeffRole")}
+              title={t("onboarding.welcomeTitle")}
+              subtitle={t("onboarding.roleSubtitle")}
             />
             <div className="w-full max-w-sm space-y-3">
               <button
@@ -941,8 +1017,8 @@ export default function Onboarding() {
                   <GraduationCap className="w-6 h-6" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="font-semibold text-lg">I'm a Student</div>
-                  <p className="text-sm text-muted-foreground mt-0.5">Learn money skills through interactive lessons and simulations</p>
+                  <div className="font-semibold text-lg">{t("onboarding.imStudent")}</div>
+                  <p className="text-sm text-muted-foreground mt-0.5">{t("onboarding.studentDesc")}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
@@ -954,19 +1030,19 @@ export default function Onboarding() {
                   <Users className="w-6 h-6" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="font-semibold text-lg">I'm a Teacher</div>
-                  <p className="text-sm text-muted-foreground mt-0.5">Manage classes, assign lessons, and track student progress</p>
+                  <div className="font-semibold text-lg">{t("onboarding.imTeacher")}</div>
+                  <p className="text-sm text-muted-foreground mt-0.5">{t("onboarding.teacherDesc")}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
             </div>
             <p className="text-sm text-muted-foreground mt-6">
-              Already have an account?{" "}
+              {t("auth.alreadyHaveAccount")}{" "}
               <button
                 onClick={() => navigate("/auth")}
                 className="text-primary font-medium hover:underline"
               >
-                Log in
+                {t("auth.logIn")}
               </button>
             </p>
           </motion.div>
@@ -976,23 +1052,23 @@ export default function Onboarding() {
         {step === "name" && (
           <FieldStep
             stepKey="name"
-            current={1}
+            current={selectedRole === "teacher" ? 1 : STUDENT_STEP_INDEX["name"]}
             total={totalSteps}
             mood="happy"
-            message={firstName.trim() ? `Nice to meet you, ${firstName.trim()}! 👋` : "Awesome! What should I call you?"}
-            title="What's your name?"
-            subtitle={selectedRole === "teacher" ? "We'll use this for your teacher profile" : "We'll use this to personalize your experience"}
+            message={firstName.trim() ? t("onboarding.jeffNiceToMeet", { name: firstName.trim() }) : t("onboarding.jeffName")}
+            title={t("onboarding.nameTitle")}
+            subtitle={selectedRole === "teacher" ? t("onboarding.nameSubtitleTeacher") : t("onboarding.nameSubtitleStudent")}
             onBack={resumeAuthed ? undefined : () => setStep("role-select")}
             continueDisabled={!firstName.trim()}
             onContinue={() => setStep(selectedRole === "teacher" ? "teacher-school" : "grade")}
           >
             <div>
-              <label className="text-sm font-medium mb-1.5 block">First Name</label>
-              <Input placeholder="e.g. Emma" value={firstName} onChange={e => setFirstName(e.target.value)} autoFocus />
+              <label className="text-sm font-medium mb-1.5 block">{t("settings.firstName")}</label>
+              <Input placeholder={t("onboarding.firstNamePlaceholder")} value={firstName} onChange={e => setFirstName(e.target.value)} autoFocus />
             </div>
             <div>
-              <label className="text-sm font-medium mb-1.5 block">Last Name</label>
-              <Input placeholder="e.g. Johnson" value={lastName} onChange={e => setLastName(e.target.value)} />
+              <label className="text-sm font-medium mb-1.5 block">{t("settings.lastName")}</label>
+              <Input placeholder={t("onboarding.lastNamePlaceholder")} value={lastName} onChange={e => setLastName(e.target.value)} />
             </div>
           </FieldStep>
         )}
@@ -1010,9 +1086,9 @@ export default function Onboarding() {
               current={2}
               total={totalSteps}
               mood="teaching"
-              message="Which school are you teaching at?"
-              title="Your school"
-              subtitle="Pick your school, or type in another one"
+              message={t("onboarding.jeffSchool")}
+              title={t("onboarding.schoolTitle")}
+              subtitle={t("onboarding.schoolSubtitle")}
             />
             <div className="w-full max-w-sm space-y-3 text-left">
               {/* Quick-pick: Gulliver Preparatory reveals its two programs. */}
@@ -1025,7 +1101,7 @@ export default function Onboarding() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="font-semibold text-lg">Gulliver Preparatory</div>
-                  <p className="text-sm text-muted-foreground mt-0.5">{gulliverPrep ? "Now pick your program below" : "Pick your program next"}</p>
+                  <p className="text-sm text-muted-foreground mt-0.5">{gulliverPrep ? t("onboarding.gulliverPickBelow") : t("onboarding.gulliverPickNext")}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
               </button>
@@ -1049,9 +1125,9 @@ export default function Onboarding() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="font-semibold flex items-center gap-2">
-                        Gulliver Biz Lab <span className="text-[10px] font-bold uppercase bg-gold/15 text-gold rounded-full px-2 py-0.5">Shark Tank</span>
+                        {t("onboarding.gulliverBizLab")} <span className="text-[10px] font-bold uppercase bg-gold/15 text-gold rounded-full px-2 py-0.5">{t("onboarding.sharkTank")}</span>
                       </div>
-                      <p className="text-xs text-muted-foreground mt-0.5">Build a business and pitch it to the Sharks.</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{t("onboarding.bizLabDesc")}</p>
                     </div>
                     <ChevronRight className="w-4 h-4 text-muted-foreground/50 group-hover:text-gold group-hover:translate-x-0.5 transition-all shrink-0" />
                   </button>
@@ -1070,8 +1146,8 @@ export default function Onboarding() {
                       <GraduationCap className="w-5 h-5" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="font-semibold">Gulliver Intro to Business</div>
-                      <p className="text-xs text-muted-foreground mt-0.5">The 9th grade course: assign the 8 learning objectives (1.1 to 1.8).</p>
+                      <div className="font-semibold">{t("onboarding.gulliverIntro")}</div>
+                      <p className="text-xs text-muted-foreground mt-0.5">{t("onboarding.gulliverIntroDesc")}</p>
                     </div>
                     <ChevronRight className="w-4 h-4 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
                   </button>
@@ -1080,9 +1156,9 @@ export default function Onboarding() {
 
               {/* Or type a different school (defaults to the regular course). */}
               <div className="pt-2">
-                <label className="text-sm font-medium mb-1.5 block">Or type your school</label>
+                <label className="text-sm font-medium mb-1.5 block">{t("onboarding.orTypeSchool")}</label>
                 <Input
-                  placeholder="e.g. Lincoln High School"
+                  placeholder={t("onboarding.schoolPlaceholder")}
                   value={gulliverPrep ? "" : schoolName}
                   onChange={e => { setGulliverPrep(false); setTrack("regular"); setSchoolName(e.target.value) }}
                 />
@@ -1090,13 +1166,13 @@ export default function Onboarding() {
             </div>
             <div className="flex gap-3 mt-6">
               <Button variant="outline" onClick={() => setStep("name")}>
-                <ArrowLeft className="mr-2 w-4 h-4" /> Back
+                <ArrowLeft className="mr-2 w-4 h-4" /> {t("onboarding.back")}
               </Button>
               {/* Gulliver Prep advances via a program pick above; the typed-school
                   path uses this Continue (regular course). */}
               {!gulliverPrep && (
                 <Button size="xl" variant="hero" disabled={!schoolName.trim()} onClick={() => setStep("teacher-details")}>
-                  Continue <ArrowRight className="ml-2 w-4 h-4" />
+                  {t("onboarding.continue")} <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               )}
             </div>
@@ -1116,39 +1192,39 @@ export default function Onboarding() {
               current={3}
               total={totalSteps}
               mood="teaching"
-              message="Last step! Set up your login and you're in."
-              title="Teacher Info"
-              subtitle={schoolName ? `${schoolName} · set up your login` : "Set up your login so you can manage your classes"}
+              message={t("onboarding.jeffTeacherLast")}
+              title={t("onboarding.teacherInfo")}
+              subtitle={schoolName ? t("onboarding.teacherSubtitleSchool", { school: schoolName }) : t("onboarding.teacherSubtitle")}
             />
             <div className="w-full max-w-sm space-y-4 text-left">
               <div>
-                <label className="text-sm font-medium mb-1.5 block">Email</label>
+                <label className="text-sm font-medium mb-1.5 block">{t("auth.email")}</label>
                 <Input
                   type="email"
-                  placeholder="e.g. emma@school.edu"
+                  placeholder={t("onboarding.teacherEmailPlaceholder")}
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   autoFocus
                 />
               </div>
               <div>
-                <label className="text-sm font-medium mb-1.5 block">Password</label>
+                <label className="text-sm font-medium mb-1.5 block">{t("auth.password")}</label>
                 <PasswordInput value={password} onChange={setPassword} />
                 <p className="text-xs text-muted-foreground mt-1">
-                  You'll use this with your email to log back in from any device.
+                  {t("onboarding.passwordHint")}
                 </p>
               </div>
               <div>
-                <label className="text-sm font-medium mb-1.5 block">Confirm Password</label>
-                <PasswordInput value={confirmPassword} onChange={setConfirmPassword} placeholder="Enter your password again" />
+                <label className="text-sm font-medium mb-1.5 block">{t("auth.confirmPassword")}</label>
+                <PasswordInput value={confirmPassword} onChange={setConfirmPassword} placeholder={t("onboarding.confirmPasswordPlaceholder")} />
                 {confirmPassword.length > 0 && password !== confirmPassword && (
-                  <p className="text-xs text-destructive mt-1">Passwords don't match.</p>
+                  <p className="text-xs text-destructive mt-1">{t("onboarding.passwordsMismatch")}</p>
                 )}
               </div>
             </div>
             <div className="flex gap-3 mt-6">
               <Button variant="outline" onClick={() => setStep("teacher-school")} disabled={signupLoading}>
-                <ArrowLeft className="mr-2 w-4 h-4" /> Back
+                <ArrowLeft className="mr-2 w-4 h-4" /> {t("onboarding.back")}
               </Button>
               <Button
                 size="xl"
@@ -1164,7 +1240,7 @@ export default function Onboarding() {
                     if (DEV_LOCAL_BYPASS) {
                       setUser({
                         id: `teacher-${Date.now()}`,
-                        firstName: firstName || "Teacher",
+                        firstName: firstName || t("auth.teacher"),
                         age: 30,
                         schoolName: schoolName || "",
                         grade: 12,
@@ -1178,7 +1254,7 @@ export default function Onboarding() {
                         bizLabEnrolled: track === "biz_lab",
                         createdAt: new Date(),
                       })
-                      toast({ title: "Welcome aboard!", description: "Teacher account ready (dev mode, no email needed)." })
+                      toast({ title: t("onboarding.welcomeAboard"), description: t("onboarding.teacherReadyDev") })
                       navigate("/teacher-dashboard")
                       return
                     }
@@ -1204,8 +1280,8 @@ export default function Onboarding() {
                     if (error) {
                       if (error.message.toLowerCase().includes("registered") || error.message.toLowerCase().includes("already")) {
                         toast({
-                          title: "Account already exists",
-                          description: "Use the Log in link to sign back into your account.",
+                          title: t("onboarding.accountExists"),
+                          description: t("onboarding.accountExistsTeacherDesc"),
                           variant: "destructive",
                         })
                         setSignupLoading(false)
@@ -1220,8 +1296,8 @@ export default function Onboarding() {
                       setEmailCode("")
                       setEmailStep("code")
                       toast({
-                        title: "Check your email",
-                        description: "We sent a 6-digit code to confirm your address.",
+                        title: t("auth.checkYourEmail"),
+                        description: t("auth.checkYourEmailDesc"),
                       })
                       return
                     }
@@ -1231,12 +1307,12 @@ export default function Onboarding() {
                     // assignable-lesson list to e.g. the 8 Gulliver Intro LOs).
                     const saved = await persistProfile({ track, biz_lab_enrolled: track === "biz_lab" })
                     if (saved) {
-                      toast({ title: "Welcome aboard!", description: "Your teacher account is ready." })
+                      toast({ title: t("onboarding.welcomeAboard"), description: t("onboarding.teacherReady") })
                       navigate("/teacher-dashboard")
                     }
                   } catch (err: any) {
                     toast({
-                      title: "Couldn't create account",
+                      title: t("onboarding.couldntCreateAccount"),
                       description: err.message,
                       variant: "destructive",
                     })
@@ -1245,144 +1321,165 @@ export default function Onboarding() {
                   }
                 }}
               >
-                {signupLoading ? <Loader2 className="mr-2 animate-spin" /> : <>Create Teacher Account <ArrowRight className="ml-2" /></>}
+                {signupLoading ? <Loader2 className="mr-2 animate-spin" /> : <>{t("onboarding.createTeacherAccount")} <ArrowRight className="ml-2" /></>}
               </Button>
             </div>
           </motion.div>
         )}
 
         {/* Step 3b: Student Account (login credentials) */}
-        {/* Student data, one question per screen: grade -> age -> school ->
-            state/course -> class code. State/course stays before program-select
-            so it can still gate the Florida-only programs. */}
+        {/* Shortened student flow: name -> grade -> track -> login. */}
         {step === "grade" && (
           <FieldStep
             stepKey="grade"
             current={STUDENT_STEP_INDEX["grade"]}
             total={totalSteps}
             mood="teaching"
-            message={firstName.trim() ? `Nice, ${firstName.trim()}! What grade are you in?` : "What grade are you in?"}
-            title="What grade are you in?"
-            subtitle="This helps me pitch lessons at the right level"
+            message={firstName.trim() ? t("onboarding.jeffGradeName", { name: firstName.trim() }) : t("onboarding.gradeQuestion")}
+            title={t("onboarding.gradeQuestion")}
+            subtitle={t("onboarding.gradeSubtitle")}
             onBack={() => setStep("name")}
             continueDisabled={!grade}
-            onContinue={() => setStep("age")}
+            onContinue={() => setStep("track")}
           >
             <div>
-              <label className="text-sm font-medium mb-1.5 block">Grade</label>
+              <label className="text-sm font-medium mb-1.5 block">{t("onboarding.grade")}</label>
               <Select value={grade} onValueChange={setGrade}>
-                <SelectTrigger><SelectValue placeholder="Select your grade" /></SelectTrigger>
+                <SelectTrigger><SelectValue placeholder={t("onboarding.selectGrade")} /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="6">6th Grade</SelectItem>
-                  <SelectItem value="7">7th Grade</SelectItem>
-                  <SelectItem value="8">8th Grade</SelectItem>
-                  <SelectItem value="9">9th Grade</SelectItem>
-                  <SelectItem value="10">10th Grade</SelectItem>
-                  <SelectItem value="11">11th Grade</SelectItem>
-                  <SelectItem value="12">12th Grade</SelectItem>
-                  <SelectItem value="freshman">Freshman (College)</SelectItem>
-                  <SelectItem value="sophomore">Sophomore (College)</SelectItem>
-                  <SelectItem value="junior">Junior (College)</SelectItem>
-                  <SelectItem value="senior">Senior (College)</SelectItem>
-                  <SelectItem value="adult">Adult</SelectItem>
+                  <SelectItem value="6">{t("onboarding.grades.6")}</SelectItem>
+                  <SelectItem value="7">{t("onboarding.grades.7")}</SelectItem>
+                  <SelectItem value="8">{t("onboarding.grades.8")}</SelectItem>
+                  <SelectItem value="9">{t("onboarding.grades.9")}</SelectItem>
+                  <SelectItem value="10">{t("onboarding.grades.10")}</SelectItem>
+                  <SelectItem value="11">{t("onboarding.grades.11")}</SelectItem>
+                  <SelectItem value="12">{t("onboarding.grades.12")}</SelectItem>
+                  <SelectItem value="freshman">{t("onboarding.grades.freshman")}</SelectItem>
+                  <SelectItem value="sophomore">{t("onboarding.grades.sophomore")}</SelectItem>
+                  <SelectItem value="junior">{t("onboarding.grades.junior")}</SelectItem>
+                  <SelectItem value="senior">{t("onboarding.grades.senior")}</SelectItem>
+                  <SelectItem value="adult">{t("onboarding.grades.adult")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </FieldStep>
         )}
 
-        {step === "age" && (
-          <FieldStep
-            stepKey="age"
-            current={STUDENT_STEP_INDEX["age"]}
-            total={totalSteps}
-            mood="happy"
-            message="How old are you? This one's optional."
-            title="How old are you?"
-            subtitle="Optional. It helps me use examples that fit"
-            onBack={() => setStep("grade")}
-            onContinue={() => setStep("state-course")}
+        {/* Step 3 (students): Track. Only the two open tracks are pickable -
+            Regular and IB Economics. Every other track (Biz Lab, Gulliver Intro)
+            is locked and can only be joined with a class code, so it is not shown
+            here at all. The class-code entry is tucked behind a small link. */}
+        {step === "track" && (
+          <motion.div
+            key="track"
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -40 }}
+            transition={{ type: "spring", stiffness: 260, damping: 26 }}
+            className="flex flex-col items-center text-center max-w-lg"
           >
-            <div>
-              <label className="text-sm font-medium mb-1.5 block">Age</label>
-              <Input type="number" min={8} max={99} placeholder="e.g. 16" value={age} onChange={e => setAge(e.target.value)} autoFocus />
-            </div>
-          </FieldStep>
-        )}
+            <StepHeader
+              current={STUDENT_STEP_INDEX["track"]}
+              total={totalSteps}
+              mood="excited"
+              message={t("onboarding.jeffProgram")}
+              title={t("onboarding.programTitle")}
+              subtitle={t("onboarding.programSubtitle")}
+            />
+            <div className="w-full max-w-sm space-y-3">
+              {/* Regular course - the default open track. */}
+              <button
+                onClick={() => {
+                  setTrack("regular")
+                  setClassCode("")
+                  try {
+                    localStorage.setItem("investiplay_active_track", "regular")
+                    localStorage.setItem("investiplay_track_pending", "regular")
+                    localStorage.removeItem("investiplay_ib_econ_enrolled")
+                  } catch {}
+                  proceedFromTrack()
+                }}
+                className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-primary hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <GraduationCap className="w-6 h-6" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-lg">{t("onboarding.regularCourse")}</div>
+                  <p className="text-sm text-muted-foreground mt-0.5">{t("onboarding.regularCourseDesc")}</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
+              </button>
+              {/* IB Economics: a client-side course track (no profiles.track enum
+                  value). Persisted enrollment stays "regular"; a localStorage
+                  flag opens the IB Econ course view with a Personal Finance tab. */}
+              <button
+                onClick={() => {
+                  setTrack("regular")
+                  setClassCode("")
+                  try {
+                    localStorage.setItem("investiplay_active_track", "ib-econ")
+                    localStorage.setItem("investiplay_track_pending", "regular")
+                    localStorage.setItem("investiplay_ib_econ_enrolled", "true")
+                  } catch {}
+                  proceedFromTrack()
+                }}
+                className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-accent hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
+              >
+                <div className="w-12 h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
+                  <BarChart3 className="w-6 h-6" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-lg">{t("onboarding.ibEconomics")}</div>
+                  <p className="text-sm text-muted-foreground mt-0.5">{t("onboarding.ibEconomicsDesc")}</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-accent group-hover:translate-x-0.5 transition-all shrink-0" />
+              </button>
 
-        {step === "state-course" && (
-          <FieldStep
-            stepKey="state-course"
-            current={STUDENT_STEP_INDEX["state-course"]}
-            total={totalSteps}
-            mood="thinking"
-            message="Where are you learning? Some programs are only in certain states."
-            title="Your state"
-            subtitle="Some programs are only offered in certain states"
-            onBack={() => setStep("age")}
-            continueDisabled={!stateCourse.trim()}
-            onContinue={() => setStep("class-code")}
-          >
-            <div>
-              <label className="text-sm font-medium mb-1.5 block">State</label>
-              {/* Type to filter, then click your state so it's never misspelled. */}
-              <Popover open={stateOpen} onOpenChange={setStateOpen}>
-                <PopoverTrigger asChild>
+              {/* Class-code path: the only way onto a locked track. Tucked behind
+                  a link so it stays out of the way for the common case. */}
+              {!showClassCode ? (
+                <button
+                  onClick={() => setShowClassCode(true)}
+                  className="text-sm text-primary font-medium hover:underline pt-1"
+                >
+                  {t("onboarding.haveClassCode")}
+                </button>
+              ) : (
+                <div className="rounded-2xl border-2 border-dashed border-primary/30 bg-primary/[0.03] p-4 text-left space-y-3">
+                  <label className="text-sm font-medium block">
+                    {t("onboarding.classCode")}
+                  </label>
+                  <Input
+                    placeholder={t("dashboard.joinCodePlaceholder")}
+                    value={classCode}
+                    onChange={e => setClassCode(e.target.value.toUpperCase())}
+                    maxLength={6}
+                    autoFocus
+                    onKeyDown={e => {
+                      if (e.key === "Enter" && classCode.trim()) {
+                        e.preventDefault()
+                        proceedFromTrack()
+                      }
+                    }}
+                  />
+                  <p className="text-xs text-muted-foreground">{t("onboarding.classCodeSubtitle")}</p>
                   <Button
-                    variant="outline"
-                    role="combobox"
-                    aria-expanded={stateOpen}
-                    className="w-full justify-between font-normal"
+                    size="lg"
+                    variant="hero"
+                    className="w-full"
+                    disabled={!classCode.trim()}
+                    onClick={() => proceedFromTrack()}
                   >
-                    <span className={cn(!stateCourse && "text-muted-foreground")}>
-                      {stateCourse || "Type your state..."}
-                    </span>
-                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    {t("onboarding.continue")} <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
-                  <Command>
-                    <CommandInput placeholder="Type your state..." />
-                    <CommandList>
-                      <CommandEmpty>No state found.</CommandEmpty>
-                      <CommandGroup>
-                        {US_STATES.map(s => (
-                          <CommandItem
-                            key={s}
-                            value={s}
-                            onSelect={() => { setStateCourse(s); setStateOpen(false) }}
-                          >
-                            <Check className={cn("mr-2 h-4 w-4", stateCourse === s ? "opacity-100" : "opacity-0")} />
-                            {s}
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
+                </div>
+              )}
             </div>
-          </FieldStep>
-        )}
-
-        {step === "class-code" && (
-          <FieldStep
-            stepKey="class-code"
-            current={STUDENT_STEP_INDEX["class-code"]}
-            total={totalSteps}
-            mood="excited"
-            message="Got a class code from your teacher? Pop it in, or skip it."
-            title="Class code"
-            subtitle="Optional. You can add this later from the Leaderboard"
-            onBack={() => setStep("state-course")}
-            continueLabel={classCode.trim() ? "Continue" : "Skip"}
-            onContinue={() => setStep("program-select")}
-          >
-            <div>
-              <label className="text-sm font-medium mb-1.5 block">Class Code <span className="text-muted-foreground font-normal">(optional)</span></label>
-              <Input placeholder="e.g. ABC123" value={classCode} onChange={e => setClassCode(e.target.value.toUpperCase())} maxLength={6} autoFocus />
-            </div>
-          </FieldStep>
+            <Button variant="ghost" className="mt-5 text-muted-foreground" onClick={() => setStep("grade")}>
+              <ArrowLeft className="mr-2 w-4 h-4" /> {t("onboarding.back")}
+            </Button>
+          </motion.div>
         )}
 
         {/* Final student step: create the login + sign up. All the profile
@@ -1393,16 +1490,23 @@ export default function Onboarding() {
             current={STUDENT_STEP_INDEX["student-account"]}
             total={totalSteps}
             mood="happy"
-            message="Last step! Set up your login so your progress saves on any device."
-            title="Create your login"
-            subtitle="You'll use these to sign back in anytime"
-            onBack={() => setStep("program-select")}
-            continueDisabled={!email.trim() || !passwordsMatch}
-            continueLabel="Create account"
+            message={t("onboarding.jeffLogin")}
+            title={t("onboarding.createLoginTitle")}
+            subtitle={t("onboarding.createLoginSubtitle")}
+            onBack={() => setStep("track")}
+            continueDisabled={!DEV_LOCAL_BYPASS && (!email.trim() || !passwordsMatch)}
+            continueLabel={t("auth.createAccount")}
             loading={signupLoading}
             onContinue={async () => {
               setSignupLoading(true)
               try {
+                // DEV bypass: no real Supabase signup/email confirmation. Persist
+                // via the local path and drop straight into the app.
+                if (DEV_LOCAL_BYPASS) {
+                  await finishStudentOnboarding()
+                  return
+                }
+
                 // If already signed in with a different account, sign out first
                 const { data: existing } = await supabase.auth.getSession()
                 if (existing.session && existing.session.user.email !== email.trim()) {
@@ -1424,8 +1528,8 @@ export default function Onboarding() {
                   // If user already exists, let them know to log in
                   if (error.message.toLowerCase().includes("registered") || error.message.toLowerCase().includes("already")) {
                     toast({
-                      title: "Account already exists",
-                      description: "Use the Log in link to sign back into your progress.",
+                      title: t("onboarding.accountExists"),
+                      description: t("onboarding.accountExistsStudentDesc"),
                       variant: "destructive",
                     })
                     setSignupLoading(false)
@@ -1440,28 +1544,22 @@ export default function Onboarding() {
                   setEmailCode("")
                   setEmailStep("code")
                   toast({
-                    title: "Check your email",
-                    description: "We sent a 6-digit code to confirm your address.",
+                    title: t("auth.checkYourEmail"),
+                    description: t("auth.checkYourEmailDesc"),
                   })
                   return
                 }
                 toast({
-                  title: "Account created!",
-                  description: "You can log back in any time with your email and password.",
+                  title: t("auth.accountCreated"),
+                  description: t("onboarding.accountCreatedDesc"),
                 })
 
-                const saved = await persistProfile({
-                  literacy_level: "explorer",
-                  assessment_score: 0,
-                  reward_multiplier: 1,
-                  benchmark_scores: {},
-                  benchmark_category_scores: {},
-                  onboarding_complete: false,
-                })
-                if (saved) setStep("welcome")
+                // Session active immediately (email confirmation off): complete
+                // the shortened flow and enter the app - no benchmark.
+                await finishStudentOnboarding()
               } catch (err: any) {
                 toast({
-                  title: "Couldn't create account",
+                  title: t("onboarding.couldntCreateAccount"),
                   description: err.message,
                   variant: "destructive",
                 })
@@ -1471,164 +1569,22 @@ export default function Onboarding() {
             }}
           >
             <div>
-              <label className="text-sm font-medium mb-1.5 block">Email</label>
-              <Input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" autoFocus />
+              <label className="text-sm font-medium mb-1.5 block">{t("auth.email")}</label>
+              <Input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder={t("onboarding.studentEmailPlaceholder")} autoFocus />
             </div>
             <div>
-              <label className="text-sm font-medium mb-1.5 block">Password</label>
+              <label className="text-sm font-medium mb-1.5 block">{t("auth.password")}</label>
               <PasswordInput value={password} onChange={setPassword} />
-              <p className="text-xs text-muted-foreground mt-1">You'll use this with your email to log back in from any device.</p>
+              <p className="text-xs text-muted-foreground mt-1">{t("onboarding.passwordHint")}</p>
             </div>
             <div>
-              <label className="text-sm font-medium mb-1.5 block">Confirm Password</label>
-              <PasswordInput value={confirmPassword} onChange={setConfirmPassword} placeholder="Enter your password again" />
+              <label className="text-sm font-medium mb-1.5 block">{t("auth.confirmPassword")}</label>
+              <PasswordInput value={confirmPassword} onChange={setConfirmPassword} placeholder={t("onboarding.confirmPasswordPlaceholder")} />
               {confirmPassword.length > 0 && password !== confirmPassword && (
-                <p className="text-xs text-destructive mt-1">Passwords don't match.</p>
+                <p className="text-xs text-destructive mt-1">{t("onboarding.passwordsMismatch")}</p>
               )}
             </div>
           </FieldStep>
-        )}
-
-        {/* Step 3: Program selection (students) - Regular Course, Gulliver Biz
-            Lab, or Gulliver Introduction to Business. Comes BEFORE account
-            creation so it always shows even when email confirmation is on
-            (sign-up otherwise bounces to /auth first). The pending flag is
-            applied to the profile on first login, so the choice survives the
-            email-confirmation round-trip. */}
-        {step === "program-select" && (
-          <motion.div
-            key="program-select"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="flex flex-col items-center text-center max-w-lg"
-          >
-            <StepHeader
-              current={STUDENT_STEP_INDEX["program-select"]}
-              total={totalSteps}
-              mood="excited"
-              message="Pick your adventure! You can explore the full app either way."
-              title="Choose your program"
-              subtitle="Which course is your class using?"
-            />
-            <div className="w-full max-w-sm space-y-3">
-              <button
-                onClick={() => {
-                  setTrack("regular")
-                  try {
-                    localStorage.setItem("investiplay_active_track", "regular")
-                    localStorage.setItem("investiplay_track_pending", "regular")
-                    localStorage.removeItem("investiplay_ib_econ_enrolled")
-                  } catch {}
-                  // Resuming an already-authenticated student: they have a
-                  // login already, so skip account creation and head to the
-                  // benchmark; onboarding_complete is written when they finish.
-                  setStep(resumeAuthed ? "welcome" : "student-account")
-                }}
-                className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-primary hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
-              >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                  <GraduationCap className="w-6 h-6" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="font-semibold text-lg">Regular Course</div>
-                  <p className="text-sm text-muted-foreground mt-0.5">The full money skills curriculum, lessons, stocks, and AP tracks</p>
-                </div>
-                <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
-              </button>
-              {/* IB Economics: a client-side course track (no profiles.track enum
-                  change). Selecting it flags the browser and opens the IB Econ
-                  course view (3 lessons) with a Personal Finance switch tab.
-                  Persisted enrollment stays "regular" so the DB enum is untouched.
-                  Not Florida-gated - available to everyone. */}
-              <button
-                onClick={() => {
-                  setTrack("regular")
-                  try {
-                    localStorage.setItem("investiplay_active_track", "ib-econ")
-                    localStorage.setItem("investiplay_track_pending", "regular")
-                    localStorage.setItem("investiplay_ib_econ_enrolled", "true")
-                  } catch {}
-                  // Resuming an already-authenticated student: they have a
-                  // login already, so skip account creation and head to the
-                  // benchmark; onboarding_complete is written when they finish.
-                  setStep(resumeAuthed ? "welcome" : "student-account")
-                }}
-                className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-accent hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
-              >
-                <div className="w-12 h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
-                  <BarChart3 className="w-6 h-6" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="font-semibold text-lg">IB Economics</div>
-                  <p className="text-sm text-muted-foreground mt-0.5">The IB Economics course. Personal Finance stays available on a side tab.</p>
-                </div>
-                <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-accent group-hover:translate-x-0.5 transition-all shrink-0" />
-              </button>
-              {/* Biz Lab and Gulliver Intro are Florida-only programs, hidden
-                  for students who selected an explicit non-Florida state. NULL
-                  geography is grandfathered (eligibleForFloridaTracks). */}
-              {eligibleForFloridaTracks(stateCourse) && (
-              <>
-              <button
-                onClick={() => {
-                  setTrack("biz_lab")
-                  try {
-                    localStorage.setItem("investiplay_active_track", "gulliver-biz-lab")
-                    localStorage.setItem("investiplay_track_pending", "biz_lab")
-                    localStorage.removeItem("investiplay_ib_econ_enrolled")
-                  } catch {}
-                  // Resuming an already-authenticated student: they have a
-                  // login already, so skip account creation and head to the
-                  // benchmark; onboarding_complete is written when they finish.
-                  setStep(resumeAuthed ? "welcome" : "student-account")
-                }}
-                className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-gold hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
-              >
-                <div className="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center shrink-0">
-                  <Sparkles className="w-6 h-6" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="font-semibold text-lg flex items-center gap-2">
-                    Gulliver Biz Lab <span className="text-[10px] font-bold uppercase bg-gold/15 text-gold rounded-full px-2 py-0.5">Shark Tank</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground mt-0.5">Build a business and pitch it to the Sharks. Hides the AP elective tabs.</p>
-                </div>
-                <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-gold group-hover:translate-x-0.5 transition-all shrink-0" />
-              </button>
-              <button
-                onClick={() => {
-                  setTrack("gulliver_intro")
-                  try {
-                    // Gulliver Intro students land on their own course view (the
-                    // fullscreen gulliver-intro coaster), not the regular course.
-                    localStorage.setItem("investiplay_active_track", "gulliver-intro")
-                    localStorage.setItem("investiplay_track_pending", "gulliver_intro")
-                    localStorage.removeItem("investiplay_ib_econ_enrolled")
-                  } catch {}
-                  // Resuming an already-authenticated student: they have a
-                  // login already, so skip account creation and head to the
-                  // benchmark; onboarding_complete is written when they finish.
-                  setStep(resumeAuthed ? "welcome" : "student-account")
-                }}
-                className="group w-full p-5 rounded-2xl border-2 border-border bg-card hover:border-primary hover:shadow-card transition-all text-left flex items-center gap-4 hover-lift press-scale"
-              >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                  <Building2 className="w-6 h-6" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="font-semibold text-lg">Gulliver Introduction to Business</div>
-                  <p className="text-sm text-muted-foreground mt-0.5">The 9th grade intro business course. Hides the AP elective tabs.</p>
-                </div>
-                <ChevronRight className="w-5 h-5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
-              </button>
-              </>
-              )}
-            </div>
-            <Button variant="ghost" className="mt-5 text-muted-foreground" onClick={() => setStep("class-code")}>
-              <ArrowLeft className="mr-2 w-4 h-4" /> Back
-            </Button>
-          </motion.div>
         )}
 
         {step === "welcome" && (
@@ -1641,41 +1597,41 @@ export default function Onboarding() {
           >
             <JeffMascot
               size="lg"
-              message="Welcome to InvestiPlay! Let's discover what you already know!"
+              message={t("onboarding.jeffWelcome")}
               className="mb-8 justify-center"
             />
             <h1 className="font-display text-4xl md:text-5xl font-bold text-gradient mb-3">
               InvestiPlay
             </h1>
             <p className="text-muted-foreground text-lg mb-4 max-w-md">
-              Learn money skills that last a lifetime through interactive lessons and simulations
+              {t("onboarding.tagline")}
             </p>
             <p className="text-sm text-muted-foreground mb-8 max-w-sm">
-              Take a quick benchmark to personalize your curriculum, or skip to start from the beginning.
+              {t("onboarding.benchmarkIntro")}
             </p>
             <Button size="xl" variant="hero" onClick={() => setStep("assessment")}>
-              Take Benchmark Assessment <ArrowRight className="ml-2" />
+              {t("onboarding.takeBenchmark")} <ArrowRight className="ml-2" />
             </Button>
             <Button variant="ghost" size="sm" className="mt-3 text-muted-foreground" onClick={() => setShowSkipDialog(true)}>
-              Skip and start from the beginning →
+              {t("onboarding.skipToStart")}
             </Button>
 
             {/* Skip dialog */}
             <Dialog open={showSkipDialog} onOpenChange={setShowSkipDialog}>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Skip Benchmark Assessment?</DialogTitle>
+                  <DialogTitle>{t("onboarding.skipTitle")}</DialogTitle>
                   <DialogDescription>
-                    The benchmark personalizes your lessons, difficulty, and reward multiplier. Without it, you'll start at the foundational level in every unit.
+                    {t("onboarding.skipDesc")}
                   </DialogDescription>
                 </DialogHeader>
                 <DialogFooter>
                   <Button variant="outline" onClick={() => setShowSkipDialog(false)}>
-                    Go Back
+                    {t("onboarding.goBack")}
                   </Button>
                   <Button variant="destructive" onClick={handleSkip} disabled={loading}>
                     {loading ? <Loader2 className="mr-2 animate-spin" /> : null}
-                    Skip Anyway
+                    {t("onboarding.skipAnyway")}
                   </Button>
                 </DialogFooter>
               </DialogContent>
@@ -1694,9 +1650,9 @@ export default function Onboarding() {
             <div className="mb-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h2 className="font-display text-2xl font-bold">Benchmark Assessment</h2>
+                  <h2 className="font-display text-2xl font-bold">{t("onboarding.benchmarkTitle")}</h2>
                   <p className="text-sm text-muted-foreground">
-                    Adaptive • {totalQuestions} questions • Personalizes your entire experience
+                    {t("onboarding.benchmarkMeta", { count: totalQuestions })}
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -1706,23 +1662,23 @@ export default function Onboarding() {
                   <Dialog open={showSkipDialog} onOpenChange={setShowSkipDialog}>
                     <DialogTrigger asChild>
                       <Button variant="ghost" size="sm" className="text-muted-foreground">
-                        Skip
+                        {t("onboarding.skip")}
                       </Button>
                     </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
-                        <DialogTitle>Are you sure you want to skip?</DialogTitle>
+                        <DialogTitle>{t("onboarding.skipSureTitle")}</DialogTitle>
                         <DialogDescription>
-                          The Benchmark Assessment personalizes everything. Your lessons, difficulty, recommendations, and reward multiplier are all tailored based on your results. Without it, you'll start at the foundational level in every unit.
+                          {t("onboarding.skipSureDesc")}
                         </DialogDescription>
                       </DialogHeader>
                       <DialogFooter>
                         <Button variant="outline" onClick={() => setShowSkipDialog(false)}>
-                          Go Back
+                          {t("onboarding.goBack")}
                         </Button>
                         <Button variant="destructive" onClick={handleSkip} disabled={loading}>
                           {loading ? <Loader2 className="mr-2 animate-spin" /> : null}
-                          Skip Anyway
+                          {t("onboarding.skipAnyway")}
                         </Button>
                       </DialogFooter>
                     </DialogContent>
@@ -1731,7 +1687,7 @@ export default function Onboarding() {
               </div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-muted-foreground">
-                  Question {answeredCount + 1} of {totalQuestions}
+                  {t("onboarding.questionOf", { current: answeredCount + 1, total: totalQuestions })}
                 </span>
                 <Badge variant="muted">
                   {currentQuestion.category.replace(/-/g, ' ')}
@@ -1800,10 +1756,10 @@ export default function Onboarding() {
                       className="mt-4 p-4 bg-muted rounded-xl"
                     >
                       <p className="text-sm text-muted-foreground">
-                        <strong>Explanation:</strong> {currentQuestion.explanation}
+                        <strong>{t("onboarding.explanation")}</strong> {currentQuestion.explanation}
                       </p>
                       <Button onClick={handleNextQuestion} className="mt-4 w-full">
-                        {answeredCount + 1 < totalQuestions ? "Next Question" : "See Results"}
+                        {answeredCount + 1 < totalQuestions ? t("onboarding.nextQuestion") : t("onboarding.seeResults")}
                         <ArrowRight className="ml-2" />
                       </Button>
                     </motion.div>
@@ -1824,15 +1780,15 @@ export default function Onboarding() {
             <JeffMascot
               size="xl"
               mood="celebrating"
-              message={`Assessment complete! You scored ${score} out of ${totalQuestions}!`}
+              message={t("onboarding.jeffComplete", { score, total: totalQuestions })}
               className="mb-6 justify-center"
             />
 
             <Card variant="elevated">
               <CardHeader className="text-center">
                 <Sparkles className="w-12 h-12 mx-auto text-warning mb-2" />
-                <CardTitle className="text-2xl">Your Benchmark Results</CardTitle>
-                <CardDescription>Your curriculum is now personalized based on these results</CardDescription>
+                <CardTitle className="text-2xl">{t("onboarding.resultsTitle")}</CardTitle>
+                <CardDescription>{t("onboarding.resultsDesc")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 {/* Overall Score */}
@@ -1844,7 +1800,7 @@ export default function Onboarding() {
                     variant={literacyLevel}
                     className="text-lg px-4 py-2"
                   >
-                    {literacyLevel === "capital-architect" ? "Advanced+" : literacyLevel.charAt(0).toUpperCase() + literacyLevel.slice(1)} Depth
+                    {t("onboarding.depth", { tier: t(`onboarding.tiers.${literacyLevel}`) })}
                   </Badge>
                   <p className="text-sm text-muted-foreground mt-2">
                     {getLevelDescription(literacyLevel)}
@@ -1854,7 +1810,7 @@ export default function Onboarding() {
                 {/* Category Breakdown */}
                 <div>
                   <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <BarChart3 className="w-4 h-4" /> Category Breakdown
+                    <BarChart3 className="w-4 h-4" /> {t("onboarding.categoryBreakdown")}
                   </h3>
                   <div className="space-y-2">
                     {categoryGroups.map(group => {
@@ -1905,12 +1861,10 @@ export default function Onboarding() {
                   return (
                     <div className="rounded-xl border border-primary/15 bg-primary/[0.03] p-4">
                       <h3 className="text-sm font-bold uppercase tracking-wider text-primary mb-2 flex items-center gap-2">
-                        <Sparkles className="w-4 h-4" /> Your starting point
+                        <Sparkles className="w-4 h-4" /> {t("onboarding.startingPoint")}
                       </h3>
                       <p className="text-sm text-muted-foreground mb-3">
-                        We used your answers to set where each topic <strong>starts</strong>. The first
-                        questions in {ahead.length} of your {points.length} tested topics will start at grade
-                        level or above — you won't waste time on what you already know.
+                        <Trans i18nKey="onboarding.startingPointDesc" values={{ ahead: ahead.length, total: points.length }} components={{ strong: <strong /> }} />
                       </p>
                       <div className="space-y-1.5 max-h-44 overflow-y-auto">
                         {points.slice(0, 8).map(p => (
@@ -1923,8 +1877,11 @@ export default function Onboarding() {
                       </div>
                       {review.length > 0 && (
                         <p className="text-xs text-muted-foreground mt-3">
-                          We'll flag <strong>{review.map(r => conceptLabel(r.concept)).slice(0, 4).join(", ")}</strong>
-                          {review.length > 4 ? " and more" : ""} for review on your path.
+                          <Trans
+                            i18nKey="onboarding.reviewFlag"
+                            values={{ topics: review.map(r => conceptLabel(r.concept)).slice(0, 4).join(", "), more: review.length > 4 ? t("onboarding.andMore") : "" }}
+                            components={{ strong: <strong /> }}
+                          />
                         </p>
                       )}
                     </div>
@@ -1933,16 +1890,16 @@ export default function Onboarding() {
 
                 {/* What this means */}
                 <div className="bg-muted rounded-xl p-4 text-sm text-muted-foreground space-y-1">
-                  <p><strong>What happens now:</strong></p>
-                  <p>• Strong areas ({'>'}75%): Foundational content is validated, so you'll skip ahead to advanced scenarios</p>
-                  <p>• Growing areas (50 to 74%): Applied level entry with moderate scaffolding</p>
-                  <p>• Development areas ({'<'}50%): Full foundational coverage with extra practice</p>
-                  <p>• Reward multiplier: <strong>{Math.min(1 + Math.round((score / totalQuestions) * 100) / 200, 1.5).toFixed(2)}x</strong> on all InvestiCoins earned</p>
+                  <p><strong>{t("onboarding.whatHappensNow")}</strong></p>
+                  <p>{t("onboarding.strongAreas")}</p>
+                  <p>{t("onboarding.growingAreas")}</p>
+                  <p>{t("onboarding.developmentAreas")}</p>
+                  <p><Trans i18nKey="onboarding.rewardMultiplier" values={{ multiplier: Math.min(1 + Math.round((score / totalQuestions) * 100) / 200, 1.5).toFixed(2) }} components={{ strong: <strong /> }} /></p>
                 </div>
 
                 <Button onClick={handleComplete} size="lg" variant="hero" className="w-full" disabled={loading}>
                   {loading ? <Loader2 className="mr-2 animate-spin" /> : null}
-                  Start Personalized Learning <ArrowRight className="ml-2" />
+                  {t("onboarding.startPersonalized")} <ArrowRight className="ml-2" />
                 </Button>
               </CardContent>
             </Card>
