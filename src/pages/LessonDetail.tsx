@@ -40,6 +40,7 @@ import { toast } from "sonner"
 import { looksLowEffort } from "@/lib/answerQuality"
 import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
 import { TeacherPreviewBanner, PreviewSectionNav, PreviewCompleteCard } from "@/components/teacher/TeacherPreviewChrome"
+import SendToFriendButton from "@/components/friends/SendToFriendButton"
 import {
   useLessonRun,
   masteryKeyPrefix,
@@ -114,6 +115,13 @@ function LessonHeader({
             )}
           </div>
           <Badge variant="outline" className="text-xs">{lesson.lessonNumber}</Badge>
+          {/* Share this lesson with a friend (students only; hidden in preview). */}
+          {!previewMode && (
+            <SendToFriendButton
+              variant="icon"
+              share={{ type: "lesson", referenceId: lesson.id, referenceLabel: lesson.title }}
+            />
+          )}
           {/* Exit: always available so a student can leave a lesson mid-way and
               come back later. The run record resumes exactly where they were. */}
           {showExit && (

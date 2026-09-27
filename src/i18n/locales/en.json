@@ -40,6 +40,7 @@
     "leaderboard": "Leaderboard",
     "homework": "Homework",
     "findPartners": "Find Partners",
+    "friends": "Friends",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "yourProfile": "Your profile",
@@ -47,6 +48,97 @@
     "streak_other": "{{count}} day streak",
     "readyToPlay": "Ready to play",
     "logOut": "Log out"
+  },
+  "friends": {
+    "title": "Friends",
+    "subtitle": "Add classmates, then send them lessons, Jeff prompts and stocks.",
+    "loading": "Loading…",
+    "requests": "Requests ({{count}})",
+    "myFriends": "My friends ({{count}})",
+    "addFromClass": "Add from my class",
+    "noClassmates": "No classmates left to add right now.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "add": "Add",
+    "invited": "Invited",
+    "grade": "Grade {{grade}}",
+    "more": "More",
+    "back": "Back",
+    "report": "Report",
+    "block": "Block",
+    "unfriend": "Remove friend",
+    "notePlaceholder": "Write a message…",
+    "empty": {
+      "title": "No friends yet",
+      "body": "Add a classmate below to start sharing."
+    },
+    "pickFriend": {
+      "title": "Pick a friend",
+      "body": "Choose a friend to see the lessons, prompts and stocks you've shared."
+    },
+    "convoEmpty": {
+      "title": "Nothing shared yet",
+      "body": "Send a lesson, a Jeff prompt, a stock, or just a note."
+    },
+    "cardType": {
+      "lesson": "Lesson",
+      "jeff_prompt": "Jeff prompt",
+      "stock": "Stock",
+      "note": "Note"
+    },
+    "open": {
+      "lesson": "Open lesson",
+      "jeff_prompt": "Ask Jeff this",
+      "stock": "View stock"
+    },
+    "send": {
+      "action": "Send to a friend",
+      "title": "Send to a friend",
+      "friend": "your friend",
+      "sent": "Sent to {{name}}",
+      "failed": "Couldn't send",
+      "profanity": "Please keep your note friendly.",
+      "notePlaceholder": "Add a note (optional)…",
+      "noteLabel": "Optional note",
+      "noFriendsTitle": "No friends yet",
+      "noFriendsBody": "Add a classmate on the Friends page first."
+    },
+    "blockDialog": {
+      "title": "Block {{name}}?",
+      "body": "They won't be able to message you and will be removed from your friends. You can unblock them later."
+    },
+    "reportDialog": {
+      "title": "Report {{name}}",
+      "body": "Your teacher will be able to see this report.",
+      "notePlaceholder": "Add any details (optional)…",
+      "submit": "Submit report"
+    },
+    "reportReason": {
+      "harassment": "Harassment",
+      "spam": "Spam",
+      "inappropriate": "Inappropriate",
+      "other": "Other"
+    },
+    "toast": {
+      "nowFriends": "You're friends with {{name}}! 🎉",
+      "requestSent": "Request sent to {{name}}",
+      "blocked": "Blocked {{name}}",
+      "reported": "Report submitted. Thanks for letting us know."
+    },
+    "errors": {
+      "loadRoster": "Couldn't load your friends.",
+      "loadConversation": "Couldn't load this conversation.",
+      "loadFriends": "Couldn't load your friends.",
+      "action": "Something went wrong."
+    }
+  },
+  "teacherReports": {
+    "tab": "Reports",
+    "intro": "Reports your students filed about each other in the Friends feature.",
+    "emptyTitle": "No reports",
+    "emptyBody": "When a student reports another student, it shows up here.",
+    "reportedBy": "Reported by {{name}}",
+    "messageContext": "About a shared {{type}} card"
   },
   "lock": {
     "inDevelopment": "In development",
@@ -599,9 +691,9 @@
     "roleSubtitle": "First, tell us who you are.",
     "jeffRole": "Hey! I'm Jeff. Are you a student or a teacher?",
     "imStudent": "I'm a student",
-    "studentDesc": "Learn money skills, invest, and play.",
+    "studentDesc": "Learn money skills through interactive lessons and simulations",
     "imTeacher": "I'm a teacher",
-    "teacherDesc": "Set up classes and track your students.",
+    "teacherDesc": "Manage classes, assign lessons, and track student progress",
     "nameTitle": "What's your name?",
     "nameSubtitleStudent": "We'll use this to personalize your journey.",
     "nameSubtitleTeacher": "We'll use this on your teacher dashboard.",
@@ -622,10 +714,10 @@
       "10": "10th grade",
       "11": "11th grade",
       "12": "12th grade",
-      "freshman": "Freshman",
-      "sophomore": "Sophomore",
-      "junior": "Junior",
-      "senior": "Senior",
+      "freshman": "Freshman (College)",
+      "sophomore": "Sophomore (College)",
+      "junior": "Junior (College)",
+      "senior": "Senior (College)",
       "adult": "Adult learner"
     },
     "programTitle": "Choose your program",

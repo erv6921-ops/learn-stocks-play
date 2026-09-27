@@ -50,6 +50,7 @@ import Profile from "./pages/Profile";
 import Challenges from "./pages/Challenges";
 import Homework from "./pages/Homework";
 import Partners from "./pages/Partners";
+import Friends from "./pages/Friends";
 import MissionsPreview from "./pages/MissionsPreview";
 import CoasterJourney from "./pages/CoasterJourney";
 import AdminAnalytics from "./pages/AdminAnalytics";
@@ -234,6 +235,7 @@ function AppRoutes() {
       <Route path="/homework" element={<Homework />} />
       <Route path="/challenges" element={<CoinsGate required={1000} title={t("app.challenges")}><Challenges /></CoinsGate>} />
       <Route path="/partners" element={<Partners />} />
+      <Route path="/friends" element={<Friends />} />
       <Route path="/missions-preview" element={<MissionsPreview />} />
       <Route path="/coaster-journey" element={<CoasterJourney />} />
       <Route path="/tower-preview-v2" element={<TowerPreviewV2 />} />

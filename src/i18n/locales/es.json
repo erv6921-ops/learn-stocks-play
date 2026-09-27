@@ -40,6 +40,7 @@
     "leaderboard": "Tabla de posiciones",
     "homework": "Tareas",
     "findPartners": "Buscar compañeros",
+    "friends": "Amigos",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
     "yourProfile": "Tu perfil",
@@ -47,6 +48,97 @@
     "streak_other": "Racha de {{count}} días",
     "readyToPlay": "Todo listo para jugar",
     "logOut": "Cerrar sesión"
+  },
+  "friends": {
+    "title": "Amigos",
+    "subtitle": "Agrega compañeros de clase y envíales lecciones, preguntas para Jeff y acciones.",
+    "loading": "Cargando…",
+    "requests": "Solicitudes ({{count}})",
+    "myFriends": "Mis amigos ({{count}})",
+    "addFromClass": "Agregar desde mi clase",
+    "noClassmates": "No hay más compañeros para agregar por ahora.",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "add": "Agregar",
+    "invited": "Invitado",
+    "grade": "Grado {{grade}}",
+    "more": "Más",
+    "back": "Atrás",
+    "report": "Reportar",
+    "block": "Bloquear",
+    "unfriend": "Eliminar amigo",
+    "notePlaceholder": "Escribe un mensaje…",
+    "empty": {
+      "title": "Aún no tienes amigos",
+      "body": "Agrega a un compañero abajo para empezar a compartir."
+    },
+    "pickFriend": {
+      "title": "Elige un amigo",
+      "body": "Elige un amigo para ver las lecciones, preguntas y acciones que compartiste."
+    },
+    "convoEmpty": {
+      "title": "Aún no has compartido nada",
+      "body": "Envía una lección, una pregunta para Jeff, una acción o solo una nota."
+    },
+    "cardType": {
+      "lesson": "Lección",
+      "jeff_prompt": "Pregunta para Jeff",
+      "stock": "Acción",
+      "note": "Nota"
+    },
+    "open": {
+      "lesson": "Abrir lección",
+      "jeff_prompt": "Pregúntale esto a Jeff",
+      "stock": "Ver acción"
+    },
+    "send": {
+      "action": "Enviar a un amigo",
+      "title": "Enviar a un amigo",
+      "friend": "tu amigo",
+      "sent": "Enviado a {{name}}",
+      "failed": "No se pudo enviar",
+      "profanity": "Por favor, mantén tu nota amigable.",
+      "notePlaceholder": "Agrega una nota (opcional)…",
+      "noteLabel": "Nota opcional",
+      "noFriendsTitle": "Aún no tienes amigos",
+      "noFriendsBody": "Primero agrega a un compañero en la página de Amigos."
+    },
+    "blockDialog": {
+      "title": "¿Bloquear a {{name}}?",
+      "body": "No podrá enviarte mensajes y se quitará de tus amigos. Puedes desbloquearlo más tarde."
+    },
+    "reportDialog": {
+      "title": "Reportar a {{name}}",
+      "body": "Tu profesor podrá ver este reporte.",
+      "notePlaceholder": "Agrega detalles (opcional)…",
+      "submit": "Enviar reporte"
+    },
+    "reportReason": {
+      "harassment": "Acoso",
+      "spam": "Spam",
+      "inappropriate": "Inapropiado",
+      "other": "Otro"
+    },
+    "toast": {
+      "nowFriends": "¡Ya eres amigo de {{name}}! 🎉",
+      "requestSent": "Solicitud enviada a {{name}}",
+      "blocked": "Bloqueaste a {{name}}",
+      "reported": "Reporte enviado. Gracias por avisarnos."
+    },
+    "errors": {
+      "loadRoster": "No se pudieron cargar tus amigos.",
+      "loadConversation": "No se pudo cargar esta conversación.",
+      "loadFriends": "No se pudieron cargar tus amigos.",
+      "action": "Algo salió mal."
+    }
+  },
+  "teacherReports": {
+    "tab": "Reportes",
+    "intro": "Reportes que tus estudiantes hicieron entre sí en la función de Amigos.",
+    "emptyTitle": "Sin reportes",
+    "emptyBody": "Cuando un estudiante reporta a otro, aparece aquí.",
+    "reportedBy": "Reportado por {{name}}",
+    "messageContext": "Sobre una tarjeta de {{type}} compartida"
   },
   "lock": {
     "inDevelopment": "En desarrollo",

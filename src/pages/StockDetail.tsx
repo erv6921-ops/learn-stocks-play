@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { Tooltip as UiTooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip"
 import GameNav from "@/components/GameNav"
+import SendToFriendButton from "@/components/friends/SendToFriendButton"
 import { ResponsiveContainer, Area, AreaChart, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts"
 import {
   ArrowLeft, TrendingUp, TrendingDown, Star, StarOff, Coins,
@@ -865,27 +866,33 @@ export default function StockDetail() {
               })()}
             </div>
 
-            {/* Watchlist toggle as a pill button */}
-            <button
-              onClick={() => {
-                if (isInWatchlist) {
-                  removeFromWatchlist(stock.symbol)
-                  toast("Removed from Watchlist", { description: stock.symbol })
-                } else {
-                  addToWatchlist(stock.symbol)
-                  toast.success("Added to Watchlist", { description: stock.symbol })
-                }
-              }}
-              className={`shrink-0 self-start inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border text-sm font-semibold press-scale transition-colors ${
-                isInWatchlist
-                  ? 'border-gold/40 bg-gold/10 text-gold'
-                  : 'border-border bg-card text-muted-foreground hover:text-foreground hover:border-foreground/30'
-              }`}
-            >
-              {isInWatchlist
-                ? <><Star className="w-4 h-4 fill-current" /> Watching</>
-                : <><StarOff className="w-4 h-4" /> Add to watchlist</>}
-            </button>
+            {/* Watchlist toggle + share, as pill buttons */}
+            <div className="flex shrink-0 self-start items-center gap-2">
+              <button
+                onClick={() => {
+                  if (isInWatchlist) {
+                    removeFromWatchlist(stock.symbol)
+                    toast("Removed from Watchlist", { description: stock.symbol })
+                  } else {
+                    addToWatchlist(stock.symbol)
+                    toast.success("Added to Watchlist", { description: stock.symbol })
+                  }
+                }}
+                className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border text-sm font-semibold press-scale transition-colors ${
+                  isInWatchlist
+                    ? 'border-gold/40 bg-gold/10 text-gold'
+                    : 'border-border bg-card text-muted-foreground hover:text-foreground hover:border-foreground/30'
+                }`}
+              >
+                {isInWatchlist
+                  ? <><Star className="w-4 h-4 fill-current" /> Watching</>
+                  : <><StarOff className="w-4 h-4" /> Add to watchlist</>}
+              </button>
+              <SendToFriendButton
+                variant="pill"
+                share={{ type: "stock", referenceId: stock.symbol, referenceLabel: stock.name ? `${stock.symbol} · ${stock.name}` : stock.symbol }}
+              />
+            </div>
           </div>
 
           {/* At-a-glance stat strip */}

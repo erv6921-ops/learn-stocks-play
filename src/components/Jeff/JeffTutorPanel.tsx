@@ -20,6 +20,7 @@ import AnimatedNumber from "@/components/AnimatedNumber"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
 import { useJeffTutor, type JeffTutorLesson, type JeffTutorMessage } from "@/hooks/useJeffTutor"
+import SendToFriendButton from "@/components/friends/SendToFriendButton"
 
 // Same asset + cache-bust as JeffMascot / JeffChat / JeffLogo.
 const MASCOT_SRC = "/brand/mascot-character.png?v=2"
@@ -157,6 +158,16 @@ function MessageBubble({ m, onStartLesson }: { m: JeffTutorMessage; onStartLesso
           )}
         </div>
         {isJeff && m.lesson && <LessonCard lesson={m.lesson} onStart={onStartLesson} />}
+        {/* Share a question you asked Jeff with a friend. */}
+        {!isJeff && m.content.trim() && (
+          <div className="mt-1 flex justify-end">
+            <SendToFriendButton
+              variant="icon"
+              className="h-7 w-7"
+              share={{ type: "jeff_prompt", referenceId: m.content, referenceLabel: m.content }}
+            />
+          </div>
+        )}
       </div>
     </motion.div>
   )
@@ -165,9 +176,11 @@ function MessageBubble({ m, onStartLesson }: { m: JeffTutorMessage; onStartLesso
 export interface JeffTutorPanelProps {
   open: boolean
   onOpenChange: (open: boolean) => void
+  /** Prefill the composer (e.g. a Jeff prompt a friend shared). */
+  initialPrompt?: string
 }
 
-export function JeffTutorPanel({ open, onOpenChange }: JeffTutorPanelProps) {
+export function JeffTutorPanel({ open, onOpenChange, initialPrompt }: JeffTutorPanelProps) {
   const isMobile = useIsMobile()
   const navigate = useNavigate()
   const { messages, loading, balance, cost, dailyRemaining, dailyLimit, canSend, send } = useJeffTutor()
@@ -186,6 +199,11 @@ export function JeffTutorPanel({ open, onOpenChange }: JeffTutorPanelProps) {
   useEffect(() => {
     if (open && !isMobile) setTimeout(() => inputRef.current?.focus(), 250)
   }, [open, isMobile])
+
+  // Seed the composer with a shared Jeff prompt when the panel is opened for one.
+  useEffect(() => {
+    if (open && initialPrompt) setDraft(initialPrompt)
+  }, [open, initialPrompt])
 
   const submit = (text: string) => {
     if (!canSend || !text.trim()) return
