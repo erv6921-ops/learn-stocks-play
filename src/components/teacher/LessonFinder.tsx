@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Command, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
 import { cn } from "@/lib/utils"
-import { isMeaningfulQuery, rankLessons, type SearchableLesson } from "@/lib/lessonSearch"
+import { isMeaningfulQuery, lessonLabel, rankLessons, type SearchableLesson } from "@/lib/lessonSearch"
 import { Check, ChevronsUpDown, Sparkles } from "lucide-react"
 
 const MAX_RESULTS = 15
@@ -70,7 +70,7 @@ export function LessonFinder<T extends SearchableLesson>({
           disabled={disabled}
           className={cn("flex-1 justify-between font-normal min-w-0", className)}
         >
-          <span className="truncate">{selected?.title ?? placeholder}</span>
+          <span className="truncate">{selected ? lessonLabel(selected) : placeholder}</span>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -105,7 +105,7 @@ export function LessonFinder<T extends SearchableLesson>({
                       <Check className={cn("mr-2 mt-0.5 h-4 w-4 shrink-0", value === lesson.id ? "opacity-100" : "opacity-0")} />
                       <span className="min-w-0 flex-1">
                         <span className="block truncate">
-                          {lesson.title}
+                          {lessonLabel(lesson)}
                           {lesson.generated && (
                             <span className="ml-1.5 inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-1.5 py-px text-[10px] font-medium text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300">
                               Jeff-built

@@ -8,6 +8,8 @@
 export interface SearchableLesson {
   id: string
   title: string
+  /** Chapter/unit number, e.g. "1.1". Absent for Jeff-generated lessons. */
+  lessonNumber?: string
   description?: string
   category?: string
   unitTitle?: string
@@ -15,6 +17,23 @@ export interface SearchableLesson {
   keywords?: string[]
   /** True for a lesson Jeff built for this teacher (public.lessons row). */
   generated?: boolean
+}
+
+/**
+ * How a lesson reads in a picker: "1.1 · Title" when it has a chapter/unit
+ * number (matching Profile and Lessons), or just the title when it doesn't
+ * (Jeff-generated lessons have no number).
+ */
+export function lessonLabel(lesson: { title: string; lessonNumber?: string }): string {
+  return lesson.lessonNumber ? `${lesson.lessonNumber} · ${lesson.title}` : lesson.title
+}
+
+/**
+ * Numeric-aware order on lessonNumber so "1.2" sorts before "1.10" (a plain
+ * string compare would put "1.10" first). Same approach as Profile.tsx.
+ */
+export function byLessonNumber(a: { lessonNumber?: string }, b: { lessonNumber?: string }): number {
+  return (a.lessonNumber ?? "").localeCompare(b.lessonNumber ?? "", undefined, { numeric: true })
 }
 
 export interface RankedLesson<T extends SearchableLesson = SearchableLesson> {
@@ -222,9 +241,19 @@ function tokenMatch(q: string, t: string): number {
 export function rankLessons<T extends SearchableLesson>(lessons: T[], query: string): RankedLesson<T>[] {
   const q = query.trim()
   if (!q) return lessons.map((lesson) => ({ lesson, score: 0 }))
-  const { direct, related } = expandQuery(q)
-  if (direct.length === 0) return lessons.map((lesson) => ({ lesson, score: 0 }))
   const phrase = q.toLowerCase()
+  // A lesson number typed directly ("1.1", or "1" for the whole chapter) matches
+  // that lesson. The word tokenizer drops short numeric fragments, so without
+  // this a number query would never rank.
+  const numberHit = (lesson: SearchableLesson) =>
+    /^[0-9]/.test(phrase) && !!lesson.lessonNumber && lesson.lessonNumber.toLowerCase().startsWith(phrase)
+  const { direct, related } = expandQuery(q)
+  if (direct.length === 0) {
+    const byNumber = lessons.filter(numberHit)
+    return byNumber.length > 0
+      ? byNumber.map((lesson, index) => ({ lesson, score: 100 - index * 1e-6 }))
+      : lessons.map((lesson) => ({ lesson, score: 0 }))
+  }
 
   const ranked: RankedLesson<T>[] = []
   lessons.forEach((lesson, index) => {
