@@ -198,6 +198,36 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
   // Picks the initial pool difficulty (remedial/base/hard) for a fresh lesson,
   // superseding the coarse literacyLevel. Null = no estimate yet (cold start).
   const [abilityTheta, setAbilityTheta] = useState<number | null>(null)
+  // Persisted per-lesson question history, split into ids the student has
+  // previously MISSED vs. answered CORRECTLY. Feeds the mastery check's tiered
+  // draw so a retake prefers unseen questions, then missed, then correct.
+  const [seenHistory, setSeenHistory] = useState<{ missedIds: string[]; correctIds: string[] }>({ missedIds: [], correctIds: [] })
+
+  // Load the full question_attempts history for THIS lesson (not just the last
+  // session) so the mastery check can avoid re-serving already-answered
+  // questions on a retry. A question counts as "correct" if the student got it
+  // right at least once; otherwise, if it was answered at all, it's "missed".
+  useEffect(() => {
+    if (!lesson || !user?.id || previewMode || DEV_LOCAL_BYPASS) return
+    let cancelled = false
+    supabase
+      .from("question_attempts")
+      .select("question_id, is_correct")
+      .eq("user_id", user.id)
+      .eq("lesson_id", lesson.id)
+      .then(({ data, error }) => {
+        if (cancelled || error || !data) return
+        const everCorrect = new Set<string>()
+        const answered = new Set<string>()
+        for (const r of data) {
+          answered.add(r.question_id)
+          if (r.is_correct) everCorrect.add(r.question_id)
+        }
+        const missedIds = [...answered].filter(id => !everCorrect.has(id))
+        setSeenHistory({ missedIds, correctIds: [...everCorrect] })
+      })
+    return () => { cancelled = true }
+  }, [lesson, user?.id, previewMode])
 
   useEffect(() => {
     // Replays already have a fixed quiz_score on record - don't let content
@@ -290,6 +320,7 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
         contentConfidenceTier={contentConfidenceTier}
         recentQuestionIds={recentQuestionIds}
         abilityTheta={abilityTheta}
+        seenHistory={seenHistory}
         nextLesson={nextLesson}
       />
     )
@@ -430,6 +461,7 @@ interface LessonRunPlayerProps {
   contentConfidenceTier: string | null
   recentQuestionIds: string[]
   abilityTheta: number | null
+  seenHistory: { missedIds: string[]; correctIds: string[] }
   nextLesson: Lesson | null
 }
 
@@ -446,6 +478,7 @@ function LessonRunPlayer({
   contentConfidenceTier,
   recentQuestionIds,
   abilityTheta,
+  seenHistory,
   nextLesson,
 }: LessonRunPlayerProps) {
   const { updateLessonProgress, earnJeffs, awardJeffs } = useApp()
@@ -902,6 +935,7 @@ function LessonRunPlayer({
             attemptSessionId={run.masteryAttempt.sessionId}
             sessionAttemptNumber={run.masteryAttempt.attemptNumber}
             previouslyAsked={run.askedQuestionIds}
+            seenHistory={seenHistory}
             onAsked={(qid) => { lastMasteryAskedRef.current = qid; rh.noteAsked(qid) }}
             onComplete={handleMasteryComplete}
             onFail={handleMasteryFail}

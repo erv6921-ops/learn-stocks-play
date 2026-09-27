@@ -197,6 +197,156 @@ export const deepIncome: StructuredLessonContent[] = [
             correctAnswer: 1,
             difficulty: 1.5,
             explanation: "Active income is the launchpad: cover your bills, then set aside a slice to build passive income. Spending everything or waiting until thirty wastes the head start."
+          },
+          {
+            id: "income1-bankv1-01",
+            concept: "active vs passive income",
+            question: "Priya babysits her neighbor's kids for $15 an hour and works a 3-hour shift on Friday night. What type of income is her $45?",
+            options: [
+              "Passive income, because she enjoyed the work",
+              "Active income, because she traded her time directly for pay",
+              "Passive income, because babysitting happens in the evening",
+              "Neither, because it was under $100"
+            ],
+            correctAnswer: 1,
+            difficulty: -1.5,
+            explanation: "Babysitting pays Priya only while she is physically present and working, so her time is traded directly for money - that is active income.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income1-bankv1-02",
+            concept: "active vs passive income",
+            question: "Marco keeps $500 in a high-yield savings account earning 4% interest per year, even during months he is traveling. What type of income is the interest?",
+            options: [
+              "Active income, because he opened the account himself",
+              "Active income, because he has to check the balance",
+              "Passive income, because it pays him without ongoing work",
+              "Neither, because interest is not real income"
+            ],
+            correctAnswer: 2,
+            difficulty: -1.5,
+            explanation: "The interest keeps arriving from an asset Marco already put in place, whether or not he works that day, which makes it passive income.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income1-bankv1-03",
+            concept: "active vs passive income",
+            question: "Which of these teens is earning ACTIVE income?",
+            options: [
+              "Ana, who collects $12 in dividends from shares she owns",
+              "Leo, who earns royalties each time his stock photo is downloaded",
+              "Sam, who is paid $200 a month mowing lawns every weekend",
+              "Kim, who gets interest on her savings account"
+            ],
+            correctAnswer: 2,
+            difficulty: -1.5,
+            explanation: "Sam must show up and mow every weekend to be paid, so he is trading time for money - active income. The other three earn from assets they own.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income1-bankv1-04",
+            concept: "active vs passive income",
+            question: "Jaylen designs one digital sticker pack over spring break, uploads it to an app store, and it sells copies automatically for months afterward while he is back in school. How is this best described?",
+            options: [
+              "Passive income, because the upfront work now pays repeatedly on its own",
+              "Active income, because he has to keep making new stickers daily",
+              "Active income, because he checks his sales each morning",
+              "Neither, because digital products are not real assets"
+            ],
+            correctAnswer: 0,
+            difficulty: 0,
+            explanation: "The effort happened once, up front, and the sticker pack now earns repeatedly without daily work - that is the hallmark of passive income built from an asset.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income1-bankv1-05",
+            concept: "building passive income",
+            question: "Tomas earns $300 a month at a grocery store and moves $50 of each paycheck into an index fund that pays dividends. Why is he keeping the grocery job for now?",
+            options: [
+              "Because dividends always pay more than any job",
+              "Because active income gives him the cash to build his passive stream",
+              "Because passive income requires no money to get started",
+              "Because a job is the only legal way for a teen to earn money"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "Passive income usually needs money up front, so Tomas uses his dependable active income to fund the investments that will pay him later.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income1-bankv1-06",
+            concept: "active vs passive income",
+            question: "A dog-walking app pays Ravi $18 for each 30-minute walk he personally completes. Why does this NOT break the time-for-money ceiling?",
+            options: [
+              "Because $18 is too small to matter",
+              "Because he can only earn during the hours he is out walking dogs",
+              "Because the money is paid through an app",
+              "Because dog walking is outdoor work"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "Ravi earns only while he is actively walking dogs, so his income is capped by the hours in his day - the same ceiling that limits all active income.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income1-bankv1-07",
+            concept: "starting early",
+            question: "Two friends each invest $1,000 that grows through compounding. Nadia starts at 15 and Elena starts at 35. Assuming the same rate, why does Nadia likely end up with far more?",
+            options: [
+              "Teens are charged lower interest rates by law",
+              "Her money has many more years to compound and grow",
+              "Passive income shrinks the older an investor gets",
+              "Banks only pay interest to customers under 18"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "Starting young gives compounding decades of extra time to build on itself, so the same $1,000 grows far larger for Nadia than for Elena.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income1-bankv1-08",
+            concept: "active vs passive income",
+            question: "Which statement correctly labels the income type?",
+            options: [
+              "A salaried office job is passive income because the paycheck is automatic",
+              "Tips a waiter earns are passive income because customers choose to give them",
+              "Rent collected from a property you own is passive income",
+              "An hourly retail wage is passive income once you have worked there a year"
+            ],
+            correctAnswer: 2,
+            difficulty: 1.5,
+            explanation: "Rent pays you for owning an asset, not for working that day, so it is passive. Salaries, tips, and hourly wages all require you to keep showing up.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income1-bankv1-09",
+            concept: "why passive income scales",
+            question: "Devon can babysit at most 10 hours a week at $15/hour, but also earns interest on savings. Why can the passive stream eventually grow beyond the babysitting income?",
+            options: [
+              "Because interest rates are guaranteed to rise every year",
+              "Because babysitting is capped by available hours while assets can keep growing",
+              "Because babysitting income is never taxed",
+              "Because passive income is always larger than active income from day one"
+            ],
+            correctAnswer: 1,
+            difficulty: 1.5,
+            explanation: "Babysitting is limited to the hours in a week, but invested assets can keep growing and compounding without a fixed hourly ceiling, so the passive stream can eventually surpass it.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income1-bankv1-10",
+            concept: "building passive income",
+            question: "Which teen is using active income the smartest way, according to the lesson?",
+            options: [
+              "Owen spends his entire $250 paycheck the day it arrives",
+              "Bea refuses every raise so she can stay flexible",
+              "Cole sets aside part of each paycheck to buy dividend-paying shares",
+              "Mia waits until she turns thirty before saving anything"
+            ],
+            correctAnswer: 2,
+            difficulty: 1.5,
+            explanation: "The smart move is to use active income as a launchpad - covering bills and then redirecting a slice into assets that build passive income. Cole is planting those seeds early.",
+            source: "bank_expansion_v1"
           }
         ]
       }
@@ -397,6 +547,156 @@ export const deepIncome: StructuredLessonContent[] = [
             correctAnswer: 1,
             difficulty: 1.5,
             explanation: "Two jobs with equal pay can differ hugely in real value if one includes benefits like insurance, retirement, and paid time off worth thousands more per year."
+          },
+          {
+            id: "income2-bankv1-01",
+            concept: "wages vs salary",
+            question: "Maya lands a summer job that pays $16 an hour, and she is scheduled for 20 hours a week. How much does she earn in a normal week before taxes?",
+            options: [
+              "$320",
+              "$160",
+              "$640",
+              "$16"
+            ],
+            correctAnswer: 0,
+            difficulty: -1.5,
+            explanation: "A wage pays a set amount per hour, so 20 hours times $16 equals $320 for the week.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income2-bankv1-02",
+            concept: "wages vs salary",
+            question: "Which statement best describes a salary?",
+            options: [
+              "A payment you only receive if you work more than 40 hours",
+              "An amount that changes every week based on hours worked",
+              "A fixed yearly amount split into equal, predictable paychecks",
+              "A one-time bonus paid at the end of the year"
+            ],
+            correctAnswer: 2,
+            difficulty: -1.5,
+            explanation: "A salary is a fixed annual amount divided into steady paychecks, so you know your pay in advance no matter the exact hours.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income2-bankv1-03",
+            concept: "wages vs salary",
+            question: "Which of these jobs is most likely to pay a wage rather than a salary?",
+            options: [
+              "A part-time cashier scheduled shift by shift at a grocery store",
+              "A full-time office manager with a yearly contract",
+              "A salaried marketing coordinator at a firm",
+              "A department director with paid vacation"
+            ],
+            correctAnswer: 0,
+            difficulty: -1.5,
+            explanation: "First jobs like retail and food service usually pay by the hour, so the cashier scheduled shift by shift earns a wage.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income2-bankv1-04",
+            concept: "overtime pay",
+            question: "Devon earns $17 an hour and works 45 hours in one busy week. What is his gross pay for that week?",
+            options: [
+              "$765, treating every hour the same",
+              "$807.50, with the 5 extra hours at time and a half",
+              "$1,147.50, doubling every hour past 40",
+              "$680, ignoring the overtime hours"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "40 hours at $17 is $680, plus 5 overtime hours at $25.50 (1.5x) is $127.50, totaling $807.50.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income2-bankv1-05",
+            concept: "salary paycheck math",
+            question: "Jordan accepts a $42,000 salary paid across 26 biweekly paychecks. About how much is each paycheck before taxes?",
+            options: [
+              "About $3,500",
+              "About $1,615",
+              "About $808",
+              "About $42,000"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "Dividing $42,000 by 26 paychecks gives about $1,615 per check, the same amount every period.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income2-bankv1-06",
+            concept: "wages vs salary comparison",
+            question: "Riley compares a $15-an-hour job (40 hours a week, 52 weeks a year) with a $31,200 salary. Which is true about the base pay?",
+            options: [
+              "The hourly job pays far more per year at 40 hours a week",
+              "The salary pays far more per year than the hourly job",
+              "They earn roughly the same base pay at 40 hours a week",
+              "The two cannot be compared because units differ"
+            ],
+            correctAnswer: 2,
+            difficulty: 0,
+            explanation: "$15 x 40 hours x 52 weeks equals $31,200, so at 40 hours a week the two offers have essentially the same base pay.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income2-bankv1-07",
+            concept: "overtime pay",
+            question: "Sofia works at $14 an hour and puts in 48 hours during inventory week. What does she earn that week?",
+            options: [
+              "$672, paying all hours at $14",
+              "$1,008, paying all hours at time and a half",
+              "$728, with 8 hours at time and a half",
+              "$560, counting only the first 40 hours"
+            ],
+            correctAnswer: 2,
+            difficulty: 1.5,
+            explanation: "40 hours at $14 is $560, plus 8 overtime hours at $21 (1.5x) is $168, totaling $728.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income2-bankv1-08",
+            concept: "salary and overtime",
+            question: "Elena is salaried at $48,000 a year and gets no overtime. During a crunch she works 50 hours a week instead of 40. What happens to her effective hourly rate?",
+            options: [
+              "It rises to about $28 an hour because she works more",
+              "It stays fixed at exactly $25 an hour by law",
+              "It falls to about $18 an hour because pay stays the same",
+              "It automatically converts the extra hours to overtime"
+            ],
+            correctAnswer: 2,
+            difficulty: 1.5,
+            explanation: "$48,000 divided over 52 weeks is about $923 a week; spread over 50 hours that is roughly $18 an hour, down from about $23 at 40 hours, because salary pay does not change with hours.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income2-bankv1-09",
+            concept: "overtime pay",
+            question: "Marcus earns $20 an hour and works 52 hours in a peak week. What is his gross pay?",
+            options: [
+              "$1,040, treating all 52 hours at $20",
+              "$1,160, with 12 hours at time and a half",
+              "$1,560, doubling all overtime hours",
+              "$800, dropping every hour past 40"
+            ],
+            correctAnswer: 1,
+            difficulty: 1.5,
+            explanation: "40 hours at $20 is $800, plus 12 overtime hours at $30 (1.5x) is $360, totaling $1,160.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income2-bankv1-10",
+            concept: "employee benefits",
+            question: "Two entry-level offers both list $38,000 a year. One is salaried with health insurance and a retirement match; the other is hourly with no benefits. Why might the salaried offer be worth more?",
+            options: [
+              "Salaried pay can never legally be lowered",
+              "The benefits add thousands of dollars of real value on top of the pay",
+              "Salaried jobs always pay overtime for extra hours",
+              "The hourly job would be illegal for someone under 21"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "Benefits like insurance and a retirement match can be worth thousands a year, so two jobs with equal pay can differ a lot in real value.",
+            source: "bank_expansion_v1"
           }
         ]
       }
@@ -597,6 +897,156 @@ export const deepIncome: StructuredLessonContent[] = [
             correctAnswer: 1,
             difficulty: 1.5,
             explanation: "Base plus commission means a guaranteed $10-an-hour base plus 4% of sales on top. The base stays even in slow weeks, reducing the risk."
+          },
+          {
+            id: "income3-bankv1-01",
+            concept: "hourly pay predictability",
+            question: "Maya works a 25-hour week at a coffee shop for $16 an hour. If she works the same hours next week whether it is busy or dead, how much does she earn before taxes each week?",
+            options: [
+              "$400, because hours times rate is fixed no matter how busy it is",
+              "$640, because a busy week always pays extra",
+              "$250, because slow weeks lower the hourly rate",
+              "It changes every week depending on how much the shop sells"
+            ],
+            correctAnswer: 0,
+            difficulty: -1.5,
+            explanation: "Hourly pay is 25 hours times $16, which is $400, and it stays the same busy or slow because you are paid for time, not results.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income3-bankv1-02",
+            concept: "commission pay basics",
+            question: "Devon sells shoes and earns 10% commission on everything he sells, with no hourly pay. In one shift he sells $600 of shoes. What is his pay for that shift?",
+            options: [
+              "$600, the full amount he sold",
+              "$6, since commission is always tiny",
+              "$60, which is 10% of his sales",
+              "$120, because commission doubles the rate"
+            ],
+            correctAnswer: 2,
+            difficulty: -1.5,
+            explanation: "Pure commission pays a percentage of sales, so 10% of $600 is $60. He does not keep the full amount, and the rate is not doubled.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income3-bankv1-03",
+            concept: "hourly vs commission risk",
+            question: "Which statement best describes the main trade-off between hourly and commission pay?",
+            options: [
+              "Hourly always pays more than commission over a year",
+              "Commission is safer because sales never slow down",
+              "They pay exactly the same once you account for taxes",
+              "Hourly is steadier but capped, while commission is riskier with higher upside"
+            ],
+            correctAnswer: 3,
+            difficulty: -1.5,
+            explanation: "Hourly pay is predictable but limited by your hours, while commission can swing low or high depending on how much you sell.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income3-bankv1-04",
+            concept: "base plus commission calculation",
+            question: "Priya works a phone-store job paying $12 an hour base plus 5% commission on sales. In a 20-hour week she sells $3,000 of phones. What is her total pay that week?",
+            options: [
+              "$150, only the commission portion",
+              "$240, only the base pay",
+              "$390, the base plus the commission",
+              "$540, adding 5% of both her base and her sales"
+            ],
+            correctAnswer: 2,
+            difficulty: 0,
+            explanation: "Her base is 20 times $12 = $240, and her commission is 5% of $3,000 = $150, so $240 + $150 = $390 total.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income3-bankv1-05",
+            concept: "comparing hourly and commission earnings",
+            question: "A store offers Role A at $18/hour or Role B at $10/hour base plus 8% commission, both for 30 hours. In a week where a worker sells $4,000, which role pays more and by how much?",
+            options: [
+              "Role B, by $80",
+              "Role A, by $220",
+              "They pay exactly the same",
+              "Role B, by $320"
+            ],
+            correctAnswer: 0,
+            difficulty: 0,
+            explanation: "Role A pays 30 times $18 = $540. Role B pays 30 times $10 = $300 plus 8% of $4,000 = $320, for $620, which beats Role A by $80.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income3-bankv1-06",
+            concept: "income variability",
+            question: "Leo earns a $9/hour base plus 6% commission for 40 hours a week. He sells $5,000 one week and $1,000 the next. How does his weekly pay change?",
+            options: [
+              "It stays at $360 both weeks because the base never changes",
+              "It rises the second week because slower weeks pay more",
+              "It is $300 both weeks since only commission counts",
+              "It drops from $660 to $420 as his sales fall"
+            ],
+            correctAnswer: 3,
+            difficulty: 0,
+            explanation: "His base is 40 times $9 = $360 each week. Adding 6% of $5,000 ($300) gives $660, and 6% of $1,000 ($60) gives $420, so his pay swings with sales.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income3-bankv1-07",
+            concept: "commission misconception",
+            question: "A friend tells you, 'Take the commission job, it always pays more than hourly.' Why is this advice risky?",
+            options: [
+              "Commission only beats hourly in strong sales weeks and can pay very little when sales are slow",
+              "Commission is illegal for workers under 21",
+              "Commission jobs never let you work more than 10 hours",
+              "Hourly jobs secretly pay commission too, so it makes no difference"
+            ],
+            correctAnswer: 0,
+            difficulty: 0,
+            explanation: "Commission depends on results, so it can top hourly in busy weeks but fall well below it in slow ones. It is not automatically higher.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income3-bankv1-08",
+            concept: "choosing a pay structure",
+            question: "Sam has a fixed $700 rent due on the first of every month and gets nervous when income is unpredictable. Which job fits Sam best?",
+            options: [
+              "A pure-commission job with no base pay",
+              "Whichever job had the single highest-paying week last year",
+              "A steady hourly job or a base-plus-commission job with a reliable floor",
+              "A commission job, because rent is easier to pay with big swings"
+            ],
+            correctAnswer: 2,
+            difficulty: 1.5,
+            explanation: "With a fixed monthly bill and a low tolerance for surprises, Sam should favor predictable income from hourly pay or a solid base rather than a swinging pure-commission check.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income3-bankv1-09",
+            concept: "break-even sales for commission",
+            question: "Ava can take a flat $16/hour job or a $10/hour base plus 4% commission job, both 25 hours a week. How much must she sell in a week for the commission job to match the hourly job's $400?",
+            options: [
+              "$1,500 in sales",
+              "$6,000 in sales",
+              "$10,000 in sales",
+              "$3,750 in sales"
+            ],
+            correctAnswer: 3,
+            difficulty: 1.5,
+            explanation: "The base pays 25 times $10 = $250, so she needs $150 more from commission. Since 4% of sales must equal $150, sales must be $150 / 0.04 = $3,750.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income3-bankv1-10",
+            concept: "easing into commission",
+            question: "A new seller is unsure of her skills but wants commission's upside someday. What is the smartest first step the lesson suggests?",
+            options: [
+              "Jump straight into a pure-commission role to force herself to improve",
+              "Start in a base-plus-commission role to prove she can sell while keeping a safety floor",
+              "Avoid all sales jobs until she is over 25",
+              "Take an hourly job and never consider commission again"
+            ],
+            correctAnswer: 1,
+            difficulty: 1.5,
+            explanation: "Many people ease in by choosing a role with a solid base first, proving they can sell before shifting toward heavier commission once they trust their skills.",
+            source: "bank_expansion_v1"
           }
         ]
       }
@@ -797,6 +1247,156 @@ export const deepIncome: StructuredLessonContent[] = [
             correctAnswer: 1,
             difficulty: 1.5,
             explanation: "Business costs like mileage and equipment are often tax-deductible, reducing the income you're taxed on. Tracking them lowers what you ultimately owe."
+          },
+          {
+            id: "income4-bankv1-01",
+            concept: "gig economy",
+            question: "Priya, 17, walks dogs through an app for $18 per walk. She does 3 walks Saturday and 2 on Sunday, but skips Monday to study for a test. Which feature of gig work does this best show?",
+            options: [
+              "She earns a guaranteed weekly salary no matter what",
+              "She can choose when and how much she works",
+              "The app forces her to work every day of the week",
+              "Her pay per walk rises the more days she skips"
+            ],
+            correctAnswer: 1,
+            difficulty: -1.5,
+            explanation: "The biggest appeal of gig work is flexibility - Priya fits walks around her schedule and can skip a day to study, choosing when and how much she works.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income4-bankv1-02",
+            concept: "independent contractor",
+            question: "Deshawn signs up to deliver food through an app. He assumes he'll get paid sick days like his friend who works at a store. What should Deshawn actually expect?",
+            options: [
+              "Paid sick days after his first 90 days",
+              "No paid sick days, since he's an independent contractor",
+              "Unlimited paid time off from the app",
+              "The app to pay him double when he's sick"
+            ],
+            correctAnswer: 1,
+            difficulty: -1.5,
+            explanation: "Gig workers are usually independent contractors, not employees, so they get no paid sick days, health insurance, or guaranteed hours - that's the trade-off for flexibility.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income4-bankv1-03",
+            concept: "variable income",
+            question: "Maya delivers groceries and earns $120 one week but only $40 the next when orders are slow. What does this show about gig income?",
+            options: [
+              "It is fixed and predictable each week",
+              "It can be unpredictable and vary a lot",
+              "The app guarantees at least $120 every week",
+              "Slow weeks are illegal and must be paid back"
+            ],
+            correctAnswer: 1,
+            difficulty: -1.5,
+            explanation: "Gig income is variable - when demand is low, workers earn less, so a good week does not guarantee the next one.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income4-bankv1-04",
+            concept: "gig tax set-aside",
+            question: "Over the summer Tomas earns $2,000 doing freelance video editing and spends all of it, setting nothing aside. At tax time he's shocked to owe money. What mistake did he make?",
+            options: [
+              "He should have earned less to avoid all taxes",
+              "He forgot the app automatically pays his taxes",
+              "He didn't set aside part of his pay for taxes",
+              "He needed to work more hours to skip taxes"
+            ],
+            correctAnswer: 2,
+            difficulty: 0,
+            explanation: "Gig platforms don't withhold taxes, so workers must set aside roughly 25-30% themselves. Spending everything leaves nothing for the tax bill.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income4-bankv1-05",
+            concept: "self-employment tax",
+            question: "Lena's friend works a regular job and pays 7.65% for Social Security and Medicare because her employer covers the other half. Lena is self-employed doing rideshare. What rate covers those programs for Lena?",
+            options: [
+              "0%, because gig workers are exempt",
+              "7.65%, the same as an employee",
+              "About 15.3%, both the worker's and employer's share",
+              "27%, the standard gig tax rate"
+            ],
+            correctAnswer: 2,
+            difficulty: 0,
+            explanation: "Self-employed people pay both halves of Social Security and Medicare - about 15.3% - since there's no employer to cover the other 7.65%.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income4-bankv1-06",
+            concept: "gig expenses",
+            question: "An app shows Andre earned $200 in fares one day. He spent $35 on gas and figures another $25 in car wear. Before even counting taxes, what is his rough profit?",
+            options: [
+              "$200, because the app number is what he keeps",
+              "$140, after subtracting gas and car wear",
+              "$260, because expenses get added back",
+              "$60, which is only his expenses"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "Gig income is gross before your own costs. Subtracting $35 gas and $25 car wear from $200 leaves about $140 - and taxes still come out of that.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income4-bankv1-07",
+            concept: "gig economy",
+            question: "Jordan wants steady, guaranteed money to cover rent every single month. A friend suggests relying only on food-delivery gigs. What's the best advice?",
+            options: [
+              "Gig work is perfect for guaranteed fixed income",
+              "Gig income can be unpredictable, so it's better as flexible extra income than a guaranteed livelihood",
+              "The app will guarantee his rent every month",
+              "Gigs always pay more than any steady job"
+            ],
+            correctAnswer: 1,
+            difficulty: 0,
+            explanation: "Gig income varies with demand and offers no guarantees, so it works best as flexible extra income or a stepping stone, not as the sole source for fixed bills.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income4-bankv1-08",
+            concept: "gig strategy",
+            question: "Sofia freelances logo design at $30/hour, but pays a 10% platform fee, buys software, and saves 27% for taxes - leaving about $18/hour take-home. How should she use this knowledge?",
+            options: [
+              "Ignore it, since the app already shows her real pay",
+              "Price future jobs knowing her true after-cost rate is lower",
+              "Assume the $30 headline is what lands in her pocket",
+              "Stop tracking costs because they don't affect her"
+            ],
+            correctAnswer: 1,
+            difficulty: 1.5,
+            explanation: "Smart gig workers run their gig like a tiny business, knowing their true after-cost hourly rate so they can price jobs and compare platforms accurately.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income4-bankv1-09",
+            concept: "gig strategy",
+            question: "Rideshare pay surges 50% on Friday and Saturday nights. Miguel wants to maximize his after-cost hourly profit. What's the smartest move?",
+            options: [
+              "Only drive on slow weekday afternoons to avoid traffic",
+              "Concentrate driving during high-demand hours when pay surges",
+              "Never track his gas or expenses at all",
+              "Assume every hour pays exactly the same amount"
+            ],
+            correctAnswer: 1,
+            difficulty: 1.5,
+            explanation: "Working during high-demand hours when pay surges raises earnings for the same time worked, a key strategy for boosting after-cost hourly profit.",
+            source: "bank_expansion_v1"
+          },
+          {
+            id: "income4-bankv1-10",
+            concept: "gig expenses",
+            question: "Carmen tracks the $12 in monthly app fees, her mileage, and the $200 laptop she uses for online tutoring. Why is keeping these records worth the effort?",
+            options: [
+              "The platform refunds every expense in full",
+              "Many gig expenses are tax-deductible, lowering the income she's taxed on",
+              "Tracking costs doubles her income automatically",
+              "The IRS always pays these costs back to her"
+            ],
+            correctAnswer: 1,
+            difficulty: 1.5,
+            explanation: "Business costs like mileage, fees, and equipment are often tax-deductible, reducing taxable income - so tracking them lowers what Carmen ultimately owes.",
+            source: "bank_expansion_v1"
           }
         ]
       }
