@@ -13,6 +13,7 @@ import {
 } from "lucide-react"
 import type React from "react"
 import type { LessonProgress } from "@/types"
+import i18n from "@/i18n"
 
 // ─── Daily missions: single source of truth ──────────────────────────────────
 // One catalog of 7 challenges. Each day a deterministic rotation surfaces 3 of
@@ -61,18 +62,19 @@ export const MIN_TRADE_COINS = 50
 export type Difficulty = "easy" | "medium" | "hard"
 
 // Badge label + colors per tier. Colors are hex so they read on both the dark
-// hero banner and the light end-of-lesson card.
+// hero banner and the light end-of-lesson card. `label` is a getter so it is
+// resolved from the i18n catalog at render time (see src/i18n), not at import.
 export const DIFFICULTY_META: Record<Difficulty, { label: string; color: string; bg: string }> = {
-  easy: { label: "Easy", color: "#16a34a", bg: "rgba(34,197,94,0.14)" },
-  medium: { label: "Medium", color: "#d97706", bg: "rgba(245,158,11,0.14)" },
-  hard: { label: "Hard", color: "#dc2626", bg: "rgba(239,68,68,0.14)" },
+  easy: { get label() { return i18n.t("missions.difficulty.easy") }, color: "#16a34a", bg: "rgba(34,197,94,0.14)" },
+  medium: { get label() { return i18n.t("missions.difficulty.medium") }, color: "#d97706", bg: "rgba(245,158,11,0.14)" },
+  hard: { get label() { return i18n.t("missions.difficulty.hard") }, color: "#dc2626", bg: "rgba(239,68,68,0.14)" },
 }
 
 export interface MissionDef {
   id: string
-  /** Short punchy name shown as the mission title. */
+  /** Short punchy name shown as the mission title (i18n key `missions.catalog.<id>.title`, resolved at read time). */
   title: string
-  /** One-line description of the goal. */
+  /** One-line description of the goal (i18n key `missions.catalog.<id>.blurb`, resolved at read time). */
   blurb: string
   icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>
   difficulty: Difficulty
@@ -89,8 +91,8 @@ export const MISSIONS: MissionDef[] = [
   // ── EASY ──────────────────────────────────────────────────────────────────
   {
     id: "lesson1",
-    title: "Warm-up",
-    blurb: "Complete 1 lesson",
+    get title() { return i18n.t("missions.catalog.lesson1.title") },
+    get blurb() { return i18n.t("missions.catalog.lesson1.blurb") },
     icon: BookOpen,
     difficulty: "easy",
     reward: 100,
@@ -100,8 +102,8 @@ export const MISSIONS: MissionDef[] = [
   },
   {
     id: "stocks3",
-    title: "Market watch",
-    blurb: "View 3 stocks",
+    get title() { return i18n.t("missions.catalog.stocks3.title") },
+    get blurb() { return i18n.t("missions.catalog.stocks3.blurb") },
     icon: Eye,
     difficulty: "easy",
     reward: 100,
@@ -111,8 +113,8 @@ export const MISSIONS: MissionDef[] = [
   },
   {
     id: "trade",
-    title: "Make a move",
-    blurb: "Buy or sell a stock",
+    get title() { return i18n.t("missions.catalog.trade.title") },
+    get blurb() { return i18n.t("missions.catalog.trade.blurb") },
     icon: Repeat,
     difficulty: "easy",
     reward: 100,
@@ -123,8 +125,8 @@ export const MISSIONS: MissionDef[] = [
   // ── MEDIUM ────────────────────────────────────────────────────────────────
   {
     id: "lesson2",
-    title: "Scholar",
-    blurb: "Complete 2 lessons",
+    get title() { return i18n.t("missions.catalog.lesson2.title") },
+    get blurb() { return i18n.t("missions.catalog.lesson2.blurb") },
     icon: GraduationCap,
     difficulty: "medium",
     reward: 200,
@@ -134,8 +136,8 @@ export const MISSIONS: MissionDef[] = [
   },
   {
     id: "quizAce",
-    title: "Sharpshooter",
-    blurb: "Score 80%+ on a lesson quiz",
+    get title() { return i18n.t("missions.catalog.quizAce.title") },
+    get blurb() { return i18n.t("missions.catalog.quizAce.blurb") },
     icon: Target,
     difficulty: "medium",
     reward: 175,
@@ -145,8 +147,8 @@ export const MISSIONS: MissionDef[] = [
   },
   {
     id: "coins",
-    title: "Coin hustle",
-    blurb: "Earn 300 coins today",
+    get title() { return i18n.t("missions.catalog.coins.title") },
+    get blurb() { return i18n.t("missions.catalog.coins.blurb") },
     icon: Coins,
     difficulty: "medium",
     reward: 150,
@@ -156,8 +158,8 @@ export const MISSIONS: MissionDef[] = [
   },
   {
     id: "green",
-    title: "In the green",
-    blurb: "Get your portfolio net-positive",
+    get title() { return i18n.t("missions.catalog.green.title") },
+    get blurb() { return i18n.t("missions.catalog.green.blurb") },
     icon: TrendingUp,
     difficulty: "medium",
     reward: 175,
@@ -167,8 +169,8 @@ export const MISSIONS: MissionDef[] = [
   // ── HARD ──────────────────────────────────────────────────────────────────
   {
     id: "lesson3",
-    title: "Grind",
-    blurb: "Complete 3 lessons",
+    get title() { return i18n.t("missions.catalog.lesson3.title") },
+    get blurb() { return i18n.t("missions.catalog.lesson3.blurb") },
     icon: Flame,
     difficulty: "hard",
     reward: 350,
@@ -178,8 +180,8 @@ export const MISSIONS: MissionDef[] = [
   },
   {
     id: "quizPerfect",
-    title: "Perfectionist",
-    blurb: "Ace a lesson quiz (100%)",
+    get title() { return i18n.t("missions.catalog.quizPerfect.title") },
+    get blurb() { return i18n.t("missions.catalog.quizPerfect.blurb") },
     icon: Crosshair,
     difficulty: "hard",
     reward: 300,
@@ -189,8 +191,8 @@ export const MISSIONS: MissionDef[] = [
   },
   {
     id: "coinsBig",
-    title: "Big earner",
-    blurb: "Earn 750 coins today",
+    get title() { return i18n.t("missions.catalog.coinsBig.title") },
+    get blurb() { return i18n.t("missions.catalog.coinsBig.blurb") },
     icon: Trophy,
     difficulty: "hard",
     reward: 300,
@@ -200,8 +202,8 @@ export const MISSIONS: MissionDef[] = [
   },
   {
     id: "highRoller",
-    title: "High roller",
-    blurb: "Get your portfolio up 5%+",
+    get title() { return i18n.t("missions.catalog.highRoller.title") },
+    get blurb() { return i18n.t("missions.catalog.highRoller.blurb") },
     icon: Rocket,
     difficulty: "hard",
     reward: 350,
@@ -215,8 +217,8 @@ export const MISSIONS: MissionDef[] = [
 // the regular rotation is unaffected once it no longer applies.
 export const FIRST_LESSON_MISSION: MissionDef = {
   id: "firstLesson",
-  title: "First steps",
-  blurb: "Finish your first lesson",
+  get title() { return i18n.t("missions.catalog.firstLesson.title") },
+  get blurb() { return i18n.t("missions.catalog.firstLesson.blurb") },
   icon: BookOpen,
   difficulty: "easy",
   reward: 100,
