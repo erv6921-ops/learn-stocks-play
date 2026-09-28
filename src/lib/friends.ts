@@ -29,6 +29,11 @@ export interface FriendRow {
   grade: number | null
   unread: number
   last_message_at: string | null
+  // Last-message preview (friends_list, v2). Null when nothing shared yet.
+  last_message_type?: ShareType | null
+  last_message_note?: string | null
+  last_message_label?: string | null
+  last_message_sender?: string | null
 }
 
 export interface RequestRow {

@@ -53,6 +53,8 @@
     "title": "Friends",
     "subtitle": "Add classmates, then send them lessons, Jeff prompts and stocks.",
     "loading": "Loading…",
+    "noMessagesYet": "No messages yet",
+    "unreadDot": "Unread messages",
     "requests": "Requests ({{count}})",
     "myFriends": "My friends ({{count}})",
     "addFromClass": "Add from my class",
