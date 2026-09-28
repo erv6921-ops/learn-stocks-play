@@ -19,6 +19,7 @@ import { toast } from "sonner"
 import { Coins, Lock, Calendar, Loader2, PartyPopper } from "lucide-react"
 import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
 import { logEvent } from "@/lib/analyticsEvents"
+import { useTranslation } from "react-i18next"
 
 interface Completion {
   game_type: DailyGameType
@@ -27,6 +28,7 @@ interface Completion {
 }
 
 export default function Daily() {
+  const { t } = useTranslation()
   const { user, earnJeffs } = useApp()
   const today = new Date()
   const dateKey = getLocalDateKey(today)
@@ -101,16 +103,16 @@ export default function Daily() {
       if (error) {
         // Unique violation → already completed today (e.g. another tab).
         console.error("[daily completion insert]", error)
-        toast.error("Couldn't save - you may have already played today.")
+        toast.error(t("daily.saveFailed"))
         setCompletion({ game_type: gameType, score, coins_earned: coins })
         setSubmitting(false)
         return
       }
       if (coins > 0) {
-        earnJeffs(coins, `Daily Game: ${gameTypeLabel(gameType)}`)
+        earnJeffs(coins, t("daily.coinReason", { game: gameTypeLabel(gameType) }))
         logEvent("game_won", { gameType: gameLabel, coinsEarned: coins, time_ms: Date.now() - gameStartedAtRef.current })
         toast.success(`+${coins} InvestiCoins!`, {
-          description: "Nice work - come back tomorrow for more.",
+          description: t("daily.wonDescription"),
         })
       } else {
         logEvent("game_lost", { gameType: gameLabel })
@@ -166,6 +168,7 @@ function CompletedCard({
   tomorrowType: DailyGameType
   countdown: number
 }) {
+  const { t } = useTranslation()
   const coins = completion.coins_earned ?? 0
   const isScenario = completion.game_type === "scenario"
 
@@ -191,15 +194,15 @@ function CompletedCard({
             )}
           </div>
           <h1 className="text-2xl font-extrabold text-white mb-1">
-            {justFinished ? "All done for today!" : "You've played today"}
+            {justFinished ? t("daily.allDoneToday") : t("daily.alreadyPlayed")}
           </h1>
           <p className="text-white/50 text-sm mb-5">
             {gameTypeLabel(completion.game_type)}
-            {!isScenario && completion.score != null && ` · ${completion.score}/5 correct`}
+            {!isScenario && completion.score != null && ` · ${t("daily.scoreCorrect", { score: completion.score })}`}
           </p>
           <div className="inline-flex items-center gap-2 bg-gold/15 text-gold px-5 py-3 rounded-xl text-lg font-bold border border-gold/20">
             <Coins className="w-5 h-5" />
-            {coins > 0 ? `+${coins} coins earned` : "No coins this time"}
+            {coins > 0 ? t("daily.coinsEarned", { coins }) : t("daily.noCoins")}
           </div>
         </div>
       </div>
@@ -208,10 +211,10 @@ function CompletedCard({
       <div className="rounded-2xl p-5 border border-border bg-card text-center">
         <div className="flex items-center justify-center gap-2 text-sm font-semibold text-foreground mb-1">
           <Calendar className="w-4 h-4 text-primary" />
-          Come back tomorrow!
+          {t("daily.comeBackTomorrow")}
         </div>
         <p className="text-sm text-muted-foreground mb-3">
-          Tomorrow's game: <span className="font-bold text-foreground">{gameTypeLabel(tomorrowType)}</span>
+          {t("daily.tomorrowsGame")} <span className="font-bold text-foreground">{gameTypeLabel(tomorrowType)}</span>
         </p>
         <div className="inline-flex items-center gap-2 bg-muted/60 px-4 py-2 rounded-xl font-mono text-sm font-bold">
           {formatCountdown(countdown)}

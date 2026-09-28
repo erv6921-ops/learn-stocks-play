@@ -208,3 +208,26 @@ Conventions
 | retake | repetir | |
 | passed | aprobado | |
 | mission names | see `missions.catalog` in es.json | Warm-up = Calentamiento, Market watch = Vigilancia del mercado, Make a move = Haz una jugada, Sharpshooter = Tiro certero, Coin hustle = Cazamonedas, In the green = En verde, Grind = A darle, Perfectionist = Perfeccionista, Big earner = Gran ganador, High roller = Gran jugador |
+
+## Lesson player, Jeff tutor, stocks (phase 2b)
+
+| English | Spanish | Notes |
+|---|---|---|
+| mastery check | chequeo de dominio | the in-lesson 5-question gate; "micro check" = "micro chequeo" |
+| quick check | repaso rápido | the in-lesson interrupter card |
+| hint (power-up) | pista | rules out a wrong answer |
+| Time Freeze | Congelar tiempo | power-up that stops the countdown |
+| combo | combo | game term, left in English ("COMBO 10x") |
+| narration | narración | video-lesson audio track |
+| reflection bonus | bono por reflexión | |
+| Continue Learning | Seguir aprendiendo | CTA on the daily-missions celebration screen |
+| come back tomorrow | vuelve mañana | daily-game/mission return prompt (tú) |
+| gainers / losers | ganadoras / perdedoras | top-movers tabs; feminine (acciones) |
+| top movers | las que más se mueven | HS-casual phrasing |
+| EPS / earnings per share | BPA / beneficio por acción | |
+| P/E (TTM) | P/G (TTM) | mirrors the P/L=G/P convention |
+| market cap | capitalización de mercado | "Cap. de mercado" / "Cap. merc." when tight |
+| beta / EBITDA | beta / EBITDA | standard finance terms, unchanged |
+| prev close | cierre anterior | "Cierre ant." when tight |
+| all time (P/L) | desde el inicio | portfolio all-time P/L |
+| shares outstanding | acciones en circulación | |

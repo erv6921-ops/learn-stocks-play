@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
 import { useStockHistory } from "@/hooks/useStockHistory";
@@ -95,6 +96,7 @@ export default function PortfolioExpanded({
   portfolioValue,
   plPct,
 }: PortfolioExpandedProps) {
+  const { t } = useTranslation();
   const [activeSymbol, setActiveSymbol] = useState<string | undefined>(initialSymbol);
   const [range, setRange] = useState<RangeVal>("1y");
   const [quotes, setQuotes] = useState<Record<string, Quote>>({});
@@ -232,25 +234,25 @@ export default function PortfolioExpanded({
   const push = (label: string, v: number | null, fmtFn: (n: number) => string) => {
     if (v != null) stats.push({ label, value: fmtFn(v) });
   };
-  push("Open", stat(q?.open), (v) => `🪙 ${fmt(v)}`);
-  push("Prev Close", stat(q?.previousClose), (v) => `🪙 ${fmt(v)}`);
-  if (stat(q?.dayLow) && stat(q?.dayHigh)) stats.push({ label: "Day's Range", value: `${fmt(q!.dayLow!)} - ${fmt(q!.dayHigh!)}` });
-  if (low52 && high52) stats.push({ label: "52-Wk Range", value: `${fmt(low52)} - ${fmt(high52)}` });
-  push("Volume", stat(q?.volume), (v) => formatVolume(v));
-  push("Avg Vol (3M)", stat(q?.avgVolume3M), (v) => formatVolume(v));
-  push("Market Cap", marketCap, (v) => formatMarketCap(v));
-  push("P/E (TTM)", peRatio, (v) => v.toFixed(2));
-  push("Fwd P/E", stat(f?.forward_pe), (v) => v.toFixed(2));
-  push("EPS (TTM)", eps, (v) => `🪙 ${fmt(v)}`);
-  push("Revenue (TTM)", stat(f?.revenue), (v) => formatMarketCap(v));
-  push("EBITDA", stat(f?.ebitda), (v) => formatMarketCap(v));
-  push("Profit Margin", stat(f?.profit_margin), (v) => `${v.toFixed(1)}%`);
-  push("Oper. Margin", stat(f?.operating_margin), (v) => `${v.toFixed(1)}%`);
-  push("Price/Sales", stat(f?.price_to_sales), (v) => v.toFixed(2));
-  push("Price/Book", stat(f?.price_to_book), (v) => v.toFixed(2));
-  push("Beta (5Y)", beta, (v) => v.toFixed(2));
-  push("Div. Yield", divYield, (v) => `${v.toFixed(2)}%`);
-  push("1Y Target", stat(f?.target_est), (v) => `🪙 ${fmt(v)}`);
+  push(t("stocks.pe.open"), stat(q?.open), (v) => `🪙 ${fmt(v)}`);
+  push(t("stocks.pe.prevClose"), stat(q?.previousClose), (v) => `🪙 ${fmt(v)}`);
+  if (stat(q?.dayLow) && stat(q?.dayHigh)) stats.push({ label: t("stocks.pe.daysRange"), value: `${fmt(q!.dayLow!)} - ${fmt(q!.dayHigh!)}` });
+  if (low52 && high52) stats.push({ label: t("stocks.pe.week52Range"), value: `${fmt(low52)} - ${fmt(high52)}` });
+  push(t("stocks.pe.volume"), stat(q?.volume), (v) => formatVolume(v));
+  push(t("stocks.pe.avgVol3m"), stat(q?.avgVolume3M), (v) => formatVolume(v));
+  push(t("stocks.pe.marketCap"), marketCap, (v) => formatMarketCap(v));
+  push(t("stocks.pe.peTtm"), peRatio, (v) => v.toFixed(2));
+  push(t("stocks.pe.fwdPe"), stat(f?.forward_pe), (v) => v.toFixed(2));
+  push(t("stocks.pe.epsTtm"), eps, (v) => `🪙 ${fmt(v)}`);
+  push(t("stocks.pe.revenueTtm"), stat(f?.revenue), (v) => formatMarketCap(v));
+  push(t("stocks.pe.ebitda"), stat(f?.ebitda), (v) => formatMarketCap(v));
+  push(t("stocks.pe.profitMargin"), stat(f?.profit_margin), (v) => `${v.toFixed(1)}%`);
+  push(t("stocks.pe.operMargin"), stat(f?.operating_margin), (v) => `${v.toFixed(1)}%`);
+  push(t("stocks.pe.priceSales"), stat(f?.price_to_sales), (v) => v.toFixed(2));
+  push(t("stocks.pe.priceBook"), stat(f?.price_to_book), (v) => v.toFixed(2));
+  push(t("stocks.pe.beta5y"), beta, (v) => v.toFixed(2));
+  push(t("stocks.pe.divYield"), divYield, (v) => `${v.toFixed(2)}%`);
+  push(t("stocks.pe.target1y"), stat(f?.target_est), (v) => `🪙 ${fmt(v)}`);
 
   const totalCost = portfolio.reduce((s, h) => s + h.shares * h.purchasePrice, 0);
   const totalPnl = portfolioValue - totalCost;
@@ -292,7 +294,7 @@ export default function PortfolioExpanded({
                   <Wallet className="w-4 h-4" />
                 </span>
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Portfolio</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{t("stocks.pe.portfolio")}</p>
                   <p className="font-display text-lg font-extrabold leading-none tracking-tight">
                     🪙 {fmt(portfolioValue, 0)}
                     <span className={`ml-2 text-xs font-bold ${plPct >= 0 ? "text-success" : "text-destructive"}`}>
@@ -303,7 +305,7 @@ export default function PortfolioExpanded({
               </div>
               <button onClick={onClose}
                 className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-black/5 transition-colors press-scale"
-                aria-label="Close">
+                aria-label={t("common.close")}>
                 <X className="w-5 h-5 text-muted-foreground" />
               </button>
             </div>
@@ -320,8 +322,8 @@ export default function PortfolioExpanded({
                           <span className="px-2.5 py-1 rounded-lg font-mono font-extrabold text-lg"
                             style={{ background: `${ACCENT}1a`, color: ACCENT }}>{activeSymbol}</span>
                           {isWatch
-                            ? <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-gold/15 text-gold-foreground/70"><Star className="w-3 h-3 fill-gold text-gold" /> Watching</span>
-                            : <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full" style={{ background: `${ACCENT}14`, color: ACCENT }}><Wallet className="w-3 h-3" /> Holding</span>}
+                            ? <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-gold/15 text-gold-foreground/70"><Star className="w-3 h-3 fill-gold text-gold" /> {t("stocks.watching")}</span>
+                            : <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full" style={{ background: `${ACCENT}14`, color: ACCENT }}><Wallet className="w-3 h-3" /> {t("stocks.pe.holding")}</span>}
                         </div>
                         <p className="text-sm text-muted-foreground mt-1.5 max-w-md truncate">
                           {names[activeSymbol] ?? activeSymbol}
@@ -330,7 +332,7 @@ export default function PortfolioExpanded({
                       <Link to={`/stocks/${activeSymbol}`}
                         className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl press-scale transition-colors"
                         style={{ background: ACCENT, color: "white" }}>
-                        Trade <ArrowUpRight className="w-3.5 h-3.5" />
+                        {t("stocks.pe.trade")} <ArrowUpRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>
 
@@ -341,11 +343,11 @@ export default function PortfolioExpanded({
                       </span>
                       <span className={`flex items-center gap-1 text-sm font-bold mb-1.5 ${dayPct >= 0 ? "text-success" : "text-destructive"}`}>
                         {dayPct >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
-                        {dayPct >= 0 ? "+" : ""}{dayPct.toFixed(2)}% <span className="text-muted-foreground font-medium">today</span>
+                        {dayPct >= 0 ? "+" : ""}{dayPct.toFixed(2)}% <span className="text-muted-foreground font-medium">{t("stocks.pe.today")}</span>
                       </span>
                     </div>
                     <p className="text-[11px] text-muted-foreground h-4 mt-0.5">
-                      {hover?.date ?? (activeHolding ? `You own ${activeHolding.shares} shares` : "Not in your portfolio yet")}
+                      {hover?.date ?? (activeHolding ? t("stocks.pe.youOwnShares", { count: activeHolding.shares }) : t("stocks.pe.notInPortfolio"))}
                     </p>
 
                     {/* Range pills */}
@@ -356,13 +358,13 @@ export default function PortfolioExpanded({
                           style={range === r.value
                             ? { background: ACCENT, color: "white" }
                             : { background: "rgba(0,0,0,0.05)", color: "#64748b" }}>
-                          {r.label}
+                          {t(`stocks.pe.range.${r.value}`)}
                         </button>
                       ))}
                       {chartData.length >= 2 && (
                         <span className={`ml-auto self-center text-sm font-extrabold ${rangePct >= 0 ? "text-success" : "text-destructive"}`}>
                           {rangePct >= 0 ? "+" : ""}{rangePct.toFixed(2)}%
-                          <span className="text-[10px] font-medium text-muted-foreground ml-1">{RANGES.find(r => r.value === range)?.label}</span>
+                          <span className="text-[10px] font-medium text-muted-foreground ml-1">{t(`stocks.pe.range.${range}`)}</span>
                         </span>
                       )}
                     </div>
@@ -402,10 +404,10 @@ export default function PortfolioExpanded({
                     {activeHolding && (
                       <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
                         {[
-                          { l: "Shares", v: `${activeHolding.shares}` },
-                          { l: "Avg Cost", v: `🪙 ${fmt(activeHolding.purchasePrice)}` },
-                          { l: "Value", v: `🪙 ${fmt(holdingValue, 0)}` },
-                          { l: "P/L", v: `${holdingPnlPct != null && holdingPnlPct >= 0 ? "+" : ""}${holdingPnlPct?.toFixed(1) ?? "0"}%`, pnl: holdingPnlPct ?? 0 },
+                          { l: t("stocks.pe.sharesLabel"), v: `${activeHolding.shares}` },
+                          { l: t("stocks.pe.avgCost"), v: `🪙 ${fmt(activeHolding.purchasePrice)}` },
+                          { l: t("stocks.pe.value"), v: `🪙 ${fmt(holdingValue, 0)}` },
+                          { l: t("stocks.pe.pl"), v: `${holdingPnlPct != null && holdingPnlPct >= 0 ? "+" : ""}${holdingPnlPct?.toFixed(1) ?? "0"}%`, pnl: holdingPnlPct ?? 0 },
                         ].map((c) => (
                           <div key={c.l} className="rounded-2xl bg-white p-3.5 border border-[#e0e8e3]" style={{ boxShadow: "var(--shadow-sm)" }}>
                             <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{c.l}</p>
@@ -420,7 +422,7 @@ export default function PortfolioExpanded({
                     {/* Key statistics */}
                     <div className="mt-6">
                       <div className="flex items-center gap-2 mb-3">
-                        <h3 className="text-sm font-extrabold">Key Statistics</h3>
+                        <h3 className="text-sm font-extrabold">{t("stocks.keyStatistics")}</h3>
                         {fundLoading && <Loader2 className="w-3.5 h-3.5 animate-spin text-muted-foreground" />}
                       </div>
                       {stats.length > 0 ? (
@@ -434,7 +436,7 @@ export default function PortfolioExpanded({
                         </div>
                       ) : (
                         <p className="text-xs text-muted-foreground">
-                          {fundLoading ? "Loading statistics…" : "No statistics available for this symbol."}
+                          {fundLoading ? t("stocks.pe.loadingStats") : t("stocks.pe.noStats")}
                         </p>
                       )}
                     </div>
@@ -442,8 +444,8 @@ export default function PortfolioExpanded({
                 ) : (
                   <div className="h-full flex items-center justify-center py-20 text-center">
                     <div>
-                      <p className="font-display text-xl font-extrabold">Nothing selected</p>
-                      <p className="text-sm text-muted-foreground mt-1">Pick a stock from your portfolio or watchlist.</p>
+                      <p className="font-display text-xl font-extrabold">{t("stocks.pe.nothingSelected")}</p>
+                      <p className="text-sm text-muted-foreground mt-1">{t("stocks.pe.pickStock")}</p>
                     </div>
                   </div>
                 )}
@@ -455,7 +457,7 @@ export default function PortfolioExpanded({
                 <div className="rounded-2xl p-4 mb-4 relative overflow-hidden"
                   style={{ background: "linear-gradient(145deg,#0f2f2b,#123b34)" }}>
                   <div className="absolute -right-6 -top-6 w-20 h-20 rounded-full blur-2xl" style={{ background: `${ACCENT}40` }} />
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-white/50">Total value</p>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-white/50">{t("stocks.pe.totalValue")}</p>
                   <p className="font-display text-2xl font-extrabold text-white tracking-tight mt-0.5">🪙 {fmt(portfolioValue, 0)}</p>
                   <div className="flex items-center gap-3 mt-2 text-xs">
                     <span className={`font-bold ${totalPnl >= 0 ? "text-[#3DDC97]" : "text-[#FF5A5F]"}`}>
@@ -464,14 +466,14 @@ export default function PortfolioExpanded({
                     <span className={`font-bold ${plPct >= 0 ? "text-[#3DDC97]" : "text-[#FF5A5F]"}`}>
                       {plPct >= 0 ? "+" : ""}{plPct.toFixed(1)}%
                     </span>
-                    <span className="text-white/40">all time</span>
+                    <span className="text-white/40">{t("stocks.pe.allTime")}</span>
                   </div>
                 </div>
 
                 {/* Holdings */}
-                <SideSection icon={<Wallet className="w-3.5 h-3.5" />} title="Holdings" count={portfolio.length}>
+                <SideSection icon={<Wallet className="w-3.5 h-3.5" />} title={t("stocks.pe.holdings")} count={portfolio.length}>
                   {portfolio.length === 0 ? (
-                    <p className="text-xs text-muted-foreground px-1 py-2">No stocks yet - make your first trade.</p>
+                    <p className="text-xs text-muted-foreground px-1 py-2">{t("stocks.pe.noStocksYet")}</p>
                   ) : (
                     portfolio.map((h) => {
                       const price = priceOf(h.symbol);
@@ -485,7 +487,7 @@ export default function PortfolioExpanded({
                               {pct >= 0 ? "+" : ""}{pct.toFixed(1)}%
                             </span>
                           </>}
-                          sub={`${h.shares} sh`} />
+                          sub={t("stocks.pe.sharesAbbrev", { count: h.shares })} />
                       );
                     })
                   )}
@@ -493,9 +495,9 @@ export default function PortfolioExpanded({
 
                 {/* Watchlist */}
                 <div className="mt-4">
-                  <SideSection icon={<Eye className="w-3.5 h-3.5" />} title="Watchlist" count={watchlist.length}>
+                  <SideSection icon={<Eye className="w-3.5 h-3.5" />} title={t("stocks.pe.watchlist")} count={watchlist.length}>
                     {watchlist.length === 0 ? (
-                      <p className="text-xs text-muted-foreground px-1 py-2">Star stocks to watch them here.</p>
+                      <p className="text-xs text-muted-foreground px-1 py-2">{t("stocks.pe.starToWatch")}</p>
                     ) : (
                       watchlist.map((sym) => {
                         const price = priceOf(sym);
@@ -509,7 +511,7 @@ export default function PortfolioExpanded({
                                 {dp >= 0 ? "+" : ""}{dp.toFixed(1)}%
                               </span>
                             </>}
-                            sub="watching" />
+                            sub={t("stocks.pe.watchingSub")} />
                         );
                       })
                     )}

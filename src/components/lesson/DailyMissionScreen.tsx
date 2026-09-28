@@ -7,12 +7,14 @@ import { JeffMascot } from "@/components/JeffMascot"
 import Confetti from "@/components/Confetti"
 import { useDailyMissions } from "@/hooks/useDailyMissions"
 import { DIFFICULTY_META } from "@/lib/dailyMissions"
+import { useTranslation } from "react-i18next"
 
 // Dedicated second step after the lesson stats: its own celebratory screen for
 // the daily missions. Jeff reacts, the mission bars fill in one at a time,
 // completed ones flip to a green check, and if all three are done the whole
 // thing confettis. Owns the coin awarding (award:true, idempotent - see hook).
 export function DailyMissionScreen({ onContinue }: { onContinue: () => void }) {
+  const { t } = useTranslation()
   const { missions, completedCount, total } = useDailyMissions({ award: true })
   const allDone = total > 0 && completedCount === total
   const coinsEarned = missions.filter((m) => m.done).reduce((s, m) => s + m.reward, 0)
@@ -40,7 +42,7 @@ export function DailyMissionScreen({ onContinue }: { onContinue: () => void }) {
               transition={{ delay: 0.1 }}
               className="text-2xl font-bold"
             >
-              {allDone ? "All missions cleared! 🎉" : "Daily missions"}
+              {allDone ? t("daily.allMissionsCleared") : t("daily.dailyMissions")}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0 }}
@@ -48,8 +50,10 @@ export function DailyMissionScreen({ onContinue }: { onContinue: () => void }) {
               transition={{ delay: 0.2 }}
               className="text-sm text-muted-foreground"
             >
-              <span className="font-bold text-foreground tabular-nums">{completedCount}</span> of{" "}
-              <span className="font-bold text-foreground tabular-nums">{total}</span> complete today
+              <span className="font-bold text-foreground tabular-nums">{completedCount}</span>{" "}
+              {t("daily.completeConnector")}{" "}
+              <span className="font-bold text-foreground tabular-nums">{total}</span>{" "}
+              {t("daily.completeSuffix")}
             </motion.p>
           </div>
 
@@ -141,13 +145,13 @@ export function DailyMissionScreen({ onContinue }: { onContinue: () => void }) {
             >
               <Coins className="w-5 h-5 text-gold" />
               <span className="text-lg font-bold text-gold tabular-nums">
-                +<AnimatedNumber value={coinsEarned} countUp /> from missions
+                +<AnimatedNumber value={coinsEarned} countUp /> {t("daily.fromMissions")}
               </span>
             </motion.div>
           )}
 
           <Button size="lg" className="w-full" onClick={onContinue}>
-            Continue Learning <ArrowRight className="ml-2 w-4 h-4" />
+            {t("daily.continueLearning")} <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
         </CardContent>
       </Card>

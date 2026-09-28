@@ -1,4 +1,5 @@
 import React, { useMemo, useEffect, useState } from "react"
+import { useTranslation, Trans } from "react-i18next"
 import { motion } from "framer-motion"
 import { Coins, ArrowRight, Target, TrendingUp, TrendingDown, Gauge, RotateCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -47,6 +48,7 @@ export function LessonCompletionScreen({
    */
   onScore?: (pct: number) => void
 }) {
+  const { t } = useTranslation()
   const { coinsGained, coinsLost, answeredTotal, answeredCorrect, getAttempts, difficultySpread } = useQuizSession()
   // Only claim the questions "adapted to your level" when the served set
   // actually spanned more than one difficulty value - a flat single-difficulty
@@ -73,10 +75,10 @@ export function LessonCompletionScreen({
 
   // Performance tier drives the accent color, Jeff's mood, and the headline.
   const tier = useMemo(() => {
-    if (pct >= 80) return { label: "Crushed it!", color: "#16a34a", ring: "hsl(142 71% 45%)", mood: "celebrating" as const }
-    if (pct >= 50) return { label: "Nice work!", color: "#d97706", ring: "hsl(38 92% 50%)", mood: "excited" as const }
-    return { label: "Mission complete", color: "#dc2626", ring: "hsl(0 72% 51%)", mood: "happy" as const }
-  }, [pct])
+    if (pct >= 80) return { label: t("lessonPlayer.tierCrushed"), color: "#16a34a", ring: "hsl(142 71% 45%)", mood: "celebrating" as const }
+    if (pct >= 50) return { label: t("lessonPlayer.tierNice"), color: "#d97706", ring: "hsl(38 92% 50%)", mood: "excited" as const }
+    return { label: t("lessonPlayer.tierComplete"), color: "#dc2626", ring: "hsl(0 72% 51%)", mood: "happy" as const }
+  }, [pct, t])
 
   // Persist the true whole-lesson accuracy once, only for a real run (this
   // session answered at least one question). Replays answer nothing, so they
@@ -118,7 +120,7 @@ export function LessonCompletionScreen({
             transition={{ delay: 0.1 }}
             className="text-2xl font-bold"
           >
-            {tier.label} 🎉
+            {t("lessonPlayer.tierHeadline", { label: tier.label })}
           </motion.h2>
 
           {/* Accuracy ring - the number rolls up from zero. */}
@@ -138,15 +140,18 @@ export function LessonCompletionScreen({
                 <AnimatedNumber value={pct} countUp format={(n) => `${n}%`} />
               </span>
               <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1">
-                <Target className="w-3 h-3" /> Accuracy
+                <Target className="w-3 h-3" /> {t("lessonPlayer.accuracy")}
               </span>
             </div>
           </div>
 
           {shownTotal > 0 && (
             <p className="text-sm text-muted-foreground -mt-2">
-              <span className="font-semibold text-foreground">{shownCorrect}</span> of{" "}
-              <span className="font-semibold text-foreground">{shownTotal}</span> questions correct
+              <Trans
+                i18nKey="lessonPlayer.questionsCorrect"
+                values={{ correct: shownCorrect, total: shownTotal }}
+                components={{ b: <span className="font-semibold text-foreground" /> }}
+              />
             </p>
           )}
 
@@ -163,7 +168,7 @@ export function LessonCompletionScreen({
                     +<AnimatedNumber value={coinsGained} countUp />
                   </span>
                 </div>
-                <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mt-1">Coins gained</p>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mt-1">{t("lessonPlayer.coinsGained")}</p>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }}
@@ -175,13 +180,13 @@ export function LessonCompletionScreen({
                     −<AnimatedNumber value={coinsLost} countUp />
                   </span>
                 </div>
-                <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mt-1">Coins lost</p>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mt-1">{t("lessonPlayer.coinsLost")}</p>
               </motion.div>
             </div>
           )}
 
           {bonus > 0 && (
-            <p className="text-sm text-gold font-semibold">+{bonus} reflection bonus - plan locked in 📝</p>
+            <p className="text-sm text-gold font-semibold">{t("lessonPlayer.reflectionBonus", { bonus })}</p>
           )}
 
           {/* Net result headline. */}
@@ -192,7 +197,7 @@ export function LessonCompletionScreen({
             >
               <Coins className="w-5 h-5 text-gold" />
               <span className="text-lg font-bold text-gold tabular-nums">
-                {net >= 0 ? "+" : "−"}<AnimatedNumber value={Math.abs(net)} countUp /> net
+                {net >= 0 ? "+" : "−"}<AnimatedNumber value={Math.abs(net)} countUp /> {t("lessonPlayer.net")}
               </span>
             </motion.div>
           )}
@@ -202,23 +207,23 @@ export function LessonCompletionScreen({
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.55 }}
               className="flex items-center justify-center gap-1.5 text-[11px] font-semibold text-muted-foreground"
             >
-              <Gauge className="w-3.5 h-3.5 text-primary" /> Questions adapted to your level
+              <Gauge className="w-3.5 h-3.5 text-primary" /> {t("lessonPlayer.questionsAdapted")}
             </motion.p>
           )}
 
           {nextTitle && onNext && (
             <Button size="lg" className="w-full font-bold" onClick={onNext}>
-              Next: {nextTitle} <ArrowRight className="ml-2 w-4 h-4" />
+              {t("lessons.nextLesson", { lesson: nextTitle })} <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           )}
 
           <Button size="lg" variant={nextTitle && onNext ? "outline" : "default"} className="w-full" onClick={() => setStep("missions")}>
-            See daily missions <ArrowRight className="ml-2 w-4 h-4" />
+            {t("lessonPlayer.seeDailyMissions")} <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
 
           {onRetake && (
             <Button variant="ghost" size="lg" className="w-full text-muted-foreground" onClick={onRetake}>
-              <RotateCcw className="mr-2 w-4 h-4" /> Retake lesson
+              <RotateCcw className="mr-2 w-4 h-4" /> {t("lessonPlayer.retakeLesson")}
             </Button>
           )}
         </CardContent>

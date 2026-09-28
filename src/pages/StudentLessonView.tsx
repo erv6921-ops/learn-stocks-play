@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 import { useApp } from "@/contexts/AppContext";
 import { DEV_LOCAL_BYPASS } from "@/lib/devBypass";
@@ -83,6 +84,7 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
   const lessonId = lessonIdProp ?? (uploadId ? "" : routeLessonId);
   const navigate = useNavigate();
   const { user } = useApp();
+  const { t } = useTranslation();
 
   // Leaving the lesson: the modal preview closes itself; the route navigates.
   const exit = () => {
@@ -112,7 +114,7 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
     // Upload-mode preview: there is no lessons row yet - go straight to the
     // generated_questions fallback below.
     if (!lessonId && uploadId) {
-      setLessonName(lessonNameProp || "Lesson");
+      setLessonName(lessonNameProp || t("lessonPlayer.lessonFallback"));
       setContent(null);
       setPhase("sections");
       return;
@@ -126,7 +128,7 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
           .single();
         if (cancelled) return;
         if (e) throw new Error(e.message);
-        setLessonName(data?.name ?? "Lesson");
+        setLessonName(data?.name ?? t("lessonPlayer.lessonFallback"));
         const c = (data?.content ?? null) as LessonContent | null;
         setContent(c);
         // Jeff's conversation opens the lesson whenever there is content, for
@@ -136,7 +138,7 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
       } catch (err) {
         if (cancelled) return;
         console.error("Load lesson failed:", err);
-        setError(err instanceof Error ? err.message : "Could not load this lesson.");
+        setError(err instanceof Error ? err.message : t("lessonPlayer.couldNotLoad"));
         setPhase("error");
       }
     })();
@@ -170,7 +172,7 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
   const syntheticLesson: Lesson = useMemo(
     () => ({
       id: lessonId,
-      title: lessonName || "Lesson",
+      title: lessonName || t("lessonPlayer.lessonFallback"),
       description: "",
       category: "entrepreneurship",
       level: "explorer",
@@ -330,7 +332,7 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
   if (phase === "loading") {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background text-sm text-muted-foreground">
-        <Loader2 className="mr-2 h-5 w-5 animate-spin text-emerald-600" /> Loading lesson…
+        <Loader2 className="mr-2 h-5 w-5 animate-spin text-emerald-600" /> {t("lessonPlayer.loadingLesson")}
       </div>
     );
   }
@@ -424,7 +426,7 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
                 onClick={exit}
                 className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
               >
-                <ArrowLeft className="h-4 w-4" /> Dashboard
+                <ArrowLeft className="h-4 w-4" /> {t("nav.dashboard")}
               </button>
             )}
             {previewMode && (
@@ -432,8 +434,7 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
                 <h1 className="truncate text-base font-semibold text-foreground">{lessonName}</h1>
                 {!sections.length && (
                   <p className="text-xs text-muted-foreground">
-                    This lesson has no synthesized teaching content yet, so students get the mastery check
-                    built from the question bank. Jeff's taught sections are added when the lesson is built.
+                    {t("lessonPlayer.noSynthesizedContent")}
                   </p>
                 )}
                 <PreviewSectionNav
@@ -447,7 +448,7 @@ const StudentLessonView: React.FC<StudentLessonViewProps> = ({
               <Card>
                 <CardContent className="py-12 text-center text-sm text-muted-foreground">
                   <Loader2 className="mx-auto mb-2 h-5 w-5 animate-spin text-emerald-600" />
-                  Preparing your lesson…
+                  {t("lessonPlayer.preparingLesson")}
                 </CardContent>
               </Card>
             )}

@@ -1,6 +1,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { X } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
 /**
  * Dark rounded speech bubble that appears above Jeff with a downward arrow.
@@ -8,6 +9,7 @@ import { X } from "lucide-react"
  * JeffContext; this just renders + offers a manual close.
  */
 export function SpeechBubble({ message, onClose }: { message: string; onClose: () => void }) {
+  const { t } = useTranslation()
   return (
     <motion.div
       initial={{ opacity: 0, y: 4 }}
@@ -20,7 +22,7 @@ export function SpeechBubble({ message, onClose }: { message: string; onClose: (
       {message}
       <button
         onClick={onClose}
-        aria-label="Dismiss"
+        aria-label={t("jeff.dismiss")}
         className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors"
       >
         <X className="w-3 h-3" />
