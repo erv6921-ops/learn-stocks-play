@@ -130,18 +130,6 @@ stable
 security definer
 set search_path = public
 as $$
-  with me as (select auth.uid() as uid),
-  friend_ids as (
-    select case when f.requester_id = (select uid from me) then f.addressee_id else f.requester_id end as oid
-    from public.friendships f
-    where f.status = 'accepted'
-      and (select uid from me) in (f.requester_id, f.addressee_id)
-    union
-    select case when pa.user_id = (select uid from me) then pa.partner_id else pa.user_id end as oid
-    from public.partners pa
-    where pa.status = 'accepted'
-      and (select uid from me) in (pa.user_id, pa.partner_id)
-  )
   select
     other.id as user_id,
     other.first_name,
@@ -150,7 +138,7 @@ as $$
     other.grade,
     coalesce((
       select count(*) from public.friend_messages m
-      where m.recipient_id = (select uid from me)
+      where m.recipient_id = auth.uid()
         and m.sender_id = other.id
         and m.read_at is null
     ), 0) as unread,
@@ -159,17 +147,25 @@ as $$
     lm.note as last_message_note,
     lm.reference_label as last_message_label,
     lm.sender_id as last_message_sender
-  from (select distinct oid from friend_ids) fi
+  from (
+    select case when f.requester_id = auth.uid() then f.addressee_id else f.requester_id end as oid
+    from public.friendships f
+    where f.status = 'accepted' and auth.uid() in (f.requester_id, f.addressee_id)
+    union
+    select case when pa.user_id = auth.uid() then pa.partner_id else pa.user_id end as oid
+    from public.partners pa
+    where pa.status = 'accepted' and auth.uid() in (pa.user_id, pa.partner_id)
+  ) fi
   join public.profiles other on other.id = fi.oid
   left join lateral (
     select m.type, m.note, m.reference_label, m.sender_id, m.created_at
     from public.friend_messages m
-    where (m.sender_id = (select uid from me) and m.recipient_id = other.id)
-       or (m.sender_id = other.id and m.recipient_id = (select uid from me))
+    where (m.sender_id = auth.uid() and m.recipient_id = other.id)
+       or (m.sender_id = other.id and m.recipient_id = auth.uid())
     order by m.created_at desc
     limit 1
   ) lm on true
-  where not public.is_blocked_between((select uid from me), other.id)
+  where not public.is_blocked_between(auth.uid(), other.id)
   order by lm.created_at desc nulls last, other.first_name;
 $$;
 grant execute on function public.friends_list() to authenticated;
