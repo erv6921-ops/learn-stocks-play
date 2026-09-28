@@ -55,6 +55,8 @@
     "title": "Amigos",
     "subtitle": "Agrega compañeros de clase y envíales lecciones, preguntas para Jeff y acciones.",
     "loading": "Cargando…",
+    "noMessagesYet": "Aún no hay mensajes",
+    "unreadDot": "Mensajes sin leer",
     "requests": "Solicitudes ({{count}})",
     "myFriends": "Mis amigos ({{count}})",
     "addFromClass": "Agregar desde mi clase",
