@@ -6,6 +6,7 @@
 // holdings + reputation live in bankStore.
 
 import { useMemo, useState } from "react"
+import { useTranslation, Trans } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -27,9 +28,9 @@ import CompanyDetail from "./CompanyDetail"
 const NO_PORTFOLIO: PortfolioCompany[] = []
 
 const STATUS_META = {
-  growing: { label: "Growing", color: "#10b981", Icon: TrendingUp },
-  steady: { label: "Steady", color: "#d97706", Icon: Minus },
-  struggling: { label: "Struggling", color: "#ef4444", Icon: TrendingDown },
+  growing: { labelKey: "bankCareers.venture.status.growing", color: "#10b981", Icon: TrendingUp },
+  steady: { labelKey: "bankCareers.venture.status.steady", color: "#d97706", Icon: Minus },
+  struggling: { labelKey: "bankCareers.venture.status.struggling", color: "#ef4444", Icon: TrendingDown },
 } as const
 
 const SIGNAL_VARIANT = {
@@ -41,6 +42,7 @@ const SIGNAL_VARIANT = {
 type Selected = { mode: "invest" | "holding"; id: string } | null
 
 export default function VentureFund({ career, week }: { career: Career; week: number }) {
+  const { t } = useTranslation()
   const { jeffsBalance, spendJeffs, awardJeffs } = useApp()
   const portfolio = useBankStore(s => s.vcPortfolio) ?? NO_PORTFOLIO
   const investVC = useBankStore(s => s.investVC)
@@ -61,18 +63,18 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
   const invest = (opt: InvestOption, thesis: string) => {
     if (heldIds.has(opt.id)) return
     if (jeffsBalance < opt.ask) {
-      setFlash(`You need ${opt.ask} coins to back ${opt.name} - you have ${Math.floor(jeffsBalance)}.`)
+      setFlash(t("bankCareers.venture.flash.needCoins", { amount: opt.ask, name: opt.name, balance: Math.floor(jeffsBalance) }))
       return
     }
     if (!spendJeffs(opt.ask, `Invested in ${opt.name}`)) return
     investVC(holdingFromOption(opt, week, thesis))
     addMemo({
       careerId: career.id, week,
-      dealTitle: `Investment thesis · ${opt.name}`,
-      prompt: `Why did you back ${opt.name}?`,
+      dealTitle: t("bankCareers.venture.memo.investTitle", { name: opt.name }),
+      prompt: t("bankCareers.venture.memo.investPrompt", { name: opt.name }),
       text: thesis,
     })
-    setFlash(`You backed ${opt.name} for ${opt.ask} coins (${opt.ownership}% stake). Thesis filed.`)
+    setFlash(t("bankCareers.venture.flash.backed", { name: opt.name, amount: opt.ask, ownership: opt.ownership }))
     setSelected(null)
     setTab("portfolio")
   }
@@ -86,7 +88,7 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
     catchUpVC(career.id, holding.id, patch, repDelta)
     addMemo({
       careerId: career.id, week,
-      dealTitle: `Advice · ${holding.name}: ${writeUp.headline}`,
+      dealTitle: t("bankCareers.venture.memo.adviceTitle", { name: holding.name, headline: writeUp.headline }),
       prompt: writeUp.question,
       text: writeUp.text,
     })
@@ -99,8 +101,8 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
     setSelected(null)
     setFlash(
       payout >= c.invested
-        ? `Exited ${c.name} for ${payout.toLocaleString()} coins - a ${(c.invested ? payout / c.invested : 0).toFixed(1)}× return! 🎉`
-        : `Exited ${c.name} for ${payout.toLocaleString()} coins, taking a loss. Cutting losers is part of the job.`
+        ? t("bankCareers.venture.flash.exitWin", { name: c.name, payout: payout.toLocaleString(), mult: (c.invested ? payout / c.invested : 0).toFixed(1) })
+        : t("bankCareers.venture.flash.exitLoss", { name: c.name, payout: payout.toLocaleString() })
     )
   }
 
@@ -154,20 +156,20 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
         <div className="p-4 sm:p-5">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-white/70 flex items-center gap-1"><Building2 className="h-3 w-3" /> Seed Fund I</p>
-              <p className="font-display text-xl font-extrabold leading-tight">{portfolio.length} {portfolio.length === 1 ? "startup" : "startups"} backed</p>
-              <p className="text-[11px] text-white/70">One 100× winner pays for all the losers</p>
+              <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-white/70 flex items-center gap-1"><Building2 className="h-3 w-3" /> {t("bankCareers.venture.fundName")}</p>
+              <p className="font-display text-xl font-extrabold leading-tight">{portfolio.length === 1 ? t("bankCareers.venture.startupsBacked_one", { count: portfolio.length }) : t("bankCareers.venture.startupsBacked_other", { count: portfolio.length })}</p>
+              <p className="text-[11px] text-white/70">{t("bankCareers.venture.heroTagline")}</p>
             </div>
             <div className="text-right shrink-0">
               <p className="text-2xl font-extrabold tabular-nums">{fundMoic ? `${fundMoic}×` : "-"}</p>
-              <p className="text-[10px] text-white/70 uppercase tracking-wide">portfolio</p>
+              <p className="text-[10px] text-white/70 uppercase tracking-wide">{t("bankCareers.venture.portfolioLabel")}</p>
             </div>
           </div>
           {portfolio.length > 0 && (
             <div className="flex items-center justify-between mt-3.5 text-[11px] font-semibold text-white/85">
-              <span>Deployed {totalInvested.toLocaleString()}</span>
-              <span className="inline-flex items-center gap-1">🚀 {winners} {winners === 1 ? "winner" : "winners"} (2×+)</span>
-              <span className="font-extrabold">Worth {totalValue.toLocaleString()}</span>
+              <span>{t("bankCareers.venture.deployed", { amount: totalInvested.toLocaleString() })}</span>
+              <span className="inline-flex items-center gap-1">🚀 {winners === 1 ? t("bankCareers.venture.winners_one", { count: winners }) : t("bankCareers.venture.winners_other", { count: winners })}</span>
+              <span className="font-extrabold">{t("bankCareers.venture.worth", { amount: totalValue.toLocaleString() })}</span>
             </div>
           )}
         </div>
@@ -175,8 +177,8 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
 
       <Card variant="elevated" className="overflow-hidden">
         <div className="p-1.5 flex gap-1.5 bg-muted/40">
-          <TabButton id="portfolio" label="Portfolio" icon={Building2} />
-          <TabButton id="invest" label="Invest" icon={Search} />
+          <TabButton id="portfolio" label={t("bankCareers.venture.tabs.portfolio")} icon={Building2} />
+          <TabButton id="invest" label={t("bankCareers.venture.tabs.invest")} icon={Search} />
         </div>
 
         <CardContent className="p-3 sm:p-4">
@@ -196,11 +198,11 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
             portfolio.length === 0 ? (
               <div className="text-center py-8 space-y-2">
                 <Building2 className="h-7 w-7 mx-auto text-muted-foreground/60" />
-                <p className="text-sm font-semibold">Your portfolio is empty</p>
+                <p className="text-sm font-semibold">{t("bankCareers.venture.empty.title")}</p>
                 <p className="text-xs text-muted-foreground max-w-xs mx-auto">
-                  Open the <b>Invest</b> tab to study startups and back your first one. Then meet each founder weekly to help them grow.
+                  <Trans i18nKey="bankCareers.venture.empty.body" components={{ b: <b /> }} />
                 </p>
-                <Button size="sm" variant="outline" className="mt-1" onClick={() => setTab("invest")}>Browse startups</Button>
+                <Button size="sm" variant="outline" className="mt-1" onClick={() => setTab("invest")}>{t("bankCareers.venture.empty.cta")}</Button>
               </div>
             ) : (
               <div className="space-y-2">
@@ -220,12 +222,12 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="font-display font-extrabold text-sm">{c.name}</span>
                             <Badge variant="outline" className="text-[9px] capitalize">{c.sector}</Badge>
-                            {needsYou && <Badge className="text-[9px]" style={{ background: career.accent }}>Needs you</Badge>}
+                            {needsYou && <Badge className="text-[9px]" style={{ background: career.accent }}>{t("bankCareers.venture.needsYou")}</Badge>}
                           </div>
                           <p className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-2">
                             <span className="flex items-center gap-0.5"><Users className="h-3 w-3" />{c.profile.users.toLocaleString()}</span>
-                            <span className="flex items-center gap-0.5"><Timer className="h-3 w-3" />{c.profile.runwayMonths}mo</span>
-                            <span style={{ color: meta.color }} className="flex items-center gap-0.5 font-semibold"><meta.Icon className="h-3 w-3" />{meta.label}</span>
+                            <span className="flex items-center gap-0.5"><Timer className="h-3 w-3" />{t("bankCareers.venture.months", { count: c.profile.runwayMonths })}</span>
+                            <span style={{ color: meta.color }} className="flex items-center gap-0.5 font-semibold"><meta.Icon className="h-3 w-3" />{t(meta.labelKey)}</span>
                           </p>
                         </div>
                         <div className="flex items-center gap-2 shrink-0">
@@ -240,14 +242,14 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
                   )
                 })}
                 <p className="text-[10px] text-muted-foreground text-center pt-1">
-                  Tap a company to see its full page and meet the founder. Good advice compounds winners; nothing saves a broken bet.
+                  {t("bankCareers.venture.portfolioTip")}
                 </p>
               </div>
             )
           ) : (
             <div className="space-y-2">
               <p className="text-[11px] text-muted-foreground flex items-center gap-1.5">
-                <Coins className="h-3.5 w-3.5" /> You have <b className="text-foreground">{Math.floor(jeffsBalance).toLocaleString()}</b> coins · new startups each week
+                <Coins className="h-3.5 w-3.5" /> <Trans i18nKey="bankCareers.venture.balanceLine" values={{ balance: Math.floor(jeffsBalance).toLocaleString() }} components={{ b: <b className="text-foreground" /> }} />
               </p>
               {options.map(opt => {
                 const held = heldIds.has(opt.id)
@@ -264,14 +266,14 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
                           <span className="font-display font-extrabold text-sm">{opt.name}</span>
                           <Badge variant="outline" className="text-[9px] capitalize">{opt.sector}</Badge>
                           <Badge variant={SIGNAL_VARIANT[opt.signal]} className="text-[9px]">{opt.signal}</Badge>
-                          {held && <Badge variant="secondary" className="text-[9px]">Held</Badge>}
+                          {held && <Badge variant="secondary" className="text-[9px]">{t("bankCareers.venture.held")}</Badge>}
                         </div>
                         <p className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-2">
                           <span className="flex items-center gap-0.5"><Users className="h-3 w-3" />{p.users.toLocaleString()}</span>
                           <span className={cn("flex items-center gap-0.5 font-semibold")} style={{ color: p.growthPct >= 12 ? "#10b981" : p.growthPct < 0 ? "#ef4444" : undefined }}>
                             {p.growthPct >= 0 ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}{p.growthPct >= 0 ? "+" : ""}{p.growthPct}%
                           </span>
-                          <span className="flex items-center gap-0.5"><Timer className="h-3 w-3" />{p.runwayMonths}mo</span>
+                          <span className="flex items-center gap-0.5"><Timer className="h-3 w-3" />{t("bankCareers.venture.months", { count: p.runwayMonths })}</span>
                         </p>
                       </div>
                       <div className="flex items-center gap-2 shrink-0">
@@ -286,7 +288,7 @@ export default function VentureFund({ career, week }: { career: Career; week: nu
                 )
               })}
               <p className="text-[10px] text-muted-foreground text-center pt-1">
-                Tap a startup to study its team, mission and numbers before you invest. Read the signal, not the hype.
+                {t("bankCareers.venture.investTip")}
               </p>
             </div>
           )}

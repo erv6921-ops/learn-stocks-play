@@ -4,6 +4,7 @@
 // submission, and records the attempt (localStorage, same pattern as other labs).
 import React, { useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { useApp } from "@/contexts/AppContext"
 import GameNav from "@/components/GameNav"
 import { Button } from "@/components/ui/button"
@@ -29,6 +30,7 @@ const FORMS = {
 
 export default function IRSFormLab({ doc, payload }: { doc: LabDocument; payload: IRSFormPayload }) {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const { earnJeffs, getRewardMultiplier } = useApp()
 
   const entry = FORMS[payload.form]
@@ -58,7 +60,7 @@ export default function IRSFormLab({ doc, payload }: { doc: LabDocument; payload
       const ok = valuesMatch(kind, values[id] ?? "", expected[id] ?? "")
       result[id] = ok
         ? { status: "correct", message: "" }
-        : { status: "wrong", message: spec?.hint ?? "Check this box against the scenario." }
+        : { status: "wrong", message: spec?.hint ?? t("irsLab.checkAgainstScenario") }
       if (ok) correct++
     }
     setFeedback(result)
@@ -88,9 +90,9 @@ export default function IRSFormLab({ doc, payload }: { doc: LabDocument; payload
                 <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-success/20">
                   <CheckCircle className="h-10 w-10 text-success" />
                 </div>
-                <h2 className="text-2xl font-bold">Form filed correctly! 🧾</h2>
+                <h2 className="text-2xl font-bold">{t("irsLab.filedCorrectly")}</h2>
                 <p className="text-muted-foreground">
-                  Every box on the {doc.title} checked out. You read the real form and got the numbers in the right places.
+                  {t("irsLab.filedCorrectlyDesc", { title: doc.title })}
                 </p>
                 <div className="rounded-xl border border-gold/20 bg-gold/10 p-4">
                   <div className="flex items-center justify-center gap-2">
@@ -99,10 +101,10 @@ export default function IRSFormLab({ doc, payload }: { doc: LabDocument; payload
                       +{Math.round(doc.reward * getRewardMultiplier()).toLocaleString()}
                     </span>
                   </div>
-                  <p className="text-sm text-muted-foreground">InvestiCoins earned!</p>
+                  <p className="text-sm text-muted-foreground">{t("irsLab.coinsEarned")}</p>
                 </div>
                 <Button onClick={() => navigate("/lab")} className="min-h-[44px]">
-                  Back to Lab <ArrowRight className="ml-2" />
+                  {t("irsLab.backToLab")} <ArrowRight className="ml-2" />
                 </Button>
               </CardContent>
             </Card>
@@ -125,11 +127,11 @@ export default function IRSFormLab({ doc, payload }: { doc: LabDocument; payload
             </Button>
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-semibold">{doc.title}</p>
-              <p className="truncate text-[11px] text-muted-foreground">Real IRS form · fill the boxes, then check</p>
+              <p className="truncate text-[11px] text-muted-foreground">{t("irsLab.realFormSubtitle")}</p>
             </div>
             {checked && (
               <span className="text-xs font-semibold text-muted-foreground">
-                {correctCount}/{totalGraded} boxes correct
+                {t("irsLab.boxesCorrect", { correct: correctCount, total: totalGraded })}
               </span>
             )}
           </div>
@@ -140,7 +142,7 @@ export default function IRSFormLab({ doc, payload }: { doc: LabDocument; payload
         {payload.scenario && (
           <div className="mb-4 rounded-xl border border-primary/15 bg-primary/[0.04] p-4">
             <p className="mb-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-primary">
-              <ClipboardCheck className="h-3.5 w-3.5" /> Your task
+              <ClipboardCheck className="h-3.5 w-3.5" /> {t("irsLab.yourTask")}
             </p>
             <p className="text-sm text-foreground">{payload.scenario}</p>
           </div>
@@ -151,21 +153,21 @@ export default function IRSFormLab({ doc, payload }: { doc: LabDocument; payload
         {checked && correctCount < totalGraded && (
           <div className="mt-4 rounded-xl border border-amber-500/25 bg-amber-500/5 p-4 text-sm">
             <p className="font-semibold text-amber-700">
-              {totalGraded - correctCount} box{totalGraded - correctCount === 1 ? "" : "es"} need another look.
+              {t("irsLab.boxesNeedLook", { count: totalGraded - correctCount })}
             </p>
             <p className="mt-1 text-muted-foreground">
-              Red boxes have a hint pinned to the box number. Fix them and check again.
+              {t("irsLab.redBoxesHint")}
             </p>
           </div>
         )}
 
         <div className="mt-5 flex flex-wrap items-center gap-3">
           <Button onClick={grade} className="min-h-[48px] gap-2 font-semibold">
-            <ClipboardCheck className="h-4 w-4" /> {checked ? "Check again" : "Check my answers"}
+            <ClipboardCheck className="h-4 w-4" /> {checked ? t("irsLab.checkAgain") : t("irsLab.checkMyAnswers")}
           </Button>
           {checked && (
             <Button variant="outline" onClick={reset} className="min-h-[48px] gap-2">
-              <RotateCcw className="h-4 w-4" /> Clear feedback
+              <RotateCcw className="h-4 w-4" /> {t("irsLab.clearFeedback")}
             </Button>
           )}
         </div>

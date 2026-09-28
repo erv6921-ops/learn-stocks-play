@@ -5,6 +5,8 @@
 // and the student gives graded advice that moves the company's valuation.
 
 import { useMemo, useState } from "react"
+import { useTranslation, Trans } from "react-i18next"
+import i18n from "@/i18n"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -26,6 +28,11 @@ const SIGNAL_VARIANT = {
   "Mixed signal": "warning",
   "Weak signal": "destructive",
 } as const
+const SIGNAL_KEY = {
+  "Strong signal": "strong",
+  "Mixed signal": "mixed",
+  "Weak signal": "weak",
+} as const
 
 function Metric({ icon: I, label, value, tone }: { icon: typeof Users; label: string; value: string; tone?: string }) {
   return (
@@ -39,12 +46,12 @@ function Metric({ icon: I, label, value, tone }: { icon: typeof Users; label: st
 function MetricsGrid({ p }: { p: CompanyProfile }) {
   return (
     <div className="grid grid-cols-3 gap-2">
-      <Metric icon={Users} label="Users" value={p.users.toLocaleString()} />
-      <Metric icon={p.growthPct >= 0 ? TrendingUp : TrendingDown} label="Growth/mo" value={`${p.growthPct >= 0 ? "+" : ""}${p.growthPct}%`} tone={p.growthPct >= 12 ? "#10b981" : p.growthPct < 0 ? "#ef4444" : undefined} />
-      <Metric icon={Coins} label="Revenue/mo" value={p.revenue.toLocaleString()} />
-      <Metric icon={Timer} label="Runway" value={`${p.runwayMonths} mo`} tone={p.runwayMonths <= 4 ? "#ef4444" : undefined} />
-      <Metric icon={Wallet} label="Valuation" value={p.valuation.toLocaleString()} />
-      <Metric icon={Building2} label="Stage" value={p.stage} />
+      <Metric icon={Users} label={i18n.t("bankDeals.company.users")} value={p.users.toLocaleString()} />
+      <Metric icon={p.growthPct >= 0 ? TrendingUp : TrendingDown} label={i18n.t("bankDeals.company.growthPerMo")} value={`${p.growthPct >= 0 ? "+" : ""}${p.growthPct}%`} tone={p.growthPct >= 12 ? "#10b981" : p.growthPct < 0 ? "#ef4444" : undefined} />
+      <Metric icon={Coins} label={i18n.t("bankDeals.company.revenuePerMo")} value={p.revenue.toLocaleString()} />
+      <Metric icon={Timer} label={i18n.t("bankDeals.company.runway")} value={i18n.t("bankDeals.company.months", { count: p.runwayMonths })} tone={p.runwayMonths <= 4 ? "#ef4444" : undefined} />
+      <Metric icon={Wallet} label={i18n.t("bankDeals.company.valuation")} value={p.valuation.toLocaleString()} />
+      <Metric icon={Building2} label={i18n.t("bankDeals.company.stage")} value={p.stage} />
     </div>
   )
 }
@@ -61,7 +68,7 @@ function Sparkline({ history, accent }: { history: { week: number; valuation: nu
           key={i}
           className="flex-1 rounded-t"
           style={{ height: `${20 + ((h.valuation - min) / span) * 80}%`, background: i === history.length - 1 ? accent : `${accent}66` }}
-          title={`Week ${h.week}: ${h.valuation.toLocaleString()}`}
+          title={`${i18n.t("bankDeals.week", { n: h.week })}: ${h.valuation.toLocaleString()}`}
         />
       ))}
     </div>
@@ -85,6 +92,7 @@ export default function CompanyDetail(props: {
   ) => void
   onExit?: (c: PortfolioCompany) => void
 }) {
+  const { t } = useTranslation()
   const { mode, week, accent, onBack, option, held, balance = 0, onInvest, holding, onCatchUp, onExit } = props
 
   const base = mode === "invest" ? option! : holding!
@@ -132,7 +140,7 @@ export default function CompanyDetail(props: {
   return (
     <motion.div initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} className="space-y-3">
       <button onClick={onBack} className="flex items-center gap-1 text-xs font-bold text-muted-foreground hover:text-foreground -ml-1">
-        <ArrowLeft className="h-4 w-4" /> Back to {mode === "invest" ? "deals" : "portfolio"}
+        <ArrowLeft className="h-4 w-4" /> {mode === "invest" ? t("bankDeals.company.backToDeals") : t("bankDeals.company.backToPortfolio")}
       </button>
 
       <Card variant="elevated" className="overflow-hidden">
@@ -142,14 +150,14 @@ export default function CompanyDetail(props: {
               <h3 className="font-display text-lg font-extrabold">{name}</h3>
               <Badge variant="outline" className="text-[9px] capitalize">{sector}</Badge>
               <Badge variant="secondary" className="text-[9px]">{profile.stage}</Badge>
-              {mode === "invest" && <Badge variant={SIGNAL_VARIANT[option!.signal]} className="text-[9px]">{option!.signal}</Badge>}
+              {mode === "invest" && <Badge variant={SIGNAL_VARIANT[option!.signal]} className="text-[9px]">{t(`bankDeals.company.signal.${SIGNAL_KEY[option!.signal]}`)}</Badge>}
             </div>
-            <p className="text-xs text-muted-foreground mt-0.5">Led by {founder}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">{t("bankDeals.company.ledBy", { founder })}</p>
           </div>
           {mode === "holding" && (
             <div className="text-right shrink-0">
               <p className="text-sm font-extrabold" style={{ color: mult >= 1 ? "#10b981" : "#ef4444" }}>{mult}×</p>
-              <p className="text-[10px] text-muted-foreground">your return</p>
+              <p className="text-[10px] text-muted-foreground">{t("bankDeals.company.yourReturn")}</p>
             </div>
           )}
         </div>
@@ -160,14 +168,14 @@ export default function CompanyDetail(props: {
             <div className="flex items-start gap-2">
               <Target className="h-4 w-4 mt-0.5 shrink-0" style={{ color: accent }} />
               <div>
-                <p className="text-[10px] uppercase font-bold text-muted-foreground">The goal</p>
+                <p className="text-[10px] uppercase font-bold text-muted-foreground">{t("bankDeals.company.theGoal")}</p>
                 <p className="text-sm font-semibold">{profile.goal}</p>
               </div>
             </div>
             <div className="flex items-start gap-2">
               <Package className="h-4 w-4 mt-0.5 shrink-0 text-muted-foreground" />
               <div>
-                <p className="text-[10px] uppercase font-bold text-muted-foreground">What they do</p>
+                <p className="text-[10px] uppercase font-bold text-muted-foreground">{t("bankDeals.company.whatTheyDo")}</p>
                 <p className="text-sm text-foreground/90">{profile.product}</p>
               </div>
             </div>
@@ -175,13 +183,13 @@ export default function CompanyDetail(props: {
 
           {/* metrics */}
           <div>
-            <p className="text-[10px] uppercase font-bold text-muted-foreground mb-1.5">The numbers</p>
+            <p className="text-[10px] uppercase font-bold text-muted-foreground mb-1.5">{t("bankDeals.company.theNumbers")}</p>
             <MetricsGrid p={profile} />
           </div>
 
           {/* team */}
           <div>
-            <p className="text-[10px] uppercase font-bold text-muted-foreground mb-1.5">The team</p>
+            <p className="text-[10px] uppercase font-bold text-muted-foreground mb-1.5">{t("bankDeals.company.theTeam")}</p>
             <div className="space-y-1.5">
               {profile.team.map((m, i) => (
                 <div key={i} className="flex items-center gap-2.5 rounded-lg border border-border/50 px-2.5 py-1.5">
@@ -200,7 +208,7 @@ export default function CompanyDetail(props: {
           {/* risks */}
           <div>
             <p className="text-[10px] uppercase font-bold text-muted-foreground mb-1.5 flex items-center gap-1">
-              <AlertTriangle className="h-3 w-3" /> Watch out for
+              <AlertTriangle className="h-3 w-3" /> {t("bankDeals.watchOutFor")}
             </p>
             <ul className="space-y-1">
               {profile.risks.map((rk, i) => (
@@ -213,25 +221,25 @@ export default function CompanyDetail(props: {
           {mode === "invest" && (
             <div className="pt-1 border-t border-border/50 space-y-2.5">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-muted-foreground">Round: <b className="text-foreground">{option!.ask.toLocaleString()} coins</b> for {option!.ownership}%</span>
-                <span className="text-muted-foreground">Values it at {option!.entryValuation.toLocaleString()}</span>
+                <span className="text-muted-foreground"><Trans i18nKey="bankDeals.company.roundLine" values={{ amount: option!.ask.toLocaleString(), ownership: option!.ownership }} components={{ b: <b className="text-foreground" /> }} /></span>
+                <span className="text-muted-foreground">{t("bankDeals.company.valuesItAt", { amount: option!.entryValuation.toLocaleString() })}</span>
               </div>
 
               {!held && (
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
                     <label className="text-[11px] font-bold text-foreground/90 flex items-center gap-1">
-                      <PenLine className="h-3.5 w-3.5" style={{ color: accent }} /> Your investment thesis
+                      <PenLine className="h-3.5 w-3.5" style={{ color: accent }} /> {t("bankDeals.company.yourThesis")}
                     </label>
                     <span className={cn("text-[10px] font-bold tabular-nums", thesisOk ? "text-primary" : "text-muted-foreground")}>
-                      {thesisWords}/{VC_THESIS_MIN_WORDS} words {thesisOk && "✓"}
+                      {t("bankDeals.wordsCount", { count: thesisWords, min: VC_THESIS_MIN_WORDS })} {thesisOk && "✓"}
                     </span>
                   </div>
                   <Textarea
                     rows={3}
                     value={thesis}
                     onChange={e => setThesis(e.target.value)}
-                    placeholder={`Why are you backing ${name}? What in the team, traction, or market convinced you - and what would have to go right?`}
+                    placeholder={t("bankDeals.company.thesisPlaceholder", { name })}
                     className={cn("text-xs leading-relaxed", thesisOk && "border-primary/50")}
                   />
                 </div>
@@ -243,10 +251,10 @@ export default function CompanyDetail(props: {
                 onClick={() => onInvest?.(option!, thesis.trim())}
               >
                 <Coins className="h-4 w-4" />
-                {held ? "Already invested ✓" : !afford ? "Not enough coins" : thesisOk ? `Invest ${option!.ask.toLocaleString()} coins` : `Write your thesis first (${VC_THESIS_MIN_WORDS - thesisWords} more words)`}
+                {held ? t("bankDeals.company.alreadyInvested") : !afford ? t("bankDeals.company.notEnoughCoins") : thesisOk ? t("bankDeals.company.investCoins", { amount: option!.ask.toLocaleString() }) : t("bankDeals.writeThesisFirstWords", { count: VC_THESIS_MIN_WORDS - thesisWords })}
               </Button>
               <p className="text-[10px] text-muted-foreground text-center">
-                Real VCs write a thesis before wiring a cent. Yours is filed in your work file.
+                {t("bankDeals.company.thesisNote")}
               </p>
             </div>
           )}
@@ -255,15 +263,15 @@ export default function CompanyDetail(props: {
           {mode === "holding" && holding && (
             <>
               <div className="pt-1 border-t border-border/50 grid grid-cols-3 gap-2 text-center">
-                <div><p className="text-[10px] text-muted-foreground uppercase font-bold">Invested</p><p className="text-sm font-extrabold">{holding.invested.toLocaleString()}</p></div>
-                <div><p className="text-[10px] text-muted-foreground uppercase font-bold">Now worth</p><p className="text-sm font-extrabold" style={{ color: value >= holding.invested ? "#10b981" : "#ef4444" }}>{value.toLocaleString()}</p></div>
-                <div><p className="text-[10px] text-muted-foreground uppercase font-bold">Your stake</p><p className="text-sm font-extrabold">{holding.ownership}%</p></div>
+                <div><p className="text-[10px] text-muted-foreground uppercase font-bold">{t("bankDeals.company.invested")}</p><p className="text-sm font-extrabold">{holding.invested.toLocaleString()}</p></div>
+                <div><p className="text-[10px] text-muted-foreground uppercase font-bold">{t("bankDeals.company.nowWorth")}</p><p className="text-sm font-extrabold" style={{ color: value >= holding.invested ? "#10b981" : "#ef4444" }}>{value.toLocaleString()}</p></div>
+                <div><p className="text-[10px] text-muted-foreground uppercase font-bold">{t("bankDeals.company.yourStake")}</p><p className="text-sm font-extrabold">{holding.ownership}%</p></div>
               </div>
 
               {holding.thesis && (
                 <div className="rounded-lg bg-muted/40 px-3 py-2">
                   <p className="text-[10px] uppercase font-bold text-muted-foreground mb-0.5 flex items-center gap-1">
-                    <Quote className="h-3 w-3" /> Your thesis
+                    <Quote className="h-3 w-3" /> {t("bankDeals.company.yourThesisLabel")}
                   </p>
                   <p className="text-xs text-foreground/85 leading-relaxed italic">{holding.thesis}</p>
                 </div>
@@ -271,17 +279,17 @@ export default function CompanyDetail(props: {
 
               {holding.valuationHistory.length >= 2 && (
                 <div>
-                  <p className="text-[10px] uppercase font-bold text-muted-foreground mb-1.5">Valuation over time</p>
+                  <p className="text-[10px] uppercase font-bold text-muted-foreground mb-1.5">{t("bankDeals.company.valuationOverTime")}</p>
                   <Sparkline history={holding.valuationHistory} accent={accent} />
                 </div>
               )}
 
               {holding.events.length > 0 && (
                 <div>
-                  <p className="text-[10px] uppercase font-bold text-muted-foreground mb-1.5">Company log</p>
+                  <p className="text-[10px] uppercase font-bold text-muted-foreground mb-1.5">{t("bankDeals.company.companyLog")}</p>
                   <div className="space-y-1 max-h-28 overflow-y-auto pr-1">
                     {[...holding.events].reverse().map((e, i) => (
-                      <p key={i} className="text-[11px] text-muted-foreground"><b className="text-foreground/70">Wk {e.week}:</b> {e.text}</p>
+                      <p key={i} className="text-[11px] text-muted-foreground"><b className="text-foreground/70">{t("bankDeals.wk", { week: e.week })}</b> {e.text}</p>
                     ))}
                   </div>
                 </div>
@@ -290,19 +298,19 @@ export default function CompanyDetail(props: {
               {/* catch-up scenario */}
               <div className="rounded-xl border-2 p-3" style={{ borderColor: `${accent}55` }}>
                 <p className="text-[10px] uppercase font-extrabold tracking-wide mb-1.5 flex items-center gap-1" style={{ color: accent }}>
-                  <MessageSquare className="h-3.5 w-3.5" /> Catch up with {founder}
+                  <MessageSquare className="h-3.5 w-3.5" /> {t("bankDeals.company.catchUpWith", { founder })}
                 </p>
 
                 {applied ? (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-1">
                     <p className="text-xs text-foreground/90 leading-relaxed">{applied.outcome}</p>
                     <Badge variant={applied.repDelta >= 0 ? "success" : "destructive"} className="text-[10px]">
-                      Reputation {applied.repDelta >= 0 ? "+" : ""}{applied.repDelta}
+                      {t("bankDeals.reputation", { delta: `${applied.repDelta >= 0 ? "+" : ""}${applied.repDelta}` })}
                     </Badge>
-                    <p className="text-[10px] text-muted-foreground pt-1">Come back next week for the next chapter.</p>
+                    <p className="text-[10px] text-muted-foreground pt-1">{t("bankDeals.company.comeBackNextChapter")}</p>
                   </motion.div>
                 ) : !canCatchUp ? (
-                  <p className="text-xs text-muted-foreground">You already met {founder} this week. Advance a week (finish your weekly deal) to check in again.</p>
+                  <p className="text-xs text-muted-foreground">{t("bankDeals.company.alreadyMet", { founder })}</p>
                 ) : scenario ? (
                   <div className="space-y-2.5">
                     <div>
@@ -330,7 +338,7 @@ export default function CompanyDetail(props: {
                               <span className="font-medium">{ch.text}</span>
                               {isPicked && (
                                 <Badge variant={ch.points === 2 ? "success" : ch.points === 1 ? "warning" : "destructive"} className="shrink-0 text-[9px]">
-                                  {ch.points === 2 ? "Pro" : ch.points === 1 ? "Okay" : "Rookie"}
+                                  {ch.points === 2 ? t("bankDeals.tier.pro") : ch.points === 1 ? t("bankDeals.tier.okay") : t("bankDeals.tier.rookie")}
                                 </Badge>
                               )}
                             </div>
@@ -349,21 +357,21 @@ export default function CompanyDetail(props: {
                       <div className="space-y-1.5">
                         <div className="flex items-center justify-between">
                           <label className="text-[11px] font-bold text-foreground/90 flex items-center gap-1">
-                            <PenLine className="h-3.5 w-3.5" style={{ color: accent }} /> Explain your advice to {founder}
+                            <PenLine className="h-3.5 w-3.5" style={{ color: accent }} /> {t("bankDeals.company.explainAdvice", { founder })}
                           </label>
                           <span className={cn("text-[10px] font-bold tabular-nums", noteOk ? "text-primary" : "text-muted-foreground")}>
-                            {noteWords}/{VC_ADVICE_MIN_WORDS} words {noteOk && "✓"}
+                            {t("bankDeals.wordsCount", { count: noteWords, min: VC_ADVICE_MIN_WORDS })} {noteOk && "✓"}
                           </span>
                         </div>
                         <Textarea
                           rows={3}
                           value={note}
                           onChange={e => setNote(e.target.value)}
-                          placeholder={`Why is this the right call for ${name}? What are you weighing, and what's the risk if you're wrong?`}
+                          placeholder={t("bankDeals.company.advicePlaceholder", { name })}
                           className={cn("text-xs leading-relaxed", noteOk && "border-primary/50")}
                         />
                         <Button size="sm" className="w-full press-scale" disabled={!noteOk} onClick={applyAdvice}>
-                          {noteOk ? "Give this advice" : `Write your reasoning (${VC_ADVICE_MIN_WORDS - noteWords} more words)`}
+                          {noteOk ? t("bankDeals.company.giveAdvice") : t("bankDeals.writeReasoning", { count: VC_ADVICE_MIN_WORDS - noteWords })}
                         </Button>
                       </div>
                     )}
@@ -372,7 +380,7 @@ export default function CompanyDetail(props: {
               </div>
 
               <Button variant="ghost" size="sm" className="w-full gap-1.5 press-scale" onClick={() => onExit?.(holding)}>
-                <LogOut className="h-4 w-4" /> Exit this investment for {value.toLocaleString()} coins
+                <LogOut className="h-4 w-4" /> {t("bankDeals.company.exitInvestment", { amount: value.toLocaleString() })}
               </Button>
             </>
           )}

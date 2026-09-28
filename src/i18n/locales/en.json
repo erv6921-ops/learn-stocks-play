@@ -1090,7 +1090,11 @@
     "tapInOrder": "Tap them in order.",
     "notRightOrder": "Not the right order — {{correct}} of {{total}} correct.",
     "undoLast": "Undo last",
-    "showMe": "Show me"
+    "showMe": "Show me",
+    "askJeff": "Ask Jeff",
+    "askJeffAria": "Ask Jeff, {{cost}} coins per question",
+    "costNote": "Each question costs {{cost}} coins. If Jeff can't answer, you get them back.",
+    "saysHiAria": "Jeff says hi"
   },
   "lessonPlayer": {
     "lessonFallback": "Lesson",
@@ -1455,5 +1459,2489 @@
         "5y": "5Y"
       }
     }
+  },
+  "bank": {
+    "wallet": "Wallet",
+    "vaultLabel": "Vault",
+    "lobbyButton": "Lobby",
+    "floorLabel": "Floor {{num}}",
+    "investiBankFloor": "InvestiBank · Floor {{num}}",
+    "coinsAmount": "{{amount}} coins",
+    "creditRating": {
+      "exceptional": "Exceptional",
+      "veryGood": "Very good",
+      "good": "Good",
+      "fair": "Fair",
+      "poor": "Poor"
+    },
+    "creditTier": {
+      "excellent": "Excellent",
+      "great": "Great",
+      "good": "Good",
+      "fair": "Fair",
+      "needsWork": "Needs work"
+    },
+    "floors": {
+      "vault": {
+        "name": "The Vault",
+        "desc": "Savings & interest",
+        "blurb": "Park your coins and let compound interest do the heavy lifting."
+      },
+      "lending": {
+        "name": "Lending Desk",
+        "desc": "Loans & credit",
+        "blurb": "Borrow against your credit score - and build it by paying on time."
+      },
+      "bonds": {
+        "name": "Bond Market",
+        "desc": "Fixed income",
+        "blurb": "Lend your money out for a fixed term and collect the interest at maturity."
+      },
+      "careers": {
+        "name": "Executive Floor",
+        "desc": "Your career",
+        "blurb": "Work a real finance job, week after week."
+      }
+    },
+    "vault": {
+      "yourBalance": "Your balance",
+      "lockedBehindSteel": "coins, locked behind 3 feet of steel",
+      "perDayCompounding": "{{rate}}% / day, compounding",
+      "tomorrow": "+{{amount}} tomorrow",
+      "ifYouLeaveItAlone": "If you leave it alone…",
+      "days_one": "{{count}} day",
+      "days_other": "{{count}} days",
+      "lifetimeInterest": "Lifetime interest earned: {{amount}} coins",
+      "interestEarningInterest": "Compound interest: interest earning interest.",
+      "depositToSeeMagic": "Deposit some coins to see compounding do its magic.",
+      "tellerWindow": "Teller window",
+      "walletLabel": "Wallet:",
+      "halfWallet": "Half wallet",
+      "wholeVault": "Whole vault",
+      "amountPlaceholder": "Amount of coins…",
+      "deposit": "Deposit",
+      "withdraw": "Withdraw",
+      "howSavingsWorkTitle": "How savings work:",
+      "howSavingsWorkBody": "money in the vault earns compound interest - interest on your interest. Banks pay you to keep money with them because they lend it out to others. Come back each day and watch it grow.",
+      "notEnoughCoins": "Not enough coins",
+      "depositTooMuch": "You can't deposit more than you have in your wallet.",
+      "depositedToast": "Deposited {{amount}} coins 🏦",
+      "depositedDesc": "Your vault earns {{rate}}% compound interest every day.",
+      "notEnoughInVault": "Not enough in the vault",
+      "withdrawTooMuch": "You can't withdraw more than your vault balance.",
+      "withdrewToast": "Withdrew {{amount}} coins"
+    },
+    "loans": {
+      "howScoreMoves": "How your score moves",
+      "repayOnTime": "Repay a loan on time",
+      "missDueDate": "Miss a due date",
+      "loansRepaidSoFar": "Loans repaid so far",
+      "higherScoresUnlock": "Higher scores unlock bigger loans - 620+ for the Builder, 720+ for the Big Dream.",
+      "howCreditWorksTitle": "How credit works:",
+      "howCreditWorksBody": "your credit score is your money reputation. Borrow only what you can pay back, repay on time, and banks will trust you with bigger loans at better rates - in this game and in real life.",
+      "yourActiveLoans": "Your active loans",
+      "oweCoins": "Owe <b>{{amount}}</b> coins",
+      "overdue": "OVERDUE - credit hit!",
+      "dueIn_one": "due in {{count}} day",
+      "dueIn_other": "due in {{count}} days",
+      "repayAmount": "Repay {{amount}}",
+      "availableLoans": "Available loans",
+      "termDays_one": "{{count}} day",
+      "termDays_other": "{{count}} days",
+      "needsCreditScore": "Needs {{score}}+ credit score",
+      "active": "Active",
+      "maxLoans": "Max loans",
+      "borrow": "Borrow",
+      "borrowedToast": "Borrowed {{amount}} coins 💸",
+      "borrowedDesc": "Repay {{total}} within {{days}} days to boost your credit score.",
+      "notEnoughCoins": "Not enough coins",
+      "needCoinsToRepay": "You need {{amount}} coins to repay this loan.",
+      "repaidOnTimeToast": "Loan repaid on time! 🎉",
+      "repaidToast": "Loan repaid",
+      "repaidOnTimeDesc": "Credit score +25. Banks love reliable borrowers.",
+      "repaidLateDesc": "Repaid late - debt cleared, but no credit boost this time."
+    },
+    "bonds": {
+      "yourCertificates": "Your certificates",
+      "bondSerial": "InvestiBank Bond · Nº {{serial}}",
+      "matured": "Matured",
+      "investedToPayout": "{{invested}} → <b>{{payout}}</b> coins",
+      "collect": "Collect!",
+      "daysLeft": "{{days}}d left",
+      "noCertificates": "No certificates yet",
+      "noCertificatesHint": "Buy a bond from the market and your certificates will live here, each with a countdown to payday.",
+      "howBondsWorkTitle": "How bonds work:",
+      "howBondsWorkBody": "a bond is a loan <em>you</em> give to a government or company, and they pay you interest for it. Safer issuers pay less; riskier issuers pay more - but the higher the yield, the bigger the <em>default</em> chance that they can't repay and you lose what you put in. Your money stays locked until it matures.",
+      "todaysMarket": "Today's market",
+      "couponInDays": "+{{rate}}% in {{days}}d",
+      "riskLabel": "{{risk}} risk",
+      "pctDefault": "{{pct}}% default",
+      "pctPaysOut": "{{pct}}% pays out",
+      "minCoinsPlaceholder": "Min {{amount}} coins",
+      "buyBond": "Buy bond",
+      "minimumIs": "Minimum is {{amount}} coins",
+      "notEnoughCoins": "Not enough coins",
+      "boughtToast": "Bought a {{name}}! 📜",
+      "boughtDesc": "In {{days}} days you'll collect {{payout}} coins (+{{profit}} profit).",
+      "defaultedToast": "Bond defaulted 💥",
+      "defaultedDesc": "{{issuer}} couldn't repay - you lost your {{amount}} coins. That's the risk of chasing higher yields.",
+      "theIssuer": "The issuer",
+      "collectedToast": "Collected {{amount}} coins! 💰",
+      "collectedDesc": "That's {{amount}} coins of pure interest."
+    },
+    "lobby": {
+      "mainLobby": "Main lobby · est. 2026",
+      "welcome": "Welcome to Investi<accent>Bank</accent>",
+      "savingsEarnedToast": "Your savings earned {{amount}} coins of interest! ✨",
+      "savingsEarnedDesc": "That's compound interest working while you were away.",
+      "loanOverdueToast": "A loan went overdue 😬",
+      "loanOverdueDesc": "Your credit score dropped 50 points. Repay it to clear the debt, then pay on time to rebuild.",
+      "stat": {
+        "coinsGrowing": "{{amount}} coins growing",
+        "startSaving": "Start saving today",
+        "loanOverdue": "A loan is overdue!",
+        "activeLoans_one": "{{count}} active loan",
+        "activeLoans_other": "{{count}} active loans",
+        "creditScore": "Credit score {{score}}",
+        "bondsReady_one": "{{count}} bond ready to collect!",
+        "bondsReady_other": "{{count}} bonds ready to collect!",
+        "certificatesMaturing_one": "{{count}} certificate maturing",
+        "certificatesMaturing_other": "{{count}} certificates maturing",
+        "bondsOnMarket": "3 bonds on the market",
+        "getHired": "Get hired today",
+        "careerWeek": "{{name}} · week {{week}}"
+      },
+      "stats": {
+        "inVault": "In the vault",
+        "growingPerDay": "Growing {{rate}}%/day",
+        "compounded": "Compounded",
+        "interestEarned": "Interest earned",
+        "creditScore": "Credit score",
+        "inBonds": "In bonds",
+        "earnedWorking": "Earned working",
+        "workingForYou": "Working for you",
+        "fromFinanceJobs": "From finance jobs"
+      },
+      "banker": {
+        "overdue": "Heads up{{name}} - a loan's gone overdue. Clear it and we'll rebuild that credit together.",
+        "matured_one": "{{count}} bond just matured{{name}} - let's collect your payday! 💰",
+        "matured_other": "{{count}} bonds just matured{{name}} - let's collect your payday! 💰",
+        "interest": "Your vault's earned {{amount}} coins in interest while you were away{{name}}. Compound interest never sleeps. ✨",
+        "default": "Let's put your {{amount}} coins to work{{name}}. Where to first?"
+      }
+    },
+    "careers": {
+      "chooseCareer": "Choose your career",
+      "chooseCareerBlurb": "Take a real job in finance. Work deals week after week, write real memos, earn a salary, and climb six ranks to the top. Switch anytime - every career remembers your progress.",
+      "ranksWeekly": "6 ranks · weekly {{noun}}",
+      "weekRepContinue": "Week {{week}} · {{xp}} Rep - continue",
+      "startThisCareer": "Start this career",
+      "grade": {
+        "outstanding": "Outstanding",
+        "strongWork": "Strong work",
+        "gettingThere": "Getting there",
+        "roughOne": "Rough one"
+      },
+      "stub": {
+        "payrollDept": "InvestiBank · Payroll Dept.",
+        "promotionsBoard": "InvestiBank · Promotions Board",
+        "pts": "{{points}}/{{max}} pts",
+        "week": "Week {{week}}",
+        "memoFiled": "memo filed 📁",
+        "baseSalary": "Base salary",
+        "performanceBonus": "Performance bonus",
+        "writingStipend": "Writing stipend",
+        "totalPaid": "Total paid",
+        "repEarned": "Rep earned",
+        "caseFee": "Case fee",
+        "noNewPay": "No new pay - beat your best ({{best}}/{{max}}) to earn more.",
+        "paid": "Paid",
+        "closed": "Closed",
+        "startNextWeek": "Start next week",
+        "backToDesk": "Back to your desk"
+      },
+      "finalStep": "Final step · the write-up",
+      "repPlusCoins": "+{{rep}} Rep · +{{coins}} 🪙",
+      "yourMemo": "Your {{title}}",
+      "wordCount": "{{words}}/{{min}} words",
+      "memoPlaceholder": "Think about the choices you just made in \"{{title}}\" - what did you decide, and why was it right (or wrong)?",
+      "fileCloseWeek": "File it & close out the week",
+      "fileCloseCase": "File it & close the case",
+      "moreWords_one": "{{count}} more word…",
+      "moreWords_other": "{{count}} more words…",
+      "yourDesk": "Your desk",
+      "stageProgress": "Stage {{current}} / {{total}} · then the write-up",
+      "theWriteUp": "The write-up",
+      "proMove": "Pro move",
+      "okay": "Okay",
+      "rookie": "Rookie",
+      "onToWriteUp": "On to the write-up",
+      "next": "Next",
+      "reputation": "Reputation {{value}}",
+      "officeMoment": "Office moment",
+      "yourWorkFile": "Your work file",
+      "workFileEmpty": "Every {{memoType}} you write gets filed here - your body of work on the {{career}} desk.",
+      "wk": "Wk {{week}}",
+      "floor04": "Floor 04 · {{name}}",
+      "weekLabel": "Week",
+      "repLabel": "Rep",
+      "salaryLabel": "Salary",
+      "perWeek": "{{amount}}/wk",
+      "switch": "Switch",
+      "closeCaseToBecome": "Close your promotion case to become {{title}}!",
+      "repToRank": "{{rep}} Rep to {{title}}",
+      "topOfLadder": "Top of the ladder 🏆",
+      "promotionCaseReady": "Promotion case - ready now!",
+      "promotionCaseComing": "Promotion case - coming up",
+      "takeTheCase": "Take the case",
+      "repAway": "{{rep}} Rep away",
+      "thisWeekOnDesk": "This week on your desk",
+      "salaryPlusBonus": "{{salary}} salary + up to {{bonus}} bonus",
+      "forTheWriteUp": "+{{amount}} for the write-up",
+      "upToRep": "up to {{rep}} Rep",
+      "workIt": "Work it",
+      "weeksWorked": "Weeks worked",
+      "careerEarnings": "Career earnings",
+      "dealsClosed": "{{noun}}s closed",
+      "theLadder": "The ladder",
+      "you": "You",
+      "repPlusCase": "{{rep}} Rep + case",
+      "repRequirement": "{{rep}} Rep"
+    }
+  },
+  "bankCareers": {
+    "pe": {
+      "fundName": "Buyout Fund I",
+      "companiesOwned_one": "{{count}} company owned",
+      "companiesOwned_other": "{{count}} companies owned",
+      "heroTagline": "Buy it with debt · fix it · sell it for more",
+      "fundMoic": "fund MOIC",
+      "yourEquity": "Your equity",
+      "debtLeverage": "Debt (leverage)",
+      "equityIn": "Equity in {{amount}}",
+      "debt": "Debt {{amount}}",
+      "worth": "Worth {{amount}}",
+      "tabs": {
+        "portfolio": "Portfolio",
+        "forSale": "For sale"
+      },
+      "empty": {
+        "title": "You don't own any companies yet",
+        "body": "Open the <b>For sale</b> tab to study businesses, structure the debt, and buy your first one. Then improve it week by week and sell for a profit.",
+        "cta": "Browse the market"
+      },
+      "needsYou": "Needs you",
+      "owned": "Owned",
+      "price": "price",
+      "profitAmount": "{{amount}} profit",
+      "debtAmount": "{{amount}} debt",
+      "portfolioTip": "Tap a company to run its playbook. Grow profit, pay down debt, then exit when the MOIC looks great.",
+      "balanceLine": "You have <b>{{balance}}</b> coins · new businesses list each week",
+      "marketTip": "Tap a business to study it and structure your offer. A cheap, fixable company beats a perfect, pricey one.",
+      "status": {
+        "thriving": "Thriving",
+        "steady": "Steady",
+        "distressed": "Distressed"
+      },
+      "flash": {
+        "needEquity": "You need {{amount}} coins of equity to buy {{name}} - you have {{balance}}.",
+        "bought": "You bought {{name}} for {{equity}} coins of equity plus {{debt}} of debt. Now go make it better.",
+        "exitWin": "Exited {{name}} for {{payout}} coins - a {{mult}}× on your equity! 🎉",
+        "exitLoss": "Exited {{name}} for {{payout}} coins ({{mult}}×). Leverage cuts both ways - a hard lesson learned."
+      },
+      "memo": {
+        "buyTitle": "Buyout thesis · {{name}}",
+        "buyPrompt": "Why did you buy {{name}}, and how will you make money on it?",
+        "updateTitle": "Investor update · {{name}}: {{headline}}"
+      }
+    },
+    "venture": {
+      "fundName": "Seed Fund I",
+      "startupsBacked_one": "{{count}} startup backed",
+      "startupsBacked_other": "{{count}} startups backed",
+      "heroTagline": "One 100× winner pays for all the losers",
+      "portfolioLabel": "portfolio",
+      "deployed": "Deployed {{amount}}",
+      "winners_one": "{{count}} winner (2×+)",
+      "winners_other": "{{count}} winners (2×+)",
+      "worth": "Worth {{amount}}",
+      "tabs": {
+        "portfolio": "Portfolio",
+        "invest": "Invest"
+      },
+      "empty": {
+        "title": "Your portfolio is empty",
+        "body": "Open the <b>Invest</b> tab to study startups and back your first one. Then meet each founder weekly to help them grow.",
+        "cta": "Browse startups"
+      },
+      "needsYou": "Needs you",
+      "held": "Held",
+      "months": "{{count}}mo",
+      "portfolioTip": "Tap a company to see its full page and meet the founder. Good advice compounds winners; nothing saves a broken bet.",
+      "balanceLine": "You have <b>{{balance}}</b> coins · new startups each week",
+      "investTip": "Tap a startup to study its team, mission and numbers before you invest. Read the signal, not the hype.",
+      "status": {
+        "growing": "Growing",
+        "steady": "Steady",
+        "struggling": "Struggling"
+      },
+      "flash": {
+        "needCoins": "You need {{amount}} coins to back {{name}} - you have {{balance}}.",
+        "backed": "You backed {{name}} for {{amount}} coins ({{ownership}}% stake). Thesis filed.",
+        "exitWin": "Exited {{name}} for {{payout}} coins - a {{mult}}× return! 🎉",
+        "exitLoss": "Exited {{name}} for {{payout}} coins, taking a loss. Cutting losers is part of the job."
+      },
+      "memo": {
+        "investTitle": "Investment thesis · {{name}}",
+        "investPrompt": "Why did you back {{name}}?",
+        "adviceTitle": "Advice · {{name}}: {{headline}}"
+      }
+    },
+    "wealth": {
+      "officeName": "Private Wealth Office",
+      "households_one": "{{count}} household",
+      "households_other": "{{count}} households",
+      "aum": "AUM",
+      "trust": "trust",
+      "needsReview_one": "{{count}} client needs a review this week",
+      "needsReview_other": "{{count}} clients need a review this week",
+      "ticker": {
+        "stocks": "STOCKS",
+        "bonds": "BONDS",
+        "cash": "CASH"
+      },
+      "tabs": {
+        "book": "Book",
+        "prospects": "Prospects"
+      },
+      "empty": {
+        "title": "Your book is empty",
+        "body": "Open the <b>Prospects</b> tab to meet people looking for an advisor. Build each a suitable plan, sign them, and earn fees as their money grows.",
+        "cta": "Meet prospects"
+      },
+      "needsYou": "Needs you",
+      "client": "Client",
+      "yearGoal": "{{count}}y goal",
+      "years": "{{count}}y",
+      "toManage": "to manage",
+      "bookTip": "Tap a client to run their review. Keep them calm and suited, and their money - and your fee - grows.",
+      "marketThisWeek": "Market this week: <b>{{label}}</b> · {{note}} New prospects each week.",
+      "prospectsTip": "Tap a prospect to learn their goals and build a mix that fits. The right plan wins the client.",
+      "status": {
+        "happy": "Happy",
+        "content": "Content",
+        "worried": "Worried"
+      },
+      "flash": {
+        "signed": "{{name}} signed on with {{amount}} coins to manage. {{fit}}",
+        "fitGreat": "A great fit - they feel understood.",
+        "fitOk": "A workable start.",
+        "fitUnsure": "They're a little unsure about the mix."
+      },
+      "memo": {
+        "planTitle": "Client plan · {{name}}",
+        "planPrompt": "Why does this mix fit {{name}}?",
+        "letterTitle": "Client letter · {{name}}: {{headline}}"
+      }
+    },
+    "pipeline": {
+      "deskName": "Advisory Desk",
+      "liveDeals_one": "{{count}} live deal",
+      "liveDeals_other": "{{count}} live deals",
+      "heroTagline": "Win the mandate · execute · collect the fee",
+      "league": "league",
+      "leagueTable": "League table · fees this season",
+      "kpi": {
+        "pipeline": "Pipeline",
+        "feesYtd": "Fees YTD",
+        "mandates": "Mandates"
+      },
+      "tabs": {
+        "pipeline": "Pipeline",
+        "mandates": "Mandates"
+      },
+      "empty": {
+        "title": "No live deals yet",
+        "body": "Open the <b>Mandates</b> tab to pitch for a deal. Win it, then execute each stage to close and collect your success fee.",
+        "cta": "See mandates"
+      },
+      "needsYou": "Needs you",
+      "won": "Won",
+      "size": "size",
+      "dealSize": "deal size",
+      "rivals": "{{count}} rivals",
+      "pipelineTip": "Tap a deal to work its current stage. Keep the health up - two rookie calls in a row can break a deal.",
+      "pipelineValueLine": "Pipeline value <b>{{value}}</b> · new mandates each week",
+      "mandatesTip": "Tap a mandate to pitch for it. You advise for a fee - credibility wins the job, not the biggest promise.",
+      "flash": {
+        "wonMandate": "You won the mandate on {{project}} for {{client}}! Now execute it stage by stage to earn the fee.",
+        "closed": "{{project}} closed! You banked a {{fee}}-coin success fee. 🎉",
+        "broke": "{{project}} fell apart. No fee this time - execution risk is real."
+      },
+      "memo": {
+        "pitchTitle": "Pitch won · {{project}} ({{client}})",
+        "pitchPrompt": "Why should the client hire you?",
+        "dealTitle": "Deal memo · {{project}}: {{headline}}"
+      }
+    },
+    "dealRoom": {
+      "rating": {
+        "pro": "Pro",
+        "okay": "Okay",
+        "rookie": "Rookie"
+      },
+      "onTheTable": "on the table",
+      "yourMove": "Your move · round {{round}} of {{total}}",
+      "replies": "{{name}} replies",
+      "shakeOnIt": "Shake on it",
+      "nextRound": "Next round",
+      "terms": {
+        "title": "Deal terms",
+        "company": "Company",
+        "entryProfit": "Entry profit",
+        "purchaseMultiple": "Purchase multiple",
+        "purchasePrice": "Purchase price",
+        "debtLeverage": "Debt (leverage)",
+        "equityCheck": "Your equity check",
+        "bankerRapport": "Banker rapport",
+        "atExit": "At exit",
+        "exitProfit": "Exit profit",
+        "exitMultiple": "Exit multiple",
+        "equityValue": "Equity value"
+      },
+      "library": {
+        "title": "Case-study library",
+        "short": "Library",
+        "closed": "{{done}}/{{total}} closed",
+        "intro": "Nine real deals, each a different PE playbook. Pick one and run it end to end: emails, negotiations, and all."
+      },
+      "complete": {
+        "title": "Deal complete",
+        "body": "Back to the library for the next case study."
+      },
+      "backToLibrary": "Back to the library",
+      "from": "From {{name}}",
+      "confidential": "Confidential",
+      "whyAttractive": "Why it's attractive",
+      "watchOutFor": "Watch out for",
+      "continue": "Continue",
+      "pick": "pick {{count}}",
+      "meetingSummary": {
+        "all": "You spent every question on what actually matters - they can tell you get it.",
+        "some": "You surfaced {{count}} of the real risks. A couple of questions were charm, not diligence.",
+        "none": "Friendly chat - but you didn't probe the risks that decide this deal."
+      },
+      "headBack": "Head back to the office",
+      "negotiation": "Negotiation",
+      "restartConfirm": "Restart this deal from the beginning?",
+      "restartDeal": "Restart deal",
+      "grade": {
+        "homeRun": "Home run",
+        "strongWin": "Strong win",
+        "solid": "Solid",
+        "moneyBack": "Money back",
+        "loss": "A loss"
+      },
+      "scorecard": {
+        "grade": "Grade",
+        "summary": "Bought at {{entryMult}} for {{equity}} of equity · sold at {{exitMult}} · profit grew {{entryProfit}} → {{exitProfit}}.",
+        "price": "Price",
+        "debt": "Debt",
+        "yourEquity": "Your equity"
+      },
+      "associateBonus": "Associate bonus: +{{amount}} coins",
+      "carriedInterest": "Your carried interest: +{{amount}} coins",
+      "newDeal": "New deal",
+      "onTo100Day": "On to the 100-day plan",
+      "memo": {
+        "negPrompt": "What was your negotiating approach?",
+        "negText": "Agreed {{amount}} with {{name}}."
+      }
+    }
+  },
+  "bankDeals": {
+    "week": "Week {{n}}",
+    "wk": "Wk {{week}}:",
+    "wkShort": "Wk {{week}}",
+    "dealLog": "Deal log",
+    "watchOutFor": "Watch out for",
+    "reputation": "Reputation {{delta}}",
+    "wordsCount": "{{count}}/{{min}} words",
+    "writeReasoning": "Write your reasoning ({{count}} more words)",
+    "writeThesisFirstWords": "Write your thesis first ({{count}} more words)",
+    "tier": {
+      "pro": "Pro",
+      "okay": "Okay",
+      "rookie": "Rookie"
+    },
+    "buyout": {
+      "backToMarket": "Back to the market",
+      "backToFund": "Back to your fund",
+      "signal": {
+        "strong": "Strong",
+        "fair": "Fair",
+        "risky": "Risky"
+      },
+      "status": {
+        "thriving": "Thriving",
+        "steady": "Steady",
+        "distressed": "Distressed"
+      },
+      "ownerWantsRetire": "Owner: {{owner}} · wants to retire",
+      "ownedSince": "You own 100% · bought week {{week}}",
+      "theBusiness": "The business",
+      "itProduct": "It {{product}}.",
+      "theNumbers": "The numbers",
+      "profitPerYr": "Profit/yr",
+      "salesPerYr": "Sales/yr",
+      "margin": "Margin",
+      "staff": "Staff",
+      "growth": "Growth",
+      "price": "Price",
+      "valueNow": "Value now",
+      "pricedAt": "Priced at {{multiple}}× profit ({{ebitda}} × {{multiple}} = {{price}} coins).",
+      "theOpportunity": "The opportunity",
+      "flawLine": "Right now, {{flaw}}. Fix that and the profit grows - that's your value-creation plan.",
+      "structureTitle": "Structure the buyout",
+      "structureBlurb": "Choose how much to borrow. More debt means a smaller check from you (bigger MOIC if it works) - but the loan must be paid whether the business has a good year or not.",
+      "debtMultiple": "{{multiple}}× debt",
+      "debtLabel": "Debt:",
+      "yourCheck": "Your check: {{amount}}",
+      "yourThesis": "Your investment thesis",
+      "thesisPlaceholder": "Why buy {{name}}? What's the flaw you'll fix, how will you grow the profit, and how will you exit?",
+      "alreadyOwned": "Already owned ✓",
+      "needCoins": "Need {{amount}} coins",
+      "buyForEquity": "Buy for {{amount}} coins (equity)",
+      "writeThesisFirst": "Write your thesis first ({{count}} more)",
+      "equityCheckNote": "You pay the equity check; the {{debt}}-coin loan rides on the company. Pay it down and it becomes your gain.",
+      "capitalStack": "Your capital stack",
+      "equityIn": "Equity in",
+      "debtLeft": "Debt left",
+      "equityWorth": "Equity worth",
+      "capitalStackNote": "Business value {{ev}} ({{ebitda}} profit × {{multiple}}×) − {{debt}} debt = {{eq}} equity. Interest ~{{interest}}/yr.",
+      "boltOns_one": "{{count}} bolt-on",
+      "boltOns_other": "{{count}} bolt-ons",
+      "yourThesisLabel": "Your thesis",
+      "profitOverTime": "Profit over time",
+      "runPlaybook": "Run the playbook",
+      "playbookDone": "Come back next week for the next move - or exit below when the return looks great.",
+      "alreadyWorked": "You already worked {{name}} this week. Finish your weekly deal (advance a week) to run the next play.",
+      "noteInvestorUpdate": "Note it in your investor update",
+      "notePlaceholder": "Explain the move to your investors: what you did to {{name}} and why it grows the value.",
+      "makeTheMove": "Make the move",
+      "chooseExit": "Choose your exit",
+      "exitBlurb": "Your equity stake is worth ~{{amount}} coins today. Each buyer values it a little differently.",
+      "notYet": "Not yet - keep building",
+      "exploreExits": "Explore exits (worth ~{{amount}} coins)"
+    },
+    "client": {
+      "backToProspects": "Back to prospects",
+      "backToBook": "Back to your book",
+      "risk": {
+        "cautious": "Cautious",
+        "balanced": "Balanced",
+        "bold": "Bold"
+      },
+      "status": {
+        "happy": "Happy",
+        "content": "Content",
+        "worried": "Worried"
+      },
+      "stocks": "Stocks",
+      "bonds": "Bonds",
+      "cash": "Cash",
+      "underMgmt": "under mgmt",
+      "theGoal": "The goal",
+      "wantsTo": "Wants to {{label}}",
+      "yearsAway_one": "about {{count}} year away",
+      "yearsAway_other": "about {{count}} years away",
+      "temperament": "Temperament",
+      "riskInvestor": "{{risk}} investor.",
+      "bringsToManage": "Brings <b>{{amount}}</b> coins to manage",
+      "feeNote": "Fee ≈ 1%/yr of what you grow",
+      "chooseMix": "Choose their mix",
+      "suitability": "Suitability",
+      "greatFit": "Great fit",
+      "workable": "Workable",
+      "poorFit": "Poor fit",
+      "yourPlanFor": "Your plan for {{name}}",
+      "planPlaceholder": "Explain to {{name}} why this mix fits their {{years}}-year goal and their nerves - in plain words they'd understand.",
+      "alreadyClient": "Already a client ✓",
+      "signWithMix": "Sign {{name}} with the {{mix}} mix",
+      "writePlanFirst": "Write their plan first ({{count}} more words)",
+      "signingFree": "Signing is free - you earn by growing and keeping their trust, review after review.",
+      "return": "Return",
+      "trust": "Trust",
+      "since": "Since",
+      "theirMix": "Their mix",
+      "yourPlan": "Your plan",
+      "assetsOverTime": "Assets over time",
+      "clientLog": "Client log",
+      "thisWeeksReview": "This week's review",
+      "stocksLabel": "stocks",
+      "feePayout": "Fee +{{amount}}",
+      "checkBackNextWeek": "Check back next week - the market never stops moving.",
+      "alreadyReviewed": "You already reviewed {{name}} this week. Finish your weekly deal (advance a week) for the next review.",
+      "noteClientLetter": "Note it in your client letter",
+      "notePlaceholder": "Write what you told {{name}} and why it protects their goal.",
+      "giveAdviceBillFee": "Give this advice & bill the fee"
+    },
+    "company": {
+      "backToDeals": "Back to deals",
+      "backToPortfolio": "Back to portfolio",
+      "signal": {
+        "strong": "Strong signal",
+        "mixed": "Mixed signal",
+        "weak": "Weak signal"
+      },
+      "ledBy": "Led by {{founder}}",
+      "yourReturn": "your return",
+      "theGoal": "The goal",
+      "whatTheyDo": "What they do",
+      "theNumbers": "The numbers",
+      "theTeam": "The team",
+      "users": "Users",
+      "growthPerMo": "Growth/mo",
+      "revenuePerMo": "Revenue/mo",
+      "runway": "Runway",
+      "months": "{{count}} mo",
+      "valuation": "Valuation",
+      "stage": "Stage",
+      "roundLine": "Round: <b>{{amount}} coins</b> for {{ownership}}%",
+      "valuesItAt": "Values it at {{amount}}",
+      "yourThesis": "Your investment thesis",
+      "thesisPlaceholder": "Why are you backing {{name}}? What in the team, traction, or market convinced you - and what would have to go right?",
+      "alreadyInvested": "Already invested ✓",
+      "notEnoughCoins": "Not enough coins",
+      "investCoins": "Invest {{amount}} coins",
+      "thesisNote": "Real VCs write a thesis before wiring a cent. Yours is filed in your work file.",
+      "invested": "Invested",
+      "nowWorth": "Now worth",
+      "yourStake": "Your stake",
+      "yourThesisLabel": "Your thesis",
+      "valuationOverTime": "Valuation over time",
+      "companyLog": "Company log",
+      "catchUpWith": "Catch up with {{founder}}",
+      "comeBackNextChapter": "Come back next week for the next chapter.",
+      "alreadyMet": "You already met {{founder}} this week. Advance a week (finish your weekly deal) to check in again.",
+      "explainAdvice": "Explain your advice to {{founder}}",
+      "advicePlaceholder": "Why is this the right call for {{name}}? What are you weighing, and what's the risk if you're wrong?",
+      "giveAdvice": "Give this advice",
+      "exitInvestment": "Exit this investment for {{amount}} coins"
+    },
+    "deal": {
+      "backToMandates": "Back to mandates",
+      "backToPipeline": "Back to pipeline",
+      "clientLine": "Client: {{client}} · {{sector}}",
+      "dealSize": "deal size",
+      "potentialFee": "Potential fee",
+      "feeOfValue": "{{pct}}% of {{value}}, if executed well",
+      "competingBanks": "Competing banks",
+      "winMandate": "Win the mandate",
+      "lostPitch": "You lost this pitch to {{rival}}.",
+      "lostPitchNote": "Mandates go to the most credible bank in the room. Try a different mandate this week.",
+      "backToMandatesBtn": "Back to mandates",
+      "pitchToBoard": "Your pitch to the board",
+      "pitchPlaceholder": "Make your case to {{client}}'s board: why you, and how you'll run this {{dealType}} deal.",
+      "winAndKickOff": "Win it & kick off (health {{health}})",
+      "writePitchFirst": "Write your pitch first ({{count}} more words)",
+      "advisorNote": "Bankers advise for a fee - you never buy the company. Win the job, then execute it stage by stage.",
+      "stage": "Stage",
+      "health": "Health",
+      "value": "Value",
+      "feePayout": "Fee +{{amount}}",
+      "backToPipelineBtn": "Back to pipeline",
+      "backContinueNextWeek": "Back - continue next week",
+      "alreadyAdvanced": "You already advanced {{client}}'s deal this week. Finish your weekly deal (advance a week) to work the next stage.",
+      "noteDealMemo": "Note it in your deal memo",
+      "notePlaceholder": "Record the call for the file: what you advised {{client}} at this stage and why.",
+      "makeTheCall": "Make the call"
+    }
+  },
+  "bizlab": {
+    "unitProgress": "Unit progress",
+    "keyDates": "Key Dates",
+    "milestoneBadges": "Milestone Badges",
+    "partLabel": "Part {{number}}",
+    "partComplete": "· ✓ Complete",
+    "partCompleteNiceWork": "Part {{number}} complete - nice work!",
+    "stuckForIdeas": "Stuck for ideas? Steal one of these.",
+    "flipAllCards": "Flip all {{count}} cards to light up this stage ✨",
+    "readyToComplete": "You've finished everything in this part. Lock it in to earn your badge!",
+    "saveToFinish": "Save all your submissions (Build) and reflections to finish this part.",
+    "completeButton": "Complete Part {{number}} (+{{xp}})",
+    "hero": {
+      "title": "The Shark Tank Project",
+      "subtitle": "Build a real business - idea, plan, prototype, brand, commercial, and website - then pitch it to the Sharks. Let's get to work, future founder!"
+    },
+    "hud": {
+      "streak": "Streak",
+      "partsDone": "Parts done",
+      "coinsToEarn": "Coins to earn"
+    },
+    "capstone": {
+      "reason": "Gulliver Biz Lab - Shark Tank Champion!",
+      "toastTitle": "🦈 Shark Tank Champion!",
+      "toastDescription": "You finished the entire Biz Lab unit. +{{xp}} bonus InvestiCoins!"
+    },
+    "complete": {
+      "reason": "Completed Biz Lab {{title}}",
+      "toastTitle": "Part {{number}} complete! 🦈",
+      "toastDescription": "+{{xp}} InvestiCoins. Badge unlocked!"
+    },
+    "nav": {
+      "back": "Back",
+      "next": "Next"
+    },
+    "stages": {
+      "brief": "Brief",
+      "words": "Words",
+      "learn": "Learn",
+      "do": "Do",
+      "build": "Build",
+      "reflect": "Reflect"
+    },
+    "jeffLines": {
+      "briefFallback": "Part {{number}}: {{subtitle}}!",
+      "words": "Lock in these power-words - flip every card and you'll talk like a real founder! 📚",
+      "learn": "Here's the playbook. Tap each card to open it. 🧠",
+      "do": "Enough reading - time to take ACTION! Check off each move. 💪",
+      "build": "Show me what you've built. Stuck? Grab a template to get rolling. 🛠️",
+      "reflect": "Brain check-in - be honest, how'd it go? 💭"
+    },
+    "countdown": {
+      "completed": "Completed"
+    },
+    "flashcards": {
+      "cardCount": "Card {{current}} of {{total}}",
+      "learnedCount": "{{count}}/{{total}} learned",
+      "flipAria": "Flip flashcard for {{term}}",
+      "tapToReveal": "Tap to reveal the definition",
+      "example": "e.g. {{example}}",
+      "prev": "Prev",
+      "flip": "Flip",
+      "next": "Next"
+    },
+    "jeff": {
+      "alt": "Jeff, your Biz Lab coach",
+      "celebrate": "WOOHOO! You did it! 🎉🦈",
+      "cheers": {
+        "gotThis": "You've got this! 💪",
+        "lookingGood": "Looking good, founder! ✨",
+        "sharksLoveHustle": "Sharks love hustle! 🦈",
+        "bigBrain": "Big brain energy! 🧠",
+        "couldBeHuge": "This could be HUGE 🚀",
+        "believeInYou": "I believe in you! ⭐",
+        "futureCeo": "Future CEO vibes 😎",
+        "closerToTank": "One step closer to the Tank! 🏆",
+        "keepGoing": "Keep it going! 🔥",
+        "wheee": "Wheee! 🤸",
+        "watchThis": "Watch this! 😄"
+      }
+    },
+    "reflection": {
+      "title": "Reflection Journal",
+      "completed": "Completed",
+      "placeholder": "Write your reflection...",
+      "saveButton": "Save Reflections",
+      "reason": "Biz Lab reflection journal",
+      "paidToastTitle": "Reflections saved!",
+      "paidToastDescription": "+{{xp}} InvestiCoins for your thoughtful answers.",
+      "savedToastTitle": "Saved",
+      "savedToastDescription": "Your reflections are stored."
+    },
+    "rubric": {
+      "title": "Judge's Scoring Rubric",
+      "subtitle": "130 points total - here's exactly how the Sharks will score you.",
+      "points": "{{points}} pts"
+    }
+  },
+  "homework": {
+    "title": "Homework",
+    "subtitle": "Every assignment on its due date.",
+    "today": "Today",
+    "graded": "Graded",
+    "teacherFeedback": "Teacher feedback",
+    "finish": "Finish",
+    "start": "Start",
+    "level": "Level {{level}}",
+    "anytime": "Anytime",
+    "nothingDue": "Nothing due this day.",
+    "reviewPractice": "Review practice",
+    "reviewPracticeDesc": "Optional, ungraded — extra practice from your teacher.",
+    "moreCount": "+{{count}} more",
+    "status": {
+      "done": "Done",
+      "overdue": "Overdue",
+      "today": "Due today",
+      "upcoming": "Upcoming"
+    },
+    "stats": {
+      "todo": "To do",
+      "overdue": "Overdue",
+      "done": "Done"
+    },
+    "weekdays": {
+      "sun": "Sun",
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat"
+    },
+    "noClass": {
+      "title": "Join a class to get homework",
+      "desc": "Ask your teacher for a class code, then add it in your profile."
+    },
+    "empty": {
+      "title": "No homework yet 🎉",
+      "desc": "New homework shows up on the calendar.",
+      "browseMissions": "Browse Missions"
+    },
+    "notifications": {
+      "due": "Due {{date}}",
+      "noDueDate": "No due date",
+      "doNow": "Do now",
+      "doLater": "Do later",
+      "open": "Open",
+      "later": "Later",
+      "gradeLabel": "Grade:",
+      "feedback": "Feedback",
+      "gotIt": "Got it",
+      "classwork": {
+        "title": "📚 New classwork from your teacher!",
+        "desc_one": "You have {{count}} lesson to complete. Tap a lesson below to get started. You can't skip this.",
+        "desc_other": "You have {{count}} lessons to complete. Tap a lesson below to get started. You can't skip this."
+      },
+      "homework": {
+        "title": "📒 New homework from your teacher!",
+        "desc_one": "You have {{count}} homework lesson. Start now, or do it later - it'll be waiting on your Homework page.",
+        "desc_other": "You have {{count}} homework lessons. Start now, or do it later - it'll be waiting on your Homework page."
+      },
+      "review": {
+        "title": "✨ New review practice!",
+        "desc_one": "Your teacher shared {{count}} optional study guide — extra practice, not graded. Try it now or find it later under Review on your Homework page.",
+        "desc_other": "Your teacher shared {{count}} optional study guides — extra practice, not graded. Try it now or find it later under Review on your Homework page."
+      },
+      "businessGrade": {
+        "title": "📣 Your teacher graded your business work!",
+        "desc": "Here's your grade and feedback. You can re-read it any time from the notification bell."
+      },
+      "lessonGrade": {
+        "title": "📣 Your teacher graded your work!",
+        "desc_one": "Here's the grade and feedback for your lesson.",
+        "desc_other": "Here's the grade and feedback for your lessons."
+      }
+    }
+  },
+  "challenges": {
+    "classChallenges": "Class Challenges",
+    "pageSubtitle": "Spend InvestiCoins to compete. Winner takes the pot.",
+    "challengeAPartner": "Challenge a partner",
+    "createChallenge": "Create Challenge",
+    "partnerDuels": "Partner Duels",
+    "loading": "Loading challenges…",
+    "cancel": "Cancel",
+    "cancelAndRefund": "Cancel & refund",
+    "youreIn": "You're in",
+    "you": "You",
+    "duelVs": "Duel vs {{name}}",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "endAfterStart": "End date must be after the start date",
+    "potLabel": "{{amount}} pot",
+    "dismiss": "Dismiss",
+    "partnerFallback": "Partner",
+    "studentFallback": "Student",
+    "classmateFallback": "A classmate",
+    "preset": {
+      "3days": "3 days",
+      "1week": "1 week",
+      "2weeks": "2 weeks"
+    },
+    "noClass": {
+      "title": "Join a class to participate in challenges",
+      "desc": "Ask your teacher for a class code.",
+      "enterCode": "Enter a class code"
+    },
+    "empty": {
+      "title": "No active challenges right now",
+      "teacherDesc": "Create one to get your class competing!",
+      "studentDesc": "Start one and challenge your class!"
+    },
+    "ledger": {
+      "wonChallenge": "Won challenge: {{title}}",
+      "challengeRefund": "Challenge refund: {{title}}",
+      "enteredChallenge": "Entered challenge: {{title}}",
+      "duelStake": "Duel stake: {{title}}"
+    },
+    "toast": {
+      "loadFailed": "Couldn't load challenges. Please refresh.",
+      "notEnoughCoins": "Not enough InvestiCoins.",
+      "alreadyIn": "You're already in this challenge.",
+      "enterFailed": "Couldn't enter. Try again.",
+      "entered": "You're in! Good luck 🏆",
+      "noClassToPost": "No class found to post to.",
+      "createFailed": "Couldn't create challenge: {{message}}",
+      "created": "Challenge created! Students can now enter.",
+      "duelSendFailed": "Couldn't send the duel. Try again.",
+      "duelSent": "Duel sent to {{name}}! ⚔️",
+      "alreadyJoinedDuel": "You already joined this duel.",
+      "acceptFailed": "Couldn't accept. Try again.",
+      "duelOn": "Duel on! Good luck 🏆",
+      "declineFailed": "Couldn't decline the duel.",
+      "duelDeclined": "Duel declined.",
+      "cancelFailed": "Couldn't cancel the challenge.",
+      "cancelled": "Challenge cancelled. Entry fees will be refunded."
+    },
+    "widget": {
+      "checking": "Checking for live challenges…",
+      "liveCount_one": "{{count}} challenge live - winner takes the pot",
+      "liveCount_other": "{{count}} challenges live - winner takes the pot",
+      "nothingRunning": "Nothing running - start one and challenge your class!",
+      "create": "Create",
+      "joinFor": "Join for {{fee}} 🪙",
+      "viewAll_one": "View all {{count}} challenge →",
+      "viewAll_other": "View all {{count}} challenges →"
+    },
+    "card": {
+      "pot": "pot",
+      "entered": "entered",
+      "standings": "Standings",
+      "noOneEntered": "No one's entered yet - be the first!",
+      "toEnter": "{{fee}} to enter",
+      "teacherBonus": "+{{bonus}} bonus from teacher",
+      "enterChallenge": "Enter Challenge · {{fee}}"
+    },
+    "duel": {
+      "challengedYou": "<b>{{name}}</b> challenged you to a duel!",
+      "trackingEnds": "{{tracking}} · ends {{ends}}",
+      "stakeToAccept": "Stake {{fee}} to accept · win {{win}}",
+      "waitingFor": "Waiting for <b>{{name}}</b> to accept…",
+      "youStaked": "You staked {{fee}} coins. Refunded if they decline.",
+      "vs": "VS",
+      "decline": "Decline",
+      "accept": "Accept · {{fee}}",
+      "inProgress": "Duel in progress"
+    },
+    "podium": {
+      "youWon": "🏆 You won the “{{title}}” challenge",
+      "youWonTie": "🏆 You won the “{{title}}” challenge (tie)",
+      "otherWon": "🏆 {{name}} won the “{{title}}” challenge",
+      "otherWonTie": "🏆 {{name}} won the “{{title}}” challenge (tie)",
+      "youEarned": "You earned",
+      "theyEarned": "They earned",
+      "investiCoins": "InvestiCoins!"
+    },
+    "enterModal": {
+      "title": "Enter “{{title}}”",
+      "entryFee": "Entry fee",
+      "potIfYouJoin": "Pot if you join",
+      "yourBalance": "Your balance",
+      "spendSummary": "Spend <b>{{fee}} InvestiCoins</b> to enter. The winner takes the full pot of <b>{{potAfter}}</b> coins.",
+      "needMore": "You need <b>{{shortBy}} more InvestiCoins</b> to enter. Complete lessons to earn more.",
+      "entering": "Entering…",
+      "spendAndEnter": "Spend {{fee}} & Enter"
+    },
+    "createModal": {
+      "title": "Create a challenge",
+      "description": "Post a competition for your class. Students spend coins to enter; the winner takes the pot.",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Friday Lesson Sprint",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Who can complete the most lessons before Friday?",
+      "metric": "Metric",
+      "entryFee": "Entry fee (coins)",
+      "bonusCoins": "Bonus coins",
+      "bonusPlaceholder": "0 (optional)",
+      "bonusHint": "Add bonus coins to the pot (optional) - seeds it on top of student entries.",
+      "creating": "Creating…",
+      "createButton": "Create challenge",
+      "addTitle": "Add a title",
+      "addDescription": "Add a description"
+    },
+    "partnerModal": {
+      "description": "Pick one partner for a 1v1 duel. You both stake coins, and the winner takes the pot.",
+      "noPartners": "You don't have any partners yet",
+      "noPartnersDesc": "Add a partner first, then you can duel them.",
+      "findPartners": "Find partners",
+      "opponent": "Opponent",
+      "choosePartner": "Choose a partner",
+      "whatDecides": "What decides the winner?",
+      "yourStake": "Your stake (coins)",
+      "stakeHint": "Your partner matches this to accept. Pot = {{pot}} coins.",
+      "duelDescription": "{{tracking}}, head to head. Winner takes the pot.",
+      "pickPartner": "Pick a partner to challenge",
+      "notEnoughForStake": "Not enough InvestiCoins for that stake",
+      "sending": "Sending…",
+      "sendDuel": "Send duel"
+    }
+  },
+  "lab": {
+    "title": "Applied Finance Lab",
+    "subtitle": "Real documents · safe practice",
+    "choose": "Choose…",
+    "yourAnswer": "Your answer…",
+    "countCompleted": "{{done}}/{{total}} completed",
+    "upNext": "Up next in your lab",
+    "difficulty": {
+      "beginner": "beginner",
+      "intermediate": "intermediate",
+      "advanced": "advanced"
+    },
+    "minutes": "{{count}} min",
+    "coins": "{{count}} coins",
+    "questions": "{{count}} questions",
+    "startForm": "Start this form",
+    "peek": "A peek at the form - tap to open",
+    "teaser": {
+      "whenFillOut": "When do you fill this out?",
+      "whyMatters": "Why does it matter?",
+      "ifWrong": "What if you get it wrong?"
+    },
+    "moreQuestions": "+ {{count}} more questions - continue inside",
+    "continueInside": "Continue inside →",
+    "allCaughtUp": "All caught up!",
+    "allCaughtUpDesc": "You've completed every form in the lab - {{done}}/{{total}}. New documents unlock soon; revisit any form below for a refresher.",
+    "allCaseFiles": "All case files · {{topics}} topics · {{documents}} documents",
+    "soon": "soon",
+    "minutesShort": "{{count}}m",
+    "upNextTag": "· Up next",
+    "comingSoon": "Coming soon",
+    "doc": {
+      "notFound": "Document not found",
+      "backToLab": "Back to Lab",
+      "complete": "Lab Complete! 🧪",
+      "completeDesc": "You've successfully practiced the {{title}}.",
+      "coinsEarned": "InvestiCoins earned!",
+      "guided": "Guided",
+      "guidedMode": "Guided Mode",
+      "independentMode": "Independent Mode",
+      "hideGuide": "Hide learning guide",
+      "showGuide": "Show learning guide",
+      "eduWhatIs": "What is this document?",
+      "eduWhenFillOut": "When do you fill it out?",
+      "eduWhyMatters": "Why does it matter?",
+      "eduIfWrong": "What happens if done incorrectly?",
+      "eduSimulation": "Educational Simulation",
+      "eduSimulationDesc": "This is a simplified educational version. Do NOT enter real personal information like your actual SSN.",
+      "approxMinutes": "~{{count}} minutes",
+      "onCompletion": "{{count}} on completion",
+      "requiredFields": "{{filled}}/{{total}} required fields",
+      "whyThisMatters": "Why this matters",
+      "checking": "Checking...",
+      "checkMyAnswer": "Check my answer",
+      "percentComplete": "{{percent}}% complete",
+      "completeDocument": "Complete Document",
+      "fillAllLeft": "Fill all required fields ({{count}} left)",
+      "fillFieldFirst": "Please fill in the field first",
+      "feedbackError": "Couldn't get feedback - try again",
+      "fillAllRequired": "Please fill in all required fields ({{count}} remaining)"
+    }
+  },
+  "businessCanvas": {
+    "backToMissions": "Back to Missions",
+    "apRequiredProject": "AP Required Project",
+    "projectTitle": "Business Canvas Project",
+    "projectDesc": "Build a complete Business Model Canvas for your own business idea. You'll work through 9 essential blocks that define how a business creates, delivers, and captures value.",
+    "nameLabel": "What's your business called?",
+    "namePlaceholder": "Enter your business name…",
+    "reviewSubmit": "Review & Submit",
+    "submittedCheck": "Submitted ✓",
+    "viewFullSubmit": "View your full canvas and submit",
+    "blocksStarted": "{{count}}/9 blocks started · Progress saves automatically",
+    "allBlocks": "All Blocks",
+    "blockOf": "Block {{number}} of 9",
+    "typeAnswer": "Type your answer…",
+    "reflection": "Reflection",
+    "shareThoughts": "Share your thoughts…",
+    "overview": "Overview",
+    "previous": "Previous",
+    "reviewCanvas": "Review Canvas",
+    "nextBlock": "Next Block",
+    "canvasTitle": "{{name}} - Business Model Canvas",
+    "yourBusiness": "Your Business",
+    "blocksCompleted": "{{count}}/9 blocks completed · Review your full canvas below",
+    "submittedOn": "✓ Submitted {{date}}",
+    "notStartedYet": "Not started yet",
+    "submitCanvas": "Submit Canvas (+2,500 coins)",
+    "canvasSubmitted": "🎉 Canvas submitted! +2,500 InvestiCoins earned",
+    "reset": "Reset",
+    "minBlocksNote": "Complete at least 5 of 9 blocks to submit",
+    "resetConfirm": "Are you sure you want to reset your entire canvas? This cannot be undone."
+  },
+  "financialAdvisor": {
+    "backToMissions": "Back to Missions",
+    "apCulminatingProject": "AP Culminating Project",
+    "projectTitle": "Financial Advisor Project",
+    "projectDesc": "You've been hired as a financial advisor for the Martinez family. Review their financial profile, analyze their situation, and provide professional recommendations across 4 key areas.",
+    "clientProfile": "Client Profile - {{name}}",
+    "household": "Household:",
+    "income": "Income:",
+    "takeHomePay": "Take-home pay:",
+    "monthlyExpenses": "Monthly expenses:",
+    "debts": "Debts:",
+    "currentSavings": "Current savings:",
+    "goals": "Goals:",
+    "reportTitle": "Financial Advisor Report",
+    "submittedCheck": "Submitted ✓",
+    "generateSubmit": "Generate and submit your final report",
+    "areasStarted": "{{count}}/4 areas started · Progress saves automatically",
+    "overview": "Overview",
+    "areaOf": "Area {{number}} of 4",
+    "keyData": "Key Data",
+    "calculationHint": "Calculation Hint",
+    "previous": "Previous",
+    "reviewReport": "Review Report",
+    "nextArea": "Next Area",
+    "finalReport": "Final Report",
+    "areasCompleted": "{{count}}/4 areas completed",
+    "submittedOn": "✓ Submitted {{date}}",
+    "notStarted": "Not started",
+    "executiveSummary": "Executive Summary - Write a one-paragraph summary of your recommendations for the Martinez family.",
+    "executiveSummaryPlaceholder": "As the financial advisor for the Martinez family, my key recommendations are...",
+    "submitReport": "Submit Report (+5,000 pts)",
+    "reportSubmitted": "🎉 Report submitted! +5,000 InvestiCoins earned",
+    "reset": "Reset",
+    "minAreasNote": "Complete at least 3 of 4 areas to submit",
+    "resetConfirm": "Reset your entire Financial Advisor Project? This cannot be undone."
+  },
+  "studyGuide": {
+    "defaultName": "Study guide",
+    "loadError": "Could not load this study guide.",
+    "loading": "Loading study guide…",
+    "homework": "Homework",
+    "reviewPractice": "Review practice · ungraded",
+    "why": "Why:",
+    "scenario": "Scenario: {{title}}",
+    "activity": "Activity: {{title}}",
+    "writeReflection": "Write your reflection…",
+    "yourWork": "Your work…",
+    "saving": "Saving…",
+    "savedOnBlur": "Saved on blur",
+    "done": "Done"
+  },
+  "irsLab": {
+    "checkAgainstScenario": "Check this box against the scenario.",
+    "filedCorrectly": "Form filed correctly! 🧾",
+    "filedCorrectlyDesc": "Every box on the {{title}} checked out. You read the real form and got the numbers in the right places.",
+    "coinsEarned": "InvestiCoins earned!",
+    "backToLab": "Back to Lab",
+    "realFormSubtitle": "Real IRS form · fill the boxes, then check",
+    "boxesCorrect": "{{correct}}/{{total}} boxes correct",
+    "yourTask": "Your task",
+    "boxesNeedLook_one": "{{count}} box needs another look.",
+    "boxesNeedLook_other": "{{count}} boxes need another look.",
+    "redBoxesHint": "Red boxes have a hint pinned to the box number. Fix them and check again.",
+    "checkAgain": "Check again",
+    "checkMyAnswers": "Check my answers",
+    "clearFeedback": "Clear feedback",
+    "simulationNotice": "For simulation / education only — do not enter real SSNs.",
+    "whyBoxExists": "Why does this box exist?"
+  },
+  "microBusiness": {
+    "activityFallback": "Activity",
+    "activityLocked": "Activity {{n}} · Locked",
+    "activityN": "Activity {{n}}",
+    "allDone": "All done",
+    "cancel": "Cancel",
+    "coachJeff": "Coach Jeff",
+    "done": "Done",
+    "doneCount": "{{done}}/{{total}} done",
+    "edit": "Edit",
+    "livePreview": "Live preview",
+    "monthQuarter": "Month {{month}} · Quarter {{quarter}}",
+    "opsRefreshNote": "Operations refresh every quarter - there's always more to run.",
+    "readingWork": "Reading your work…",
+    "remove": "Remove",
+    "runYourBusiness": "Run your business",
+    "stepXofY": "Step {{current}} of {{total}}",
+    "thisQuarterOps": "This quarter's operations",
+    "unlockHint": "Finish the activity above to unlock this.",
+    "field": {
+      "finishToSubmit": "Finish these to submit:",
+      "junk": "Write a real answer - not random letters.",
+      "max": "max",
+      "words": "words"
+    },
+    "tabs": {
+      "product": "Product",
+      "office": "Office",
+      "collab": "Collab",
+      "marketing": "Marketing",
+      "report": "Report"
+    },
+    "stats": {
+      "customers": "Customers",
+      "cash": "Cash",
+      "moneyPerMonth": "Money / month",
+      "products": "Products",
+      "reputation": "Reputation",
+      "brand": "Brand"
+    },
+    "steps": {
+      "designProduct": "Design your product",
+      "buildRecipe": "Build your recipe",
+      "pricingStrategy": "Pricing Strategy",
+      "feedbackResponse": "Product Feedback Response",
+      "findPartner": "Find a Partner",
+      "partnershipProblem": "Partnership Problem",
+      "vendorNegotiation": "Vendor Negotiation",
+      "brandIdentity": "Brand Identity",
+      "marketingPlan": "Marketing Plan",
+      "adCampaign": "Ad Campaign"
+    },
+    "gate": {
+      "title": "Start your business",
+      "subtitle": "Pick the kind of business you want to build. This shapes your activities.",
+      "estCost": "Est. cost {{cost}} IC"
+    },
+    "toast": {
+      "submitted": "{{title}} submitted",
+      "grading": "Coach Jeff is grading your work…",
+      "graded": "Coach Jeff graded it: {{label}}",
+      "monthResolved": "Month {{month}} resolved",
+      "revenue": "Revenue +{{rev}} IC",
+      "incFromDeals": "(inc. +{{extra}} from deals)",
+      "quarterBegins": "Quarter {{quarter}} begins",
+      "opsRefreshed": "Your operations activities have refreshed - run them again.",
+      "ranOutTitle": "Your business ran out of road",
+      "ranOutDesc": "Review what happened, then rebuild.",
+      "productAdded": "\"{{name}}\" added to your product line",
+      "productAddedDesc": "Customers +60 · Brand +5 · +75 InvestiCoins"
+    },
+    "product": {
+      "checkName": "Give your product a name",
+      "checkFeatures": "Add at least 3 features",
+      "checkProblem": "Say what problem it solves",
+      "checkAudience": "Say who it's for",
+      "yourProductPlaceholder": "Your product",
+      "featuresEmpty": "Add features and they'll appear here ✨",
+      "doneTitle": "Your product",
+      "doneDesc": "The product you designed.",
+      "editDesc": "Build it and brand it - watch it come to life on the right.",
+      "problemLabel": "Problem it solves",
+      "audienceLabel": "Who it's for",
+      "pickLogo": "Pick a logo",
+      "chooseColours": "Choose your colours",
+      "mainColor": "Main",
+      "accentColor": "Accent",
+      "productName": "Product name",
+      "tagline": "Tagline",
+      "taglineHint": "- a short catchphrase",
+      "addFeatures": "Add features",
+      "minCount": "({{count}}/{{min}} min)",
+      "featureNamePlaceholder": "Feature name ({{hint}})",
+      "featureWhyPlaceholder": "Why it's great ({{hint}})",
+      "addFeature": "Add feature",
+      "problemQuestion": "What problem does it solve?",
+      "audienceQuestion": "Who is it for?",
+      "launchProduct": "Launch your product"
+    },
+    "recipe": {
+      "aiUnavailable": "AI unavailable",
+      "basedOnProduct": "Based on the product you designed. You can edit everything after.",
+      "checkDish": "Name your dish",
+      "checkIngredients": "Add at least 3 ingredients",
+      "checkServings": "Set how many servings it makes",
+      "checkSteps": "Write the steps to make it",
+      "cooking": "Cooking up a recipe…",
+      "costPerServing": "Cost per serving",
+      "costPlaceholder": "Cost IC",
+      "dishName": "Dish name",
+      "dishNamePlaceholder": "e.g. Choc-chip cookie",
+      "doneDesc": "What you'll make and what it costs.",
+      "doneTitle": "Your recipe",
+      "editDesc": "List your ingredients and see what one serving really costs to make.",
+      "generateAI": "✨ Generate a recipe with AI",
+      "generatedDesc": "Tweak anything you like, then save.",
+      "generatedTitle": "Recipe generated! ✨",
+      "generateFailDesc": "Try again in a moment.",
+      "generateFailTitle": "Couldn't generate a recipe",
+      "ingredientPlaceholder": "Ingredient (e.g. Flour)",
+      "ingredients": "Ingredients",
+      "ingredientsEmpty": "Add ingredients to see your recipe & cost 🧾",
+      "ingredientsHint": "Add each one and what it costs - the total updates live.",
+      "makesServings_one": "Makes {{count}} serving",
+      "makesServings_other": "Makes {{count}} servings",
+      "methodLabel": "How do you make it? (the steps)",
+      "methodPlaceholder": "1. Mix… 2. Bake… keep it simple.",
+      "recipeCard": "Recipe card",
+      "saveRecipe": "Save recipe",
+      "servings": "Servings",
+      "totalCost": "Total cost",
+      "yourDishPlaceholder": "Your dish"
+    },
+    "pricing": {
+      "types": {
+        "Cost-plus": "Cost-plus",
+        "Value-based": "Value-based",
+        "Competitive": "Competitive"
+      },
+      "acceptingLow": "Accepting low margin",
+      "actualWorksOut": "- actual works out to {{pct}}%",
+      "approach": "Approach",
+      "checkExplain": "Explain your pricing approach ({{words}}+ words)",
+      "checkJustify": "Justify your price ({{words}}+ words)",
+      "checkLowMargin": "Low margin: justify accepting it ({{words}}+ words)",
+      "checkMargin": "Enter your calculated margin %",
+      "checkMath": "(check your math)",
+      "checkPrice": "Set a price greater than your cost",
+      "cost": "Cost",
+      "costToMakeOne": "Cost to make one",
+      "doneDesc": "Your pricing decision.",
+      "editDesc": "Price your product and defend it.",
+      "estimatedCost": "Estimated cost to produce/deliver one unit:",
+      "formula": "Formula: (Price - Cost) ÷ Price × 100",
+      "justification": "Justification",
+      "lockInPricing": "Lock in pricing",
+      "margin": "Margin",
+      "marginPlaceholder": "you calculate it",
+      "price": "Price",
+      "priceRange": "Products like yours sell for ~{{low}} to {{high}} IC (a fair price is around {{fair}} IC).",
+      "pricingApproach": "Pricing approach",
+      "profitMargin": "Profit margin %",
+      "thinMarginDesc": "Most businesses need at least 20% to survive. Raise your price, or justify accepting a low margin below.",
+      "thinMarginTitle": "Your margin is dangerously thin.",
+      "whatCosts": "What one {{unit}} really costs you",
+      "whyApproach": "Why this approach",
+      "whyApproachQuestion": "Why did you pick that approach?",
+      "whyLowOk": "Why is a low margin okay here?",
+      "whyRightPrice": "Why is this the right price?",
+      "yourPrice": "Your price (IC)"
+    },
+    "feedback": {
+      "betaReview": "Beta review",
+      "betaTester": "Beta tester",
+      "changeNextTime": "What would you change next time?",
+      "checkDecision": "Justify your decision ({{words}}+ words)",
+      "checkSummary": "Summarize the feedback ({{words}}+ words)",
+      "checkV2": "Describe your v2 changes ({{words}}+ words)",
+      "decisionLabel": "Decision: {{decision}}",
+      "doneDesc": "How you handled beta feedback.",
+      "dontImplement": "Don't implement",
+      "editDesc": "A beta tester reviewed your product.",
+      "implement": "Implement",
+      "submitResponse": "Submit response",
+      "summaryLabel": "Say the feedback in your own words",
+      "v2Changes": "v2 changes",
+      "whyDecide": "Why did you decide that?",
+      "willImplement": "Will you implement this feedback?",
+      "yourSummary": "Your summary"
+    },
+    "partner": {
+      "checkDeliverables": "Deliverables",
+      "checkPick": "Pick a partner",
+      "checkProposal": "Collaboration proposal ({{words}}+ words)",
+      "checkSplit": "Revenue split %",
+      "checkTimeline": "Timeline",
+      "checkWhy": "Why you chose them ({{words}}+ words)",
+      "deliverables": "Deliverables",
+      "deliverablesPlaceholder": "e.g. 4 designs",
+      "doneDesc": "Your chosen partnership.",
+      "editDesc": "Review 4 potential partners and propose a deal.",
+      "offers": "Offers:",
+      "partnerFallback": "Partner",
+      "pitch": "Your pitch",
+      "pitchPlaceholder": "What does the team-up look like? What does each side give, and what do you both get?",
+      "pitchTo": "Your pitch to {{name}}",
+      "proposal": "Proposal",
+      "sendProposal": "Send proposal",
+      "split": "Split",
+      "splitPlaceholder": "e.g. 60/40",
+      "timeline": "Timeline",
+      "timelinePlaceholder": "e.g. 6 months",
+      "wants": "Wants:",
+      "whyPick": "Why pick them over the others?",
+      "whyThem": "Why them"
+    },
+    "partnerProblem": {
+      "checkMessage": "Message to your partner ({{words}}+ words)",
+      "checkReflection": "Reflection ({{words}}+ words)",
+      "checkResolution": "Proposed resolution ({{words}}+ words)",
+      "differentlyNextTime": "What would you do differently next time?",
+      "doneDesc": "How you handled the conflict.",
+      "editDesc": "A conflict came up with your partner.",
+      "gateDesc": "Form a partnership first (Activity 1).",
+      "gateHint": "Once you've chosen a partner, a problem will surface here.",
+      "howFix": "How would you fix it?",
+      "messagePlaceholder": "Stay calm and professional - explain the issue clearly.",
+      "problem": "Problem",
+      "reflection": "Reflection",
+      "resolution": "Resolution",
+      "sendResolve": "Send & resolve",
+      "theProblem": "The problem",
+      "writeMessage": "Write a message to your partner",
+      "yourMessage": "Your message"
+    },
+    "vendor": {
+      "checkAnalyze": "Analyze the offer ({{words}}+ words)",
+      "checkCounter": "Counter-offer letter ({{words}}+ words)",
+      "counterPlaceholder": "Tip: ask for a fair discount (a %), and back it up with big orders or loyalty.",
+      "days": "{{days}} days",
+      "delivery": "Delivery:",
+      "doneDesc": "The vendor replied.",
+      "editDesc": "A vendor sent a supply offer.",
+      "goodDeal": "Is this a good deal? Why or why not?",
+      "minOrder": "Min order:",
+      "noDeal": "· no deal",
+      "openingOffer": "Vendor opening offer - {{item}}",
+      "pctOff": "· {{pct}}% off",
+      "priceLabel": "Price:",
+      "pricePerUnit": "{{price}} IC/unit",
+      "sendCounter": "Send counter-offer",
+      "vendorReply": "Vendor reply",
+      "writeCounter": "Write your counter-offer",
+      "yourAnalysis": "Your analysis",
+      "yourCounter": "Your counter-offer",
+      "reply": {
+        "accept10": "Dear valued customer,\n\nWe appreciate your continued business and the volume you've outlined. We're pleased to offer you a 10% discount, bringing your unit price to {{price}} IC. We look forward to a long partnership.\n\nRegards,\nVendor Sales",
+        "reject": "Dear customer,\n\nA discount of that size with no business justification isn't something we can entertain. Our price stands at {{price}} IC per unit. We'll move on to other buyers.\n\nRegards,\nVendor Sales",
+        "meet10": "Dear customer,\n\nThat's a steep ask, but your volume and loyalty count for something. We can meet you partway with 10% off - {{price}} IC per unit. Final offer.\n\nRegards,\nVendor Sales",
+        "courtesy5": "Dear customer,\n\nWe can offer a modest 5% courtesy discount - {{price}} IC per unit. Sharpen your case (volume, loyalty) next time for more.\n\nRegards,\nVendor Sales"
+      }
+    },
+    "brand": {
+      "voices": {
+        "Formal": "Formal",
+        "Casual": "Casual",
+        "Bold": "Atrevida",
+        "Friendly": "Amigable",
+        "Playful": "Divertida",
+        "Luxurious": "Lujosa"
+      },
+      "accent": "Accent",
+      "brandVoice": "Brand voice",
+      "checkDrafts": "At least 3 tagline drafts",
+      "checkFinalize": "Finalize a tagline (≤10 words)",
+      "checkMission": "Brand mission ({{words}}+ words)",
+      "checkVoice1": "Voice example 1 ({{words}}+ words)",
+      "checkVoice2": "Voice example 2 ({{words}}+ words)",
+      "checkWhyAccent": "Why accent color ({{words}}+ words)",
+      "checkWhyPrimary": "Why primary color ({{words}}+ words)",
+      "checkWhySecondary": "Why secondary color ({{words}}+ words)",
+      "doneDesc": "Your brand.",
+      "draftPlaceholder": "Draft a tagline…",
+      "editDesc": "Define your brand from scratch.",
+      "lockInBrand": "Lock in brand",
+      "maxWordsEach": "· max 10 words each",
+      "mission": "Mission",
+      "missionPlaceholder": "In a few sentences: what you stand for and the feeling you want people to get.",
+      "missionQuestion": "What's your brand all about?",
+      "primary": "Primary",
+      "secondary": "Secondary",
+      "taglineDrafts": "Tagline drafts ({{count}}/3 min)",
+      "taglineTooLong": "Tagline must be 10 words or fewer",
+      "tapToFinalize": "Tap a draft to finalize it as your tagline.",
+      "voiceLabel": "Voice: {{voice}}",
+      "voiceSentence1": "Write a sentence in your \"{{voice}}\" voice",
+      "voiceSentence2": "Now one more \"{{voice}}\" sentence",
+      "whyAccentColor": "Why this accent color?",
+      "whyMainColor": "Why this main color?",
+      "whySecondColor": "Why this second color?"
+    },
+    "marketing": {
+      "channels": {
+        "Social Media": "Redes sociales",
+        "Email": "Correo electrónico",
+        "Flyers": "Volantes",
+        "Events": "Eventos",
+        "Word of Mouth": "Boca a boca",
+        "Influencers": "Influencers"
+      },
+      "audience": "Audience",
+      "audiencePlaceholder": "Describe your ideal customer - age, interests, what they care about.",
+      "budgetLabel": "Marketing budget (% of revenue)",
+      "budgetWarning": "Most small businesses spend 7-12% of revenue on marketing.",
+      "channel1": "Channel 1",
+      "channel2": "Channel 2",
+      "channelPostLabel": "{{channel}}: what will you post, and how often?",
+      "channelsBudget": "Channels ({{budget}}% budget)",
+      "checkAudience": "Target audience ({{words}}+ words)",
+      "checkBudget": "Budget 5-30% of revenue",
+      "checkChannelPlan": "{{channel}} plan (50+ words)",
+      "checkChannels": "Choose 2 channels",
+      "checkSteps": "Fill in all 4 launch steps",
+      "chooseExactly2": "Choose exactly 2 channels",
+      "doneDesc": "Your plan.",
+      "editDesc": "Plan how you'll reach customers.",
+      "launchPlan": "Your 30-day launch plan",
+      "launchPlanHint": "One short step per line - e.g. 'Week 1: post a teaser video.'",
+      "launchSteps": "Launch steps",
+      "pick2": "Pick exactly 2 channels",
+      "submitPlan": "Submit plan",
+      "weekPlaceholder": "Week {{n}}: …",
+      "whoReach": "Who are you trying to reach?"
+    },
+    "ad": {
+      "platforms": {
+        "Instagram caption": "Descripción de Instagram",
+        "Email": "Correo electrónico",
+        "Flyer": "Volante",
+        "TikTok script": "Guion de TikTok"
+      },
+      "checkCopy": "Ad {{n}} copy ({{words}}+ words)",
+      "checkWam": "Ad {{n}} - who/action/measure ({{words}}+ words)",
+      "copyLabel": "Ad {{n}}: write the words people will see",
+      "copyPreview": "Your ad copy preview…",
+      "doneDesc": "Your live ads.",
+      "editDesc": "Create real ads for 2 platforms.",
+      "launchCampaign": "Launch campaign",
+      "measureSuccess": "How will you measure success?",
+      "taglinePlaceholder": "Your tagline here",
+      "wamNote": "Who + action + measure together need 40+ words.",
+      "whatAction": "What action do you want?",
+      "whoTargeting": "Who is this targeting?"
+    },
+    "brief": {
+      "chooseCheck": "Choose: {{label}}",
+      "fieldWords": "{{label}} ({{words}}+ words)",
+      "fillAll": "Fill in all {{count}}: {{label}}",
+      "freshDesc": "A fresh operations brief for this quarter.",
+      "scenario": "Scenario",
+      "submitBrief": "Submit brief",
+      "submittedDesc": "Submitted this quarter."
+    },
+    "summary": {
+      "ad1": "Ad 1",
+      "audience": "Audience",
+      "collaboration": "Collaboration",
+      "feedbackV2": "Feedback v2 plan",
+      "marketing": "Marketing",
+      "mission": "Mission",
+      "opsRun": "all {{total}} ops run this quarter",
+      "opsRunCoins": "all {{total}} ops run this quarter · {{coins}} InvestiCoins this quarter",
+      "partnerProposal": "Partner proposal",
+      "pricing": "Pricing",
+      "problem": "Problem",
+      "problemHandled": "Problem handled",
+      "product": "Product",
+      "productBrief": "Product brief",
+      "reportTitle": "Quarter {{quarter}} Operations Report",
+      "savedNote": "All responses are saved to your business record for teacher review.",
+      "tagline": "Tagline",
+      "vendorCounter": "Vendor counter"
+    },
+    "ops": {
+      "chooseMove": "Choose your move",
+      "foldedDesc": "Cash, customers, or reputation hit zero. The lessons are in the wreckage.",
+      "foldedTitle": "Your business folded in month {{month}}.",
+      "intro": "A new situation hits every month and demands a decision. Keep your business alive and growing - for months.",
+      "pickMove": "Pick a move",
+      "rebuild": "Rebuild from scratch",
+      "resolveMonth": "Resolve month {{month}}",
+      "runMonth": "Run the business - Month {{month}}",
+      "startMonth": "Start month {{month}}",
+      "writeReaction": "Write your reaction ({{words}}+ words)"
+    },
+    "productLine": {
+      "addedMonth": "added month {{month}}",
+      "addProductCoins": "Add product (+75 🪙)",
+      "addToLine": "Add a product to your line",
+      "checkName": "Name",
+      "checkPitch": "Pitch ({{words}}+ words)",
+      "checkPrice": "Price greater than 0",
+      "itemCount": "{{count}} items",
+      "namePlaceholder": "Product name",
+      "pitchLabel": "Pitch - what it is and who it's for ({{words}}+ words)",
+      "pricePlaceholder": "Price (IC)",
+      "subtitle": "Keep adding items - a bigger catalog grows your customer base.",
+      "title": "Your product line"
+    }
+  },
+  "microOffice": {
+    "title": "The Office",
+    "subtitle": "Run the back office of your business",
+    "hud": {
+      "week": "Week",
+      "credit": "Credit",
+      "creditTitle": "Business credit score",
+      "rating": "Rating",
+      "endWeek": "End week"
+    },
+    "alerts": {
+      "payrollDue": "Payroll due",
+      "taxesDue": "Quarterly taxes due",
+      "supplierHike": "Supplier price hike",
+      "pitchUnlocked": "Investor pitch unlocked"
+    },
+    "tabs": {
+      "pnl": "P&L",
+      "payroll": "Payroll",
+      "reports": "Reports",
+      "pitch": "Pitch",
+      "hr": "HR",
+      "taxes": "Taxes"
+    },
+    "insights": {
+      "overspent": "Your expenses exceeded revenue this week - review your largest cost category.",
+      "thinMargins": "Thin margins - consider raising prices or cutting COGS.",
+      "strongWeek": "Strong week - keep your top revenue stream consistent.",
+      "steadyWeek": "Steady week - trim one cost and push one revenue stream next week."
+    },
+    "toasts": {
+      "employeesQuitTitle": "Your employees quit!",
+      "employeesQuitDesc": "You skipped payroll - reputation took a hit.",
+      "weekComplete": "Week {{week}} complete",
+      "weekCompleteDesc": "Weekly report generated. +8 InvestiCoins"
+    },
+    "opex": {
+      "payroll": "Payroll",
+      "marketing": "Marketing",
+      "supplies": "Supplies & misc",
+      "rent": "Rent",
+      "other": "Other"
+    },
+    "pnl": {
+      "title": "Profit & Loss",
+      "subtitle": "Live statement - updates as you run the business.",
+      "exportCsv": "Export CSV",
+      "exported": "P&L exported to CSV",
+      "account": "Account",
+      "amount": "Amount (IC)",
+      "revenue": "Revenue",
+      "cogs": "Cost of Goods Sold",
+      "grossProfit": "Gross Profit",
+      "operatingExpenses": "Operating Expenses",
+      "totalOpex": "Total Operating Expenses",
+      "netProfit": "Net Profit",
+      "supplierMultiplier": "Supplier cost multiplier: ×{{mult}} (negotiate it down in HR)."
+    },
+    "payroll": {
+      "title": "Weekly Payroll",
+      "subtitle": "Pay your team every week - or they walk.",
+      "noEmployees": "No employees yet. Hire someone in the HR tab.",
+      "noEmployeesToPay": "No employees to pay",
+      "alreadyRun": "Payroll already run this week",
+      "notEnough": "Not enough InvestiCoins for payroll",
+      "needIc": "Need {{amount}} IC.",
+      "paidTitle": "Payroll paid - net cash impact -{{amount}} IC",
+      "paidDesc": "Wages {{gross}} + 15.3% payroll tax {{tax}}",
+      "underperforming": "underperforming",
+      "perWeek": "{{wage}}/wk",
+      "grossWages": "Gross wages",
+      "payrollTax": "Payroll tax (15.3%)",
+      "netCashImpact": "Net cash impact",
+      "runPayroll": "Run payroll ({{amount}} IC)",
+      "paidForWeek": "Payroll is paid for week {{week}}.",
+      "skipWarning": "Skip payroll and end the week → employees quit and your star rating drops."
+    },
+    "reports": {
+      "empty": "End your first week to generate a report.",
+      "reviewTitle": "Week {{week}} Review",
+      "reviewSub": "Auto-generated at the end of each week.",
+      "revenueVsForecast": "Revenue vs forecast",
+      "vs": "vs",
+      "topExpenses": "Top expense categories",
+      "noneYet": "None yet",
+      "advisor": "Advisor · recommendation",
+      "cashFlow": "Cash flow by week"
+    },
+    "pitch": {
+      "locked": "Investor pitch unlocks after 4 weeks of operation. Currently week {{week}}.",
+      "title": "Investor Pitch",
+      "subtitle": "Pitch a simulated investor who reviews your real P&L.",
+      "angelInvestor": "Angel investor",
+      "reviewing": "Reviewing: net {{net}} IC · credit {{credit}} · {{weeks}}-week trend",
+      "securedFunding": "You've secured funding",
+      "pitchButton": "Pitch the investor",
+      "trendUp": "up",
+      "trendFlat": "flat",
+      "fundedFeedback": "Funded! Your net profit is positive and revenue is trending {{trend}}. We're backing you with {{amount}} IC. Keep that credit score strong.",
+      "fundedToast": "💰 Funded! +{{amount}} InvestiCoins",
+      "reasonNotProfitable": "you're not profitable yet - your expenses outrun revenue",
+      "reasonTrendingDown": "revenue is trending down over recent weeks",
+      "reasonLowCredit": "your business credit score ({{score}}) is too low to lend against",
+      "passedFeedback": "I'm going to pass for now. Here's why: {{reasons}}. Come back when you've turned a profit for a couple of weeks and tightened your costs.",
+      "passedToast": "The investor passed",
+      "passedToastDesc": "Read their feedback and try again later."
+    },
+    "complaints": {
+      "title": "Customer Complaint",
+      "subtitle": "Respond well - it moves your star rating.",
+      "subHandled": "One per week - already handled this week.",
+      "scored": "Your reply scored {{score}}/10 · rating now",
+      "angryCustomer": "Angry customer",
+      "tip": "Tip: apologize and offer a real fix - words like \"sorry\", \"refund\", \"fix\", \"help\" and a longer reply score higher.",
+      "placeholder": "Write a professional, empathetic response…",
+      "send": "Send response",
+      "writeFirst": "Write a response first",
+      "noteThorough": "Thorough, empathetic, and solution-focused.",
+      "noteGood": "Good - you acknowledged it ({{keywords}}).",
+      "noteShort": "Too short and impersonal - apologize and offer a fix.",
+      "noteEmpathy": "Add empathy words like 'sorry' and offer a concrete fix.",
+      "scoreToast": "Scored {{score}}/10 - {{note}}",
+      "list": {
+        "0": "My order arrived two days late and the packaging was crushed. This is unacceptable for the price I paid.",
+        "1": "I was charged twice for the same item and nobody has responded to my emails for a week.",
+        "2": "The product looks nothing like the photos on your site. I feel misled.",
+        "3": "Your staff were rude when I asked a simple question. I won't be coming back.",
+        "4": "I've been a loyal customer for months and you won't even honor a small discount. Disappointing."
+      }
+    },
+    "suppliers": {
+      "title": "Supplier Negotiation",
+      "subtitle": "{{emoji}} {{name}} raised prices {{pct}}%. Talk them down - it affects your COGS.",
+      "placeholder": "Make your negotiation case… (hint: mention loyalty/volume, or a competitor)",
+      "negotiate": "Negotiate",
+      "makeCase": "Make your case (15+ chars)",
+      "dealToast": "Deal! Cost multiplier now ×{{mult}}",
+      "dealDesc": "{{name}} gave you {{pct}}% off the increase.",
+      "heldFirmToast": "{{name}} held firm",
+      "heldFirmDesc": "COGS multiplier ×{{mult}} applied.",
+      "firmFrank": {
+        "name": "Firm Frank",
+        "win": "",
+        "lose": "I hear you, but a deal's a deal. The new price stands - take it or leave it."
+      },
+      "flexibleMaria": {
+        "name": "Flexible Maria",
+        "win": "You've been a loyal, high-volume customer - I'll take 10% off the increase for you.",
+        "lose": "Commit to loyalty or bigger volume and I can work with you. Otherwise the price holds."
+      },
+      "dealSeekerDave": {
+        "name": "Deal-Seeker Dave",
+        "win": "Going to a competitor, huh? Fine - I'll beat them. 15% off the increase, just don't tell the others.",
+        "lose": "I'm not worried about losing you. Bring me a real competing quote and we'll talk."
+      }
+    },
+    "taxes": {
+      "title": "Schedule C (simplified)",
+      "subtitle": "Auto-filled from your P&L. Review and confirm each line, then pay what you owe.",
+      "noFiling": "No filing due. A simplified Schedule C is due every 4 weeks (next at week {{week}}).",
+      "lines": {
+        "rev": "Line 1 - Gross receipts (Revenue)",
+        "cogs": "Line 4 - Cost of goods sold",
+        "gross": "Line 7 - Gross profit",
+        "exp": "Line 28 - Total expenses",
+        "net": "Line 31 - Net profit (or loss)"
+      },
+      "taxDueLabel": "Tax due ({{pct}}% of net profit)",
+      "payAndFile": "Pay {{amount}} & file",
+      "fileNoTax": "File (no tax due)",
+      "submitIncomplete": "Submit (incomplete - penalty applies)",
+      "incompleteToast": "Incomplete filing - paid {{bill}} IC",
+      "incompleteDesc": "Tax owed {{taxOwed}} IC + {{penalty}} IC penalty. Confirm every line next quarter to skip the fee.",
+      "filedPaidToast": "Schedule C filed - paid {{paid}} IC in taxes",
+      "filedPaidDesc": "That's {{pct}}% of your net profit, just like a real business owes the IRS.",
+      "filedNoTaxToast": "Schedule C filed - no tax owed",
+      "filedNoTaxDesc": "You didn't turn a profit this quarter, so there's no income tax due."
+    },
+    "hiring": {
+      "title": "Hire (write a posting, then interview)",
+      "subtitle": "Post the role, then read the candidate's interview answers before you commit.",
+      "rolePlaceholder": "Role / title (e.g. Marketing Assistant)",
+      "responsibilitiesPlaceholder": "Responsibilities…",
+      "skillsPlaceholder": "Required skills (comma-separated)",
+      "postJob": "Post job & get applicant",
+      "fillFields": "Fill in role, responsibilities, and required skills",
+      "teamMember": "Team member",
+      "passedToast": "Passed on the candidate",
+      "badHireToast": "Hired {{name}} - but it's a bad fit",
+      "badHireDesc": "-20% weekly productivity for 2 weeks.",
+      "goodHireToast": "Hired {{name}}! A strong addition to the team.",
+      "qPrefix": "Q:",
+      "aPrefix": "A:",
+      "readCarefully": "Read the answers carefully - a vague candidate is a risky hire (-20% productivity for 2 weeks).",
+      "pass": "Pass",
+      "hire": "Hire",
+      "questions": [
+        "Why do you want this role?",
+        "Tell me about a time you solved a problem.",
+        "How do you handle a busy day with competing priorities?"
+      ],
+      "candidates": {
+        "maya": {
+          "background": "Ran a profitable Etsy shop for two years while in school.",
+          "answers": [
+            "I've run my own small shop, so I know what it takes to keep customers happy and the books balanced - I want to do that at a bigger scale here.",
+            "When my supplier flaked right before a holiday rush, I found two backups in a day and still shipped every order on time.",
+            "I batch similar tasks, knock out the highest-impact one first, and keep a running list so nothing slips."
+          ]
+        },
+        "priya": {
+          "background": "Treasurer of two school clubs; strong with numbers.",
+          "answers": [
+            "I love the operations side - budgets, scheduling, and making things actually run smoothly.",
+            "Our club's budget was a mess; I rebuilt the spreadsheet line by line and we ended the year in surplus.",
+            "I prioritize by deadline and impact, and I'm not afraid to ask for help early instead of falling behind."
+          ]
+        },
+        "jordan": {
+          "background": "Worked two summers in retail customer service.",
+          "answers": [
+            "I'm good with customers and reliable, and I want to grow into more responsibility than a register.",
+            "A customer was furious about a refund; I stayed calm, listened, and got it sorted within policy.",
+            "I make a quick to-do list and ask which thing matters most if I'm unsure."
+          ]
+        },
+        "sam": {
+          "background": "Recent grad, no direct experience but eager.",
+          "answers": [
+            "It seems like a cool opportunity and I could really use a job right now.",
+            "Um… I helped a friend move once? I'm pretty reliable I guess.",
+            "I just kind of do whatever's in front of me until it's done."
+          ]
+        },
+        "tyler": {
+          "background": "Lists a lot of hobbies, vague on actual work.",
+          "answers": [
+            "Honestly I'm not totally sure - a friend told me to apply.",
+            "I can't really think of one right now, sorry.",
+            "I usually just wing it and hope it works out."
+          ]
+        }
+      }
+    },
+    "plan": {
+      "heading": "Write your business plan",
+      "subheading": "Complete every field to score 7/10 and unlock The Office.",
+      "businessName": "Business name",
+      "targetMarket": "Target market",
+      "marketPlaceholder": "Who exactly are your customers? Be specific (50+ chars).",
+      "pricingStrategy": "Pricing strategy",
+      "pricingPlaceholder": "How will you price, and why? (50+ chars)",
+      "startupCosts": "Startup costs breakdown",
+      "startupPlaceholder": "e.g. 200 supplies, 100 marketing, 50 tools",
+      "revenueGoal": "3-month revenue goal",
+      "goalPlaceholder": "e.g. 5000",
+      "fixThese": "Fix these:",
+      "submit": "Submit plan",
+      "errors": {
+        "name": "Business name: give it a real name.",
+        "market": "Target market: needs at least 50 characters ({{count}}/50).",
+        "pricing": "Pricing strategy: needs at least 50 characters ({{count}}/50).",
+        "startup": "Startup costs: include the actual numbers (e.g. 200 supplies, 100 marketing).",
+        "goal": "3-month revenue goal: enter a number greater than 0."
+      },
+      "fixHighlighted": "Fix the highlighted fields",
+      "fixHighlightedDesc": "{{count}} item(s) need attention.",
+      "approvedFeedback": "Your plan covers the essentials - a defined market, a pricing rationale, real startup costs, and a clear goal. Approved!",
+      "approvedToast": "Plan scored 7/10 - approved! +15 InvestiCoins"
+    }
+  },
+  "partners": {
+    "studentFallback": "Student",
+    "grade": "Grade {{grade}}",
+    "invite": "Invite",
+    "invited": "Invited",
+    "accept": "Accept",
+    "declineInvite": "Decline invite",
+    "partnerBadge": "Partner",
+    "removePartner": "Remove partner",
+    "searchPlaceholder": "Search students by name…",
+    "searching": "Searching…",
+    "noStudentsFound": "No students found for \"{{query}}\". Check the spelling!",
+    "typeAtLeast": "Type at least 2 letters of a first or last name.",
+    "invitesCount": "Invites ({{count}})",
+    "myPartnersCount": "My Partners ({{count}})",
+    "loading": "Loading…",
+    "noPartnersYet": "No partners yet",
+    "noPartnersHint": "Search a classmate's name above and send your first invite.",
+    "pickStudent": "Pick a student",
+    "pickStudentHint": "Select someone from the search results or your partner list to see their stocks, micro-business and rank.",
+    "loadingProfile": "Loading profile…",
+    "profileLoadFailed": "Couldn't load this student's profile.",
+    "leagueLabel": "{{league}} League",
+    "levelLabel": "Level {{level}}",
+    "investiCoinsLabel": "{{amount}} InvestiCoins",
+    "partnerCount_one": "{{count}} partner",
+    "partnerCount_other": "{{count}} partners",
+    "stockPortfolio": "Stock Portfolio",
+    "noStocks": "No stocks yet - their portfolio is empty.",
+    "shares_one": "{{formatted}} share",
+    "shares_other": "{{formatted}} shares",
+    "microBusiness": "Micro-Business",
+    "noMicroBusiness": "They haven't started a micro-business yet.",
+    "employees_one": "{{count}} employee",
+    "employees_other": "{{count}} employees",
+    "planApproved": "Plan approved",
+    "investorFunded": "Investor funded",
+    "bizStats": {
+      "week": "Week",
+      "revenue": "Revenue",
+      "creditScore": "Credit Score",
+      "rating": "Rating"
+    },
+    "toasts": {
+      "inviteFailed": "Couldn't send invite",
+      "nowPartnersTitle": "You're partners! 🤝",
+      "hadAlreadyInvited": "{{name}} had already invited you.",
+      "inviteSentTitle": "Invite sent! ✉️",
+      "inviteSentDesc": "{{name}} has to accept before you're partners.",
+      "somethingWrong": "Something went wrong",
+      "nowOnTeam": "{{name}} is now on your team.",
+      "removeFailed": "Couldn't remove partner"
+    },
+    "deals": {
+      "title": "Live Partner Deals",
+      "newCount": "{{count}} new",
+      "proposeDeal": "Propose Deal",
+      "activeBoosting_one": "{{count}} active deal boosting your business",
+      "activeBoosting_other": "{{count}} active deals boosting your business",
+      "yourMonthlyBoost": "Your monthly boost",
+      "theirBoost": "{{name}}'s boost",
+      "activeForMonths": "Active for 6 months · bonuses apply each time you advance a sim month",
+      "cancel": "Cancel",
+      "sending": "Sending…",
+      "sendTo": "Send to {{name}} →",
+      "selectPartner": "Select a partner to propose to:",
+      "loadingPartners": "Loading partners…",
+      "noPartnersStarted": "None of your partners have started a business yet.",
+      "proposalPending": "Proposal pending",
+      "incomingProposals": "Incoming proposals",
+      "from": "from {{name}}",
+      "bizTypeBusiness": "{{type}} business",
+      "decline": "Decline",
+      "accept": "Accept",
+      "activeDeals": "Active deals",
+      "with": "with {{name}}",
+      "daysRemaining_one": "{{count}} day remaining",
+      "daysRemaining_other": "{{count}} days remaining",
+      "sentProposals": "Sent proposals",
+      "awaitingResponse": "Awaiting {{name}}'s response",
+      "noPartnersWithBiz": "No partners with businesses yet",
+      "noPartnersWithBizHint": "When a partner starts their business, you can propose a deal here.",
+      "noDealsYet": "No deals yet",
+      "noDealsYetHint": "You have partners with businesses - propose a deal to unlock real bonuses.",
+      "proposeADeal": "+ Propose a Deal",
+      "pills": {
+        "revenue": "+{{pct}}% revenue",
+        "customers_one": "+{{count}} customer",
+        "customers_other": "+{{count}} customers",
+        "rep": "+{{count}} rep",
+        "customersPerMonth_one": "+{{count}} customer/month",
+        "customersPerMonth_other": "+{{count}} customers/month",
+        "repPerMonth": "+{{count}} rep/month"
+      },
+      "toasts": {
+        "proposalSent": "Proposal sent!",
+        "proposalSentDesc": "{{name}} will see it in their Collab tab.",
+        "proposalFailed": "Failed to send proposal",
+        "dealAccepted": "Deal accepted! Bonuses now apply each sim month.",
+        "dealDeclined": "Deal declined.",
+        "somethingWrong": "Something went wrong"
+      }
+    }
+  },
+  "progress": {
+    "title": "Progress",
+    "subtitle": "Track your learning journey and measure growth",
+    "myProgress": "My Progress",
+    "classAverage": "Class Average",
+    "average": "Average",
+    "overallCompletion": "Overall Completion",
+    "overallMasteryScore": "Overall Mastery Score",
+    "masteryScore": "Mastery Score",
+    "notAssessed": "Not assessed",
+    "completion": "Completion",
+    "mastery": "Mastery",
+    "assessmentPlaceholder": "Assessment data will appear here",
+    "unitLabel": "Unit {{number}}",
+    "unitTitle": "Unit {{number}}: {{title}}",
+    "lessonsCount": "{{done}}/{{total}} lessons",
+    "reportCard": {
+      "title": "Report Card",
+      "description_one": "Grades your teacher gave you across {{count}} lesson",
+      "description_other": "Grades your teacher gave you across {{count}} lessons"
+    },
+    "benchmarkCta": {
+      "title": "Complete Your Benchmark Assessment",
+      "titleResume": "Finish Your Benchmark Assessment",
+      "description": "You skipped the initial assessment. Complete it to personalize your learning path and unlock progress tracking.",
+      "descriptionResume": "You started the benchmark but didn't finish. Pick up where you left off to personalize your learning path and unlock progress tracking.",
+      "button": "Take Benchmark Now",
+      "buttonResume": "Finish Benchmark",
+      "note": "You can continue using InvestiPlay without it, but content won't be fully personalized."
+    },
+    "benchmarkSection": {
+      "title": "Benchmark Assessment Progress",
+      "description": "Strong, medium, and weak areas are applied directly to your curriculum path."
+    },
+    "chartView": {
+      "grouped": "Grouped",
+      "allUnits": "All Units"
+    },
+    "legend": {
+      "strength": "Strength ≥75",
+      "growing": "Growing 50-74",
+      "development": "Development <50"
+    },
+    "areas": {
+      "strongTitle": "Strong Areas",
+      "strongDetail": "Foundational content validated",
+      "strongEmpty": "No strong benchmark areas yet",
+      "mediumTitle": "Medium Areas",
+      "mediumDetail": "Applied entry point with scaffolding",
+      "mediumEmpty": "No medium benchmark areas yet",
+      "weakTitle": "Weak Areas",
+      "weakDetail": "Full foundational path remains active",
+      "weakEmpty": "No weak benchmark areas identified yet"
+    },
+    "unitBreakdown": {
+      "title": "Unit Breakdown",
+      "description": "Completion shown as primary progress, with mastery as a secondary metric"
+    },
+    "evolution": {
+      "title": "Your Learning Evolution",
+      "byUnit": "By Unit",
+      "emptyOne": "Take another assessment to unlock growth insights.",
+      "emptyNone": "Complete unit tests to see your learning evolution."
+    },
+    "curriculum": {
+      "title": "Curriculum Progress"
+    },
+    "table": {
+      "unit": "Unit",
+      "lessons": "Lessons",
+      "quizAvg": "Quiz Avg",
+      "status": "Status"
+    },
+    "status": {
+      "mastered": "Mastered",
+      "inProgress": "In Progress",
+      "notStarted": "Not Started",
+      "complete": "Complete"
+    },
+    "tier": {
+      "notStarted": "Not Started",
+      "strength": "Strength",
+      "growing": "Growing",
+      "development": "Development"
+    },
+    "groups": {
+      "foundational": "Foundational",
+      "markets": "Markets",
+      "analysis": "Analysis",
+      "macroBusiness": "Macro & Business",
+      "advanced": "Advanced",
+      "other": "Other"
+    }
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "you": "You",
+    "youParen": "(You)",
+    "studentFallback": "Student",
+    "coins": "Coins",
+    "netWorth": "Net Worth",
+    "yourCoins": "Your Coins",
+    "yourRank": "Your Rank",
+    "level": "Level {{level}}",
+    "levelShort": "Lv {{level}}",
+    "streakDays": "{{count}}d",
+    "leagueName": "{{name}} League",
+    "topLeague": "Top league",
+    "coinsThreshold": "{{formatted}}+ coins",
+    "spendableInvested": "Spendable InvestiCoins · {{amount}} more invested in stocks",
+    "spendableRanks": "Spendable InvestiCoins - this is what the leaderboard ranks on",
+    "coinsToReach": "<b>{{coins}} coins</b> to reach {{name}} League",
+    "maxedLadder": "You've maxed the league ladder - legendary!",
+    "climbFaster": {
+      "title": "Climb faster",
+      "subtitle": "Every action earns InvestiCoins and pushes you up the board."
+    },
+    "leagueLadder": {
+      "title": "League ladder",
+      "subtitle": "Earn InvestiCoins to rank up through every tier."
+    },
+    "earn": {
+      "finishLesson": {
+        "label": "Finish a lesson",
+        "detail": "Biggest, steadiest coins"
+      },
+      "dailyMissions": {
+        "label": "Daily missions",
+        "detail": "Fresh coins every day"
+      },
+      "keepStreak": {
+        "label": "Keep your streak",
+        "detail": "Don't break the chain"
+      },
+      "aceUnitTest": {
+        "label": "Ace a unit test",
+        "detail": "Big coins for mastery"
+      }
+    },
+    "rankGate": {
+      "title": "Finish a lesson to get ranked",
+      "subtitle": "Your rank appears once you've earned coins beyond Jeff's welcome gift."
+    },
+    "startLesson": "Start a lesson",
+    "ofClimbers": "of {{count}} climbers",
+    "podium": "Podium!",
+    "spotsToPodium_one": "{{count}} spot to podium",
+    "spotsToPodium_other": "{{count}} spots to podium",
+    "catch": "Catch {{name}}",
+    "toGo": "{{coins}} {{label}} to go",
+    "catchProgress": "You're at {{pct}}% of their score - one good day could pass them.",
+    "number1": "You're #1 - defend your crown! Every lesson widens the lead.",
+    "behindNumber1": "<b>{{coins}}</b> {{label}} behind #1",
+    "joinToClimb": {
+      "title": "Join a class to start climbing",
+      "subtitle": "Rank up against classmates and race to the top league."
+    },
+    "scope": {
+      "class": "My Class",
+      "friends": "Partners",
+      "national": "National"
+    },
+    "membersCount": "{{count}} members",
+    "empty": {
+      "noClassmates": "No classmates yet",
+      "noPartners": "No partners connected yet",
+      "classDescription": "Join a class to compete with your classmates and race up the leagues - but you can start earning InvestiCoins and climbing the ladder right now.",
+      "partnersDescription": "Add partners in the Find Partners directory and they'll show up here to race against - your stats are ready when they are."
+    },
+    "findPartners": "Find Partners",
+    "joinClass": {
+      "title": "Join a Class",
+      "instructions": "Enter the class code your teacher gave you.",
+      "placeholder": "e.g., ABC123",
+      "joining": "Joining...",
+      "join": "Join"
+    },
+    "invite": {
+      "title": "Invite Partners",
+      "description": "Share this link with partners to invite them to InvestiPlay.",
+      "copyLink": "Copy Invite Link"
+    },
+    "yourClasses": "Your Classes",
+    "demo": {
+      "preview": "Preview with demo data",
+      "badge": "Demo Data",
+      "sample": "Sample entries for preview only.",
+      "label": "Demo"
+    },
+    "promotionZone": "Promotion zone - top 3",
+    "thePack": "The pack - climb the ranks",
+    "moreRivals": {
+      "title": "More rivals, more glory",
+      "subtitle": "Invite partners and battle for the crown."
+    },
+    "toast": {
+      "invalidCodeTitle": "Invalid code",
+      "invalidCodeDescription": "No class found with this join code.",
+      "alreadyJoinedTitle": "Already joined",
+      "alreadyJoinedDescription": "You're already in this class.",
+      "joinedTitle": "Joined!",
+      "joinedDescription": "You've joined {{name}}",
+      "errorTitle": "Error",
+      "linkCopiedTitle": "Link copied!",
+      "linkCopiedDescription": "Share this with partners to invite them."
+    }
+  },
+  "tokens": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "lessons": "Lessons",
+      "stocks": "Stocks",
+      "home": "Home",
+      "learn": "Learn"
+    },
+    "title": "Token Simulator",
+    "subtitle": "Create educational tokens to learn about tokenomics",
+    "mascotMessage": "Create your own token!",
+    "cancel": "Cancel",
+    "createNew": "Create New Token",
+    "createTitle": "Create Token",
+    "createDescription": "This is for educational purposes only",
+    "nameLabel": "Token Name",
+    "namePlaceholder": "e.g., My Learning Token",
+    "symbolLabel": "Symbol",
+    "symbolPlaceholder": "e.g., MLT",
+    "totalSupplyLabel": "Total Supply",
+    "createButton": "Create Token",
+    "emptyState": "No tokens created yet. Click above to create your first!",
+    "simulated": "Simulated",
+    "supply": "Supply:",
+    "created": "Created:"
+  },
+  "unitTest": {
+    "notFound": "Unit test not found",
+    "backToLessons": "Back to Lessons",
+    "preMascot": "Ready to prove your knowledge?",
+    "questions": "Questions",
+    "toPass": "To Pass",
+    "alreadyPassed": "You've already passed with {{score}}%!",
+    "canRetake": "You can retake to improve your score",
+    "examRules": "Exam Rules",
+    "rule1": "Answer each question before moving on",
+    "rule2": "You'll see feedback after each answer",
+    "rule3": "Score {{score}}% or higher to pass and earn {{reward}} InvestiCoins",
+    "startExam": "Start Exam",
+    "questionProgress": "Question {{current}} of {{total}}",
+    "correctCount": "{{count}} correct",
+    "correct": "✓ Correct!",
+    "notQuite": "✗ Not quite right",
+    "whyMatters": "💡 Why this matters:",
+    "correctAnswerIs": "✅ The correct answer is: <b>{{answer}}</b>",
+    "nextQuestion": "Next Question",
+    "seeResults": "See Results",
+    "resultMascotPass": "Amazing work!",
+    "resultMascotFail": "Keep practicing!",
+    "congrats": "🎉 Congratulations!",
+    "almostThere": "Almost there!",
+    "scoreOf": "{{correct}} of {{total}} correct",
+    "jeffsEarned": "Jeff's earned!",
+    "youPassed": "You passed the {{title}} Unit Test",
+    "youNeed": "You need {{score}}% to pass",
+    "reviewAndRetry": "Review the lessons and try again!",
+    "tryAgain": "Try Again"
+  },
+  "overlays": {
+    "leagueUp": "LEAGUE UP!",
+    "levelUp": "LEVEL UP!",
+    "nowLevel": "You're now Level {{level}}!",
+    "keepGoing": "Keep going →",
+    "nicePick": "Nice pick - enjoy your reward! 🎉",
+    "pickOne": "Pick ONE gift to claim your reward",
+    "pickedAtRandom": "One gift, picked at random.",
+    "pickFirst": "Pick a gift first",
+    "skipSmallest": "Skip (take the smallest gift)",
+    "continue": "Continue",
+    "movedUp": "You moved up a league!",
+    "welcomeReward": "Welcome to {{icon}} {{name}}. Your reward: <b>+{{coins}} 🪙</b>",
+    "giftPicked": "Gift {{letter}}: {{label}}, {{coins}} coins",
+    "giftOpen": "Open gift {{letter}}",
+    "yours": "yours",
+    "notPicked": "not picked",
+    "prizes": {
+      "treasureChest": "Treasure Chest",
+      "gemHaul": "Gem Haul",
+      "royalBounty": "Royal Bounty",
+      "rocketFuel": "Rocket Fuel",
+      "luckyStar": "Lucky Star",
+      "mysteryBonus": "Mystery Bonus",
+      "hotStreak": "Hot Streak",
+      "coinVault": "Coin Vault"
+    }
+  },
+  "games": {
+    "coinsReward": "+{{reward}} coins",
+    "correct": "✓ Correct! ",
+    "incorrect": "❌ Incorrect. ",
+    "correctAnswerIs": "✅ The correct answer is: <b>{{answer}}</b>",
+    "claiming": "Claiming…",
+    "saving": "Saving…",
+    "claimReward": "Claim reward",
+    "claimRewardCoins": "Claim reward · +{{reward}} coins",
+    "tryAgainTomorrow": "Try again tomorrow",
+    "dailyScenario": {
+      "title": "Daily Scenario",
+      "subtitle": "What would you do?"
+    },
+    "higherOrLower": {
+      "title": "Higher or Lower",
+      "subtitle": "Which number is bigger? 5 rounds",
+      "roundComplete": "Round complete!",
+      "gotRight": "You got {{score}} of {{total}} right",
+      "round": "Round {{current}} / {{total}}",
+      "score": "Score {{score}}",
+      "pick": "Pick {{side}}",
+      "seeResults": "See results",
+      "nextRound": "Next round"
+    }
+  },
+  "jeffTour": {
+    "tourAria": "App tour",
+    "skipTourAria": "Skip tour",
+    "skip": "Skip",
+    "next": "Next",
+    "startFirstLesson": "Start my first lesson 🚀",
+    "welcome": {
+      "title": "Hey, I'm Jeff! 👋",
+      "body": "I'm your money coach. Quick tour of the app, then we'll do your first lesson together. Let's go!"
+    },
+    "homework": {
+      "title": "Homework",
+      "body": "Any assignments your teacher sets land right here, so you always know what's due."
+    },
+    "leaderboard": {
+      "title": "Leaderboard",
+      "body": "See how you rank against your class. Tap me in the corner anytime you need a hand!"
+    },
+    "stocks": {
+      "title": "Stocks",
+      "body": "Trade real companies using InvestiCoins and watch your portfolio grow to earn even more coins."
+    },
+    "missions": {
+      "title": "Missions",
+      "body": "This is the heart of the app - your lessons. Finish them to earn InvestiCoins and level up. Let's start your first one right now!"
+    },
+    "allSet": {
+      "title": "You're all set! 🎉",
+      "body": "Here's 10 InvestiCoins for finishing the tour. Now let's do your very first lesson!"
+    }
+  },
+  "apMode": {
+    "allCourses": "All Courses",
+    "apMode": "AP Mode",
+    "aboutAria": "About AP Mode",
+    "tooltip": "Advanced curriculum aligned with AP Economics and AP Personal Finance standards. Recommended for students in AP courses.",
+    "bannerTitle": "AP Business with Personal Finance",
+    "bannerSubtitle": "Aligned to the official College Board 5-unit framework · Launching fall 2026",
+    "businessCanvas": "Business Canvas Project",
+    "apRequired": "AP Required",
+    "businessCanvasDesc": "Build a complete Business Model Canvas for your own business idea - 9 guided blocks + submission",
+    "beyondAp": "Beyond AP - Advanced Content",
+    "beyondApCount_one": "{{count}} additional unit for advanced exploration",
+    "beyondApCount_other": "{{count}} additional units for advanced exploration"
+  },
+  "vocab": {
+    "title": "Vocab glossary",
+    "termCount": "{{count}} business terms Jeff teaches — tap to review",
+    "description": "Every term Jeff highlights in green. Tap a green word in a lesson to see its definition, or look one up here.",
+    "searchPlaceholder": "Search terms…",
+    "noMatch": "No terms match \"{{query}}\"."
+  },
+  "studentLessons": {
+    "title": "Lessons",
+    "loading": "Loading lessons…",
+    "questionsAnswered": "{{answered}}/{{total}} questions answered",
+    "status": {
+      "notStarted": "Not started",
+      "inProgress": "In progress",
+      "completed": "Completed"
+    },
+    "cta": {
+      "review": "Review",
+      "resume": "Resume",
+      "start": "Start lesson"
+    }
+  },
+  "jeffLines": {
+    "event": {
+      "coins_earned": [
+        "Cha-ching! More InvestiCoins! 💰",
+        "Coins in the bank - let's gooo! 🤑",
+        "That's how you stack it! 💸",
+        "Rich-kid energy, keep it up 😎"
+      ],
+      "lesson_complete": [
+        "Lesson DONE! You're unstoppable! 🎯",
+        "Big brain moment! 🧠✨",
+        "Another one in the bag! 🔥",
+        "You + knowledge = dangerous 💪"
+      ],
+      "level_up": [
+        "LEVEL UP! You're built different 🚀",
+        "New level unlocked - legend! 👑",
+        "Glow-up complete, next level 📈"
+      ],
+      "streak_update": [
+        "Streak alive! Don't break it 🔥",
+        "Day after day - that's discipline 💯",
+        "Consistency royalty 👑🔥"
+      ]
+    },
+    "generalTips": [
+      "Tiny habits today = big money tomorrow 🌱",
+      "Learning money young? Total cheat code 😎",
+      "Future-you is gonna thank present-you 🙌",
+      "Keep that streak alive - I believe in you 🔥"
+    ],
+    "greeting": {
+      "dashboard": [
+        "Ready to stack some coins today? 📈",
+        "Welcome back, future millionaire! 💰",
+        "Let's make today count! ✨",
+        "Your money empire awaits 👑"
+      ],
+      "lessons": [
+        "Lesson time - let's level up that brain! 🧠",
+        "One lesson closer to genius 🚀",
+        "Hop on the coaster, let's ride! 🎢",
+        "You're SO close to the next checkpoint! 🏔️"
+      ],
+      "lab": [
+        "Real-world money skills unlock here 🔬",
+        "This stuff? You'll use it for life 💡",
+        "Adulting, but make it fun 🧪"
+      ],
+      "stocks": [
+        "Let's read these charts together 📊",
+        "Buy low, sell high - you got this 🤔",
+        "Wall Street who? You're the trader 📈",
+        "Zero risk, all the practice 💸"
+      ],
+      "business": [
+        "Time to be the boss 💼",
+        "Build that empire, CEO! 🏪",
+        "Every big company started small 🌱"
+      ],
+      "progress": [
+        "Look how far you've come! 📈",
+        "Proof you're getting smarter 🧠",
+        "Your growth is glowing ✨"
+      ],
+      "leaderboard": [
+        "#1 has your name on it 🏆",
+        "Go flex on your classmates 😎",
+        "Climb, climb, climb! 🧗"
+      ],
+      "challenges": [
+        "Winner takes the pot - that's you 🏆",
+        "Bet on yourself and WIN 💪",
+        "Challenge accepted? 😏"
+      ],
+      "profile": [
+        "Lookin' good - that's all you 🌟",
+        "Check those badges you earned 🎖️",
+        "Your stats are stacking up 📊"
+      ],
+      "daily": [
+        "Daily streak = daily gains 🔥",
+        "Quick games, real coins 🎮"
+      ]
+    },
+    "tips": {
+      "dashboard": [
+        "Psst - finish a lesson today to keep your streak alive 🔥",
+        "Tip: Missions are the fastest way to earn coins 💰",
+        "The more you learn, the more you earn - literally 🧠"
+      ],
+      "lessons": [
+        "Ace the end quiz for bonus coins! 🎯",
+        "Stuck? Reread the recap, then crush the check ✅",
+        "Finish a whole unit to unlock the next 🔓"
+      ],
+      "lab": [
+        "These scenarios are real adult stuff - you're ahead of the game 😎",
+        "Taxes & credit feel boring… till it's your money 💡"
+      ],
+      "stocks": [
+        "Real prices, fake cash - experiment freely! 💸",
+        "Watch a stock a few days before you 'buy' 👀",
+        "Don't put all your coins in one stock 🧺"
+      ],
+      "business": [
+        "Track profit each round - think like a CEO 📒",
+        "Reinvest your earnings to grow faster 🌱"
+      ],
+      "progress": [
+        "Attack your weakest topic to level up fastest 📈",
+        "Mastery beats speed - go deep 🧠"
+      ],
+      "leaderboard": [
+        "Want to climb? Lessons give the most InvestiCoins 🚀",
+        "Race a partner to #1 🏁"
+      ],
+      "challenges": [
+        "Enter a challenge - winner takes ALL the coins 🏆",
+        "Even if you don't win, you learn. Still a W 💪"
+      ]
+    },
+    "encouragements": [
+      "Keep going - you've got this! 💪",
+      "Every lesson makes you richer 🧠",
+      "Small steps, big gains 📈",
+      "I believe in you! 🌟",
+      "Future investor in the making 💼",
+      "You're literally getting smarter rn 🤓",
+      "Don't stop - you're so close! 🏁",
+      "Main character energy 💫"
+    ]
   }
 }

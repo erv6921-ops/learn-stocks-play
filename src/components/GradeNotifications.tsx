@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { supabase } from "@/integrations/supabase/client"
 import { useAuth } from "@/hooks/useAuth"
 import { recordGradeFeedback } from "@/lib/notifications"
@@ -29,6 +30,7 @@ const seenKey = (uid: string) => `investiplay_grade_seen_${uid}`
 export function GradeNotifications() {
   // Gate on isTeacher (a confirmed teacher) rather than isStudent - a student
   // whose role lookup is slow/missing resolves to role=null and would be hidden.
+  const { t } = useTranslation()
   const { user, isTeacher } = useAuth()
   const [grade, setGrade] = useState<Grade | null>(null)
   const [open, setOpen] = useState(false)
@@ -80,17 +82,17 @@ export function GradeNotifications() {
             <Award className="w-8 h-8 text-gold" />
           </div>
           <DialogTitle className="text-center text-2xl font-display">
-            📣 Your teacher graded your business work!
+            {t("homework.notifications.businessGrade.title")}
           </DialogTitle>
           <DialogDescription className="text-center">
-            Here's your grade and feedback. You can re-read it any time from the notification bell.
+            {t("homework.notifications.businessGrade.desc")}
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 my-2">
           {grade.grade && (
             <div className="flex items-center justify-center gap-2">
-              <span className="text-sm text-muted-foreground">Grade:</span>
+              <span className="text-sm text-muted-foreground">{t("homework.notifications.gradeLabel")}</span>
               <Badge className="text-base px-3 py-1 bg-gold/15 text-gold border-gold/20">
                 {grade.grade}
               </Badge>
@@ -98,7 +100,7 @@ export function GradeNotifications() {
           )}
           {grade.feedback && (
             <div className="rounded-lg border bg-card p-4">
-              <p className="text-xs font-semibold text-muted-foreground mb-1">Feedback</p>
+              <p className="text-xs font-semibold text-muted-foreground mb-1">{t("homework.notifications.feedback")}</p>
               <p className="text-sm whitespace-pre-wrap break-words leading-relaxed">
                 {grade.feedback}
               </p>
@@ -108,7 +110,7 @@ export function GradeNotifications() {
 
         <DialogFooter>
           <Button onClick={dismiss} className="w-full sm:w-auto">
-            Got it
+            {t("homework.notifications.gotIt")}
           </Button>
         </DialogFooter>
       </DialogContent>

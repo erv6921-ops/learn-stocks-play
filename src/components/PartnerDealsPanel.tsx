@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { Handshake, Plus, CheckCircle2, XCircle, Clock, Zap, Users, ChevronDown, ChevronUp } from "lucide-react";
@@ -15,9 +17,9 @@ function daysLeft(expiresAt: string | null): number {
 
 function bonusPills(bonus: BizBonus) {
   const pills: { text: string; color: string }[] = [];
-  if (bonus.revenuePct > 0) pills.push({ text: `+${bonus.revenuePct}% revenue`, color: "#1D9E75" });
-  if (bonus.customers > 0) pills.push({ text: `+${bonus.customers} customers`, color: "#3BA7C4" });
-  if (bonus.reputation > 0) pills.push({ text: `+${bonus.reputation} rep`, color: "#8B5CF6" });
+  if (bonus.revenuePct > 0) pills.push({ text: i18n.t("partners.deals.pills.revenue", { pct: bonus.revenuePct }), color: "#1D9E75" });
+  if (bonus.customers > 0) pills.push({ text: i18n.t("partners.deals.pills.customers", { count: bonus.customers }), color: "#3BA7C4" });
+  if (bonus.reputation > 0) pills.push({ text: i18n.t("partners.deals.pills.rep", { count: bonus.reputation }), color: "#8B5CF6" });
   return pills;
 }
 
@@ -34,6 +36,7 @@ function ProposalPreview({
   onSend: () => void;
   onCancel: () => void;
 }) {
+  const { t } = useTranslation();
   const deal = generateDeal(myBizType, partner.bizType);
   const [sending, setSending] = useState(false);
 
@@ -64,13 +67,13 @@ function ProposalPreview({
         {/* bonuses */}
         <div className="grid grid-cols-2 gap-2">
           <div className="rounded-xl p-3" style={{ background: "#1D9E750a", border: "1px solid #1D9E7520" }}>
-            <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">Your monthly boost</p>
+            <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">{t("partners.deals.yourMonthlyBoost")}</p>
             {bonusPills(deal.proposerBonus).map((p) => (
               <span key={p.text} className="block text-[12px] font-extrabold" style={{ color: p.color }}>{p.text}</span>
             ))}
           </div>
           <div className="rounded-xl p-3" style={{ background: "#3BA7C40a", border: "1px solid #3BA7C420" }}>
-            <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">{partner.firstName}'s boost</p>
+            <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">{t("partners.deals.theirBoost", { name: partner.firstName })}</p>
             {bonusPills(deal.receiverBonus).map((p) => (
               <span key={p.text} className="block text-[12px] font-extrabold" style={{ color: p.color }}>{p.text}</span>
             ))}
@@ -79,11 +82,11 @@ function ProposalPreview({
 
         <p className="text-[11px] text-muted-foreground flex items-center gap-1.5">
           <Clock className="w-3.5 h-3.5 shrink-0" />
-          Active for 6 months · bonuses apply each time you advance a sim month
+          {t("partners.deals.activeForMonths")}
         </p>
 
         <div className="flex gap-2 pt-1">
-          <Button size="sm" variant="ghost" className="flex-1" onClick={onCancel}>Cancel</Button>
+          <Button size="sm" variant="ghost" className="flex-1" onClick={onCancel}>{t("partners.deals.cancel")}</Button>
           <Button
             size="sm"
             className="flex-1 font-bold"
@@ -95,7 +98,7 @@ function ProposalPreview({
               setSending(false);
             }}
           >
-            {sending ? "Sending…" : `Send to ${partner.firstName} →`}
+            {sending ? t("partners.deals.sending") : t("partners.deals.sendTo", { name: partner.firstName })}
           </Button>
         </div>
       </div>
@@ -106,6 +109,7 @@ function ProposalPreview({
 // ── Main panel ─────────────────────────────────────────────────────────────────
 
 export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null }) {
+  const { t } = useTranslation();
   const { deals, partners, loading, incomingPending, activeDeals, totalBonus, proposeDeal, respondToDeal } = useBizDeals(bizType);
   const [proposingTo, setProposingTo] = useState<PartnerWithBiz | null>(null);
   const [showPropose, setShowPropose] = useState(false);
@@ -122,11 +126,11 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
     if (!proposingTo) return;
     const { ok, error } = await proposeDeal(proposingTo.userId, proposingTo.bizType);
     if (ok) {
-      toast.success("Proposal sent!", { description: `${proposingTo.firstName} will see it in their Collab tab.` });
+      toast.success(t("partners.deals.toasts.proposalSent"), { description: t("partners.deals.toasts.proposalSentDesc", { name: proposingTo.firstName }) });
       setProposingTo(null);
       setShowPropose(false);
     } else {
-      toast.error(error ?? "Failed to send proposal");
+      toast.error(error ?? t("partners.deals.toasts.proposalFailed"));
     }
   };
 
@@ -135,9 +139,9 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
     const { ok, error } = await respondToDeal(dealId, accept);
     setResponding((r) => ({ ...r, [dealId]: false }));
     if (ok) {
-      toast.success(accept ? "Deal accepted! Bonuses now apply each sim month." : "Deal declined.");
+      toast.success(accept ? t("partners.deals.toasts.dealAccepted") : t("partners.deals.toasts.dealDeclined"));
     } else {
-      toast.error(error ?? "Something went wrong");
+      toast.error(error ?? t("partners.deals.toasts.somethingWrong"));
     }
   };
 
@@ -147,11 +151,11 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Handshake className="w-4 h-4" style={{ color: "#1D9E75" }} />
-          <p className="font-display font-extrabold text-base">Live Partner Deals</p>
+          <p className="font-display font-extrabold text-base">{t("partners.deals.title")}</p>
           {incomingPending.length > 0 && (
             <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-full text-white"
               style={{ background: "#EF4444" }}>
-              {incomingPending.length} new
+              {t("partners.deals.newCount", { count: incomingPending.length })}
             </span>
           )}
         </div>
@@ -161,7 +165,7 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
             className="flex items-center gap-1.5 text-[12px] font-bold px-3 py-1.5 rounded-full press-scale"
             style={{ background: "#1D9E7514", color: "#1D9E75", border: "1px solid #1D9E7530" }}
           >
-            <Plus className="w-3.5 h-3.5" /> Propose Deal
+            <Plus className="w-3.5 h-3.5" /> {t("partners.deals.proposeDeal")}
           </button>
         )}
       </div>
@@ -177,13 +181,13 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
           <Zap className="w-4 h-4 shrink-0" style={{ color: "#1D9E75" }} />
           <div className="min-w-0">
             <p className="text-[11px] font-extrabold" style={{ color: "#1D9E75" }}>
-              {totalBonus.dealCount} active deal{totalBonus.dealCount > 1 ? "s" : ""} boosting your business
+              {t("partners.deals.activeBoosting", { count: totalBonus.dealCount })}
             </p>
             <p className="text-[11px] text-muted-foreground">
               {[
-                totalBonus.revenuePct > 0 && `+${totalBonus.revenuePct}% revenue`,
-                totalBonus.customers > 0 && `+${totalBonus.customers} customers/month`,
-                totalBonus.reputation > 0 && `+${totalBonus.reputation} rep/month`,
+                totalBonus.revenuePct > 0 && t("partners.deals.pills.revenue", { pct: totalBonus.revenuePct }),
+                totalBonus.customers > 0 && t("partners.deals.pills.customersPerMonth", { count: totalBonus.customers }),
+                totalBonus.reputation > 0 && t("partners.deals.pills.repPerMonth", { count: totalBonus.reputation }),
               ].filter(Boolean).join(" · ")}
             </p>
           </div>
@@ -202,15 +206,15 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
             {!proposingTo ? (
               <div className="rounded-2xl border p-4 space-y-3" style={{ borderColor: "#e0e8e3" }}>
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-bold">Select a partner to propose to:</p>
+                  <p className="text-sm font-bold">{t("partners.deals.selectPartner")}</p>
                   <button onClick={() => setShowPropose(false)} className="text-muted-foreground hover:text-foreground">
                     <XCircle className="w-4 h-4" />
                   </button>
                 </div>
                 {loading ? (
-                  <p className="text-sm text-muted-foreground">Loading partners…</p>
+                  <p className="text-sm text-muted-foreground">{t("partners.deals.loadingPartners")}</p>
                 ) : partners.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">None of your partners have started a business yet.</p>
+                  <p className="text-sm text-muted-foreground">{t("partners.deals.noPartnersStarted")}</p>
                 ) : (
                   <div className="grid grid-cols-2 gap-2">
                     {partners.map((p) => {
@@ -227,7 +231,7 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
                           <p className="font-bold text-sm">{p.firstName} {p.lastName}</p>
                           <p className="text-[11px] text-muted-foreground">{BIZ_TYPE_LABELS[p.bizType]}</p>
                           <p className="text-[11px] font-bold mt-1" style={{ color: "#1D9E75" }}>
-                            {pending ? "Proposal pending" : `${deal.emoji} ${deal.title}`}
+                            {pending ? t("partners.deals.proposalPending") : `${deal.emoji} ${deal.title}`}
                           </p>
                         </button>
                       );
@@ -250,7 +254,7 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
       {/* incoming pending */}
       {incomingPending.length > 0 && (
         <div className="space-y-2">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Incoming proposals</p>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{t("partners.deals.incomingProposals")}</p>
           {incomingPending.map((d) => (
             <motion.div
               key={d.id}
@@ -265,9 +269,9 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
                   <div className="flex items-center gap-2 flex-wrap">
                     <p className="font-extrabold text-sm">{d.title}</p>
                     <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full"
-                      style={{ background: "#EF9F2720", color: "#EF9F27" }}>from {d.partnerFirstName}</span>
+                      style={{ background: "#EF9F2720", color: "#EF9F27" }}>{t("partners.deals.from", { name: d.partnerFirstName })}</span>
                   </div>
-                  <p className="text-[11px] text-muted-foreground mt-0.5">{BIZ_TYPE_LABELS[d.partnerBizType]} business</p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">{t("partners.deals.bizTypeBusiness", { type: BIZ_TYPE_LABELS[d.partnerBizType] })}</p>
                   <div className="flex flex-wrap gap-1.5 mt-2">
                     {bonusPills(d.myBonus).map((p) => (
                       <span key={p.text} className="text-[11px] font-bold px-2 py-0.5 rounded-full"
@@ -284,7 +288,7 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
                       disabled={responding[d.id]}
                       onClick={() => handleRespond(d.id, false)}
                     >
-                      <XCircle className="w-3.5 h-3.5 mr-1" /> Decline
+                      <XCircle className="w-3.5 h-3.5 mr-1" /> {t("partners.deals.decline")}
                     </Button>
                     <Button
                       size="sm"
@@ -293,7 +297,7 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
                       disabled={responding[d.id]}
                       onClick={() => handleRespond(d.id, true)}
                     >
-                      <CheckCircle2 className="w-3.5 h-3.5 mr-1" /> Accept
+                      <CheckCircle2 className="w-3.5 h-3.5 mr-1" /> {t("partners.deals.accept")}
                     </Button>
                   </div>
                 </div>
@@ -306,7 +310,7 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
       {/* active deals */}
       {activeDeals.length > 0 && (
         <div className="space-y-2">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Active deals</p>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{t("partners.deals.activeDeals")}</p>
           {activeDeals.map((d) => (
             <motion.div
               key={d.id}
@@ -322,7 +326,7 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
                     <p className="font-extrabold text-sm">{d.title}</p>
                     <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full"
                       style={{ background: "#1D9E7520", color: "#1D9E75" }}>
-                      with {d.partnerFirstName}
+                      {t("partners.deals.with", { name: d.partnerFirstName })}
                     </span>
                   </div>
                   <div className="flex flex-wrap gap-1.5 mt-2">
@@ -336,7 +340,7 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
                   {d.expiresAt && (
                     <p className="text-[11px] text-muted-foreground mt-1 flex items-center gap-1">
                       <Clock className="w-3 h-3" />
-                      {daysLeft(d.expiresAt)} days remaining
+                      {t("partners.deals.daysRemaining", { count: daysLeft(d.expiresAt) })}
                     </p>
                   )}
                 </div>
@@ -349,7 +353,7 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
       {/* pending outgoing */}
       {pendingOutgoing.length > 0 && (
         <div className="space-y-2">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Sent proposals</p>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{t("partners.deals.sentProposals")}</p>
           {pendingOutgoing.map((d) => (
             <div
               key={d.id}
@@ -359,7 +363,7 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
               <span className="text-lg">{d.emoji}</span>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-bold">{d.title}</p>
-                <p className="text-[11px] text-muted-foreground">Awaiting {d.partnerFirstName}'s response</p>
+                <p className="text-[11px] text-muted-foreground">{t("partners.deals.awaitingResponse", { name: d.partnerFirstName })}</p>
               </div>
               <Clock className="w-4 h-4 text-muted-foreground shrink-0" />
             </div>
@@ -371,22 +375,22 @@ export default function PartnerDealsPanel({ bizType }: { bizType: BizType | null
       {!loading && deals.length === 0 && partners.length === 0 && (
         <div className="rounded-2xl border border-dashed p-6 text-center" style={{ borderColor: "#1D9E7530" }}>
           <Users className="w-8 h-8 mx-auto mb-2" style={{ color: "#1D9E7540" }} />
-          <p className="text-sm font-bold text-muted-foreground">No partners with businesses yet</p>
-          <p className="text-xs text-muted-foreground mt-1">When a partner starts their business, you can propose a deal here.</p>
+          <p className="text-sm font-bold text-muted-foreground">{t("partners.deals.noPartnersWithBiz")}</p>
+          <p className="text-xs text-muted-foreground mt-1">{t("partners.deals.noPartnersWithBizHint")}</p>
         </div>
       )}
 
       {!loading && deals.length === 0 && partners.length > 0 && !showPropose && (
         <div className="rounded-2xl border border-dashed p-6 text-center" style={{ borderColor: "#1D9E7530" }}>
           <Handshake className="w-8 h-8 mx-auto mb-2" style={{ color: "#1D9E7540" }} />
-          <p className="text-sm font-bold text-muted-foreground">No deals yet</p>
-          <p className="text-xs text-muted-foreground mt-1">You have partners with businesses - propose a deal to unlock real bonuses.</p>
+          <p className="text-sm font-bold text-muted-foreground">{t("partners.deals.noDealsYet")}</p>
+          <p className="text-xs text-muted-foreground mt-1">{t("partners.deals.noDealsYetHint")}</p>
           <button
             onClick={() => setShowPropose(true)}
             className="mt-3 text-sm font-bold px-4 py-2 rounded-full press-scale"
             style={{ background: "#1D9E7514", color: "#1D9E75" }}
           >
-            + Propose a Deal
+            {t("partners.deals.proposeADeal")}
           </button>
         </div>
       )}

@@ -1,4 +1,5 @@
 import React from "react"
+import { useTranslation, Trans } from "react-i18next"
 import { motion } from "framer-motion"
 import { Trophy, Coins, X } from "lucide-react"
 
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export default function ChallengePodium({ banners, onDismiss }: Props) {
+  const { t } = useTranslation()
   if (banners.length === 0) return null
   return (
     <div className="space-y-3 mb-6">
@@ -29,7 +31,7 @@ export default function ChallengePodium({ banners, onDismiss }: Props) {
         >
           <button
             onClick={() => onDismiss(b.challengeId)}
-            aria-label="Dismiss"
+            aria-label={t("challenges.dismiss")}
             className="absolute top-2.5 right-2.5 w-7 h-7 rounded-lg text-muted-foreground hover:bg-muted/60 flex items-center justify-center"
           >
             <X className="w-4 h-4" />
@@ -40,12 +42,14 @@ export default function ChallengePodium({ banners, onDismiss }: Props) {
             </div>
             <div className="min-w-0">
               <p className="font-bold leading-tight">
-                {b.iWon ? "🏆 You won" : `🏆 ${b.name} won`} the “{b.title}” challenge{b.tie ? " (tie)" : ""}
+                {(b.iWon
+                  ? t(b.tie ? "challenges.podium.youWonTie" : "challenges.podium.youWon", { title: b.title })
+                  : t(b.tie ? "challenges.podium.otherWonTie" : "challenges.podium.otherWon", { name: b.name, title: b.title }))}
               </p>
               <p className="text-sm text-muted-foreground flex items-center gap-1 mt-0.5">
-                {b.iWon ? "You earned" : "They earned"}
+                {b.iWon ? t("challenges.podium.youEarned") : t("challenges.podium.theyEarned")}
                 <span className="font-bold text-gold inline-flex items-center gap-0.5"><Coins className="w-3.5 h-3.5" /> {b.amount.toLocaleString()}</span>
-                InvestiCoins!
+                {t("challenges.podium.investiCoins")}
               </p>
             </div>
           </div>

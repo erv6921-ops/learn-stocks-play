@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect, useMemo } from "react"
 import { useParams, useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { useApp } from "@/contexts/AppContext"
 import { getLabDocument, labFormFields, markLabDocDone, FormField } from "@/data/labDocuments"
 import { IRSFormLab } from "@/components/labs/forms"
@@ -30,6 +31,7 @@ import {
 export default function LabDocument() {
   const { docId } = useParams<{ docId: string }>()
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const { earnJeffs, getRewardMultiplier } = useApp()
 
   const result = getLabDocument(docId || "")
@@ -88,7 +90,7 @@ export default function LabDocument() {
   const requestFeedback = useCallback(async (field: FormField) => {
     const value = formValues[field.id]
     if (!value || value.trim() === "") {
-      toast({ title: "Please fill in the field first", variant: "destructive" })
+      toast({ title: t("lab.doc.fillFieldFirst"), variant: "destructive" })
       return
     }
     setLoadingField(field.id)
@@ -119,7 +121,7 @@ export default function LabDocument() {
       }
     } catch (err) {
       console.error("Feedback error:", err)
-      toast({ title: "Couldn't get feedback - try again", variant: "destructive" })
+      toast({ title: t("lab.doc.feedbackError"), variant: "destructive" })
     } finally {
       setLoadingField(null)
     }
@@ -130,7 +132,7 @@ export default function LabDocument() {
     const requiredFields = fields.filter(f => f.required)
     const unfilled = requiredFields.filter(f => !formValues[f.id]?.trim())
     if (unfilled.length > 0) {
-      toast({ title: `Please fill in all required fields (${unfilled.length} remaining)`, variant: "destructive" })
+      toast({ title: t("lab.doc.fillAllRequired", { count: unfilled.length }), variant: "destructive" })
       return
     }
     setCompleted(true)
@@ -162,8 +164,8 @@ export default function LabDocument() {
         <GameNav />
         <div className="flex items-center justify-center pt-20">
           <div className="text-center">
-            <h2 className="text-xl font-bold mb-2">Document not found</h2>
-            <Button onClick={() => navigate("/lab")}>Back to Lab</Button>
+            <h2 className="text-xl font-bold mb-2">{t("lab.doc.notFound")}</h2>
+            <Button onClick={() => navigate("/lab")}>{t("lab.doc.backToLab")}</Button>
           </div>
         </div>
       </div>
@@ -194,8 +196,8 @@ export default function LabDocument() {
                 <div className="w-20 h-20 mx-auto rounded-full bg-success/20 flex items-center justify-center">
                   <CheckCircle className="w-10 h-10 text-success" />
                 </div>
-                <h2 className="text-2xl font-bold">Lab Complete! 🧪</h2>
-                <p className="text-muted-foreground">You've successfully practiced the {doc.title}.</p>
+                <h2 className="text-2xl font-bold">{t("lab.doc.complete")}</h2>
+                <p className="text-muted-foreground">{t("lab.doc.completeDesc", { title: doc.title })}</p>
                 <div className="bg-gold/10 border border-gold/20 rounded-xl p-4">
                   <div className="flex items-center justify-center gap-2">
                     <Coins className="w-5 h-5 text-gold" />
@@ -203,10 +205,10 @@ export default function LabDocument() {
                       +{Math.round(doc.reward * getRewardMultiplier()).toLocaleString()}
                     </span>
                   </div>
-                  <p className="text-sm text-muted-foreground">InvestiCoins earned!</p>
+                  <p className="text-sm text-muted-foreground">{t("lab.doc.coinsEarned")}</p>
                 </div>
                 <Button onClick={() => navigate("/lab")} className="min-h-[44px]">
-                  Back to Lab <ArrowRight className="ml-2" />
+                  {t("lab.doc.backToLab")} <ArrowRight className="ml-2" />
                 </Button>
               </CardContent>
             </Card>
@@ -241,7 +243,7 @@ export default function LabDocument() {
               {/* Guided mode toggle */}
               <div className="hidden sm:flex items-center gap-1.5 bg-muted/50 rounded-lg px-2.5 py-1.5 border border-border/50">
                 <Eye className="w-3.5 h-3.5 text-muted-foreground" />
-                <span className="text-[10px] font-semibold text-muted-foreground">Guided</span>
+                <span className="text-[10px] font-semibold text-muted-foreground">{t("lab.doc.guided")}</span>
                 <Switch
                   checked={guidedMode}
                   onCheckedChange={setGuidedMode}
@@ -291,7 +293,7 @@ export default function LabDocument() {
                   className="flex items-center gap-1.5 text-white/60 text-xs font-semibold hover:text-white/80 transition-colors mt-2"
                 >
                   <BookOpen className="w-3.5 h-3.5" />
-                  {showEducation ? "Hide" : "Show"} learning guide
+                  {showEducation ? t("lab.doc.hideGuide") : t("lab.doc.showGuide")}
                   {showEducation ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
                 </button>
               </div>
@@ -306,23 +308,23 @@ export default function LabDocument() {
                     className="overflow-hidden"
                   >
                     <CardContent className="p-5 md:p-6 space-y-4">
-                      <EducationItem icon={HelpCircle} label="What is this document?" text={doc.education.whatItIs} />
-                      <EducationItem icon={Calendar} label="When do you fill it out?" text={doc.education.whenYouFillItOut} />
-                      <EducationItem icon={Shield} label="Why does it matter?" text={doc.education.whyItMatters} />
-                      <EducationItem icon={AlertTriangle} label="What happens if done incorrectly?" text={doc.education.whatHappensIfWrong} accentColor="destructive" />
+                      <EducationItem icon={HelpCircle} label={t("lab.doc.eduWhatIs")} text={doc.education.whatItIs} />
+                      <EducationItem icon={Calendar} label={t("lab.doc.eduWhenFillOut")} text={doc.education.whenYouFillItOut} />
+                      <EducationItem icon={Shield} label={t("lab.doc.eduWhyMatters")} text={doc.education.whyItMatters} />
+                      <EducationItem icon={AlertTriangle} label={t("lab.doc.eduIfWrong")} text={doc.education.whatHappensIfWrong} accentColor="destructive" />
 
                       <div className="bg-amber-500/5 border border-amber-500/15 rounded-xl p-3.5">
                         <p className="text-xs font-semibold text-amber-600 flex items-center gap-1.5 mb-1">
-                          <Info className="w-3.5 h-3.5" /> Educational Simulation
+                          <Info className="w-3.5 h-3.5" /> {t("lab.doc.eduSimulation")}
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          This is a simplified educational version. Do NOT enter real personal information like your actual SSN.
+                          {t("lab.doc.eduSimulationDesc")}
                         </p>
                       </div>
 
                       <div className="flex items-center gap-4 text-xs text-muted-foreground pt-1">
-                        <span>⏱ ~{doc.estimatedMinutes} minutes</span>
-                        <span className="flex items-center gap-1"><Coins className="w-3 h-3 text-gold" />{doc.reward} on completion</span>
+                        <span>⏱ {t("lab.doc.approxMinutes", { count: doc.estimatedMinutes })}</span>
+                        <span className="flex items-center gap-1"><Coins className="w-3 h-3 text-gold" />{t("lab.doc.onCompletion", { count: doc.reward })}</span>
                       </div>
                     </CardContent>
                   </motion.div>
@@ -336,7 +338,7 @@ export default function LabDocument() {
         <div className="sm:hidden flex items-center justify-between bg-muted/30 rounded-xl px-4 py-3 mb-4 border border-border/50">
           <div className="flex items-center gap-2">
             {guidedMode ? <Eye className="w-4 h-4 text-primary" /> : <EyeOff className="w-4 h-4 text-muted-foreground" />}
-            <span className="text-sm font-semibold">{guidedMode ? "Guided Mode" : "Independent Mode"}</span>
+            <span className="text-sm font-semibold">{guidedMode ? t("lab.doc.guidedMode") : t("lab.doc.independentMode")}</span>
           </div>
           <Switch checked={guidedMode} onCheckedChange={setGuidedMode} />
         </div>
@@ -351,7 +353,7 @@ export default function LabDocument() {
                 {doc.title} - {doc.subtitle}
               </span>
               <span className="text-[10px] text-muted-foreground">
-                {filledRequired}/{totalRequired} required fields
+                {t("lab.doc.requiredFields", { filled: filledRequired, total: totalRequired })}
               </span>
             </div>
 
@@ -482,7 +484,7 @@ export default function LabDocument() {
                                 className="flex items-center gap-1.5 text-[11px] text-primary/70 font-semibold mt-2 hover:text-primary transition-colors"
                               >
                                 <Lightbulb className="w-3 h-3" />
-                                Why this matters
+                                {t("lab.doc.whyThisMatters")}
                                 {isExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
                               </button>
                             )}
@@ -514,9 +516,9 @@ export default function LabDocument() {
                                   className="text-xs gap-1.5 min-h-[40px]"
                                 >
                                   {loadingField === field.id ? (
-                                    <><Loader2 className="w-3 h-3 animate-spin" /> Checking...</>
+                                    <><Loader2 className="w-3 h-3 animate-spin" /> {t("lab.doc.checking")}</>
                                   ) : (
-                                    <><Send className="w-3 h-3" /> Check my answer</>
+                                    <><Send className="w-3 h-3" /> {t("lab.doc.checkMyAnswer")}</>
                                   )}
                                 </Button>
                               </div>
@@ -559,7 +561,7 @@ export default function LabDocument() {
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <Progress value={overallProgress} className="h-2 w-24" variant="success" />
-                  <span>{overallProgress}% complete</span>
+                  <span>{t("lab.doc.percentComplete", { percent: overallProgress })}</span>
                 </div>
                 <Button
                   onClick={guidedMode ? handleComplete : handleSubmitAll}
@@ -567,9 +569,9 @@ export default function LabDocument() {
                   className="min-h-[48px] gap-2 text-sm font-semibold"
                 >
                   {allRequiredFilled ? (
-                    <>Complete Document <CheckCircle className="w-4 h-4" /></>
+                    <>{t("lab.doc.completeDocument")} <CheckCircle className="w-4 h-4" /></>
                   ) : (
-                    <>Fill all required fields ({totalRequired - filledRequired} left)</>
+                    <>{t("lab.doc.fillAllLeft", { count: totalRequired - filledRequired })}</>
                   )}
                 </Button>
               </div>

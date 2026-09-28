@@ -5,6 +5,7 @@
 // exit for a MOIC. Coins flow through AppContext; holdings live in bankStore.
 
 import { useMemo, useState } from "react"
+import { useTranslation, Trans } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -27,9 +28,9 @@ import BuyoutDetail from "./BuyoutDetail"
 const NO_PORTFOLIO: PortfolioBuyout[] = []
 
 const STATUS_META = {
-  thriving: { label: "Thriving", color: "#10b981", Icon: TrendingUp },
-  steady: { label: "Steady", color: "#d97706", Icon: Minus },
-  distressed: { label: "Distressed", color: "#ef4444", Icon: TrendingDown },
+  thriving: { labelKey: "bankCareers.pe.status.thriving", color: "#10b981", Icon: TrendingUp },
+  steady: { labelKey: "bankCareers.pe.status.steady", color: "#d97706", Icon: Minus },
+  distressed: { labelKey: "bankCareers.pe.status.distressed", color: "#ef4444", Icon: TrendingDown },
 } as const
 
 const SIGNAL_VARIANT = { Strong: "success", Fair: "warning", Risky: "destructive" } as const
@@ -37,6 +38,7 @@ const SIGNAL_VARIANT = { Strong: "success", Fair: "warning", Risky: "destructive
 type Selected = { mode: "buy" | "holding"; id: string } | null
 
 export default function PeFund({ career, week }: { career: Career; week: number }) {
+  const { t } = useTranslation()
   const { jeffsBalance, spendJeffs, awardJeffs } = useApp()
   const portfolio = useBankStore(s => s.pePortfolio) ?? NO_PORTFOLIO
   const buyPE = useBankStore(s => s.buyPE)
@@ -54,24 +56,24 @@ export default function PeFund({ career, week }: { career: Career; week: number 
   const totalEquityIn = portfolio.reduce((n, c) => n + c.equityIn, 0)
   const totalEquityValue = portfolio.reduce((n, c) => n + equityValue(c), 0)
 
-  const buy = (t: BuyoutTarget, plan: LeveragePlan, thesis: string) => {
-    if (ownedIds.has(t.id)) return
-    const s = structureDeal(t, plan)
+  const buy = (target: BuyoutTarget, plan: LeveragePlan, thesis: string) => {
+    if (ownedIds.has(target.id)) return
+    const s = structureDeal(target, plan)
     if (jeffsBalance < s.equityIn) {
-      setFlash(`You need ${s.equityIn.toLocaleString()} coins of equity to buy ${t.name} - you have ${Math.floor(jeffsBalance).toLocaleString()}.`)
+      setFlash(t("bankCareers.pe.flash.needEquity", { amount: s.equityIn.toLocaleString(), name: target.name, balance: Math.floor(jeffsBalance).toLocaleString() }))
       return
     }
-    if (!spendJeffs(s.equityIn, `Bought ${t.name} (equity check)`)) return
-    buyPE(holdingFromTarget(t, s, week, thesis))
-    addMemo({ careerId: career.id, week, dealTitle: `Buyout thesis · ${t.name}`, prompt: `Why did you buy ${t.name}, and how will you make money on it?`, text: thesis })
-    setFlash(`You bought ${t.name} for ${s.equityIn.toLocaleString()} coins of equity plus ${s.debt.toLocaleString()} of debt. Now go make it better.`)
+    if (!spendJeffs(s.equityIn, `Bought ${target.name} (equity check)`)) return
+    buyPE(holdingFromTarget(target, s, week, thesis))
+    addMemo({ careerId: career.id, week, dealTitle: t("bankCareers.pe.memo.buyTitle", { name: target.name }), prompt: t("bankCareers.pe.memo.buyPrompt", { name: target.name }), text: thesis })
+    setFlash(t("bankCareers.pe.flash.bought", { name: target.name, equity: s.equityIn.toLocaleString(), debt: s.debt.toLocaleString() }))
     setSelected(null)
     setTab("portfolio")
   }
 
   const run = (holding: PortfolioBuyout, patch: Partial<PortfolioBuyout>, repDelta: number, writeUp: { headline: string; question: string; text: string }) => {
     runPE(career.id, holding.id, patch, repDelta)
-    addMemo({ careerId: career.id, week, dealTitle: `Investor update · ${holding.name}: ${writeUp.headline}`, prompt: writeUp.question, text: writeUp.text })
+    addMemo({ careerId: career.id, week, dealTitle: t("bankCareers.pe.memo.updateTitle", { name: holding.name, headline: writeUp.headline }), prompt: writeUp.question, text: writeUp.text })
   }
 
   const exit = (c: PortfolioBuyout, route: ExitRoute, payout: number) => {
@@ -80,16 +82,16 @@ export default function PeFund({ career, week }: { career: Career; week: number 
     setSelected(null)
     const mult = (payout / Math.max(1, c.equityIn)).toFixed(1)
     setFlash(payout >= c.equityIn
-      ? `Exited ${c.name} for ${payout.toLocaleString()} coins - a ${mult}× on your equity! 🎉`
-      : `Exited ${c.name} for ${payout.toLocaleString()} coins (${mult}×). Leverage cuts both ways - a hard lesson learned.`)
+      ? t("bankCareers.pe.flash.exitWin", { name: c.name, payout: payout.toLocaleString(), mult })
+      : t("bankCareers.pe.flash.exitLoss", { name: c.name, payout: payout.toLocaleString(), mult }))
   }
 
   // ── detail screen ──
   if (selected) {
     if (selected.mode === "buy") {
-      const t = targets.find(o => o.id === selected.id)
-      if (!t) { setSelected(null); return null }
-      return <BuyoutDetail mode="buy" week={week} accent={career.accent} onBack={() => setSelected(null)} target={t} owned={ownedIds.has(t.id)} balance={jeffsBalance} onBuy={buy} />
+      const target = targets.find(o => o.id === selected.id)
+      if (!target) { setSelected(null); return null }
+      return <BuyoutDetail mode="buy" week={week} accent={career.accent} onBack={() => setSelected(null)} target={target} owned={ownedIds.has(target.id)} balance={jeffsBalance} onBuy={buy} />
     }
     const holding = portfolio.find(c => c.id === selected.id)
     if (!holding) { setSelected(null); return null }
@@ -115,25 +117,25 @@ export default function PeFund({ career, week }: { career: Career; week: number 
         <div className="p-4 sm:p-5">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-white/70 flex items-center gap-1"><Landmark className="h-3 w-3" /> Buyout Fund I</p>
-              <p className="font-display text-xl font-extrabold leading-tight">{portfolio.length} {portfolio.length === 1 ? "company" : "companies"} owned</p>
-              <p className="text-[11px] text-white/70">Buy it with debt · fix it · sell it for more</p>
+              <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-white/70 flex items-center gap-1"><Landmark className="h-3 w-3" /> {t("bankCareers.pe.fundName")}</p>
+              <p className="font-display text-xl font-extrabold leading-tight">{portfolio.length === 1 ? t("bankCareers.pe.companiesOwned_one", { count: portfolio.length }) : t("bankCareers.pe.companiesOwned_other", { count: portfolio.length })}</p>
+              <p className="text-[11px] text-white/70">{t("bankCareers.pe.heroTagline")}</p>
             </div>
             <div className="text-right shrink-0">
               <p className="text-2xl font-extrabold tabular-nums">{fundMoic ? `${fundMoic}×` : "-"}</p>
-              <p className="text-[10px] text-white/70 uppercase tracking-wide">fund MOIC</p>
+              <p className="text-[10px] text-white/70 uppercase tracking-wide">{t("bankCareers.pe.fundMoic")}</p>
             </div>
           </div>
           {portfolio.length > 0 && (
             <div className="mt-3.5">
               <div className="flex h-2.5 w-full overflow-hidden rounded-full bg-black/20">
-                <div style={{ width: `${(totalEquityIn / stackTotal) * 100}%`, background: "rgba(255,255,255,0.9)" }} title="Your equity" />
-                <div style={{ width: `${(totalDebt / stackTotal) * 100}%`, background: "rgba(0,0,0,0.35)" }} title="Debt (leverage)" />
+                <div style={{ width: `${(totalEquityIn / stackTotal) * 100}%`, background: "rgba(255,255,255,0.9)" }} title={t("bankCareers.pe.yourEquity")} />
+                <div style={{ width: `${(totalDebt / stackTotal) * 100}%`, background: "rgba(0,0,0,0.35)" }} title={t("bankCareers.pe.debtLeverage")} />
               </div>
               <div className="flex items-center justify-between mt-1.5 text-[10px] font-semibold text-white/85">
-                <span>◻ Equity in {totalEquityIn.toLocaleString()}</span>
-                <span>◼ Debt {totalDebt.toLocaleString()}</span>
-                <span className="font-extrabold">Worth {totalEquityValue.toLocaleString()}</span>
+                <span>◻ {t("bankCareers.pe.equityIn", { amount: totalEquityIn.toLocaleString() })}</span>
+                <span>◼ {t("bankCareers.pe.debt", { amount: totalDebt.toLocaleString() })}</span>
+                <span className="font-extrabold">{t("bankCareers.pe.worth", { amount: totalEquityValue.toLocaleString() })}</span>
               </div>
             </div>
           )}
@@ -142,8 +144,8 @@ export default function PeFund({ career, week }: { career: Career; week: number 
 
       <Card variant="elevated" className="overflow-hidden">
         <div className="p-1.5 flex gap-1.5 bg-muted/40">
-          <TabButton id="portfolio" label="Portfolio" icon={Building2} />
-          <TabButton id="market" label="For sale" icon={Search} />
+          <TabButton id="portfolio" label={t("bankCareers.pe.tabs.portfolio")} icon={Building2} />
+          <TabButton id="market" label={t("bankCareers.pe.tabs.forSale")} icon={Search} />
         </div>
 
         <CardContent className="p-3 sm:p-4">
@@ -159,9 +161,9 @@ export default function PeFund({ career, week }: { career: Career; week: number 
             portfolio.length === 0 ? (
               <div className="text-center py-8 space-y-2">
                 <Building2 className="h-7 w-7 mx-auto text-muted-foreground/60" />
-                <p className="text-sm font-semibold">You don't own any companies yet</p>
-                <p className="text-xs text-muted-foreground max-w-xs mx-auto">Open the <b>For sale</b> tab to study businesses, structure the debt, and buy your first one. Then improve it week by week and sell for a profit.</p>
-                <Button size="sm" variant="outline" className="mt-1" onClick={() => setTab("market")}>Browse the market</Button>
+                <p className="text-sm font-semibold">{t("bankCareers.pe.empty.title")}</p>
+                <p className="text-xs text-muted-foreground max-w-xs mx-auto"><Trans i18nKey="bankCareers.pe.empty.body" components={{ b: <b /> }} /></p>
+                <Button size="sm" variant="outline" className="mt-1" onClick={() => setTab("market")}>{t("bankCareers.pe.empty.cta")}</Button>
               </div>
             ) : (
               <div className="space-y-2">
@@ -177,12 +179,12 @@ export default function PeFund({ career, week }: { career: Career; week: number 
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="font-display font-extrabold text-sm">{c.name}</span>
                             <Badge variant="outline" className="text-[9px] capitalize">{c.sector}</Badge>
-                            {needsYou && <Badge className="text-[9px]" style={{ background: career.accent }}>Needs you</Badge>}
+                            {needsYou && <Badge className="text-[9px]" style={{ background: career.accent }}>{t("bankCareers.pe.needsYou")}</Badge>}
                           </div>
                           <p className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-2">
-                            <span className="flex items-center gap-0.5"><Coins className="h-3 w-3" />{c.ebitda.toLocaleString()} profit</span>
-                            <span className="flex items-center gap-0.5"><Landmark className="h-3 w-3" />{c.debt.toLocaleString()} debt</span>
-                            <span style={{ color: meta.color }} className="flex items-center gap-0.5 font-semibold"><meta.Icon className="h-3 w-3" />{meta.label}</span>
+                            <span className="flex items-center gap-0.5"><Coins className="h-3 w-3" />{t("bankCareers.pe.profitAmount", { amount: c.ebitda.toLocaleString() })}</span>
+                            <span className="flex items-center gap-0.5"><Landmark className="h-3 w-3" />{t("bankCareers.pe.debtAmount", { amount: c.debt.toLocaleString() })}</span>
+                            <span style={{ color: meta.color }} className="flex items-center gap-0.5 font-semibold"><meta.Icon className="h-3 w-3" />{t(meta.labelKey)}</span>
                           </p>
                         </div>
                         <div className="flex items-center gap-2 shrink-0">
@@ -196,35 +198,35 @@ export default function PeFund({ career, week }: { career: Career; week: number 
                     </button>
                   )
                 })}
-                <p className="text-[10px] text-muted-foreground text-center pt-1">Tap a company to run its playbook. Grow profit, pay down debt, then exit when the MOIC looks great.</p>
+                <p className="text-[10px] text-muted-foreground text-center pt-1">{t("bankCareers.pe.portfolioTip")}</p>
               </div>
             )
           ) : (
             <div className="space-y-2">
-              <p className="text-[11px] text-muted-foreground flex items-center gap-1.5"><Coins className="h-3.5 w-3.5" /> You have <b className="text-foreground">{Math.floor(jeffsBalance).toLocaleString()}</b> coins · new businesses list each week</p>
-              {targets.map(t => {
-                const owned = ownedIds.has(t.id)
-                const p = t.profile
+              <p className="text-[11px] text-muted-foreground flex items-center gap-1.5"><Coins className="h-3.5 w-3.5" /> <Trans i18nKey="bankCareers.pe.balanceLine" values={{ balance: Math.floor(jeffsBalance).toLocaleString() }} components={{ b: <b className="text-foreground" /> }} /></p>
+              {targets.map(target => {
+                const owned = ownedIds.has(target.id)
+                const p = target.profile
                 return (
-                  <button key={t.id} onClick={() => setSelected({ mode: "buy", id: t.id })} className="w-full text-left rounded-xl border border-border/60 p-3 hover:bg-muted/40 transition-colors">
+                  <button key={target.id} onClick={() => setSelected({ mode: "buy", id: target.id })} className="w-full text-left rounded-xl border border-border/60 p-3 hover:bg-muted/40 transition-colors">
                     <div className="flex items-center justify-between gap-2">
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-display font-extrabold text-sm">{t.name}</span>
-                          <Badge variant="outline" className="text-[9px] capitalize">{t.sector}</Badge>
-                          <Badge variant={SIGNAL_VARIANT[t.signal]} className="text-[9px]">{t.signal}</Badge>
-                          {owned && <Badge variant="secondary" className="text-[9px]">Owned</Badge>}
+                          <span className="font-display font-extrabold text-sm">{target.name}</span>
+                          <Badge variant="outline" className="text-[9px] capitalize">{target.sector}</Badge>
+                          <Badge variant={SIGNAL_VARIANT[target.signal]} className="text-[9px]">{target.signal}</Badge>
+                          {owned && <Badge variant="secondary" className="text-[9px]">{t("bankCareers.pe.owned")}</Badge>}
                         </div>
                         <p className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-2">
-                          <span className="flex items-center gap-0.5"><Coins className="h-3 w-3" />{p.ebitda.toLocaleString()} profit</span>
-                          <span className="flex items-center gap-0.5"><Gauge className="h-3 w-3" />{t.entryMultiple}×</span>
+                          <span className="flex items-center gap-0.5"><Coins className="h-3 w-3" />{t("bankCareers.pe.profitAmount", { amount: p.ebitda.toLocaleString() })}</span>
+                          <span className="flex items-center gap-0.5"><Gauge className="h-3 w-3" />{target.entryMultiple}×</span>
                           <span className={cn("flex items-center gap-0.5 font-semibold")} style={{ color: p.growthPct >= 6 ? "#10b981" : p.growthPct < 0 ? "#ef4444" : undefined }}>{p.growthPct >= 0 ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}{p.growthPct >= 0 ? "+" : ""}{p.growthPct}%</span>
                         </p>
                       </div>
                       <div className="flex items-center gap-2 shrink-0">
                         <div className="text-right">
-                          <p className="text-xs font-bold">{t.price.toLocaleString()}</p>
-                          <p className="text-[10px] text-muted-foreground">price</p>
+                          <p className="text-xs font-bold">{target.price.toLocaleString()}</p>
+                          <p className="text-[10px] text-muted-foreground">{t("bankCareers.pe.price")}</p>
                         </div>
                         <ChevronRight className="h-4 w-4 text-muted-foreground" />
                       </div>
@@ -232,7 +234,7 @@ export default function PeFund({ career, week }: { career: Career; week: number 
                   </button>
                 )
               })}
-              <p className="text-[10px] text-muted-foreground text-center pt-1">Tap a business to study it and structure your offer. A cheap, fixable company beats a perfect, pricey one.</p>
+              <p className="text-[10px] text-muted-foreground text-center pt-1">{t("bankCareers.pe.marketTip")}</p>
             </div>
           )}
         </CardContent>

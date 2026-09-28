@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { motion } from "framer-motion"
 import {
   NotebookPen, Play, Clock, CheckCircle2, BookOpen, Loader2,
@@ -44,10 +45,10 @@ const statusOf = (i: HomeworkItem): Status => {
 
 // Shared color language across the calendar chips + legend + detail cards.
 const STATUS = {
-  done: { dot: "bg-emerald-500", chip: "bg-emerald-500/15 text-emerald-700", bar: "bg-emerald-500", iconChip: "bg-emerald-500/12 text-emerald-600", label: "Done" },
-  overdue: { dot: "bg-destructive", chip: "bg-destructive/15 text-destructive", bar: "bg-destructive", iconChip: "bg-destructive/12 text-destructive", label: "Overdue" },
-  today: { dot: "bg-amber-500", chip: "bg-amber-500/20 text-amber-700", bar: "bg-amber-500", iconChip: "bg-amber-500/15 text-amber-600", label: "Due today" },
-  upcoming: { dot: "bg-primary", chip: "bg-primary/12 text-primary", bar: "bg-primary", iconChip: "bg-primary/12 text-primary", label: "Upcoming" },
+  done: { dot: "bg-emerald-500", chip: "bg-emerald-500/15 text-emerald-700", bar: "bg-emerald-500", iconChip: "bg-emerald-500/12 text-emerald-600" },
+  overdue: { dot: "bg-destructive", chip: "bg-destructive/15 text-destructive", bar: "bg-destructive", iconChip: "bg-destructive/12 text-destructive" },
+  today: { dot: "bg-amber-500", chip: "bg-amber-500/20 text-amber-700", bar: "bg-amber-500", iconChip: "bg-amber-500/15 text-amber-600" },
+  upcoming: { dot: "bg-primary", chip: "bg-primary/12 text-primary", bar: "bg-primary", iconChip: "bg-primary/12 text-primary" },
 } as const
 
 const gradeClasses = (pct: number | null) => {
@@ -63,8 +64,10 @@ const gradeClasses = (pct: number | null) => {
 // where each homework lands on its due date. Classwork is excluded: it's handled
 // by the forcing pop-up, not here.
 export default function Homework() {
+  const { t } = useTranslation()
   const { user, isTeacher } = useAuth()
   const navigate = useNavigate()
+  const statusLabel = (s: Status) => t(`homework.status.${s}`)
   const [loading, setLoading] = useState(true)
   const [hasClass, setHasClass] = useState(true)
   const [items, setItems] = useState<HomeworkItem[]>([])
@@ -257,23 +260,23 @@ export default function Homework() {
             <p className="font-bold truncate leading-tight">{lesson?.title || genNames.get(item.lesson_id) || item.lesson_id}</p>
             <div className="flex items-center gap-2 mt-1.5 flex-wrap">
               {lesson?.level && (
-                <span className="text-[11px] font-bold text-muted-foreground bg-muted rounded-full px-2 py-0.5">Level {lesson.level}</span>
+                <span className="text-[11px] font-bold text-muted-foreground bg-muted rounded-full px-2 py-0.5">{t("homework.level", { level: lesson.level })}</span>
               )}
               <span className={`text-[11px] font-bold flex items-center gap-1 rounded-full px-2 py-0.5 ${c.chip}`}>
                 <Clock className="w-3 h-3" />
-                {timeText ? `${c.label} · ${timeText}` : c.label}
+                {timeText ? `${statusLabel(s)} · ${timeText}` : statusLabel(s)}
               </span>
             </div>
           </div>
           {grade ? (
             <div className="flex items-center gap-1.5 shrink-0">
               <span className={`px-3 py-1.5 rounded-xl border text-sm font-extrabold tabular-nums ${gradeClasses(grade.percent)}`}>
-                {grade.label || "Graded"}
+                {grade.label || t("homework.graded")}
               </span>
               {hasFeedback && (
                 <button
                   onClick={() => toggleFeedback(item.id)}
-                  title="Teacher feedback"
+                  title={t("homework.teacherFeedback")}
                   className={`w-9 h-9 rounded-xl border flex items-center justify-center transition-colors ${
                     feedbackOpen ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground hover:text-foreground hover:bg-muted/60"
                   }`}
@@ -284,7 +287,7 @@ export default function Homework() {
             </div>
           ) : item.completed ? (
             <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 bg-emerald-500/10 rounded-full px-3 py-1.5 shrink-0">
-              <CheckCircle2 className="w-4 h-4" /> Done
+              <CheckCircle2 className="w-4 h-4" /> {statusLabel("done")}
             </span>
           ) : (
             <Button
@@ -293,14 +296,14 @@ export default function Homework() {
               className="shrink-0 press-scale rounded-xl font-bold"
               variant={s === "overdue" ? "destructive" : "default"}
             >
-              <Play className="w-3.5 h-3.5 mr-1" /> {s === "overdue" ? "Finish" : "Start"}
+              <Play className="w-3.5 h-3.5 mr-1" /> {s === "overdue" ? t("homework.finish") : t("homework.start")}
             </Button>
           )}
         </div>
         {hasFeedback && feedbackOpen && (
           <div className="mx-4 mb-4 ml-5 rounded-xl bg-muted/50 border border-border p-3 text-sm">
             <p className="text-xs font-bold text-muted-foreground mb-1 flex items-center gap-1">
-              <MessageSquareText className="w-3.5 h-3.5" /> Teacher feedback
+              <MessageSquareText className="w-3.5 h-3.5" /> {t("homework.teacherFeedback")}
             </p>
             <p className="text-foreground whitespace-pre-wrap">{grade!.feedback}</p>
           </div>
@@ -309,7 +312,7 @@ export default function Homework() {
     )
   }
 
-  const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  const WEEKDAYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"].map((d) => t(`homework.weekdays.${d}`))
 
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
@@ -330,16 +333,16 @@ export default function Homework() {
                 <CalendarDays className="w-6 h-6" />
               </div>
               <div>
-                <h1 className="text-2xl md:text-3xl font-display font-extrabold leading-none">Homework</h1>
-                <p className="text-white/75 text-sm mt-1">Every assignment on its due date.</p>
+                <h1 className="text-2xl md:text-3xl font-display font-extrabold leading-none">{t("homework.title")}</h1>
+                <p className="text-white/75 text-sm mt-1">{t("homework.subtitle")}</p>
               </div>
             </div>
             {!loading && hasClass && items.length > 0 && (
               <div className="flex gap-2.5">
                 {[
-                  { label: "To do", value: counts.todo },
-                  { label: "Overdue", value: counts.overdue },
-                  { label: "Done", value: counts.done },
+                  { label: t("homework.stats.todo"), value: counts.todo },
+                  { label: t("homework.stats.overdue"), value: counts.overdue },
+                  { label: t("homework.stats.done"), value: counts.done },
                 ].map((s) => (
                   <div key={s.label} className="rounded-2xl bg-white/12 backdrop-blur-sm px-4 py-2 text-center min-w-[74px]">
                     <p className="text-2xl font-display font-extrabold leading-none tabular-nums">{s.value}</p>
@@ -360,9 +363,9 @@ export default function Homework() {
             <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
               <BookOpen className="w-8 h-8" />
             </div>
-            <p className="font-extrabold text-lg">Join a class to get homework</p>
+            <p className="font-extrabold text-lg">{t("homework.noClass.title")}</p>
             <p className="text-sm text-muted-foreground mt-1 max-w-xs mx-auto">
-              Ask your teacher for a class code, then add it in your profile.
+              {t("homework.noClass.desc")}
             </p>
           </div>
         ) : (
@@ -374,7 +377,7 @@ export default function Homework() {
                 <h2 className="text-lg md:text-xl font-display font-extrabold">{format(month, "MMMM yyyy")}</h2>
                 <div className="flex items-center gap-1.5">
                   <Button variant="outline" size="sm" className="rounded-xl font-bold" onClick={() => { setMonth(startOfMonth(new Date())); setSelected(new Date()) }}>
-                    Today
+                    {t("homework.today")}
                   </Button>
                   <Button variant="outline" size="icon" className="rounded-xl h-9 w-9" onClick={() => setMonth((m) => subMonths(m, 1))}>
                     <ChevronLeft className="w-4 h-4" />
@@ -443,7 +446,7 @@ export default function Homework() {
                           )
                         })}
                         {dayItems.length > 3 && (
-                          <div className="text-[10px] font-bold text-muted-foreground px-1.5">+{dayItems.length - 3} more</div>
+                          <div className="text-[10px] font-bold text-muted-foreground px-1.5">{t("homework.moreCount", { count: dayItems.length - 3 })}</div>
                         )}
                       </div>
                       {dayItems.length > 0 && (
@@ -460,7 +463,7 @@ export default function Homework() {
               <div className="flex items-center gap-3 flex-wrap mt-3 px-1 text-[11px] font-semibold text-muted-foreground">
                 {(["overdue", "today", "upcoming", "done"] as Status[]).map((s) => (
                   <span key={s} className="flex items-center gap-1.5">
-                    <span className={`w-2.5 h-2.5 rounded-full ${STATUS[s].dot}`} /> {STATUS[s].label}
+                    <span className={`w-2.5 h-2.5 rounded-full ${STATUS[s].dot}`} /> {statusLabel(s)}
                   </span>
                 ))}
               </div>
@@ -471,7 +474,7 @@ export default function Homework() {
               <div>
                 <h3 className="text-base font-display font-extrabold mb-2.5 flex items-center gap-2">
                   <CalendarDays className="w-4 h-4 text-primary" />
-                  {isToday(selected) ? "Today" : format(selected, "EEE, MMM d")}
+                  {isToday(selected) ? t("homework.today") : format(selected, "EEE, MMM d")}
                   <span className="text-xs font-extrabold text-muted-foreground bg-muted rounded-full px-2 py-0.5 tabular-nums">
                     {selectedItems.length}
                   </span>
@@ -479,7 +482,7 @@ export default function Homework() {
                 {selectedItems.length === 0 ? (
                   <div className="rounded-2xl border-2 border-dashed border-border py-8 text-center">
                     <p className="text-2xl mb-1">🎈</p>
-                    <p className="text-sm font-semibold text-muted-foreground">Nothing due this day.</p>
+                    <p className="text-sm font-semibold text-muted-foreground">{t("homework.nothingDue")}</p>
                   </div>
                 ) : (
                   <div className="space-y-2.5">
@@ -491,7 +494,7 @@ export default function Homework() {
               {overdueItems.length > 0 && (
                 <div>
                   <h3 className="text-base font-display font-extrabold mb-2.5 flex items-center gap-2">
-                    <AlertTriangle className="w-4 h-4 text-destructive" /> Overdue
+                    <AlertTriangle className="w-4 h-4 text-destructive" /> {t("homework.status.overdue")}
                     <span className="text-xs font-extrabold text-destructive bg-destructive/15 rounded-full px-2 py-0.5 tabular-nums">{overdueItems.length}</span>
                   </h3>
                   <div className="space-y-2.5">
@@ -503,7 +506,7 @@ export default function Homework() {
               {undated.length > 0 && (
                 <div>
                   <h3 className="text-base font-display font-extrabold mb-2.5 flex items-center gap-2">
-                    <NotebookPen className="w-4 h-4 text-primary" /> Anytime
+                    <NotebookPen className="w-4 h-4 text-primary" /> {t("homework.anytime")}
                     <span className="text-xs font-extrabold text-muted-foreground bg-muted rounded-full px-2 py-0.5 tabular-nums">{undated.length}</span>
                   </h3>
                   <div className="space-y-2.5">
@@ -515,10 +518,10 @@ export default function Homework() {
               {reviewGuides.length > 0 && (
                 <div>
                   <h3 className="text-base font-display font-extrabold mb-2.5 flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-indigo-600" /> Review practice
+                    <BookOpen className="w-4 h-4 text-indigo-600" /> {t("homework.reviewPractice")}
                     <span className="text-xs font-extrabold text-muted-foreground bg-muted rounded-full px-2 py-0.5 tabular-nums">{reviewGuides.length}</span>
                   </h3>
-                  <p className="text-xs text-muted-foreground mb-2">Optional, ungraded — extra practice from your teacher.</p>
+                  <p className="text-xs text-muted-foreground mb-2">{t("homework.reviewPracticeDesc")}</p>
                   <div className="space-y-2.5">
                     {reviewGuides.map((g) => (
                       <button
@@ -539,10 +542,10 @@ export default function Homework() {
 
               {items.length === 0 && reviewGuides.length === 0 && (
                 <div className="text-center py-10 rounded-2xl border-2 border-dashed border-border">
-                  <p className="font-extrabold">No homework yet 🎉</p>
-                  <p className="text-sm text-muted-foreground mt-1">New homework shows up on the calendar.</p>
+                  <p className="font-extrabold">{t("homework.empty.title")}</p>
+                  <p className="text-sm text-muted-foreground mt-1">{t("homework.empty.desc")}</p>
                   <Button asChild variant="outline" className="mt-4 rounded-xl font-bold">
-                    <Link to="/lessons">Browse Missions</Link>
+                    <Link to="/lessons">{t("homework.empty.browseMissions")}</Link>
                   </Button>
                 </div>
               )}

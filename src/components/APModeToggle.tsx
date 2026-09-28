@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { Info } from "lucide-react";
 
@@ -8,6 +9,7 @@ interface APModeToggleProps {
 }
 
 export default function APModeToggle({ apMode, onToggle }: APModeToggleProps) {
+  const { t } = useTranslation();
   // React-state tooltip (not CSS hover) so it also works on mobile tap.
   const [showTip, setShowTip] = useState(false);
 
@@ -22,7 +24,7 @@ export default function APModeToggle({ apMode, onToggle }: APModeToggleProps) {
             : "text-muted-foreground hover:text-foreground"
         )}
       >
-        All Courses
+        {t("apMode.allCourses")}
       </button>
       <button
         onClick={() => onToggle(true)}
@@ -33,11 +35,11 @@ export default function APModeToggle({ apMode, onToggle }: APModeToggleProps) {
             : "text-muted-foreground hover:text-foreground"
         )}
       >
-        AP Mode
+        {t("apMode.apMode")}
         <span
           role="button"
           tabIndex={0}
-          aria-label="About AP Mode"
+          aria-label={t("apMode.aboutAria")}
           className="relative inline-flex"
           onMouseEnter={() => setShowTip(true)}
           onMouseLeave={() => setShowTip(false)}
@@ -50,7 +52,7 @@ export default function APModeToggle({ apMode, onToggle }: APModeToggleProps) {
               className="absolute left-1/2 top-full z-50 mt-2 -translate-x-1/2 rounded-lg px-3 py-2 text-left text-[12px] leading-snug text-white shadow-lg font-normal"
               style={{ backgroundColor: "hsl(var(--primary))", maxWidth: 220, width: "max-content" }}
             >
-              Advanced curriculum aligned with AP Economics and AP Personal Finance standards. Recommended for students in AP courses.
+              {t("apMode.tooltip")}
             </span>
           )}
         </span>

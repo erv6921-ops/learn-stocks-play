@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { useApp } from "@/contexts/AppContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -33,6 +34,7 @@ const NEON = "#00ff88";
 
 /* ════════════════════════════ ORCHESTRATOR ════════════════════════════ */
 export default function MicroBusinessOffice() {
+  const { t } = useTranslation();
   const { earnJeffs, spendJeffs, jeffsBalance } = useApp();
   const [s, setS] = useState<BusinessGameState | null>(null);
   const [advancing, setAdvancing] = useState(false);
@@ -73,10 +75,10 @@ export default function MicroBusinessOffice() {
       const margin = rev > 0 ? weekNet / rev : 0;
       const prevRev = s.history.length ? s.history[s.history.length - 1].revenue : 0;
       let insight: string;
-      if (weekNet < 0) insight = "Your expenses exceeded revenue this week - review your largest cost category.";
-      else if (margin < 0.1) insight = "Thin margins - consider raising prices or cutting COGS.";
-      else if (rev > prevRev) insight = "Strong week - keep your top revenue stream consistent.";
-      else insight = "Steady week - trim one cost and push one revenue stream next week.";
+      if (weekNet < 0) insight = t("microOffice.insights.overspent");
+      else if (margin < 0.1) insight = t("microOffice.insights.thinMargins");
+      else if (rev > prevRev) insight = t("microOffice.insights.strongWeek");
+      else insight = t("microOffice.insights.steadyWeek");
 
       update((st) => {
         const employees = quit ? [] : st.employees;
@@ -104,8 +106,8 @@ export default function MicroBusinessOffice() {
         return next;
       });
       awardXP(8, "Completed a business week");
-      if (quit) toast.error("Your employees quit!", { description: "You skipped payroll - reputation took a hit." });
-      else toast.success(`Week ${s.week} complete`, { description: "Weekly report generated. +8 InvestiCoins" });
+      if (quit) toast.error(t("microOffice.toasts.employeesQuitTitle"), { description: t("microOffice.toasts.employeesQuitDesc") });
+      else toast.success(t("microOffice.toasts.weekComplete", { week: s.week }), { description: t("microOffice.toasts.weekCompleteDesc") });
     } finally {
       setAdvancing(false);
     }
@@ -119,25 +121,25 @@ export default function MicroBusinessOffice() {
           <div className="flex items-center gap-2">
             <Briefcase className="w-5 h-5" style={{ color: NEON }} />
             <div>
-              <p className="font-display text-base font-extrabold text-white leading-none">The Office</p>
-              <p className="text-white/40 text-xs mt-0.5">Run the back office of your business</p>
+              <p className="font-display text-base font-extrabold text-white leading-none">{t("microOffice.title")}</p>
+              <p className="text-white/40 text-xs mt-0.5">{t("microOffice.subtitle")}</p>
             </div>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
             <div className="bg-white/5 rounded-lg px-3 py-1.5 text-center">
-              <p className="text-[9px] text-white/40 uppercase font-bold flex items-center gap-1 justify-center"><CalendarDays className="w-3 h-3" />Week</p>
+              <p className="text-[9px] text-white/40 uppercase font-bold flex items-center gap-1 justify-center"><CalendarDays className="w-3 h-3" />{t("microOffice.hud.week")}</p>
               <p className="text-sm font-extrabold text-white">{s.week}</p>
             </div>
-            <div className="bg-white/5 rounded-lg px-3 py-1.5 text-center" title="Business credit score">
-              <p className="text-[9px] text-white/40 uppercase font-bold flex items-center gap-1 justify-center"><Gauge className="w-3 h-3" />Credit</p>
+            <div className="bg-white/5 rounded-lg px-3 py-1.5 text-center" title={t("microOffice.hud.creditTitle")}>
+              <p className="text-[9px] text-white/40 uppercase font-bold flex items-center gap-1 justify-center"><Gauge className="w-3 h-3" />{t("microOffice.hud.credit")}</p>
               <p className="text-sm font-extrabold" style={{ color: tier.color }}>{s.creditScore}</p>
             </div>
             <div className="bg-white/5 rounded-lg px-3 py-1.5 text-center">
-              <p className="text-[9px] text-white/40 uppercase font-bold flex items-center gap-1 justify-center"><Star className="w-3 h-3" />Rating</p>
+              <p className="text-[9px] text-white/40 uppercase font-bold flex items-center gap-1 justify-center"><Star className="w-3 h-3" />{t("microOffice.hud.rating")}</p>
               <Stars value={s.starRating} small />
             </div>
             <Button size="sm" className="press-scale gap-1.5" onClick={endWeek} disabled={advancing}>
-              {advancing ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowRight className="w-4 h-4" />} End week
+              {advancing ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowRight className="w-4 h-4" />} {t("microOffice.hud.endWeek")}
             </Button>
           </div>
         </div>
@@ -145,20 +147,20 @@ export default function MicroBusinessOffice() {
 
       {/* alerts for due events */}
       <div className="flex flex-wrap gap-2">
-        {payrollDue && <Badge variant="warning" className="gap-1"><Users className="w-3 h-3" /> Payroll due</Badge>}
-        {taxDue && <Badge variant="warning" className="gap-1"><FileText className="w-3 h-3" /> Quarterly taxes due</Badge>}
-        {supplierDue && <Badge variant="destructive" className="gap-1"><Handshake className="w-3 h-3" /> Supplier price hike</Badge>}
-        {s.week >= PITCH_UNLOCK_WEEK && !s.investorFunded && <Badge variant="success" className="gap-1"><Sparkles className="w-3 h-3" /> Investor pitch unlocked</Badge>}
+        {payrollDue && <Badge variant="warning" className="gap-1"><Users className="w-3 h-3" /> {t("microOffice.alerts.payrollDue")}</Badge>}
+        {taxDue && <Badge variant="warning" className="gap-1"><FileText className="w-3 h-3" /> {t("microOffice.alerts.taxesDue")}</Badge>}
+        {supplierDue && <Badge variant="destructive" className="gap-1"><Handshake className="w-3 h-3" /> {t("microOffice.alerts.supplierHike")}</Badge>}
+        {s.week >= PITCH_UNLOCK_WEEK && !s.investorFunded && <Badge variant="success" className="gap-1"><Sparkles className="w-3 h-3" /> {t("microOffice.alerts.pitchUnlocked")}</Badge>}
       </div>
 
       <Tabs defaultValue="pnl" className="space-y-4">
         <TabsList className="grid grid-cols-3 sm:grid-cols-6 w-full h-auto">
-          <TabsTrigger value="pnl" className="text-xs"><FileSpreadsheet className="w-3.5 h-3.5 mr-1 hidden sm:inline" />P&amp;L</TabsTrigger>
-          <TabsTrigger value="payroll" className="text-xs"><Users className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Payroll</TabsTrigger>
-          <TabsTrigger value="reports" className="text-xs"><Newspaper className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Reports</TabsTrigger>
-          <TabsTrigger value="pitch" className="text-xs"><TrendingUp className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Pitch</TabsTrigger>
-          <TabsTrigger value="hr" className="text-xs"><UserPlus className="w-3.5 h-3.5 mr-1 hidden sm:inline" />HR</TabsTrigger>
-          <TabsTrigger value="taxes" className="text-xs"><FileText className="w-3.5 h-3.5 mr-1 hidden sm:inline" />Taxes</TabsTrigger>
+          <TabsTrigger value="pnl" className="text-xs"><FileSpreadsheet className="w-3.5 h-3.5 mr-1 hidden sm:inline" />{t("microOffice.tabs.pnl")}</TabsTrigger>
+          <TabsTrigger value="payroll" className="text-xs"><Users className="w-3.5 h-3.5 mr-1 hidden sm:inline" />{t("microOffice.tabs.payroll")}</TabsTrigger>
+          <TabsTrigger value="reports" className="text-xs"><Newspaper className="w-3.5 h-3.5 mr-1 hidden sm:inline" />{t("microOffice.tabs.reports")}</TabsTrigger>
+          <TabsTrigger value="pitch" className="text-xs"><TrendingUp className="w-3.5 h-3.5 mr-1 hidden sm:inline" />{t("microOffice.tabs.pitch")}</TabsTrigger>
+          <TabsTrigger value="hr" className="text-xs"><UserPlus className="w-3.5 h-3.5 mr-1 hidden sm:inline" />{t("microOffice.tabs.hr")}</TabsTrigger>
+          <TabsTrigger value="taxes" className="text-xs"><FileText className="w-3.5 h-3.5 mr-1 hidden sm:inline" />{t("microOffice.tabs.taxes")}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="pnl"><PnLSheet s={s} /></TabsContent>
@@ -199,6 +201,7 @@ function Head({ icon: Icon, title, sub }: { icon: LucideIcon; title: string; sub
 
 /* ═══ FEATURE 1 - P&L SPREADSHEET DASHBOARD ═══ */
 function PnLSheet({ s }: { s: BusinessGameState }) {
+  const { t } = useTranslation();
   const p = computePnL(s);
   const exportCSV = () => {
     const blob = new Blob([pnlToCSV(s)], { type: "text/csv" });
@@ -206,7 +209,7 @@ function PnLSheet({ s }: { s: BusinessGameState }) {
     const a = document.createElement("a");
     a.href = url; a.download = `profit-loss-week-${s.week}.csv`; a.click();
     URL.revokeObjectURL(url);
-    toast.success("P&L exported to CSV");
+    toast.success(t("microOffice.pnl.exported"));
   };
   const Row = ({ label, value, bold, total, indent, negative }: { label: string; value: number; bold?: boolean; total?: boolean; indent?: boolean; negative?: boolean }) => (
     <div className={cn("grid grid-cols-[1fr_auto] gap-4 px-4 py-2 items-center", total ? "bg-primary/5 border-y border-primary/20" : "odd:bg-muted/40")}>
@@ -221,23 +224,23 @@ function PnLSheet({ s }: { s: BusinessGameState }) {
     <Card variant="elevated">
       <CardContent className="pt-5">
         <div className="flex items-center justify-between mb-3">
-          <Head icon={FileSpreadsheet} title="Profit & Loss" sub="Live statement - updates as you run the business." />
-          <Button size="sm" variant="outline" className="press-scale gap-1.5" onClick={exportCSV}><Download className="w-4 h-4" /> Export CSV</Button>
+          <Head icon={FileSpreadsheet} title={t("microOffice.pnl.title")} sub={t("microOffice.pnl.subtitle")} />
+          <Button size="sm" variant="outline" className="press-scale gap-1.5" onClick={exportCSV}><Download className="w-4 h-4" /> {t("microOffice.pnl.exportCsv")}</Button>
         </div>
         <div className="rounded-xl border border-border overflow-hidden font-mono">
           <div className="grid grid-cols-[1fr_auto] gap-4 px-4 py-2 bg-foreground text-background">
-            <span className="text-xs font-bold uppercase tracking-wider">Account</span>
-            <span className="text-xs font-bold uppercase tracking-wider">Amount (IC)</span>
+            <span className="text-xs font-bold uppercase tracking-wider">{t("microOffice.pnl.account")}</span>
+            <span className="text-xs font-bold uppercase tracking-wider">{t("microOffice.pnl.amount")}</span>
           </div>
-          <Row label="Revenue" value={p.revenue} bold />
-          <Row label="Cost of Goods Sold" value={p.cogs} indent negative />
-          <Row label="Gross Profit" value={p.grossProfit} total />
-          <div className="px-4 py-1.5 bg-muted/40"><span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Operating Expenses</span></div>
-          {p.opex.map((o) => <Row key={o.key} label={o.label} value={o.amount} indent negative />)}
-          <Row label="Total Operating Expenses" value={p.totalOpex} bold negative />
-          <Row label="Net Profit" value={p.netProfit} total />
+          <Row label={t("microOffice.pnl.revenue")} value={p.revenue} bold />
+          <Row label={t("microOffice.pnl.cogs")} value={p.cogs} indent negative />
+          <Row label={t("microOffice.pnl.grossProfit")} value={p.grossProfit} total />
+          <div className="px-4 py-1.5 bg-muted/40"><span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("microOffice.pnl.operatingExpenses")}</span></div>
+          {p.opex.map((o) => <Row key={o.key} label={t(`microOffice.opex.${o.key}`)} value={o.amount} indent negative />)}
+          <Row label={t("microOffice.pnl.totalOpex")} value={p.totalOpex} bold negative />
+          <Row label={t("microOffice.pnl.netProfit")} value={p.netProfit} total />
         </div>
-        <p className="text-xs text-muted-foreground mt-2">Supplier cost multiplier: ×{s.supplierCostMultiplier.toFixed(2)} (negotiate it down in HR).</p>
+        <p className="text-xs text-muted-foreground mt-2">{t("microOffice.pnl.supplierMultiplier", { mult: s.supplierCostMultiplier.toFixed(2) })}</p>
       </CardContent>
     </Card>
   );
@@ -245,46 +248,47 @@ function PnLSheet({ s }: { s: BusinessGameState }) {
 
 /* ═══ FEATURE 2 - PAYROLL SYSTEM ═══ */
 function PayrollPanel({ s, update, awardXP, spend, balance, payrollDue }: { s: BusinessGameState; update: Update; awardXP: (n: number, r: string) => void; spend: (n: number, r: string) => boolean; balance: number; payrollDue: boolean }) {
+  const { t } = useTranslation();
   const gross = s.employees.reduce((a, e) => a + e.weeklyWage, 0);
   const tax = Math.round(gross * PAYROLL_TAX_RATE);
   const total = gross + tax;
   const runPayroll = () => {
-    if (s.employees.length === 0) { toast.error("No employees to pay"); return; }
-    if (s.lastPayrollWeek >= s.week) { toast("Payroll already run this week"); return; }
-    if (balance < total) { toast.error("Not enough InvestiCoins for payroll", { description: `Need ${total.toLocaleString()} IC.` }); return; }
+    if (s.employees.length === 0) { toast.error(t("microOffice.payroll.noEmployeesToPay")); return; }
+    if (s.lastPayrollWeek >= s.week) { toast(t("microOffice.payroll.alreadyRun")); return; }
+    if (balance < total) { toast.error(t("microOffice.payroll.notEnough"), { description: t("microOffice.payroll.needIc", { amount: total.toLocaleString() }) }); return; }
     if (!spend(total, `Payroll week ${s.week}`)) return;
     update((st) => ({ ...st, lastPayrollWeek: st.week, billsOnTime: st.billsOnTime + 1, expenses: { ...st.expenses, payroll: st.expenses.payroll + total } }));
     awardXP(6, "Ran payroll on time");
-    toast.error(`Payroll paid - net cash impact -${total.toLocaleString()} IC`, { description: `Wages ${gross.toLocaleString()} + 15.3% payroll tax ${tax.toLocaleString()}`, icon: <TrendingDown className="w-4 h-4" /> });
+    toast.error(t("microOffice.payroll.paidTitle", { amount: total.toLocaleString() }), { description: t("microOffice.payroll.paidDesc", { gross: gross.toLocaleString(), tax: tax.toLocaleString() }), icon: <TrendingDown className="w-4 h-4" /> });
   };
   return (
     <Card variant="elevated">
       <CardContent className="pt-5 space-y-4">
-        <Head icon={Users} title="Weekly Payroll" sub="Pay your team every week - or they walk." />
+        <Head icon={Users} title={t("microOffice.payroll.title")} sub={t("microOffice.payroll.subtitle")} />
         {s.employees.length === 0 ? (
-          <p className="text-sm text-muted-foreground py-4 text-center">No employees yet. Hire someone in the HR tab.</p>
+          <p className="text-sm text-muted-foreground py-4 text-center">{t("microOffice.payroll.noEmployees")}</p>
         ) : (
           <>
             <div className="rounded-xl border border-border overflow-hidden">
               {s.employees.map((e, i) => (
                 <div key={e.id} className={cn("flex items-center justify-between px-3 py-2.5", i % 2 && "bg-muted/40")}>
                   <div>
-                    <p className="text-sm font-semibold">{e.name} {e.badHireUntilWeek && e.badHireUntilWeek >= s.week && <Badge variant="destructive" className="ml-1 text-[10px]">underperforming</Badge>}</p>
+                    <p className="text-sm font-semibold">{e.name} {e.badHireUntilWeek && e.badHireUntilWeek >= s.week && <Badge variant="destructive" className="ml-1 text-[10px]">{t("microOffice.payroll.underperforming")}</Badge>}</p>
                     <p className="text-xs text-muted-foreground">{e.role}</p>
                   </div>
-                  <span className="text-sm font-bold text-gold flex items-center gap-1"><Coins className="w-3.5 h-3.5" />{e.weeklyWage}/wk</span>
+                  <span className="text-sm font-bold text-gold flex items-center gap-1"><Coins className="w-3.5 h-3.5" />{t("microOffice.payroll.perWeek", { wage: e.weeklyWage })}</span>
                 </div>
               ))}
             </div>
             <div className="rounded-xl bg-muted p-4 space-y-1.5 text-sm">
-              <div className="flex justify-between"><span className="text-muted-foreground">Gross wages</span><span className="font-bold tabular-nums">{gross.toLocaleString()} IC</span></div>
-              <div className="flex justify-between"><span className="text-muted-foreground">Payroll tax (15.3%)</span><span className="font-bold tabular-nums text-destructive">+{tax.toLocaleString()} IC</span></div>
-              <div className="flex justify-between border-t border-border pt-1.5"><span className="font-bold">Net cash impact</span><span className="font-extrabold tabular-nums text-destructive">-{total.toLocaleString()} IC</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">{t("microOffice.payroll.grossWages")}</span><span className="font-bold tabular-nums">{gross.toLocaleString()} IC</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">{t("microOffice.payroll.payrollTax")}</span><span className="font-bold tabular-nums text-destructive">+{tax.toLocaleString()} IC</span></div>
+              <div className="flex justify-between border-t border-border pt-1.5"><span className="font-bold">{t("microOffice.payroll.netCashImpact")}</span><span className="font-extrabold tabular-nums text-destructive">-{total.toLocaleString()} IC</span></div>
             </div>
             {payrollDue
-              ? <Button className="w-full press-scale" onClick={runPayroll}><Coins className="w-4 h-4 mr-1.5" /> Run payroll ({total.toLocaleString()} IC)</Button>
-              : <p className="text-sm text-success font-semibold text-center flex items-center justify-center gap-1.5"><CheckCircle2 className="w-4 h-4" /> Payroll is paid for week {s.week}.</p>}
-            <p className="text-xs text-muted-foreground">Skip payroll and end the week → employees quit and your star rating drops.</p>
+              ? <Button className="w-full press-scale" onClick={runPayroll}><Coins className="w-4 h-4 mr-1.5" /> {t("microOffice.payroll.runPayroll", { amount: total.toLocaleString() })}</Button>
+              : <p className="text-sm text-success font-semibold text-center flex items-center justify-center gap-1.5"><CheckCircle2 className="w-4 h-4" /> {t("microOffice.payroll.paidForWeek", { week: s.week })}</p>}
+            <p className="text-xs text-muted-foreground">{t("microOffice.payroll.skipWarning")}</p>
           </>
         )}
       </CardContent>
@@ -294,44 +298,45 @@ function PayrollPanel({ s, update, awardXP, spend, balance, payrollDue }: { s: B
 
 /* ═══ FEATURE 5 - WEEKLY BUSINESS REVIEW REPORT (Recharts + rule-based insight) ═══ */
 function WeeklyReports({ s }: { s: BusinessGameState }) {
+  const { t } = useTranslation();
   const last = s.history[s.history.length - 1];
   const chartData = s.history.map((h) => ({ name: `W${h.week}`, profit: h.revenue - h.expenses, revenue: h.revenue }));
   const topExpenses = computePnL(s).opex.filter((o) => o.amount > 0).sort((a, b) => b.amount - a.amount).slice(0, 3);
-  if (!last) return <Card variant="elevated"><CardContent className="pt-6 text-center text-sm text-muted-foreground">End your first week to generate a report.</CardContent></Card>;
+  if (!last) return <Card variant="elevated"><CardContent className="pt-6 text-center text-sm text-muted-foreground">{t("microOffice.reports.empty")}</CardContent></Card>;
   const vsForecast = last.revenue - last.forecast;
   return (
     <div className="space-y-4">
       <Card variant="elevated">
         <CardContent className="pt-5">
-          <Head icon={Newspaper} title={`Week ${last.week} Review`} sub="Auto-generated at the end of each week." />
+          <Head icon={Newspaper} title={t("microOffice.reports.reviewTitle", { week: last.week })} sub={t("microOffice.reports.reviewSub")} />
           <div className="grid sm:grid-cols-3 gap-3 mt-3">
             <div className="rounded-xl bg-muted p-3">
-              <p className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">Revenue vs forecast</p>
+              <p className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">{t("microOffice.reports.revenueVsForecast")}</p>
               <p className="text-lg font-extrabold tabular-nums">{last.revenue.toLocaleString()}</p>
               <p className={cn("text-xs font-bold flex items-center gap-1", vsForecast >= 0 ? "text-success" : "text-destructive")}>
                 {vsForecast >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                {vsForecast >= 0 ? "+" : ""}{vsForecast.toLocaleString()} vs {last.forecast.toLocaleString()}
+                {vsForecast >= 0 ? "+" : ""}{vsForecast.toLocaleString()} {t("microOffice.reports.vs")} {last.forecast.toLocaleString()}
               </p>
             </div>
             <div className="rounded-xl bg-muted p-3 sm:col-span-2">
-              <p className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground mb-1">Top expense categories</p>
+              <p className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground mb-1">{t("microOffice.reports.topExpenses")}</p>
               <div className="flex flex-wrap gap-1.5">
-                {topExpenses.length === 0 ? <span className="text-xs text-muted-foreground">None yet</span> :
-                  topExpenses.map((o) => <Badge key={o.key} variant="outline">{o.label}: {o.amount.toLocaleString()} IC</Badge>)}
+                {topExpenses.length === 0 ? <span className="text-xs text-muted-foreground">{t("microOffice.reports.noneYet")}</span> :
+                  topExpenses.map((o) => <Badge key={o.key} variant="outline">{t(`microOffice.opex.${o.key}`)}: {o.amount.toLocaleString()} IC</Badge>)}
               </div>
             </div>
           </div>
           {last.insight && (
             <div className="mt-3 rounded-xl border p-3 flex items-start gap-2" style={{ borderColor: `${NEON}55`, background: `${NEON}0d` }}>
               <Lightbulb className="w-4 h-4 shrink-0 mt-0.5" style={{ color: NEON }} />
-              <div><p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: NEON }}>Advisor · recommendation</p><p className="text-sm text-foreground/90 mt-0.5">{last.insight}</p></div>
+              <div><p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: NEON }}>{t("microOffice.reports.advisor")}</p><p className="text-sm text-foreground/90 mt-0.5">{last.insight}</p></div>
             </div>
           )}
         </CardContent>
       </Card>
       <Card variant="elevated">
         <CardContent className="pt-5">
-          <p className="text-sm font-bold flex items-center gap-1.5 mb-3"><Newspaper className="w-4 h-4 text-primary" /> Cash flow by week</p>
+          <p className="text-sm font-bold flex items-center gap-1.5 mb-3"><Newspaper className="w-4 h-4 text-primary" /> {t("microOffice.reports.cashFlow")}</p>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={chartData} margin={{ top: 4, right: 8, left: -16, bottom: 0 }}>
               <XAxis dataKey="name" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} />
@@ -350,9 +355,10 @@ function WeeklyReports({ s }: { s: BusinessGameState }) {
 
 /* ═══ FEATURE 3 - INVESTOR PITCH MODE ═══ */
 function InvestorPitch({ s, update, earn }: { s: BusinessGameState; update: Update; earn: (n: number, r: string) => void }) {
+  const { t } = useTranslation();
   const [reviewing, setReviewing] = useState(false);
   if (s.week < PITCH_UNLOCK_WEEK) {
-    return <Card variant="elevated"><CardContent className="pt-6 text-center text-sm text-muted-foreground">Investor pitch unlocks after 4 weeks of operation. Currently week {s.week}.</CardContent></Card>;
+    return <Card variant="elevated"><CardContent className="pt-6 text-center text-sm text-muted-foreground">{t("microOffice.pitch.locked", { week: s.week })}</CardContent></Card>;
   }
   const recent = s.history.slice(-3);
   const trend = recent.length >= 2 ? (recent[recent.length - 1].revenue - recent[0].revenue) : 0;
@@ -364,15 +370,16 @@ function InvestorPitch({ s, update, earn }: { s: BusinessGameState; update: Upda
       if (willFund) {
         const amount = 400 + Math.round(Math.max(0, net) * 0.5);
         earn(amount, "Investor funding");
-        update((st) => ({ ...st, investorFunded: true, investorPassed: false, investorFeedback: `Funded! Your net profit is positive and revenue is trending ${trend >= 0 ? "up" : "flat"}. We're backing you with ${amount} IC. Keep that credit score strong.` }));
-        toast.success(`💰 Funded! +${amount} InvestiCoins`);
+        const trendWord = trend >= 0 ? t("microOffice.pitch.trendUp") : t("microOffice.pitch.trendFlat");
+        update((st) => ({ ...st, investorFunded: true, investorPassed: false, investorFeedback: t("microOffice.pitch.fundedFeedback", { trend: trendWord, amount }) }));
+        toast.success(t("microOffice.pitch.fundedToast", { amount }));
       } else {
         const reasons: string[] = [];
-        if (net <= 0) reasons.push("you're not profitable yet - your expenses outrun revenue");
-        if (trend < 0) reasons.push("revenue is trending down over recent weeks");
-        if (s.creditScore < 600) reasons.push(`your business credit score (${s.creditScore}) is too low to lend against`);
-        update((st) => ({ ...st, investorPassed: true, investorFunded: false, investorFeedback: `I'm going to pass for now. Here's why: ${reasons.join("; ")}. Come back when you've turned a profit for a couple of weeks and tightened your costs.` }));
-        toast.error("The investor passed", { description: "Read their feedback and try again later." });
+        if (net <= 0) reasons.push(t("microOffice.pitch.reasonNotProfitable"));
+        if (trend < 0) reasons.push(t("microOffice.pitch.reasonTrendingDown"));
+        if (s.creditScore < 600) reasons.push(t("microOffice.pitch.reasonLowCredit", { score: s.creditScore }));
+        update((st) => ({ ...st, investorPassed: true, investorFunded: false, investorFeedback: t("microOffice.pitch.passedFeedback", { reasons: reasons.join("; ") }) }));
+        toast.error(t("microOffice.pitch.passedToast"), { description: t("microOffice.pitch.passedToastDesc") });
       }
       setReviewing(false);
     }, 1200);
@@ -380,110 +387,104 @@ function InvestorPitch({ s, update, earn }: { s: BusinessGameState; update: Upda
   return (
     <Card variant="elevated">
       <CardContent className="pt-5 space-y-4">
-        <Head icon={TrendingUp} title="Investor Pitch" sub="Pitch a simulated investor who reviews your real P&L." />
+        <Head icon={TrendingUp} title={t("microOffice.pitch.title")} sub={t("microOffice.pitch.subtitle")} />
         <div className="rounded-2xl p-4" style={{ background: "linear-gradient(135deg,#0f2d1e,#06291f)" }}>
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full flex items-center justify-center text-2xl" style={{ background: "rgba(255,255,255,.08)" }}>🦈</div>
-            <div><p className="font-bold text-white">Angel investor</p><p className="text-white/50 text-xs">Reviewing: net {money(net)} IC · credit {s.creditScore} · {recent.length}-week trend {trend >= 0 ? "↑" : "↓"}</p></div>
+            <div><p className="font-bold text-white">{t("microOffice.pitch.angelInvestor")}</p><p className="text-white/50 text-xs">{t("microOffice.pitch.reviewing", { net: money(net), credit: s.creditScore, weeks: recent.length })} {trend >= 0 ? "↑" : "↓"}</p></div>
           </div>
           {(s.investorFunded || s.investorPassed) && (
             <p className="text-sm text-white/80 mt-3 italic">"{s.investorFeedback}"</p>
           )}
         </div>
         {s.investorFunded
-          ? <Badge variant="success" className="gap-1"><CheckCircle2 className="w-3.5 h-3.5" /> You've secured funding</Badge>
-          : <Button className="w-full press-scale" onClick={pitch} disabled={reviewing}>{reviewing ? <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> : <Sparkles className="w-4 h-4 mr-1.5" />} Pitch the investor</Button>}
+          ? <Badge variant="success" className="gap-1"><CheckCircle2 className="w-3.5 h-3.5" /> {t("microOffice.pitch.securedFunding")}</Badge>
+          : <Button className="w-full press-scale" onClick={pitch} disabled={reviewing}>{reviewing ? <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> : <Sparkles className="w-4 h-4 mr-1.5" />} {t("microOffice.pitch.pitchButton")}</Button>}
       </CardContent>
     </Card>
   );
 }
 
 /* ═══ FEATURE 7 - CUSTOMER COMPLAINT RESPONSES (rule-based: length + keywords) ═══ */
-const COMPLAINTS = [
-  "My order arrived two days late and the packaging was crushed. This is unacceptable for the price I paid.",
-  "I was charged twice for the same item and nobody has responded to my emails for a week.",
-  "The product looks nothing like the photos on your site. I feel misled.",
-  "Your staff were rude when I asked a simple question. I won't be coming back.",
-  "I've been a loyal customer for months and you won't even honor a small discount. Disappointing.",
-];
+const COMPLAINT_COUNT = 5;
 const COMPLAINT_KEYWORDS = ["sorry", "apologize", "refund", "fix", "help"];
 function ComplaintPanel({ s, update, awardXP }: { s: BusinessGameState; update: Update; awardXP: (n: number, r: string) => void }) {
+  const { t } = useTranslation();
   const alreadyThisWeek = s.complaints.some((c) => c.week === s.week);
-  const complaint = useMemo(() => COMPLAINTS[(s.week * 7) % COMPLAINTS.length], [s.week]);
+  const complaint = useMemo(() => t(`microOffice.complaints.list.${(s.week * 7) % COMPLAINT_COUNT}`), [s.week, t]);
   const [resp, setResp] = useState("");
   const last = s.complaints[s.complaints.length - 1];
   if (alreadyThisWeek) {
     return (
       <Card variant="elevated"><CardContent className="pt-5">
-        <Head icon={Star} title="Customer Complaint" sub="One per week - already handled this week." />
-        {last && <div className="rounded-xl bg-muted p-3 mt-2"><p className="text-xs text-muted-foreground">Your reply scored {last.score}/10 · rating now</p><Stars value={s.starRating} /></div>}
+        <Head icon={Star} title={t("microOffice.complaints.title")} sub={t("microOffice.complaints.subHandled")} />
+        {last && <div className="rounded-xl bg-muted p-3 mt-2"><p className="text-xs text-muted-foreground">{t("microOffice.complaints.scored", { score: last.score })}</p><Stars value={s.starRating} /></div>}
       </CardContent></Card>
     );
   }
   const submit = () => {
     const text = resp.trim();
-    if (text.length < 5) { toast.error("Write a response first"); return; }
+    if (text.length < 5) { toast.error(t("microOffice.complaints.writeFirst")); return; }
     const words = text.split(/\s+/).filter(Boolean).length;
     const lower = text.toLowerCase();
     const present = COMPLAINT_KEYWORDS.filter((k) => lower.includes(k));
     let score: number; let note: string;
-    if (present.length === COMPLAINT_KEYWORDS.length && words > ws(50)) { score = 9; note = "Thorough, empathetic, and solution-focused."; }
-    else if (present.length > 0) { score = 7; note = `Good - you acknowledged it (${present.join(", ")}).`; }
-    else if (words < ws(30)) { score = 3; note = "Too short and impersonal - apologize and offer a fix."; }
-    else { score = 5; note = "Add empathy words like 'sorry' and offer a concrete fix."; }
+    if (present.length === COMPLAINT_KEYWORDS.length && words > ws(50)) { score = 9; note = t("microOffice.complaints.noteThorough"); }
+    else if (present.length > 0) { score = 7; note = t("microOffice.complaints.noteGood", { keywords: present.join(", ") }); }
+    else if (words < ws(30)) { score = 3; note = t("microOffice.complaints.noteShort"); }
+    else { score = 5; note = t("microOffice.complaints.noteEmpathy"); }
     update((st) => {
       const newStar = Math.max(1, Math.min(5, st.starRating * 0.7 + (score / 2) * 0.3));
       return { ...st, starRating: Math.round(newStar * 10) / 10, complaints: [...st.complaints, { week: st.week, complaint, response: text, score }] };
     });
     awardXP(5, "Handled a customer complaint");
-    toast.success(`Scored ${score}/10 - ${note}`);
+    toast.success(t("microOffice.complaints.scoreToast", { score, note }));
     setResp("");
   };
   return (
     <Card variant="elevated"><CardContent className="pt-5 space-y-3">
-      <Head icon={Star} title="Customer Complaint" sub="Respond well - it moves your star rating." />
-      <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-3"><p className="text-xs font-bold uppercase tracking-wider text-destructive mb-1">Angry customer</p><p className="text-sm">"{complaint}"</p></div>
-      <p className="text-xs text-muted-foreground">Tip: apologize and offer a real fix - words like "sorry", "refund", "fix", "help" and a longer reply score higher.</p>
-      <Textarea rows={3} placeholder="Write a professional, empathetic response…" value={resp} onChange={(e) => setResp(e.target.value)} />
-      <Button className="w-full press-scale" onClick={submit}><ArrowRight className="w-4 h-4 mr-1.5" /> Send response</Button>
+      <Head icon={Star} title={t("microOffice.complaints.title")} sub={t("microOffice.complaints.subtitle")} />
+      <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-3"><p className="text-xs font-bold uppercase tracking-wider text-destructive mb-1">{t("microOffice.complaints.angryCustomer")}</p><p className="text-sm">"{complaint}"</p></div>
+      <p className="text-xs text-muted-foreground">{t("microOffice.complaints.tip")}</p>
+      <Textarea rows={3} placeholder={t("microOffice.complaints.placeholder")} value={resp} onChange={(e) => setResp(e.target.value)} />
+      <Button className="w-full press-scale" onClick={submit}><ArrowRight className="w-4 h-4 mr-1.5" /> {t("microOffice.complaints.send")}</Button>
     </CardContent></Card>
   );
 }
 
 /* ═══ FEATURE 8 - SUPPLIER NEGOTIATION (3 rotating hardcoded personalities) ═══ */
-interface Supplier { name: string; emoji: string; keywords?: string[]; discount: number; win: string; lose: string }
+interface Supplier { id: string; emoji: string; keywords?: string[]; discount: number }
 const SUPPLIERS: Supplier[] = [
-  { name: "Firm Frank", emoji: "🧱", discount: 0,
-    win: "", lose: "I hear you, but a deal's a deal. The new price stands - take it or leave it." },
-  { name: "Flexible Maria", emoji: "🤝", keywords: ["loyal", "loyalty", "volume", "bulk", "regular", "long-term", "long term"], discount: 0.10,
-    win: "You've been a loyal, high-volume customer - I'll take 10% off the increase for you.", lose: "Commit to loyalty or bigger volume and I can work with you. Otherwise the price holds." },
-  { name: "Deal-Seeker Dave", emoji: "💸", keywords: ["competitor", "rival", "another supplier", "other supplier", "shop around", "elsewhere", "cheaper"], discount: 0.15,
-    win: "Going to a competitor, huh? Fine - I'll beat them. 15% off the increase, just don't tell the others.", lose: "I'm not worried about losing you. Bring me a real competing quote and we'll talk." },
+  { id: "firmFrank", emoji: "🧱", discount: 0 },
+  { id: "flexibleMaria", emoji: "🤝", keywords: ["loyal", "loyalty", "volume", "bulk", "regular", "long-term", "long term"], discount: 0.10 },
+  { id: "dealSeekerDave", emoji: "💸", keywords: ["competitor", "rival", "another supplier", "other supplier", "shop around", "elsewhere", "cheaper"], discount: 0.15 },
 ];
 function SupplierNegotiation({ s, update, awardXP }: { s: BusinessGameState; update: Update; awardXP: (n: number, r: string) => void }) {
+  const { t } = useTranslation();
   const [msg, setMsg] = useState("");
   const [reply, setReply] = useState("");
   const increase = useMemo(() => 1.15 + ((s.week % 4) * 0.03), [s.week]);
   const supplier = SUPPLIERS[Math.floor(s.week / SUPPLIER_PERIOD) % SUPPLIERS.length];
+  const supplierName = t(`microOffice.suppliers.${supplier.id}.name`);
   const negotiate = () => {
     const text = msg.trim();
-    if (text.length < 15) { toast.error("Make your case (15+ chars)"); return; }
+    if (text.length < 15) { toast.error(t("microOffice.suppliers.makeCase")); return; }
     const lower = text.toLowerCase();
     const matched = (supplier.keywords || []).some((k) => lower.includes(k));
     const reduction = matched ? supplier.discount : 0;
     const newMult = Math.max(1, Math.round((increase - reduction) * 100) / 100);
     update((st) => ({ ...st, supplierCostMultiplier: newMult, lastSupplierWeek: st.week }));
-    setReply(matched ? supplier.win : supplier.lose);
+    setReply(matched ? t(`microOffice.suppliers.${supplier.id}.win`) : t(`microOffice.suppliers.${supplier.id}.lose`));
     awardXP(6, "Negotiated with a supplier");
-    if (matched) toast.success(`Deal! Cost multiplier now ×${newMult.toFixed(2)}`, { description: `${supplier.name} gave you ${Math.round(reduction * 100)}% off the increase.` });
-    else toast(`${supplier.name} held firm`, { description: `COGS multiplier ×${newMult.toFixed(2)} applied.` });
+    if (matched) toast.success(t("microOffice.suppliers.dealToast", { mult: newMult.toFixed(2) }), { description: t("microOffice.suppliers.dealDesc", { name: supplierName, pct: Math.round(reduction * 100) }) });
+    else toast(t("microOffice.suppliers.heldFirmToast", { name: supplierName }), { description: t("microOffice.suppliers.heldFirmDesc", { mult: newMult.toFixed(2) }) });
   };
   return (
     <Card variant="elevated"><CardContent className="pt-5 space-y-3">
-      <Head icon={Handshake} title="Supplier Negotiation" sub={`${supplier.emoji} ${supplier.name} raised prices ${Math.round((increase - 1) * 100)}%. Talk them down - it affects your COGS.`} />
-      {reply && <div className="rounded-xl bg-muted p-3"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">{supplier.name}</p><p className="text-sm italic">"{reply}"</p></div>}
-      <Textarea rows={3} placeholder="Make your negotiation case… (hint: mention loyalty/volume, or a competitor)" value={msg} onChange={(e) => setMsg(e.target.value)} />
-      <Button className="w-full press-scale" onClick={negotiate}><Handshake className="w-4 h-4 mr-1.5" /> Negotiate</Button>
+      <Head icon={Handshake} title={t("microOffice.suppliers.title")} sub={t("microOffice.suppliers.subtitle", { emoji: supplier.emoji, name: supplierName, pct: Math.round((increase - 1) * 100) })} />
+      {reply && <div className="rounded-xl bg-muted p-3"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">{supplierName}</p><p className="text-sm italic">"{reply}"</p></div>}
+      <Textarea rows={3} placeholder={t("microOffice.suppliers.placeholder")} value={msg} onChange={(e) => setMsg(e.target.value)} />
+      <Button className="w-full press-scale" onClick={negotiate}><Handshake className="w-4 h-4 mr-1.5" /> {t("microOffice.suppliers.negotiate")}</Button>
     </CardContent></Card>
   );
 }
@@ -493,19 +494,20 @@ function SupplierNegotiation({ s, update, awardXP }: { s: BusinessGameState; upd
 const INCOME_TAX_RATE = 0.25;
 
 function TaxForm({ s, update, spend, balance, taxDue }: { s: BusinessGameState; update: Update; spend: (n: number, r: string) => boolean; balance: number; taxDue: boolean }) {
+  const { t } = useTranslation();
   const p = computePnL(s);
   const taxOwed = Math.max(0, Math.round(p.netProfit * INCOME_TAX_RATE));
   const lines = [
-    { id: "rev", label: "Line 1 - Gross receipts (Revenue)", value: p.revenue },
-    { id: "cogs", label: "Line 4 - Cost of goods sold", value: p.cogs },
-    { id: "gross", label: "Line 7 - Gross profit", value: p.grossProfit },
-    { id: "exp", label: "Line 28 - Total expenses", value: p.totalOpex },
-    { id: "net", label: "Line 31 - Net profit (or loss)", value: p.netProfit },
+    { id: "rev", label: t("microOffice.taxes.lines.rev"), value: p.revenue },
+    { id: "cogs", label: t("microOffice.taxes.lines.cogs"), value: p.cogs },
+    { id: "gross", label: t("microOffice.taxes.lines.gross"), value: p.grossProfit },
+    { id: "exp", label: t("microOffice.taxes.lines.exp"), value: p.totalOpex },
+    { id: "net", label: t("microOffice.taxes.lines.net"), value: p.netProfit },
   ];
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const allConfirmed = lines.every((l) => checked[l.id]);
   if (!taxDue) {
-    return <Card variant="elevated"><CardContent className="pt-6 text-center text-sm text-muted-foreground">No filing due. A simplified Schedule C is due every 4 weeks (next at week {(Math.floor(s.week / TAX_PERIOD) + 1) * TAX_PERIOD}).</CardContent></Card>;
+    return <Card variant="elevated"><CardContent className="pt-6 text-center text-sm text-muted-foreground">{t("microOffice.taxes.noFiling", { week: (Math.floor(s.week / TAX_PERIOD) + 1) * TAX_PERIOD })}</CardContent></Card>;
   }
   const file = () => {
     // Incomplete filing: you still owe the tax, plus a penalty fee.
@@ -514,21 +516,21 @@ function TaxForm({ s, update, spend, balance, taxDue }: { s: BusinessGameState; 
       const bill = Math.min(taxOwed + penalty, balance);
       spend(bill, "Taxes + penalty (incomplete filing)");
       update((st) => ({ ...st, taxFiledWeeks: [...st.taxFiledWeeks, st.week], billsMissed: st.billsMissed + 1 }));
-      toast.error(`Incomplete filing - paid ${bill} IC`, { description: `Tax owed ${taxOwed} IC + ${penalty} IC penalty. Confirm every line next quarter to skip the fee.` });
+      toast.error(t("microOffice.taxes.incompleteToast", { bill }), { description: t("microOffice.taxes.incompleteDesc", { taxOwed, penalty }) });
       return;
     }
     update((st) => ({ ...st, taxFiledWeeks: [...st.taxFiledWeeks, st.week], billsOnTime: st.billsOnTime + 1 }));
     if (taxOwed > 0) {
       const paid = Math.min(taxOwed, balance);
       spend(paid, "Paid quarterly business taxes");
-      toast.success(`Schedule C filed - paid ${paid} IC in taxes`, { description: `That's ${Math.round(INCOME_TAX_RATE * 100)}% of your net profit, just like a real business owes the IRS.` });
+      toast.success(t("microOffice.taxes.filedPaidToast", { paid }), { description: t("microOffice.taxes.filedPaidDesc", { pct: Math.round(INCOME_TAX_RATE * 100) }) });
     } else {
-      toast.success("Schedule C filed - no tax owed", { description: "You didn't turn a profit this quarter, so there's no income tax due." });
+      toast.success(t("microOffice.taxes.filedNoTaxToast"), { description: t("microOffice.taxes.filedNoTaxDesc") });
     }
   };
   return (
     <Card variant="elevated"><CardContent className="pt-5 space-y-3">
-      <Head icon={FileText} title="Schedule C (simplified)" sub="Auto-filled from your P&L. Review and confirm each line, then pay what you owe." />
+      <Head icon={FileText} title={t("microOffice.taxes.title")} sub={t("microOffice.taxes.subtitle")} />
       <div className="rounded-xl border border-border overflow-hidden">
         {lines.map((l, i) => (
           <button key={l.id} onClick={() => setChecked((c) => ({ ...c, [l.id]: !c[l.id] }))} className={cn("w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors", i % 2 && "bg-muted/40", checked[l.id] && "bg-success/5")}>
@@ -540,93 +542,70 @@ function TaxForm({ s, update, spend, balance, taxDue }: { s: BusinessGameState; 
       {/* Tax owed - the amount that will be deducted */}
       <div className="flex items-center justify-between rounded-xl border border-destructive/30 bg-destructive/5 px-3 py-2.5">
         <span className="text-sm font-semibold flex items-center gap-2 text-destructive">
-          Tax due ({Math.round(INCOME_TAX_RATE * 100)}% of net profit)
+          {t("microOffice.taxes.taxDueLabel", { pct: Math.round(INCOME_TAX_RATE * 100) })}
         </span>
         <span className="font-mono font-extrabold tabular-nums text-sm text-destructive">
           {taxOwed > 0 ? `- ${money(taxOwed)}` : money(0)}
         </span>
       </div>
-      <Button className="w-full press-scale" onClick={file}><FileText className="w-4 h-4 mr-1.5" /> {allConfirmed ? (taxOwed > 0 ? `Pay ${money(taxOwed)} & file` : "File (no tax due)") : "Submit (incomplete - penalty applies)"}</Button>
+      <Button className="w-full press-scale" onClick={file}><FileText className="w-4 h-4 mr-1.5" /> {allConfirmed ? (taxOwed > 0 ? t("microOffice.taxes.payAndFile", { amount: money(taxOwed) }) : t("microOffice.taxes.fileNoTax")) : t("microOffice.taxes.submitIncomplete")}</Button>
     </CardContent></Card>
   );
 }
 
 /* ═══ FEATURE 10 - JOB POSTING + 5 PRE-WRITTEN CANDIDATE PROFILES ═══ */
-const INTERVIEW_QUESTIONS = [
-  "Why do you want this role?",
-  "Tell me about a time you solved a problem.",
-  "How do you handle a busy day with competing priorities?",
-];
-interface Candidate { name: string; background: string; quality: number; answers: [string, string, string] }
+interface Candidate { id: string; name: string; quality: number }
 const CANDIDATES: Candidate[] = [
-  { name: "Maya Chen", quality: 9, background: "Ran a profitable Etsy shop for two years while in school.",
-    answers: [
-      "I've run my own small shop, so I know what it takes to keep customers happy and the books balanced - I want to do that at a bigger scale here.",
-      "When my supplier flaked right before a holiday rush, I found two backups in a day and still shipped every order on time.",
-      "I batch similar tasks, knock out the highest-impact one first, and keep a running list so nothing slips."] },
-  { name: "Priya Nair", quality: 8, background: "Treasurer of two school clubs; strong with numbers.",
-    answers: [
-      "I love the operations side - budgets, scheduling, and making things actually run smoothly.",
-      "Our club's budget was a mess; I rebuilt the spreadsheet line by line and we ended the year in surplus.",
-      "I prioritize by deadline and impact, and I'm not afraid to ask for help early instead of falling behind."] },
-  { name: "Jordan Blake", quality: 7, background: "Worked two summers in retail customer service.",
-    answers: [
-      "I'm good with customers and reliable, and I want to grow into more responsibility than a register.",
-      "A customer was furious about a refund; I stayed calm, listened, and got it sorted within policy.",
-      "I make a quick to-do list and ask which thing matters most if I'm unsure."] },
-  { name: "Sam Rivera", quality: 4, background: "Recent grad, no direct experience but eager.",
-    answers: [
-      "It seems like a cool opportunity and I could really use a job right now.",
-      "Um… I helped a friend move once? I'm pretty reliable I guess.",
-      "I just kind of do whatever's in front of me until it's done."] },
-  { name: "Tyler Hood", quality: 3, background: "Lists a lot of hobbies, vague on actual work.",
-    answers: [
-      "Honestly I'm not totally sure - a friend told me to apply.",
-      "I can't really think of one right now, sorry.",
-      "I usually just wing it and hope it works out."] },
+  { id: "maya", name: "Maya Chen", quality: 9 },
+  { id: "priya", name: "Priya Nair", quality: 8 },
+  { id: "jordan", name: "Jordan Blake", quality: 7 },
+  { id: "sam", name: "Sam Rivera", quality: 4 },
+  { id: "tyler", name: "Tyler Hood", quality: 3 },
 ];
 function HiringPanel({ s, update, awardXP }: { s: BusinessGameState; update: Update; awardXP: (n: number, r: string) => void }) {
+  const { t } = useTranslation();
   const [step, setStep] = useState<"post" | "interview">("post");
   const [role, setRole] = useState(""); const [resp, setResp] = useState(""); const [skills, setSkills] = useState("");
   const [cand, setCand] = useState<Candidate | null>(null);
+  const questions = t("microOffice.hiring.questions", { returnObjects: true }) as string[];
 
   const postJob = () => {
-    if (!role.trim() || resp.trim().length < 10 || skills.trim().length < 5) { toast.error("Fill in role, responsibilities, and required skills"); return; }
+    if (!role.trim() || resp.trim().length < 10 || skills.trim().length < 5) { toast.error(t("microOffice.hiring.fillFields")); return; }
     setCand(CANDIDATES[Math.floor(Math.random() * CANDIDATES.length)]);
     setStep("interview");
     awardXP(4, "Posted a job and sourced a candidate");
   };
   const decide = (hire: boolean) => {
     if (!cand) return;
-    if (!hire) { toast("Passed on the candidate"); reset(); return; }
+    if (!hire) { toast(t("microOffice.hiring.passedToast")); reset(); return; }
     const badHire = cand.quality < 5;
-    const emp: Employee = { id: crypto.randomUUID(), name: cand.name, role: role.trim() || "Team member", weeklyWage: 90 + cand.quality * 8, hiredWeek: s.week, badHireUntilWeek: badHire ? s.week + 2 : undefined };
+    const emp: Employee = { id: crypto.randomUUID(), name: cand.name, role: role.trim() || t("microOffice.hiring.teamMember"), weeklyWage: 90 + cand.quality * 8, hiredWeek: s.week, badHireUntilWeek: badHire ? s.week + 2 : undefined };
     update((st) => ({ ...st, employees: [...st.employees, emp] }));
     awardXP(6, "Hired an employee");
-    if (badHire) toast.error(`Hired ${cand.name} - but it's a bad fit`, { description: "-20% weekly productivity for 2 weeks." });
-    else toast.success(`Hired ${cand.name}! A strong addition to the team.`);
+    if (badHire) toast.error(t("microOffice.hiring.badHireToast", { name: cand.name }), { description: t("microOffice.hiring.badHireDesc") });
+    else toast.success(t("microOffice.hiring.goodHireToast", { name: cand.name }));
     reset();
   };
   const reset = () => { setStep("post"); setRole(""); setResp(""); setSkills(""); setCand(null); };
 
   return (
     <Card variant="elevated"><CardContent className="pt-5 space-y-3">
-      <Head icon={UserPlus} title="Hire (write a posting, then interview)" sub="Post the role, then read the candidate's interview answers before you commit." />
+      <Head icon={UserPlus} title={t("microOffice.hiring.title")} sub={t("microOffice.hiring.subtitle")} />
       {step === "post" && (<>
-        <Input placeholder="Role / title (e.g. Marketing Assistant)" value={role} onChange={(e) => setRole(e.target.value)} />
-        <Textarea rows={2} placeholder="Responsibilities…" value={resp} onChange={(e) => setResp(e.target.value)} />
-        <Input placeholder="Required skills (comma-separated)" value={skills} onChange={(e) => setSkills(e.target.value)} />
-        <Button className="w-full press-scale" onClick={postJob}><Briefcase className="w-4 h-4 mr-1.5" /> Post job & get applicant</Button>
+        <Input placeholder={t("microOffice.hiring.rolePlaceholder")} value={role} onChange={(e) => setRole(e.target.value)} />
+        <Textarea rows={2} placeholder={t("microOffice.hiring.responsibilitiesPlaceholder")} value={resp} onChange={(e) => setResp(e.target.value)} />
+        <Input placeholder={t("microOffice.hiring.skillsPlaceholder")} value={skills} onChange={(e) => setSkills(e.target.value)} />
+        <Button className="w-full press-scale" onClick={postJob}><Briefcase className="w-4 h-4 mr-1.5" /> {t("microOffice.hiring.postJob")}</Button>
       </>)}
       {step === "interview" && cand && (<>
-        <div className="rounded-xl bg-muted p-3"><p className="font-bold">{cand.name}</p><p className="text-sm text-muted-foreground">{cand.background}</p></div>
-        {INTERVIEW_QUESTIONS.map((q, i) => (
-          <div key={i} className="rounded-xl border border-border p-3"><p className="text-sm font-semibold">Q: {q}</p><p className="text-sm text-muted-foreground mt-1">A: {cand.answers[i]}</p></div>
+        <div className="rounded-xl bg-muted p-3"><p className="font-bold">{cand.name}</p><p className="text-sm text-muted-foreground">{t(`microOffice.hiring.candidates.${cand.id}.background`)}</p></div>
+        {questions.map((q, i) => (
+          <div key={i} className="rounded-xl border border-border p-3"><p className="text-sm font-semibold">{t("microOffice.hiring.qPrefix")} {q}</p><p className="text-sm text-muted-foreground mt-1">{t("microOffice.hiring.aPrefix")} {t(`microOffice.hiring.candidates.${cand.id}.answers.${i}`)}</p></div>
         ))}
-        <p className="text-xs text-muted-foreground italic">Read the answers carefully - a vague candidate is a risky hire (-20% productivity for 2 weeks).</p>
+        <p className="text-xs text-muted-foreground italic">{t("microOffice.hiring.readCarefully")}</p>
         <div className="flex gap-2">
-          <Button variant="outline" className="flex-1 press-scale" onClick={() => decide(false)}>Pass</Button>
-          <Button className="flex-1 press-scale" onClick={() => decide(true)}><UserPlus className="w-4 h-4 mr-1.5" /> Hire</Button>
+          <Button variant="outline" className="flex-1 press-scale" onClick={() => decide(false)}>{t("microOffice.hiring.pass")}</Button>
+          <Button className="flex-1 press-scale" onClick={() => decide(true)}><UserPlus className="w-4 h-4 mr-1.5" /> {t("microOffice.hiring.hire")}</Button>
         </div>
       </>)}
     </CardContent></Card>
@@ -635,44 +614,45 @@ function HiringPanel({ s, update, awardXP }: { s: BusinessGameState; update: Upd
 
 /* ═══ FEATURE 6 - BUSINESS PLAN (required before launch, rule-based validator) ═══ */
 function BusinessPlanGate({ update, awardXP }: { update: Update; awardXP: (n: number, r: string) => void }) {
+  const { t } = useTranslation();
   const [f, setF] = useState({ name: "", market: "", pricing: "", startup: "", goal: "" });
   const [errors, setErrors] = useState<string[]>([]);
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setF((p) => ({ ...p, [k]: e.target.value }));
   const submit = () => {
     const errs: string[] = [];
-    if (f.name.trim().length < 3) errs.push("Business name: give it a real name.");
-    if (f.market.trim().length < 50) errs.push(`Target market: needs at least 50 characters (${f.market.trim().length}/50).`);
-    if (f.pricing.trim().length < 50) errs.push(`Pricing strategy: needs at least 50 characters (${f.pricing.trim().length}/50).`);
-    if (!/\d/.test(f.startup)) errs.push("Startup costs: include the actual numbers (e.g. 200 supplies, 100 marketing).");
+    if (f.name.trim().length < 3) errs.push(t("microOffice.plan.errors.name"));
+    if (f.market.trim().length < 50) errs.push(t("microOffice.plan.errors.market", { count: f.market.trim().length }));
+    if (f.pricing.trim().length < 50) errs.push(t("microOffice.plan.errors.pricing", { count: f.pricing.trim().length }));
+    if (!/\d/.test(f.startup)) errs.push(t("microOffice.plan.errors.startup"));
     const goalNum = parseFloat(f.goal.replace(/[^0-9.]/g, ""));
-    if (!(goalNum > 0)) errs.push("3-month revenue goal: enter a number greater than 0.");
+    if (!(goalNum > 0)) errs.push(t("microOffice.plan.errors.goal"));
     setErrors(errs);
-    if (errs.length) { toast.error("Fix the highlighted fields", { description: `${errs.length} item${errs.length > 1 ? "s" : ""} need attention.` }); return; }
-    const feedback = "Your plan covers the essentials - a defined market, a pricing rationale, real startup costs, and a clear goal. Approved!";
+    if (errs.length) { toast.error(t("microOffice.plan.fixHighlighted"), { description: t("microOffice.plan.fixHighlightedDesc", { count: errs.length }) }); return; }
+    const feedback = t("microOffice.plan.approvedFeedback");
     update((st) => ({ ...st, planScore: 7, planFeedback: feedback, planApproved: true }));
     awardXP(15, "Business plan approved");
-    toast.success("Plan scored 7/10 - approved! +15 InvestiCoins", { description: feedback });
+    toast.success(t("microOffice.plan.approvedToast"), { description: feedback });
   };
   return (
     <Card variant="elevated">
       <CardContent className="pt-5 space-y-3">
         <div className="rounded-2xl p-5 text-center" style={{ background: "linear-gradient(135deg,#0f2d1e,#06291f)" }}>
           <Building2 className="w-10 h-10 mx-auto mb-1" style={{ color: NEON }} />
-          <p className="font-display text-xl font-extrabold text-white">Write your business plan</p>
-          <p className="text-white/55 text-sm mt-1">Complete every field to score 7/10 and unlock The Office.</p>
+          <p className="font-display text-xl font-extrabold text-white">{t("microOffice.plan.heading")}</p>
+          <p className="text-white/55 text-sm mt-1">{t("microOffice.plan.subheading")}</p>
         </div>
-        <div><label className="text-sm font-semibold">Business name</label><Input value={f.name} onChange={set("name")} className="mt-1" /></div>
-        <div><label className="text-sm font-semibold">Target market <span className="text-muted-foreground font-normal">({f.market.trim().length}/50)</span></label><Textarea rows={2} value={f.market} onChange={set("market")} className="mt-1" placeholder="Who exactly are your customers? Be specific (50+ chars)." /></div>
-        <div><label className="text-sm font-semibold">Pricing strategy <span className="text-muted-foreground font-normal">({f.pricing.trim().length}/50)</span></label><Textarea rows={2} value={f.pricing} onChange={set("pricing")} className="mt-1" placeholder="How will you price, and why? (50+ chars)" /></div>
-        <div><label className="text-sm font-semibold">Startup costs breakdown</label><Input value={f.startup} onChange={set("startup")} className="mt-1" placeholder="e.g. 200 supplies, 100 marketing, 50 tools" /></div>
-        <div><label className="text-sm font-semibold">3-month revenue goal</label><Input value={f.goal} onChange={set("goal")} className="mt-1" placeholder="e.g. 5000" /></div>
+        <div><label className="text-sm font-semibold">{t("microOffice.plan.businessName")}</label><Input value={f.name} onChange={set("name")} className="mt-1" /></div>
+        <div><label className="text-sm font-semibold">{t("microOffice.plan.targetMarket")} <span className="text-muted-foreground font-normal">({f.market.trim().length}/50)</span></label><Textarea rows={2} value={f.market} onChange={set("market")} className="mt-1" placeholder={t("microOffice.plan.marketPlaceholder")} /></div>
+        <div><label className="text-sm font-semibold">{t("microOffice.plan.pricingStrategy")} <span className="text-muted-foreground font-normal">({f.pricing.trim().length}/50)</span></label><Textarea rows={2} value={f.pricing} onChange={set("pricing")} className="mt-1" placeholder={t("microOffice.plan.pricingPlaceholder")} /></div>
+        <div><label className="text-sm font-semibold">{t("microOffice.plan.startupCosts")}</label><Input value={f.startup} onChange={set("startup")} className="mt-1" placeholder={t("microOffice.plan.startupPlaceholder")} /></div>
+        <div><label className="text-sm font-semibold">{t("microOffice.plan.revenueGoal")}</label><Input value={f.goal} onChange={set("goal")} className="mt-1" placeholder={t("microOffice.plan.goalPlaceholder")} /></div>
         {errors.length > 0 && (
           <div className="rounded-xl border border-destructive/40 bg-destructive/5 p-3">
-            <p className="text-sm font-bold text-destructive flex items-center gap-1.5 mb-1"><AlertTriangle className="w-4 h-4" /> Fix these:</p>
+            <p className="text-sm font-bold text-destructive flex items-center gap-1.5 mb-1"><AlertTriangle className="w-4 h-4" /> {t("microOffice.plan.fixThese")}</p>
             <ul className="space-y-1">{errors.map((e, i) => <li key={i} className="text-xs text-foreground/80">• {e}</li>)}</ul>
           </div>
         )}
-        <Button className="w-full press-scale" onClick={submit}><ClipboardList className="w-4 h-4 mr-1.5" /> Submit plan</Button>
+        <Button className="w-full press-scale" onClick={submit}><ClipboardList className="w-4 h-4 mr-1.5" /> {t("microOffice.plan.submit")}</Button>
       </CardContent>
     </Card>
   );

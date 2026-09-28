@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react"
+import { useTranslation } from "react-i18next"
 import { supabase } from "@/integrations/supabase/client"
 import { useAuth } from "@/hooks/useAuth"
 import { lessons } from "@/data/lessons"
@@ -41,6 +42,7 @@ const sig = (g: LessonGradeRow) => `${g.lesson_id}:${g.updated_at}`
 // Pops a celebratory dialog when a teacher grades one of the student's lessons.
 // Updates live via a realtime subscription and re-checks on load.
 export function LessonGradeNotifications() {
+  const { t } = useTranslation()
   const { user, isTeacher } = useAuth()
   const [grades, setGrades] = useState<LessonGradeRow[]>([])
   const [open, setOpen] = useState(false)
@@ -97,10 +99,10 @@ export function LessonGradeNotifications() {
             <Award className="w-8 h-8 text-gold" />
           </div>
           <DialogTitle className="text-center text-2xl font-display">
-            📣 Your teacher graded your work!
+            {t("homework.notifications.lessonGrade.title")}
           </DialogTitle>
           <DialogDescription className="text-center">
-            Here's the grade and feedback for {grades.length === 1 ? "your lesson" : "your lessons"}.
+            {t("homework.notifications.lessonGrade.desc", { count: grades.length })}
           </DialogDescription>
         </DialogHeader>
 
@@ -123,7 +125,7 @@ export function LessonGradeNotifications() {
         </div>
 
         <DialogFooter>
-          <Button onClick={dismiss} className="w-full sm:w-auto">Got it</Button>
+          <Button onClick={dismiss} className="w-full sm:w-auto">{t("homework.notifications.gotIt")}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

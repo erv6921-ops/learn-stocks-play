@@ -1090,7 +1090,11 @@
     "tapInOrder": "Tócalos en orden.",
     "notRightOrder": "No es el orden correcto — {{correct}} de {{total}} correctos.",
     "undoLast": "Deshacer último",
-    "showMe": "Muéstrame"
+    "showMe": "Muéstrame",
+    "askJeff": "Pregúntale a Jeff",
+    "askJeffAria": "Pregúntale a Jeff, {{cost}} monedas por pregunta",
+    "costNote": "Cada pregunta cuesta {{cost}} monedas. Si Jeff no puede responder, te las devolvemos.",
+    "saysHiAria": "Jeff te saluda"
   },
   "lessonPlayer": {
     "lessonFallback": "Lección",
@@ -1455,5 +1459,2489 @@
         "5y": "5A"
       }
     }
+  },
+  "bank": {
+    "wallet": "Billetera",
+    "vaultLabel": "Bóveda",
+    "lobbyButton": "Recepción",
+    "floorLabel": "Piso {{num}}",
+    "investiBankFloor": "InvestiBank · Piso {{num}}",
+    "coinsAmount": "{{amount}} monedas",
+    "creditRating": {
+      "exceptional": "Excepcional",
+      "veryGood": "Muy bueno",
+      "good": "Bueno",
+      "fair": "Regular",
+      "poor": "Malo"
+    },
+    "creditTier": {
+      "excellent": "Excelente",
+      "great": "Muy bueno",
+      "good": "Bueno",
+      "fair": "Regular",
+      "needsWork": "Por mejorar"
+    },
+    "floors": {
+      "vault": {
+        "name": "La Bóveda",
+        "desc": "Ahorro e interés",
+        "blurb": "Guarda tus monedas y deja que el interés compuesto haga el trabajo pesado."
+      },
+      "lending": {
+        "name": "Mesa de Préstamos",
+        "desc": "Préstamos y crédito",
+        "blurb": "Pide prestado según tu puntaje de crédito, y constrúyelo pagando a tiempo."
+      },
+      "bonds": {
+        "name": "Mercado de Bonos",
+        "desc": "Renta fija",
+        "blurb": "Presta tu dinero por un plazo fijo y cobra el interés al vencimiento."
+      },
+      "careers": {
+        "name": "Piso Ejecutivo",
+        "desc": "Tu carrera",
+        "blurb": "Trabaja en un empleo real de finanzas, semana tras semana."
+      }
+    },
+    "vault": {
+      "yourBalance": "Tu saldo",
+      "lockedBehindSteel": "monedas, guardadas tras un metro de acero",
+      "perDayCompounding": "{{rate}}% / día, capitalizando",
+      "tomorrow": "+{{amount}} mañana",
+      "ifYouLeaveItAlone": "Si lo dejas quieto…",
+      "days_one": "{{count}} día",
+      "days_other": "{{count}} días",
+      "lifetimeInterest": "Interés ganado desde el inicio: {{amount}} monedas",
+      "interestEarningInterest": "Interés compuesto: interés que gana interés.",
+      "depositToSeeMagic": "Deposita algunas monedas para ver la magia de la capitalización.",
+      "tellerWindow": "Ventanilla",
+      "walletLabel": "Billetera:",
+      "halfWallet": "Media billetera",
+      "wholeVault": "Toda la bóveda",
+      "amountPlaceholder": "Cantidad de monedas…",
+      "deposit": "Depositar",
+      "withdraw": "Retirar",
+      "howSavingsWorkTitle": "Cómo funciona el ahorro:",
+      "howSavingsWorkBody": "el dinero en la bóveda gana interés compuesto: interés sobre tu interés. Los bancos te pagan por guardar dinero con ellos porque lo prestan a otros. Vuelve cada día y míralo crecer.",
+      "notEnoughCoins": "No tienes suficientes monedas",
+      "depositTooMuch": "No puedes depositar más de lo que tienes en tu billetera.",
+      "depositedToast": "Depositaste {{amount}} monedas 🏦",
+      "depositedDesc": "Tu bóveda gana {{rate}}% de interés compuesto cada día.",
+      "notEnoughInVault": "No hay suficiente en la bóveda",
+      "withdrawTooMuch": "No puedes retirar más que el saldo de tu bóveda.",
+      "withdrewToast": "Retiraste {{amount}} monedas"
+    },
+    "loans": {
+      "howScoreMoves": "Cómo se mueve tu puntaje",
+      "repayOnTime": "Pagar un préstamo a tiempo",
+      "missDueDate": "No cumplir una fecha de pago",
+      "loansRepaidSoFar": "Préstamos pagados hasta ahora",
+      "higherScoresUnlock": "Los puntajes más altos desbloquean préstamos más grandes: 620+ para el Builder, 720+ para el Big Dream.",
+      "howCreditWorksTitle": "Cómo funciona el crédito:",
+      "howCreditWorksBody": "tu puntaje de crédito es tu reputación con el dinero. Pide prestado solo lo que puedas pagar, paga a tiempo, y los bancos te confiarán préstamos más grandes con mejores tasas, en este juego y en la vida real.",
+      "yourActiveLoans": "Tus préstamos activos",
+      "oweCoins": "Debes <b>{{amount}}</b> monedas",
+      "overdue": "VENCIDO - ¡golpe al crédito!",
+      "dueIn_one": "vence en {{count}} día",
+      "dueIn_other": "vence en {{count}} días",
+      "repayAmount": "Pagar {{amount}}",
+      "availableLoans": "Préstamos disponibles",
+      "termDays_one": "{{count}} día",
+      "termDays_other": "{{count}} días",
+      "needsCreditScore": "Requiere puntaje de crédito de {{score}}+",
+      "active": "Activo",
+      "maxLoans": "Máx. préstamos",
+      "borrow": "Pedir prestado",
+      "borrowedToast": "Pediste prestadas {{amount}} monedas 💸",
+      "borrowedDesc": "Paga {{total}} en {{days}} días para subir tu puntaje de crédito.",
+      "notEnoughCoins": "No tienes suficientes monedas",
+      "needCoinsToRepay": "Necesitas {{amount}} monedas para pagar este préstamo.",
+      "repaidOnTimeToast": "¡Préstamo pagado a tiempo! 🎉",
+      "repaidToast": "Préstamo pagado",
+      "repaidOnTimeDesc": "Puntaje de crédito +25. A los bancos les encantan los prestatarios confiables.",
+      "repaidLateDesc": "Pagado tarde: deuda saldada, pero esta vez sin mejora de crédito."
+    },
+    "bonds": {
+      "yourCertificates": "Tus certificados",
+      "bondSerial": "Bono InvestiBank · Nº {{serial}}",
+      "matured": "Vencido",
+      "investedToPayout": "{{invested}} → <b>{{payout}}</b> monedas",
+      "collect": "¡Cobrar!",
+      "daysLeft": "{{days}}d restantes",
+      "noCertificates": "Aún no hay certificados",
+      "noCertificatesHint": "Compra un bono en el mercado y tus certificados vivirán aquí, cada uno con una cuenta regresiva hasta el día de pago.",
+      "howBondsWorkTitle": "Cómo funcionan los bonos:",
+      "howBondsWorkBody": "un bono es un préstamo que <em>tú</em> le das a un gobierno o empresa, y ellos te pagan interés por él. Los emisores más seguros pagan menos; los más riesgosos pagan más, pero mientras mayor el rendimiento, mayor la probabilidad de <em>incumplimiento</em>: que no puedan pagar y pierdas lo que pusiste. Tu dinero queda bloqueado hasta que vence.",
+      "todaysMarket": "Mercado de hoy",
+      "couponInDays": "+{{rate}}% en {{days}}d",
+      "riskLabel": "riesgo {{risk}}",
+      "pctDefault": "{{pct}}% incumple",
+      "pctPaysOut": "{{pct}}% paga",
+      "minCoinsPlaceholder": "Mín. {{amount}} monedas",
+      "buyBond": "Comprar bono",
+      "minimumIs": "El mínimo es {{amount}} monedas",
+      "notEnoughCoins": "No tienes suficientes monedas",
+      "boughtToast": "¡Compraste un {{name}}! 📜",
+      "boughtDesc": "En {{days}} días cobrarás {{payout}} monedas (+{{profit}} de ganancia).",
+      "defaultedToast": "El bono incumplió 💥",
+      "defaultedDesc": "{{issuer}} no pudo pagar: perdiste tus {{amount}} monedas. Ese es el riesgo de buscar rendimientos más altos.",
+      "theIssuer": "El emisor",
+      "collectedToast": "¡Cobraste {{amount}} monedas! 💰",
+      "collectedDesc": "Son {{amount}} monedas de puro interés."
+    },
+    "lobby": {
+      "mainLobby": "Recepción principal · est. 2026",
+      "welcome": "Bienvenido a Investi<accent>Bank</accent>",
+      "savingsEarnedToast": "¡Tu ahorro ganó {{amount}} monedas de interés! ✨",
+      "savingsEarnedDesc": "Es el interés compuesto trabajando mientras no estabas.",
+      "loanOverdueToast": "Un préstamo venció 😬",
+      "loanOverdueDesc": "Tu puntaje de crédito bajó 50 puntos. Págalo para saldar la deuda, luego paga a tiempo para reconstruirlo.",
+      "stat": {
+        "coinsGrowing": "{{amount}} monedas creciendo",
+        "startSaving": "Empieza a ahorrar hoy",
+        "loanOverdue": "¡Un préstamo está vencido!",
+        "activeLoans_one": "{{count}} préstamo activo",
+        "activeLoans_other": "{{count}} préstamos activos",
+        "creditScore": "Puntaje de crédito {{score}}",
+        "bondsReady_one": "¡{{count}} bono listo para cobrar!",
+        "bondsReady_other": "¡{{count}} bonos listos para cobrar!",
+        "certificatesMaturing_one": "{{count}} certificado por vencer",
+        "certificatesMaturing_other": "{{count}} certificados por vencer",
+        "bondsOnMarket": "3 bonos en el mercado",
+        "getHired": "Consigue empleo hoy",
+        "careerWeek": "{{name}} · semana {{week}}"
+      },
+      "stats": {
+        "inVault": "En la bóveda",
+        "growingPerDay": "Creciendo {{rate}}%/día",
+        "compounded": "Capitalizado",
+        "interestEarned": "Interés ganado",
+        "creditScore": "Puntaje de crédito",
+        "inBonds": "En bonos",
+        "earnedWorking": "Ganado trabajando",
+        "workingForYou": "Trabajando para ti",
+        "fromFinanceJobs": "De empleos de finanzas"
+      },
+      "banker": {
+        "overdue": "Atención{{name}}: un préstamo se venció. Sáldalo y reconstruiremos ese crédito juntos.",
+        "matured_one": "{{count}} bono acaba de vencer{{name}}: ¡vamos a cobrar tu día de pago! 💰",
+        "matured_other": "{{count}} bonos acaban de vencer{{name}}: ¡vamos a cobrar tu día de pago! 💰",
+        "interest": "Tu bóveda ganó {{amount}} monedas de interés mientras no estabas{{name}}. El interés compuesto nunca duerme. ✨",
+        "default": "Vamos a poner tus {{amount}} monedas a trabajar{{name}}. ¿Por dónde empezamos?"
+      }
+    },
+    "careers": {
+      "chooseCareer": "Elige tu carrera",
+      "chooseCareerBlurb": "Toma un empleo real en finanzas. Trabaja operaciones semana tras semana, escribe memos reales, gana un salario y sube seis puestos hasta la cima. Cambia cuando quieras: cada carrera recuerda tu progreso.",
+      "ranksWeekly": "6 puestos · {{noun}} semanales",
+      "weekRepContinue": "Semana {{week}} · {{xp}} Rep - continuar",
+      "startThisCareer": "Empezar esta carrera",
+      "grade": {
+        "outstanding": "Sobresaliente",
+        "strongWork": "Buen trabajo",
+        "gettingThere": "Vas por buen camino",
+        "roughOne": "Difícil esta vez"
+      },
+      "stub": {
+        "payrollDept": "InvestiBank · Nómina",
+        "promotionsBoard": "InvestiBank · Comité de Ascensos",
+        "pts": "{{points}}/{{max}} pts",
+        "week": "Semana {{week}}",
+        "memoFiled": "memo archivado 📁",
+        "baseSalary": "Salario base",
+        "performanceBonus": "Bono por desempeño",
+        "writingStipend": "Estipendio por escritura",
+        "totalPaid": "Total pagado",
+        "repEarned": "Rep ganada",
+        "caseFee": "Honorario del caso",
+        "noNewPay": "Sin pago nuevo: supera tu mejor marca ({{best}}/{{max}}) para ganar más.",
+        "paid": "Pagado",
+        "closed": "Cerrado",
+        "startNextWeek": "Empezar la próxima semana",
+        "backToDesk": "Volver a tu escritorio"
+      },
+      "finalStep": "Paso final · el escrito",
+      "repPlusCoins": "+{{rep}} Rep · +{{coins}} 🪙",
+      "yourMemo": "Tu {{title}}",
+      "wordCount": "{{words}}/{{min}} palabras",
+      "memoPlaceholder": "Piensa en las decisiones que acabas de tomar en \"{{title}}\": ¿qué decidiste y por qué estuvo bien (o mal)?",
+      "fileCloseWeek": "Archivarlo y cerrar la semana",
+      "fileCloseCase": "Archivarlo y cerrar el caso",
+      "moreWords_one": "{{count}} palabra más…",
+      "moreWords_other": "{{count}} palabras más…",
+      "yourDesk": "Tu escritorio",
+      "stageProgress": "Etapa {{current}} / {{total}} · luego el escrito",
+      "theWriteUp": "El escrito",
+      "proMove": "Jugada pro",
+      "okay": "Aceptable",
+      "rookie": "Novato",
+      "onToWriteUp": "Al escrito",
+      "next": "Siguiente",
+      "reputation": "Reputación {{value}}",
+      "officeMoment": "Momento de oficina",
+      "yourWorkFile": "Tu archivo de trabajo",
+      "workFileEmpty": "Cada {{memoType}} que escribas se archiva aquí: tu cuerpo de trabajo en la mesa de {{career}}.",
+      "wk": "Sem. {{week}}",
+      "floor04": "Piso 04 · {{name}}",
+      "weekLabel": "Semana",
+      "repLabel": "Rep",
+      "salaryLabel": "Salario",
+      "perWeek": "{{amount}}/sem",
+      "switch": "Cambiar",
+      "closeCaseToBecome": "¡Cierra tu caso de ascenso para convertirte en {{title}}!",
+      "repToRank": "{{rep}} Rep para {{title}}",
+      "topOfLadder": "Cima de la escalera 🏆",
+      "promotionCaseReady": "Caso de ascenso - ¡listo ahora!",
+      "promotionCaseComing": "Caso de ascenso - próximamente",
+      "takeTheCase": "Tomar el caso",
+      "repAway": "A {{rep}} Rep",
+      "thisWeekOnDesk": "Esta semana en tu escritorio",
+      "salaryPlusBonus": "{{salary}} de salario + hasta {{bonus}} de bono",
+      "forTheWriteUp": "+{{amount}} por el escrito",
+      "upToRep": "hasta {{rep}} Rep",
+      "workIt": "Trabajarlo",
+      "weeksWorked": "Semanas trabajadas",
+      "careerEarnings": "Ganancias de carrera",
+      "dealsClosed": "{{noun}}s cerrados",
+      "theLadder": "La escalera",
+      "you": "Tú",
+      "repPlusCase": "{{rep}} Rep + caso",
+      "repRequirement": "{{rep}} Rep"
+    }
+  },
+  "bankCareers": {
+    "pe": {
+      "fundName": "Buyout Fund I",
+      "companiesOwned_one": "{{count}} empresa en propiedad",
+      "companiesOwned_other": "{{count}} empresas en propiedad",
+      "heroTagline": "Cómprala con deuda · arréglala · véndela por más",
+      "fundMoic": "MOIC del fondo",
+      "yourEquity": "Tu capital",
+      "debtLeverage": "Deuda (apalancamiento)",
+      "equityIn": "Capital aportado {{amount}}",
+      "debt": "Deuda {{amount}}",
+      "worth": "Vale {{amount}}",
+      "tabs": {
+        "portfolio": "Portafolio",
+        "forSale": "En venta"
+      },
+      "empty": {
+        "title": "Aún no tienes ninguna empresa",
+        "body": "Abre la pestaña <b>En venta</b> para estudiar negocios, estructurar la deuda y comprar tu primero. Luego mejóralo semana a semana y véndelo con ganancia.",
+        "cta": "Explorar el mercado"
+      },
+      "needsYou": "Te necesita",
+      "owned": "En propiedad",
+      "price": "precio",
+      "profitAmount": "{{amount}} de ganancia",
+      "debtAmount": "{{amount}} de deuda",
+      "portfolioTip": "Toca una empresa para ejecutar su plan. Haz crecer la ganancia, paga la deuda y luego sal cuando el MOIC se vea genial.",
+      "balanceLine": "Tienes <b>{{balance}}</b> monedas · cada semana aparecen nuevos negocios",
+      "marketTip": "Toca un negocio para estudiarlo y estructurar tu oferta. Una empresa barata y arreglable le gana a una perfecta y cara.",
+      "status": {
+        "thriving": "Prosperando",
+        "steady": "Estable",
+        "distressed": "En apuros"
+      },
+      "flash": {
+        "needEquity": "Necesitas {{amount}} monedas de capital para comprar {{name}}: tienes {{balance}}.",
+        "bought": "Compraste {{name}} por {{equity}} monedas de capital más {{debt}} de deuda. Ahora ve a mejorarla.",
+        "exitWin": "Saliste de {{name}} por {{payout}} monedas: ¡un {{mult}}× sobre tu capital! 🎉",
+        "exitLoss": "Saliste de {{name}} por {{payout}} monedas ({{mult}}×). El apalancamiento corta en ambos sentidos: una lección dura."
+      },
+      "memo": {
+        "buyTitle": "Tesis de compra · {{name}}",
+        "buyPrompt": "¿Por qué compraste {{name}} y cómo vas a ganar dinero con ella?",
+        "updateTitle": "Actualización al inversionista · {{name}}: {{headline}}"
+      }
+    },
+    "venture": {
+      "fundName": "Seed Fund I",
+      "startupsBacked_one": "{{count}} startup respaldada",
+      "startupsBacked_other": "{{count}} startups respaldadas",
+      "heroTagline": "Una ganadora de 100× paga por todas las perdedoras",
+      "portfolioLabel": "portafolio",
+      "deployed": "Invertido {{amount}}",
+      "winners_one": "{{count}} ganadora (2×+)",
+      "winners_other": "{{count}} ganadoras (2×+)",
+      "worth": "Vale {{amount}}",
+      "tabs": {
+        "portfolio": "Portafolio",
+        "invest": "Invertir"
+      },
+      "empty": {
+        "title": "Tu portafolio está vacío",
+        "body": "Abre la pestaña <b>Invertir</b> para estudiar startups y respaldar tu primera. Luego reúnete con cada fundador cada semana para ayudarlas a crecer.",
+        "cta": "Explorar startups"
+      },
+      "needsYou": "Te necesita",
+      "held": "En cartera",
+      "months": "{{count}} m",
+      "portfolioTip": "Toca una empresa para ver su página completa y conocer al fundador. Un buen consejo capitaliza a las ganadoras; nada salva a una apuesta rota.",
+      "balanceLine": "Tienes <b>{{balance}}</b> monedas · nuevas startups cada semana",
+      "investTip": "Toca una startup para estudiar su equipo, misión y números antes de invertir. Lee la señal, no el bombo.",
+      "status": {
+        "growing": "Creciendo",
+        "steady": "Estable",
+        "struggling": "En dificultades"
+      },
+      "flash": {
+        "needCoins": "Necesitas {{amount}} monedas para respaldar {{name}}: tienes {{balance}}.",
+        "backed": "Respaldaste {{name}} por {{amount}} monedas ({{ownership}}% de participación). Tesis registrada.",
+        "exitWin": "Saliste de {{name}} por {{payout}} monedas: ¡un retorno de {{mult}}×! 🎉",
+        "exitLoss": "Saliste de {{name}} por {{payout}} monedas, con una pérdida. Cortar a las perdedoras es parte del trabajo."
+      },
+      "memo": {
+        "investTitle": "Tesis de inversión · {{name}}",
+        "investPrompt": "¿Por qué respaldaste a {{name}}?",
+        "adviceTitle": "Consejo · {{name}}: {{headline}}"
+      }
+    },
+    "wealth": {
+      "officeName": "Oficina de Patrimonio Privado",
+      "households_one": "{{count}} hogar",
+      "households_other": "{{count}} hogares",
+      "aum": "AUM",
+      "trust": "confianza",
+      "needsReview_one": "{{count}} cliente necesita una revisión esta semana",
+      "needsReview_other": "{{count}} clientes necesitan una revisión esta semana",
+      "ticker": {
+        "stocks": "ACCIONES",
+        "bonds": "BONOS",
+        "cash": "EFECTIVO"
+      },
+      "tabs": {
+        "book": "Cartera",
+        "prospects": "Prospectos"
+      },
+      "empty": {
+        "title": "Tu cartera está vacía",
+        "body": "Abre la pestaña <b>Prospectos</b> para conocer a personas que buscan un asesor. Arma a cada una un plan adecuado, fírmala y gana comisiones a medida que crece su dinero.",
+        "cta": "Conocer prospectos"
+      },
+      "needsYou": "Te necesita",
+      "client": "Cliente",
+      "yearGoal": "meta a {{count}} años",
+      "years": "{{count}} a",
+      "toManage": "por gestionar",
+      "bookTip": "Toca un cliente para hacer su revisión. Mantenlo tranquilo y bien acomodado, y su dinero -y tu comisión- crecen.",
+      "marketThisWeek": "Mercado esta semana: <b>{{label}}</b> · {{note}} Nuevos prospectos cada semana.",
+      "prospectsTip": "Toca un prospecto para conocer sus metas y armar una mezcla que le quede bien. El plan correcto gana al cliente.",
+      "status": {
+        "happy": "Contento",
+        "content": "Conforme",
+        "worried": "Preocupado"
+      },
+      "flash": {
+        "signed": "{{name}} firmó con {{amount}} monedas para gestionar. {{fit}}",
+        "fitGreat": "Un gran encaje: se siente comprendido.",
+        "fitOk": "Un comienzo aceptable.",
+        "fitUnsure": "Está un poco inseguro sobre la mezcla."
+      },
+      "memo": {
+        "planTitle": "Plan del cliente · {{name}}",
+        "planPrompt": "¿Por qué esta mezcla le queda bien a {{name}}?",
+        "letterTitle": "Carta al cliente · {{name}}: {{headline}}"
+      }
+    },
+    "pipeline": {
+      "deskName": "Mesa de Asesoría",
+      "liveDeals_one": "{{count}} operación activa",
+      "liveDeals_other": "{{count}} operaciones activas",
+      "heroTagline": "Gana el mandato · ejecuta · cobra la comisión",
+      "league": "liga",
+      "leagueTable": "Tabla de la liga · comisiones esta temporada",
+      "kpi": {
+        "pipeline": "Cartera",
+        "feesYtd": "Comisiones YTD",
+        "mandates": "Mandatos"
+      },
+      "tabs": {
+        "pipeline": "Cartera",
+        "mandates": "Mandatos"
+      },
+      "empty": {
+        "title": "Aún no hay operaciones activas",
+        "body": "Abre la pestaña <b>Mandatos</b> para presentarte por una operación. Gánala y luego ejecuta cada etapa para cerrarla y cobrar tu comisión de éxito.",
+        "cta": "Ver mandatos"
+      },
+      "needsYou": "Te necesita",
+      "won": "Ganado",
+      "size": "tamaño",
+      "dealSize": "tamaño de la operación",
+      "rivals": "{{count}} rivales",
+      "pipelineTip": "Toca una operación para trabajar su etapa actual. Mantén alta la salud: dos jugadas de novato seguidas pueden romper una operación.",
+      "pipelineValueLine": "Valor de la cartera <b>{{value}}</b> · nuevos mandatos cada semana",
+      "mandatesTip": "Toca un mandato para presentarte. Asesoras por una comisión: la credibilidad gana el trabajo, no la promesa más grande.",
+      "flash": {
+        "wonMandate": "¡Ganaste el mandato de {{project}} para {{client}}! Ahora ejecútalo etapa por etapa para ganar la comisión.",
+        "closed": "¡{{project}} cerró! Cobraste una comisión de éxito de {{fee}} monedas. 🎉",
+        "broke": "{{project}} se vino abajo. Sin comisión esta vez: el riesgo de ejecución es real."
+      },
+      "memo": {
+        "pitchTitle": "Pitch ganado · {{project}} ({{client}})",
+        "pitchPrompt": "¿Por qué debería contratarte el cliente?",
+        "dealTitle": "Memo de la operación · {{project}}: {{headline}}"
+      }
+    },
+    "dealRoom": {
+      "rating": {
+        "pro": "Pro",
+        "okay": "Aceptable",
+        "rookie": "Novato"
+      },
+      "onTheTable": "sobre la mesa",
+      "yourMove": "Tu jugada · ronda {{round}} de {{total}}",
+      "replies": "{{name}} responde",
+      "shakeOnIt": "Cerrar el trato",
+      "nextRound": "Siguiente ronda",
+      "terms": {
+        "title": "Términos de la operación",
+        "company": "Empresa",
+        "entryProfit": "Ganancia de entrada",
+        "purchaseMultiple": "Múltiplo de compra",
+        "purchasePrice": "Precio de compra",
+        "debtLeverage": "Deuda (apalancamiento)",
+        "equityCheck": "Tu aporte de capital",
+        "bankerRapport": "Relación con el banquero",
+        "atExit": "A la salida",
+        "exitProfit": "Ganancia de salida",
+        "exitMultiple": "Múltiplo de salida",
+        "equityValue": "Valor del capital"
+      },
+      "library": {
+        "title": "Biblioteca de casos de estudio",
+        "short": "Biblioteca",
+        "closed": "{{done}}/{{total}} cerrados",
+        "intro": "Nueve operaciones reales, cada una con un plan de PE distinto. Elige una y recórrela de principio a fin: correos, negociaciones y todo."
+      },
+      "complete": {
+        "title": "Operación completa",
+        "body": "De vuelta a la biblioteca para el siguiente caso de estudio."
+      },
+      "backToLibrary": "Volver a la biblioteca",
+      "from": "De {{name}}",
+      "confidential": "Confidencial",
+      "whyAttractive": "Por qué es atractiva",
+      "watchOutFor": "A qué prestar atención",
+      "continue": "Continuar",
+      "pick": "elige {{count}}",
+      "meetingSummary": {
+        "all": "Usaste cada pregunta en lo que de verdad importa: se nota que lo entiendes.",
+        "some": "Sacaste a la luz {{count}} de los riesgos reales. Un par de preguntas fueron simpatía, no diligencia.",
+        "none": "Charla amistosa, pero no indagaste en los riesgos que deciden esta operación."
+      },
+      "headBack": "Volver a la oficina",
+      "negotiation": "Negociación",
+      "restartConfirm": "¿Reiniciar esta operación desde el principio?",
+      "restartDeal": "Reiniciar operación",
+      "grade": {
+        "homeRun": "Jonrón",
+        "strongWin": "Gran victoria",
+        "solid": "Sólido",
+        "moneyBack": "Recuperaste lo invertido",
+        "loss": "Una pérdida"
+      },
+      "scorecard": {
+        "grade": "Nota",
+        "summary": "Compraste a {{entryMult}} por {{equity}} de capital · vendiste a {{exitMult}} · la ganancia creció de {{entryProfit}} → {{exitProfit}}.",
+        "price": "Precio",
+        "debt": "Deuda",
+        "yourEquity": "Tu capital"
+      },
+      "associateBonus": "Bono de asociado: +{{amount}} monedas",
+      "carriedInterest": "Tu interés acumulado: +{{amount}} monedas",
+      "newDeal": "Nueva operación",
+      "onTo100Day": "A por el plan de 100 días",
+      "memo": {
+        "negPrompt": "¿Cuál fue tu enfoque de negociación?",
+        "negText": "Acordaste {{amount}} con {{name}}."
+      }
+    }
+  },
+  "bankDeals": {
+    "week": "Semana {{n}}",
+    "wk": "Sem {{week}}:",
+    "wkShort": "Sem {{week}}",
+    "dealLog": "Registro del trato",
+    "watchOutFor": "Ten cuidado con",
+    "reputation": "Reputación {{delta}}",
+    "wordsCount": "{{count}}/{{min}} palabras",
+    "writeReasoning": "Escribe tu razonamiento ({{count}} palabras más)",
+    "writeThesisFirstWords": "Escribe tu tesis primero ({{count}} palabras más)",
+    "tier": {
+      "pro": "Pro",
+      "okay": "Aceptable",
+      "rookie": "Novato"
+    },
+    "buyout": {
+      "backToMarket": "Volver al mercado",
+      "backToFund": "Volver a tu fondo",
+      "signal": {
+        "strong": "Fuerte",
+        "fair": "Regular",
+        "risky": "Arriesgado"
+      },
+      "status": {
+        "thriving": "Prosperando",
+        "steady": "Estable",
+        "distressed": "En apuros"
+      },
+      "ownerWantsRetire": "Dueño: {{owner}} · quiere jubilarse",
+      "ownedSince": "Posees el 100% · comprado en la semana {{week}}",
+      "theBusiness": "El negocio",
+      "itProduct": "{{product}}.",
+      "theNumbers": "Los números",
+      "profitPerYr": "Ganancia/año",
+      "salesPerYr": "Ventas/año",
+      "margin": "Margen",
+      "staff": "Personal",
+      "growth": "Crecimiento",
+      "price": "Precio",
+      "valueNow": "Valor actual",
+      "pricedAt": "Valorado en {{multiple}}× la ganancia ({{ebitda}} × {{multiple}} = {{price}} monedas).",
+      "theOpportunity": "La oportunidad",
+      "flawLine": "Ahora mismo, {{flaw}}. Arregla eso y la ganancia crece: ese es tu plan de creación de valor.",
+      "structureTitle": "Estructura la compra",
+      "structureBlurb": "Elige cuánto pedir prestado. Más deuda significa un cheque más pequeño de tu parte (mayor MOIC si funciona), pero el préstamo debe pagarse tenga o no un buen año el negocio.",
+      "debtMultiple": "{{multiple}}× deuda",
+      "debtLabel": "Deuda:",
+      "yourCheck": "Tu cheque: {{amount}}",
+      "yourThesis": "Tu tesis de inversión",
+      "thesisPlaceholder": "¿Por qué comprar {{name}}? ¿Cuál es el defecto que vas a arreglar, cómo harás crecer la ganancia y cómo saldrás?",
+      "alreadyOwned": "Ya lo posees ✓",
+      "needCoins": "Necesitas {{amount}} monedas",
+      "buyForEquity": "Comprar por {{amount}} monedas (capital)",
+      "writeThesisFirst": "Escribe tu tesis primero ({{count}} más)",
+      "equityCheckNote": "Pagas el cheque de capital; el préstamo de {{debt}} monedas queda a cargo de la empresa. Págalo y se convierte en tu ganancia.",
+      "capitalStack": "Tu estructura de capital",
+      "equityIn": "Capital aportado",
+      "debtLeft": "Deuda restante",
+      "equityWorth": "Valor del capital",
+      "capitalStackNote": "Valor del negocio {{ev}} ({{ebitda}} de ganancia × {{multiple}}×) − {{debt}} de deuda = {{eq}} de capital. Interés ~{{interest}}/año.",
+      "boltOns_one": "{{count}} adquisición complementaria",
+      "boltOns_other": "{{count}} adquisiciones complementarias",
+      "yourThesisLabel": "Tu tesis",
+      "profitOverTime": "Ganancia a lo largo del tiempo",
+      "runPlaybook": "Ejecuta el plan",
+      "playbookDone": "Vuelve la próxima semana para la siguiente jugada, o sal más abajo cuando el retorno se vea genial.",
+      "alreadyWorked": "Ya trabajaste {{name}} esta semana. Termina tu trato semanal (avanza una semana) para ejecutar la siguiente jugada.",
+      "noteInvestorUpdate": "Anótalo en tu informe a los inversionistas",
+      "notePlaceholder": "Explica la jugada a tus inversionistas: qué le hiciste a {{name}} y por qué aumenta el valor.",
+      "makeTheMove": "Haz la jugada",
+      "chooseExit": "Elige tu salida",
+      "exitBlurb": "Tu participación de capital vale ~{{amount}} monedas hoy. Cada comprador la valora un poco distinto.",
+      "notYet": "Todavía no: sigue construyendo",
+      "exploreExits": "Explorar salidas (vale ~{{amount}} monedas)"
+    },
+    "client": {
+      "backToProspects": "Volver a prospectos",
+      "backToBook": "Volver a tu cartera",
+      "risk": {
+        "cautious": "Cauteloso",
+        "balanced": "Equilibrado",
+        "bold": "Audaz"
+      },
+      "status": {
+        "happy": "Feliz",
+        "content": "Conforme",
+        "worried": "Preocupado"
+      },
+      "stocks": "Acciones",
+      "bonds": "Bonos",
+      "cash": "Efectivo",
+      "underMgmt": "gestionado",
+      "theGoal": "La meta",
+      "wantsTo": "Quiere {{label}}",
+      "yearsAway_one": "a unos {{count}} año",
+      "yearsAway_other": "a unos {{count}} años",
+      "temperament": "Temperamento",
+      "riskInvestor": "Inversionista {{risk}}.",
+      "bringsToManage": "Aporta <b>{{amount}}</b> monedas para gestionar",
+      "feeNote": "Comisión ≈ 1%/año de lo que hagas crecer",
+      "chooseMix": "Elige su combinación",
+      "suitability": "Idoneidad",
+      "greatFit": "Buen encaje",
+      "workable": "Aceptable",
+      "poorFit": "Mal encaje",
+      "yourPlanFor": "Tu plan para {{name}}",
+      "planPlaceholder": "Explícale a {{name}} por qué esta combinación encaja con su meta a {{years}} años y con sus nervios, en palabras sencillas que entienda.",
+      "alreadyClient": "Ya es cliente ✓",
+      "signWithMix": "Firmar a {{name}} con la combinación {{mix}}",
+      "writePlanFirst": "Escribe su plan primero ({{count}} palabras más)",
+      "signingFree": "Firmar es gratis: ganas al hacer crecer su dinero y conservar su confianza, revisión tras revisión.",
+      "return": "Retorno",
+      "trust": "Confianza",
+      "since": "Desde",
+      "theirMix": "Su combinación",
+      "yourPlan": "Tu plan",
+      "assetsOverTime": "Activos a lo largo del tiempo",
+      "clientLog": "Registro del cliente",
+      "thisWeeksReview": "La revisión de esta semana",
+      "stocksLabel": "acciones",
+      "feePayout": "Comisión +{{amount}}",
+      "checkBackNextWeek": "Vuelve la próxima semana: el mercado nunca deja de moverse.",
+      "alreadyReviewed": "Ya revisaste a {{name}} esta semana. Termina tu trato semanal (avanza una semana) para la siguiente revisión.",
+      "noteClientLetter": "Anótalo en tu carta al cliente",
+      "notePlaceholder": "Escribe lo que le dijiste a {{name}} y por qué protege su meta.",
+      "giveAdviceBillFee": "Dar este consejo y cobrar la comisión"
+    },
+    "company": {
+      "backToDeals": "Volver a los tratos",
+      "backToPortfolio": "Volver al portafolio",
+      "signal": {
+        "strong": "Señal fuerte",
+        "mixed": "Señal mixta",
+        "weak": "Señal débil"
+      },
+      "ledBy": "Dirigida por {{founder}}",
+      "yourReturn": "tu retorno",
+      "theGoal": "La meta",
+      "whatTheyDo": "Qué hacen",
+      "theNumbers": "Los números",
+      "theTeam": "El equipo",
+      "users": "Usuarios",
+      "growthPerMo": "Crecimiento/mes",
+      "revenuePerMo": "Ingresos/mes",
+      "runway": "Autonomía",
+      "months": "{{count}} meses",
+      "valuation": "Valoración",
+      "stage": "Etapa",
+      "roundLine": "Ronda: <b>{{amount}} monedas</b> por {{ownership}}%",
+      "valuesItAt": "La valora en {{amount}}",
+      "yourThesis": "Tu tesis de inversión",
+      "thesisPlaceholder": "¿Por qué apuestas por {{name}}? ¿Qué del equipo, la tracción o el mercado te convenció, y qué tendría que salir bien?",
+      "alreadyInvested": "Ya invertiste ✓",
+      "notEnoughCoins": "No hay suficientes monedas",
+      "investCoins": "Invertir {{amount}} monedas",
+      "thesisNote": "Los VC de verdad escriben una tesis antes de transferir un centavo. La tuya queda archivada en tu expediente.",
+      "invested": "Invertido",
+      "nowWorth": "Vale ahora",
+      "yourStake": "Tu participación",
+      "yourThesisLabel": "Tu tesis",
+      "valuationOverTime": "Valoración a lo largo del tiempo",
+      "companyLog": "Registro de la empresa",
+      "catchUpWith": "Ponte al día con {{founder}}",
+      "comeBackNextChapter": "Vuelve la próxima semana para el siguiente capítulo.",
+      "alreadyMet": "Ya te reuniste con {{founder}} esta semana. Avanza una semana (termina tu trato semanal) para volver a verlo.",
+      "explainAdvice": "Explica tu consejo a {{founder}}",
+      "advicePlaceholder": "¿Por qué es la decisión correcta para {{name}}? ¿Qué estás sopesando y cuál es el riesgo si te equivocas?",
+      "giveAdvice": "Dar este consejo",
+      "exitInvestment": "Salir de esta inversión por {{amount}} monedas"
+    },
+    "deal": {
+      "backToMandates": "Volver a los mandatos",
+      "backToPipeline": "Volver al flujo",
+      "clientLine": "Cliente: {{client}} · {{sector}}",
+      "dealSize": "tamaño del trato",
+      "potentialFee": "Comisión potencial",
+      "feeOfValue": "{{pct}}% de {{value}}, si se ejecuta bien",
+      "competingBanks": "Bancos competidores",
+      "winMandate": "Gana el mandato",
+      "lostPitch": "Perdiste esta propuesta ante {{rival}}.",
+      "lostPitchNote": "Los mandatos van al banco más creíble de la sala. Prueba un mandato distinto esta semana.",
+      "backToMandatesBtn": "Volver a los mandatos",
+      "pitchToBoard": "Tu propuesta a la junta",
+      "pitchPlaceholder": "Presenta tu caso a la junta de {{client}}: por qué tú, y cómo llevarás este trato de {{dealType}}.",
+      "winAndKickOff": "Ganar y arrancar (salud {{health}})",
+      "writePitchFirst": "Escribe tu propuesta primero ({{count}} palabras más)",
+      "advisorNote": "Los banqueros asesoran por una comisión: nunca compras la empresa. Gana el trabajo y luego ejecútalo etapa por etapa.",
+      "stage": "Etapa",
+      "health": "Salud",
+      "value": "Valor",
+      "feePayout": "Comisión +{{amount}}",
+      "backToPipelineBtn": "Volver al flujo",
+      "backContinueNextWeek": "Volver: continúa la próxima semana",
+      "alreadyAdvanced": "Ya avanzaste el trato de {{client}} esta semana. Termina tu trato semanal (avanza una semana) para trabajar la siguiente etapa.",
+      "noteDealMemo": "Anótalo en tu memo del trato",
+      "notePlaceholder": "Registra la conversación en el expediente: qué le aconsejaste a {{client}} en esta etapa y por qué.",
+      "makeTheCall": "Toma la decisión"
+    }
+  },
+  "bizlab": {
+    "unitProgress": "Progreso de la unidad",
+    "keyDates": "Fechas clave",
+    "milestoneBadges": "Insignias de hitos",
+    "partLabel": "Parte {{number}}",
+    "partComplete": "· ✓ Completada",
+    "partCompleteNiceWork": "¡Parte {{number}} completada, buen trabajo!",
+    "stuckForIdeas": "¿Sin ideas? Toma una de estas.",
+    "flipAllCards": "Voltea las {{count}} tarjetas para encender esta etapa ✨",
+    "readyToComplete": "Terminaste todo en esta parte. ¡Afiánzalo para ganar tu insignia!",
+    "saveToFinish": "Guarda todas tus entregas (Construir) y reflexiones para terminar esta parte.",
+    "completeButton": "Completar parte {{number}} (+{{xp}})",
+    "hero": {
+      "title": "El proyecto Shark Tank",
+      "subtitle": "Crea un negocio real - idea, plan, prototipo, marca, comercial y sitio web - y luego preséntalo a los Sharks. ¡Manos a la obra, futuro emprendedor!"
+    },
+    "hud": {
+      "streak": "Racha",
+      "partsDone": "Partes hechas",
+      "coinsToEarn": "Monedas por ganar"
+    },
+    "capstone": {
+      "reason": "Gulliver Biz Lab - ¡Campeón de Shark Tank!",
+      "toastTitle": "🦈 ¡Campeón de Shark Tank!",
+      "toastDescription": "Terminaste toda la unidad de Biz Lab. ¡+{{xp}} InvestiCoins de bono!"
+    },
+    "complete": {
+      "reason": "Completaste Biz Lab {{title}}",
+      "toastTitle": "¡Parte {{number}} completada! 🦈",
+      "toastDescription": "+{{xp}} InvestiCoins. ¡Insignia desbloqueada!"
+    },
+    "nav": {
+      "back": "Atrás",
+      "next": "Siguiente"
+    },
+    "stages": {
+      "brief": "Resumen",
+      "words": "Palabras",
+      "learn": "Aprender",
+      "do": "Hacer",
+      "build": "Construir",
+      "reflect": "Reflexionar"
+    },
+    "jeffLines": {
+      "briefFallback": "Parte {{number}}: ¡{{subtitle}}!",
+      "words": "Domina estas palabras clave: ¡voltea cada tarjeta y hablarás como todo un emprendedor! 📚",
+      "learn": "Aquí está la guía. Toca cada tarjeta para abrirla. 🧠",
+      "do": "¡Basta de leer, hora de pasar a la ACCIÓN! Marca cada paso. 💪",
+      "build": "Muéstrame lo que construiste. ¿Atascado? Toma una plantilla para arrancar. 🛠️",
+      "reflect": "Repaso mental: sé honesto, ¿cómo te fue? 💭"
+    },
+    "countdown": {
+      "completed": "Completado"
+    },
+    "flashcards": {
+      "cardCount": "Tarjeta {{current}} de {{total}}",
+      "learnedCount": "{{count}}/{{total}} aprendidas",
+      "flipAria": "Voltear la tarjeta de {{term}}",
+      "tapToReveal": "Toca para ver la definición",
+      "example": "p. ej. {{example}}",
+      "prev": "Anterior",
+      "flip": "Voltear",
+      "next": "Siguiente"
+    },
+    "jeff": {
+      "alt": "Jeff, tu entrenador de Biz Lab",
+      "celebrate": "¡WUJUU! ¡Lo lograste! 🎉🦈",
+      "cheers": {
+        "gotThis": "¡Tú puedes! 💪",
+        "lookingGood": "¡Vas muy bien, emprendedor! ✨",
+        "sharksLoveHustle": "¡A los Sharks les encanta el empeño! 🦈",
+        "bigBrain": "¡Pura energía cerebral! 🧠",
+        "couldBeHuge": "Esto podría ser ENORME 🚀",
+        "believeInYou": "¡Creo en ti! ⭐",
+        "futureCeo": "Vibras de futuro CEO 😎",
+        "closerToTank": "¡Un paso más cerca del Tank! 🏆",
+        "keepGoing": "¡Sigue así! 🔥",
+        "wheee": "¡Yupi! 🤸",
+        "watchThis": "¡Mira esto! 😄"
+      }
+    },
+    "reflection": {
+      "title": "Diario de reflexión",
+      "completed": "Completado",
+      "placeholder": "Escribe tu reflexión...",
+      "saveButton": "Guardar reflexiones",
+      "reason": "Diario de reflexión de Biz Lab",
+      "paidToastTitle": "¡Reflexiones guardadas!",
+      "paidToastDescription": "+{{xp}} InvestiCoins por tus respuestas reflexivas.",
+      "savedToastTitle": "Guardado",
+      "savedToastDescription": "Tus reflexiones están guardadas."
+    },
+    "rubric": {
+      "title": "Rúbrica de puntuación del jurado",
+      "subtitle": "130 puntos en total: así es exactamente como los Sharks te calificarán.",
+      "points": "{{points}} pts"
+    }
+  },
+  "homework": {
+    "title": "Tareas",
+    "subtitle": "Cada tarea en su fecha de entrega.",
+    "today": "Hoy",
+    "graded": "Calificada",
+    "teacherFeedback": "Comentarios del docente",
+    "finish": "Terminar",
+    "start": "Empezar",
+    "level": "Nivel {{level}}",
+    "anytime": "En cualquier momento",
+    "nothingDue": "Nada para entregar este día.",
+    "reviewPractice": "Práctica de repaso",
+    "reviewPracticeDesc": "Opcional, sin calificación — práctica extra de tu docente.",
+    "moreCount": "+{{count}} más",
+    "status": {
+      "done": "Completada",
+      "overdue": "Atrasada",
+      "today": "Vence hoy",
+      "upcoming": "Próxima"
+    },
+    "stats": {
+      "todo": "Por hacer",
+      "overdue": "Atrasadas",
+      "done": "Completadas"
+    },
+    "weekdays": {
+      "sun": "Dom",
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mié",
+      "thu": "Jue",
+      "fri": "Vie",
+      "sat": "Sáb"
+    },
+    "noClass": {
+      "title": "Únete a una clase para recibir tareas",
+      "desc": "Pídele a tu docente un código de clase y agrégalo en tu perfil."
+    },
+    "empty": {
+      "title": "Aún no hay tareas 🎉",
+      "desc": "Las tareas nuevas aparecen en el calendario.",
+      "browseMissions": "Ver misiones"
+    },
+    "notifications": {
+      "due": "Vence {{date}}",
+      "noDueDate": "Sin fecha de entrega",
+      "doNow": "Hacer ahora",
+      "doLater": "Hacer después",
+      "open": "Abrir",
+      "later": "Después",
+      "gradeLabel": "Calificación:",
+      "feedback": "Comentarios",
+      "gotIt": "Entendido",
+      "classwork": {
+        "title": "📚 ¡Nuevo trabajo en clase de tu docente!",
+        "desc_one": "Tienes {{count}} lección por completar. Toca una lección abajo para comenzar. No puedes saltarte esto.",
+        "desc_other": "Tienes {{count}} lecciones por completar. Toca una lección abajo para comenzar. No puedes saltarte esto."
+      },
+      "homework": {
+        "title": "📒 ¡Nueva tarea de tu docente!",
+        "desc_one": "Tienes {{count}} lección de tarea. Empieza ahora o hazla después: te estará esperando en tu página de Tareas.",
+        "desc_other": "Tienes {{count}} lecciones de tarea. Empieza ahora o hazlas después: te estarán esperando en tu página de Tareas."
+      },
+      "review": {
+        "title": "✨ ¡Nueva práctica de repaso!",
+        "desc_one": "Tu docente compartió {{count}} guía de estudio opcional — práctica extra, sin calificación. Pruébala ahora o encuéntrala después en Repaso, en tu página de Tareas.",
+        "desc_other": "Tu docente compartió {{count}} guías de estudio opcionales — práctica extra, sin calificación. Pruébalas ahora o encuéntralas después en Repaso, en tu página de Tareas."
+      },
+      "businessGrade": {
+        "title": "📣 ¡Tu docente calificó tu trabajo de negocio!",
+        "desc": "Aquí están tu calificación y comentarios. Puedes releerlos cuando quieras desde la campana de notificaciones."
+      },
+      "lessonGrade": {
+        "title": "📣 ¡Tu docente calificó tu trabajo!",
+        "desc_one": "Aquí está la calificación y los comentarios de tu lección.",
+        "desc_other": "Aquí están las calificaciones y los comentarios de tus lecciones."
+      }
+    }
+  },
+  "challenges": {
+    "classChallenges": "Desafíos de clase",
+    "pageSubtitle": "Gasta InvestiCoins para competir. El ganador se lleva el bote.",
+    "challengeAPartner": "Desafiar a un compañero",
+    "createChallenge": "Crear desafío",
+    "partnerDuels": "Duelos entre compañeros",
+    "loading": "Cargando desafíos…",
+    "cancel": "Cancelar",
+    "cancelAndRefund": "Cancelar y reembolsar",
+    "youreIn": "Estás dentro",
+    "you": "Tú",
+    "duelVs": "Duelo vs {{name}}",
+    "startDate": "Fecha de inicio",
+    "endDate": "Fecha de fin",
+    "endAfterStart": "La fecha de fin debe ser posterior a la de inicio",
+    "potLabel": "bote de {{amount}}",
+    "dismiss": "Descartar",
+    "partnerFallback": "Compañero",
+    "studentFallback": "Estudiante",
+    "classmateFallback": "Un compañero de clase",
+    "preset": {
+      "3days": "3 días",
+      "1week": "1 semana",
+      "2weeks": "2 semanas"
+    },
+    "noClass": {
+      "title": "Únete a una clase para participar en desafíos",
+      "desc": "Pídele a tu docente un código de clase.",
+      "enterCode": "Ingresar un código de clase"
+    },
+    "empty": {
+      "title": "No hay desafíos activos por ahora",
+      "teacherDesc": "¡Crea uno para poner a competir a tu clase!",
+      "studentDesc": "¡Empieza uno y desafía a tu clase!"
+    },
+    "ledger": {
+      "wonChallenge": "Desafío ganado: {{title}}",
+      "challengeRefund": "Reembolso de desafío: {{title}}",
+      "enteredChallenge": "Ingresaste al desafío: {{title}}",
+      "duelStake": "Apuesta de duelo: {{title}}"
+    },
+    "toast": {
+      "loadFailed": "No se pudieron cargar los desafíos. Actualiza la página.",
+      "notEnoughCoins": "No tienes suficientes InvestiCoins.",
+      "alreadyIn": "Ya estás en este desafío.",
+      "enterFailed": "No se pudo ingresar. Inténtalo de nuevo.",
+      "entered": "¡Estás dentro! Buena suerte 🏆",
+      "noClassToPost": "No se encontró una clase donde publicar.",
+      "createFailed": "No se pudo crear el desafío: {{message}}",
+      "created": "¡Desafío creado! Los estudiantes ya pueden ingresar.",
+      "duelSendFailed": "No se pudo enviar el duelo. Inténtalo de nuevo.",
+      "duelSent": "¡Duelo enviado a {{name}}! ⚔️",
+      "alreadyJoinedDuel": "Ya te uniste a este duelo.",
+      "acceptFailed": "No se pudo aceptar. Inténtalo de nuevo.",
+      "duelOn": "¡Duelo aceptado! Buena suerte 🏆",
+      "declineFailed": "No se pudo rechazar el duelo.",
+      "duelDeclined": "Duelo rechazado.",
+      "cancelFailed": "No se pudo cancelar el desafío.",
+      "cancelled": "Desafío cancelado. Se reembolsarán las cuotas de entrada."
+    },
+    "widget": {
+      "checking": "Buscando desafíos en curso…",
+      "liveCount_one": "{{count}} desafío en curso - el ganador se lleva el bote",
+      "liveCount_other": "{{count}} desafíos en curso - el ganador se lleva el bote",
+      "nothingRunning": "Nada en curso - ¡empieza uno y desafía a tu clase!",
+      "create": "Crear",
+      "joinFor": "Únete por {{fee}} 🪙",
+      "viewAll_one": "Ver el {{count}} desafío →",
+      "viewAll_other": "Ver los {{count}} desafíos →"
+    },
+    "card": {
+      "pot": "bote",
+      "entered": "inscritos",
+      "standings": "Posiciones",
+      "noOneEntered": "Nadie se ha inscrito aún, ¡sé el primero!",
+      "toEnter": "{{fee}} para entrar",
+      "teacherBonus": "+{{bonus}} de bono del docente",
+      "enterChallenge": "Entrar al desafío · {{fee}}"
+    },
+    "duel": {
+      "challengedYou": "¡<b>{{name}}</b> te desafió a un duelo!",
+      "trackingEnds": "{{tracking}} · termina {{ends}}",
+      "stakeToAccept": "Apuesta {{fee}} para aceptar · gana {{win}}",
+      "waitingFor": "Esperando a que <b>{{name}}</b> acepte…",
+      "youStaked": "Apostaste {{fee}} monedas. Se reembolsan si rechazan.",
+      "vs": "VS",
+      "decline": "Rechazar",
+      "accept": "Aceptar · {{fee}}",
+      "inProgress": "Duelo en curso"
+    },
+    "podium": {
+      "youWon": "🏆 Ganaste el desafío “{{title}}”",
+      "youWonTie": "🏆 Ganaste el desafío “{{title}}” (empate)",
+      "otherWon": "🏆 {{name}} ganó el desafío “{{title}}”",
+      "otherWonTie": "🏆 {{name}} ganó el desafío “{{title}}” (empate)",
+      "youEarned": "Ganaste",
+      "theyEarned": "Ganó",
+      "investiCoins": "¡InvestiCoins!"
+    },
+    "enterModal": {
+      "title": "Entrar a “{{title}}”",
+      "entryFee": "Cuota de entrada",
+      "potIfYouJoin": "Bote si te unes",
+      "yourBalance": "Tu saldo",
+      "spendSummary": "Gasta <b>{{fee}} InvestiCoins</b> para entrar. El ganador se lleva el bote completo de <b>{{potAfter}}</b> monedas.",
+      "needMore": "Necesitas <b>{{shortBy}} InvestiCoins más</b> para entrar. Completa lecciones para ganar más.",
+      "entering": "Entrando…",
+      "spendAndEnter": "Gastar {{fee}} y entrar"
+    },
+    "createModal": {
+      "title": "Crear un desafío",
+      "description": "Publica una competencia para tu clase. Los estudiantes gastan monedas para entrar; el ganador se lleva el bote.",
+      "titleLabel": "Título",
+      "titlePlaceholder": "Maratón de lecciones del viernes",
+      "descriptionLabel": "Descripción",
+      "descriptionPlaceholder": "¿Quién completa más lecciones antes del viernes?",
+      "metric": "Métrica",
+      "entryFee": "Cuota de entrada (monedas)",
+      "bonusCoins": "Monedas de bono",
+      "bonusPlaceholder": "0 (opcional)",
+      "bonusHint": "Agrega monedas de bono al bote (opcional): se suman a las entradas de los estudiantes.",
+      "creating": "Creando…",
+      "createButton": "Crear desafío",
+      "addTitle": "Agrega un título",
+      "addDescription": "Agrega una descripción"
+    },
+    "partnerModal": {
+      "description": "Elige un compañero para un duelo 1v1. Ambos apuestan monedas y el ganador se lleva el bote.",
+      "noPartners": "Aún no tienes compañeros",
+      "noPartnersDesc": "Agrega un compañero primero y luego podrás retarlo.",
+      "findPartners": "Buscar compañeros",
+      "opponent": "Oponente",
+      "choosePartner": "Elige un compañero",
+      "whatDecides": "¿Qué decide al ganador?",
+      "yourStake": "Tu apuesta (monedas)",
+      "stakeHint": "Tu compañero iguala esto para aceptar. Bote = {{pot}} monedas.",
+      "duelDescription": "{{tracking}}, mano a mano. El ganador se lleva el bote.",
+      "pickPartner": "Elige un compañero para desafiar",
+      "notEnoughForStake": "No tienes suficientes InvestiCoins para esa apuesta",
+      "sending": "Enviando…",
+      "sendDuel": "Enviar duelo"
+    }
+  },
+  "lab": {
+    "title": "Laboratorio de finanzas aplicadas",
+    "subtitle": "Documentos reales · práctica segura",
+    "choose": "Elige…",
+    "yourAnswer": "Tu respuesta…",
+    "countCompleted": "{{done}}/{{total}} completados",
+    "upNext": "Sigue en tu laboratorio",
+    "difficulty": {
+      "beginner": "principiante",
+      "intermediate": "intermedio",
+      "advanced": "avanzado"
+    },
+    "minutes": "{{count}} min",
+    "coins": "{{count}} monedas",
+    "questions": "{{count}} preguntas",
+    "startForm": "Empezar este formulario",
+    "peek": "Un vistazo al formulario - toca para abrir",
+    "teaser": {
+      "whenFillOut": "¿Cuándo lo llenas?",
+      "whyMatters": "¿Por qué importa?",
+      "ifWrong": "¿Qué pasa si te equivocas?"
+    },
+    "moreQuestions": "+ {{count}} preguntas más - continúa adentro",
+    "continueInside": "Continúa adentro →",
+    "allCaughtUp": "¡Todo al día!",
+    "allCaughtUpDesc": "Has completado todos los formularios del laboratorio - {{done}}/{{total}}. Pronto se desbloquean nuevos documentos; vuelve a cualquier formulario de abajo para repasar.",
+    "allCaseFiles": "Todos los expedientes · {{topics}} temas · {{documents}} documentos",
+    "soon": "pronto",
+    "minutesShort": "{{count}}m",
+    "upNextTag": "· Sigue",
+    "comingSoon": "Muy pronto",
+    "doc": {
+      "notFound": "Documento no encontrado",
+      "backToLab": "Volver al laboratorio",
+      "complete": "¡Laboratorio completado! 🧪",
+      "completeDesc": "Practicaste con éxito el {{title}}.",
+      "coinsEarned": "¡InvestiCoins ganadas!",
+      "guided": "Guiado",
+      "guidedMode": "Modo guiado",
+      "independentMode": "Modo independiente",
+      "hideGuide": "Ocultar guía de aprendizaje",
+      "showGuide": "Mostrar guía de aprendizaje",
+      "eduWhatIs": "¿Qué es este documento?",
+      "eduWhenFillOut": "¿Cuándo lo llenas?",
+      "eduWhyMatters": "¿Por qué importa?",
+      "eduIfWrong": "¿Qué pasa si se llena incorrectamente?",
+      "eduSimulation": "Simulación educativa",
+      "eduSimulationDesc": "Esta es una versión educativa simplificada. NO ingreses información personal real como tu SSN verdadero.",
+      "approxMinutes": "~{{count}} minutos",
+      "onCompletion": "{{count}} al completar",
+      "requiredFields": "{{filled}}/{{total}} campos obligatorios",
+      "whyThisMatters": "Por qué importa esto",
+      "checking": "Revisando...",
+      "checkMyAnswer": "Revisar mi respuesta",
+      "percentComplete": "{{percent}}% completado",
+      "completeDocument": "Completar documento",
+      "fillAllLeft": "Llena todos los campos obligatorios (faltan {{count}})",
+      "fillFieldFirst": "Primero llena el campo",
+      "feedbackError": "No se pudo obtener la retroalimentación - intenta de nuevo",
+      "fillAllRequired": "Llena todos los campos obligatorios (faltan {{count}})"
+    }
+  },
+  "businessCanvas": {
+    "backToMissions": "Volver a las misiones",
+    "apRequiredProject": "Proyecto obligatorio AP",
+    "projectTitle": "Proyecto de lienzo de negocio",
+    "projectDesc": "Construye un Business Model Canvas completo para tu propia idea de negocio. Trabajarás con 9 bloques esenciales que definen cómo un negocio crea, entrega y captura valor.",
+    "nameLabel": "¿Cómo se llama tu negocio?",
+    "namePlaceholder": "Escribe el nombre de tu negocio…",
+    "reviewSubmit": "Revisar y enviar",
+    "submittedCheck": "Enviado ✓",
+    "viewFullSubmit": "Ve tu lienzo completo y envíalo",
+    "blocksStarted": "{{count}}/9 bloques iniciados · El progreso se guarda automáticamente",
+    "allBlocks": "Todos los bloques",
+    "blockOf": "Bloque {{number}} de 9",
+    "typeAnswer": "Escribe tu respuesta…",
+    "reflection": "Reflexión",
+    "shareThoughts": "Comparte lo que piensas…",
+    "overview": "Resumen",
+    "previous": "Anterior",
+    "reviewCanvas": "Revisar lienzo",
+    "nextBlock": "Siguiente bloque",
+    "canvasTitle": "{{name}} - Business Model Canvas",
+    "yourBusiness": "Tu negocio",
+    "blocksCompleted": "{{count}}/9 bloques completados · Revisa tu lienzo completo abajo",
+    "submittedOn": "✓ Enviado {{date}}",
+    "notStartedYet": "Aún no iniciado",
+    "submitCanvas": "Enviar lienzo (+2,500 monedas)",
+    "canvasSubmitted": "🎉 ¡Lienzo enviado! +2,500 InvestiCoins ganadas",
+    "reset": "Restablecer",
+    "minBlocksNote": "Completa al menos 5 de 9 bloques para enviar",
+    "resetConfirm": "¿Seguro que quieres restablecer todo tu lienzo? Esto no se puede deshacer."
+  },
+  "financialAdvisor": {
+    "backToMissions": "Volver a las misiones",
+    "apCulminatingProject": "Proyecto final AP",
+    "projectTitle": "Proyecto de asesor financiero",
+    "projectDesc": "Te contrataron como asesor financiero de la familia Martinez. Revisa su perfil financiero, analiza su situación y ofrece recomendaciones profesionales en 4 áreas clave.",
+    "clientProfile": "Perfil del cliente - {{name}}",
+    "household": "Hogar:",
+    "income": "Ingresos:",
+    "takeHomePay": "Ingreso neto:",
+    "monthlyExpenses": "Gastos mensuales:",
+    "debts": "Deudas:",
+    "currentSavings": "Ahorro actual:",
+    "goals": "Metas:",
+    "reportTitle": "Informe del asesor financiero",
+    "submittedCheck": "Enviado ✓",
+    "generateSubmit": "Genera y envía tu informe final",
+    "areasStarted": "{{count}}/4 áreas iniciadas · El progreso se guarda automáticamente",
+    "overview": "Resumen",
+    "areaOf": "Área {{number}} de 4",
+    "keyData": "Datos clave",
+    "calculationHint": "Pista de cálculo",
+    "previous": "Anterior",
+    "reviewReport": "Revisar informe",
+    "nextArea": "Siguiente área",
+    "finalReport": "Informe final",
+    "areasCompleted": "{{count}}/4 áreas completadas",
+    "submittedOn": "✓ Enviado {{date}}",
+    "notStarted": "No iniciado",
+    "executiveSummary": "Resumen ejecutivo - Escribe un resumen de un párrafo con tus recomendaciones para la familia Martinez.",
+    "executiveSummaryPlaceholder": "Como asesor financiero de la familia Martinez, mis recomendaciones clave son...",
+    "submitReport": "Enviar informe (+5,000 pts)",
+    "reportSubmitted": "🎉 ¡Informe enviado! +5,000 InvestiCoins ganadas",
+    "reset": "Restablecer",
+    "minAreasNote": "Completa al menos 3 de 4 áreas para enviar",
+    "resetConfirm": "¿Restablecer todo tu proyecto de asesor financiero? Esto no se puede deshacer."
+  },
+  "studyGuide": {
+    "defaultName": "Guía de estudio",
+    "loadError": "No se pudo cargar esta guía de estudio.",
+    "loading": "Cargando guía de estudio…",
+    "homework": "Tareas",
+    "reviewPractice": "Práctica de repaso · sin calificación",
+    "why": "Por qué:",
+    "scenario": "Escenario: {{title}}",
+    "activity": "Actividad: {{title}}",
+    "writeReflection": "Escribe tu reflexión…",
+    "yourWork": "Tu trabajo…",
+    "saving": "Guardando…",
+    "savedOnBlur": "Se guarda al salir",
+    "done": "Listo"
+  },
+  "irsLab": {
+    "checkAgainstScenario": "Compara esta casilla con el escenario.",
+    "filedCorrectly": "¡Formulario presentado correctamente! 🧾",
+    "filedCorrectlyDesc": "Todas las casillas del {{title}} quedaron bien. Leíste el formulario real y pusiste los números en los lugares correctos.",
+    "coinsEarned": "¡InvestiCoins ganadas!",
+    "backToLab": "Volver al laboratorio",
+    "realFormSubtitle": "Formulario real del IRS · llena las casillas y revisa",
+    "boxesCorrect": "{{correct}}/{{total}} casillas correctas",
+    "yourTask": "Tu tarea",
+    "boxesNeedLook_one": "{{count}} casilla necesita otra revisión.",
+    "boxesNeedLook_other": "{{count}} casillas necesitan otra revisión.",
+    "redBoxesHint": "Las casillas rojas tienen una pista junto al número de casilla. Corrígelas y revisa de nuevo.",
+    "checkAgain": "Revisar de nuevo",
+    "checkMyAnswers": "Revisar mis respuestas",
+    "clearFeedback": "Borrar comentarios",
+    "simulationNotice": "Solo para simulación / educación — no ingreses SSN reales.",
+    "whyBoxExists": "¿Por qué existe esta casilla?"
+  },
+  "microBusiness": {
+    "activityFallback": "Actividad",
+    "activityLocked": "Actividad {{n}} · Bloqueada",
+    "activityN": "Actividad {{n}}",
+    "allDone": "Todo listo",
+    "cancel": "Cancelar",
+    "coachJeff": "Coach Jeff",
+    "done": "Hecho",
+    "doneCount": "{{done}}/{{total}} hechas",
+    "edit": "Editar",
+    "livePreview": "Vista previa en vivo",
+    "monthQuarter": "Mes {{month}} · Trimestre {{quarter}}",
+    "opsRefreshNote": "Las operaciones se renuevan cada trimestre; siempre hay más por hacer.",
+    "readingWork": "Leyendo tu trabajo…",
+    "remove": "Quitar",
+    "runYourBusiness": "Maneja tu negocio",
+    "stepXofY": "Paso {{current}} de {{total}}",
+    "thisQuarterOps": "Operaciones de este trimestre",
+    "unlockHint": "Termina la actividad de arriba para desbloquear esta.",
+    "field": {
+      "finishToSubmit": "Termina esto para enviar:",
+      "junk": "Escribe una respuesta real, no letras al azar.",
+      "max": "máx.",
+      "words": "palabras"
+    },
+    "tabs": {
+      "product": "Producto",
+      "office": "Oficina",
+      "collab": "Colaboración",
+      "marketing": "Marketing",
+      "report": "Reporte"
+    },
+    "stats": {
+      "customers": "Clientes",
+      "cash": "Efectivo",
+      "moneyPerMonth": "Dinero / mes",
+      "products": "Productos",
+      "reputation": "Reputación",
+      "brand": "Marca"
+    },
+    "steps": {
+      "designProduct": "Diseña tu producto",
+      "buildRecipe": "Arma tu receta",
+      "pricingStrategy": "Estrategia de precios",
+      "feedbackResponse": "Respuesta a comentarios del producto",
+      "findPartner": "Busca un aliado",
+      "partnershipProblem": "Problema de la alianza",
+      "vendorNegotiation": "Negociación con proveedor",
+      "brandIdentity": "Identidad de marca",
+      "marketingPlan": "Plan de marketing",
+      "adCampaign": "Campaña publicitaria"
+    },
+    "gate": {
+      "title": "Inicia tu negocio",
+      "subtitle": "Elige el tipo de negocio que quieres construir. Esto define tus actividades.",
+      "estCost": "Costo est. {{cost}} IC"
+    },
+    "toast": {
+      "submitted": "{{title}} enviada",
+      "grading": "Coach Jeff está calificando tu trabajo…",
+      "graded": "Coach Jeff lo calificó: {{label}}",
+      "monthResolved": "Mes {{month}} resuelto",
+      "revenue": "Ingresos +{{rev}} IC",
+      "incFromDeals": "(incluye +{{extra}} de acuerdos)",
+      "quarterBegins": "Comienza el trimestre {{quarter}}",
+      "opsRefreshed": "Tus actividades de operaciones se renovaron; vuelve a hacerlas.",
+      "ranOutTitle": "Tu negocio se quedó sin camino",
+      "ranOutDesc": "Revisa qué pasó y luego reconstruye.",
+      "productAdded": "\"{{name}}\" se agregó a tu línea de productos",
+      "productAddedDesc": "Clientes +60 · Marca +5 · +75 InvestiCoins"
+    },
+    "product": {
+      "checkName": "Ponle un nombre a tu producto",
+      "checkFeatures": "Agrega al menos 3 características",
+      "checkProblem": "Di qué problema resuelve",
+      "checkAudience": "Di para quién es",
+      "yourProductPlaceholder": "Tu producto",
+      "featuresEmpty": "Agrega características y aparecerán aquí ✨",
+      "doneTitle": "Tu producto",
+      "doneDesc": "El producto que diseñaste.",
+      "editDesc": "Constrúyelo y dale su marca; míralo cobrar vida a la derecha.",
+      "problemLabel": "Problema que resuelve",
+      "audienceLabel": "Para quién es",
+      "pickLogo": "Elige un logo",
+      "chooseColours": "Elige tus colores",
+      "mainColor": "Principal",
+      "accentColor": "Acento",
+      "productName": "Nombre del producto",
+      "tagline": "Eslogan",
+      "taglineHint": "- una frase corta y pegajosa",
+      "addFeatures": "Agrega características",
+      "minCount": "({{count}}/{{min}} mín.)",
+      "featureNamePlaceholder": "Nombre de la característica ({{hint}})",
+      "featureWhyPlaceholder": "Por qué es genial ({{hint}})",
+      "addFeature": "Agregar característica",
+      "problemQuestion": "¿Qué problema resuelve?",
+      "audienceQuestion": "¿Para quién es?",
+      "launchProduct": "Lanza tu producto"
+    },
+    "recipe": {
+      "aiUnavailable": "IA no disponible",
+      "basedOnProduct": "Basado en el producto que diseñaste. Puedes editar todo después.",
+      "checkDish": "Nombra tu platillo",
+      "checkIngredients": "Agrega al menos 3 ingredientes",
+      "checkServings": "Indica cuántas porciones rinde",
+      "checkSteps": "Escribe los pasos para prepararlo",
+      "cooking": "Preparando una receta…",
+      "costPerServing": "Costo por porción",
+      "costPlaceholder": "Costo IC",
+      "dishName": "Nombre del platillo",
+      "dishNamePlaceholder": "p. ej. Galleta con chispas de chocolate",
+      "doneDesc": "Lo que vas a hacer y cuánto cuesta.",
+      "doneTitle": "Tu receta",
+      "editDesc": "Enumera tus ingredientes y ve cuánto cuesta hacer una porción.",
+      "generateAI": "✨ Generar una receta con IA",
+      "generatedDesc": "Ajusta lo que quieras y luego guarda.",
+      "generatedTitle": "¡Receta generada! ✨",
+      "generateFailDesc": "Inténtalo de nuevo en un momento.",
+      "generateFailTitle": "No se pudo generar una receta",
+      "ingredientPlaceholder": "Ingrediente (p. ej. Harina)",
+      "ingredients": "Ingredientes",
+      "ingredientsEmpty": "Agrega ingredientes para ver tu receta y su costo 🧾",
+      "ingredientsHint": "Agrega cada uno y su costo; el total se actualiza en vivo.",
+      "makesServings_one": "Rinde {{count}} porción",
+      "makesServings_other": "Rinde {{count}} porciones",
+      "methodLabel": "¿Cómo lo preparas? (los pasos)",
+      "methodPlaceholder": "1. Mezcla… 2. Hornea… mantenlo simple.",
+      "recipeCard": "Ficha de receta",
+      "saveRecipe": "Guardar receta",
+      "servings": "Porciones",
+      "totalCost": "Costo total",
+      "yourDishPlaceholder": "Tu platillo"
+    },
+    "pricing": {
+      "types": {
+        "Cost-plus": "Costo más margen",
+        "Value-based": "Basado en valor",
+        "Competitive": "Competitivo"
+      },
+      "acceptingLow": "Aceptar margen bajo",
+      "actualWorksOut": "- el real da {{pct}}%",
+      "approach": "Enfoque",
+      "checkExplain": "Explica tu enfoque de precios ({{words}}+ palabras)",
+      "checkJustify": "Justifica tu precio ({{words}}+ palabras)",
+      "checkLowMargin": "Margen bajo: justifica aceptarlo ({{words}}+ palabras)",
+      "checkMargin": "Ingresa tu margen calculado %",
+      "checkMath": "(revisa tus cálculos)",
+      "checkPrice": "Fija un precio mayor que tu costo",
+      "cost": "Costo",
+      "costToMakeOne": "Costo de hacer uno",
+      "doneDesc": "Tu decisión de precios.",
+      "editDesc": "Pon precio a tu producto y defiéndelo.",
+      "estimatedCost": "Costo estimado para producir/entregar una unidad:",
+      "formula": "Fórmula: (Precio - Costo) ÷ Precio × 100",
+      "justification": "Justificación",
+      "lockInPricing": "Confirmar precios",
+      "margin": "Margen",
+      "marginPlaceholder": "tú lo calculas",
+      "price": "Precio",
+      "priceRange": "Productos como el tuyo se venden entre ~{{low}} y {{high}} IC (un precio justo ronda los {{fair}} IC).",
+      "pricingApproach": "Enfoque de precios",
+      "profitMargin": "Margen de ganancia %",
+      "thinMarginDesc": "La mayoría de los negocios necesita al menos un 20% para sobrevivir. Sube tu precio o justifica aceptar un margen bajo abajo.",
+      "thinMarginTitle": "Tu margen es peligrosamente delgado.",
+      "whatCosts": "Cuánto te cuesta realmente un {{unit}}",
+      "whyApproach": "Por qué este enfoque",
+      "whyApproachQuestion": "¿Por qué elegiste ese enfoque?",
+      "whyLowOk": "¿Por qué está bien un margen bajo aquí?",
+      "whyRightPrice": "¿Por qué es este el precio correcto?",
+      "yourPrice": "Tu precio (IC)"
+    },
+    "feedback": {
+      "betaReview": "Reseña beta",
+      "betaTester": "Probador beta",
+      "changeNextTime": "¿Qué cambiarías la próxima vez?",
+      "checkDecision": "Justifica tu decisión ({{words}}+ palabras)",
+      "checkSummary": "Resume los comentarios ({{words}}+ palabras)",
+      "checkV2": "Describe tus cambios de v2 ({{words}}+ palabras)",
+      "decisionLabel": "Decisión: {{decision}}",
+      "doneDesc": "Cómo manejaste los comentarios beta.",
+      "dontImplement": "No implementar",
+      "editDesc": "Un probador beta reseñó tu producto.",
+      "implement": "Implementar",
+      "submitResponse": "Enviar respuesta",
+      "summaryLabel": "Di los comentarios con tus propias palabras",
+      "v2Changes": "Cambios de v2",
+      "whyDecide": "¿Por qué lo decidiste así?",
+      "willImplement": "¿Implementarás estos comentarios?",
+      "yourSummary": "Tu resumen"
+    },
+    "partner": {
+      "checkDeliverables": "Entregables",
+      "checkPick": "Elige un aliado",
+      "checkProposal": "Propuesta de colaboración ({{words}}+ palabras)",
+      "checkSplit": "Reparto de ingresos %",
+      "checkTimeline": "Cronograma",
+      "checkWhy": "Por qué los elegiste ({{words}}+ palabras)",
+      "deliverables": "Entregables",
+      "deliverablesPlaceholder": "p. ej. 4 diseños",
+      "doneDesc": "La alianza que elegiste.",
+      "editDesc": "Revisa 4 posibles aliados y propón un acuerdo.",
+      "offers": "Ofrece:",
+      "partnerFallback": "Aliado",
+      "pitch": "Tu propuesta",
+      "pitchPlaceholder": "¿Cómo se ve la alianza? ¿Qué aporta cada lado y qué gana cada uno?",
+      "pitchTo": "Tu propuesta para {{name}}",
+      "proposal": "Propuesta",
+      "sendProposal": "Enviar propuesta",
+      "split": "Reparto",
+      "splitPlaceholder": "p. ej. 60/40",
+      "timeline": "Cronograma",
+      "timelinePlaceholder": "p. ej. 6 meses",
+      "wants": "Quiere:",
+      "whyPick": "¿Por qué elegirlos sobre los demás?",
+      "whyThem": "Por qué ellos"
+    },
+    "partnerProblem": {
+      "checkMessage": "Mensaje a tu aliado ({{words}}+ palabras)",
+      "checkReflection": "Reflexión ({{words}}+ palabras)",
+      "checkResolution": "Solución propuesta ({{words}}+ palabras)",
+      "differentlyNextTime": "¿Qué harías distinto la próxima vez?",
+      "doneDesc": "Cómo manejaste el conflicto.",
+      "editDesc": "Surgió un conflicto con tu aliado.",
+      "gateDesc": "Forma una alianza primero (Actividad 1).",
+      "gateHint": "Una vez que elijas un aliado, aquí aparecerá un problema.",
+      "howFix": "¿Cómo lo resolverías?",
+      "messagePlaceholder": "Mantén la calma y sé profesional; explica el problema con claridad.",
+      "problem": "Problema",
+      "reflection": "Reflexión",
+      "resolution": "Solución",
+      "sendResolve": "Enviar y resolver",
+      "theProblem": "El problema",
+      "writeMessage": "Escribe un mensaje a tu aliado",
+      "yourMessage": "Tu mensaje"
+    },
+    "vendor": {
+      "checkAnalyze": "Analiza la oferta ({{words}}+ palabras)",
+      "checkCounter": "Carta de contraoferta ({{words}}+ palabras)",
+      "counterPlaceholder": "Consejo: pide un descuento justo (un %) y respáldalo con pedidos grandes o lealtad.",
+      "days": "{{days}} días",
+      "delivery": "Entrega:",
+      "doneDesc": "El proveedor respondió.",
+      "editDesc": "Un proveedor envió una oferta de suministro.",
+      "goodDeal": "¿Es un buen trato? ¿Por qué sí o por qué no?",
+      "minOrder": "Pedido mín.:",
+      "noDeal": "· sin trato",
+      "openingOffer": "Oferta inicial del proveedor - {{item}}",
+      "pctOff": "· {{pct}}% de descuento",
+      "priceLabel": "Precio:",
+      "pricePerUnit": "{{price}} IC/unidad",
+      "sendCounter": "Enviar contraoferta",
+      "vendorReply": "Respuesta del proveedor",
+      "writeCounter": "Escribe tu contraoferta",
+      "yourAnalysis": "Tu análisis",
+      "yourCounter": "Tu contraoferta",
+      "reply": {
+        "accept10": "Estimado cliente,\n\nAgradecemos tu confianza continua y el volumen que planteaste. Con gusto te ofrecemos un 10% de descuento, dejando tu precio por unidad en {{price}} IC. Esperamos una larga alianza.\n\nSaludos,\nVentas del proveedor",
+        "reject": "Estimado cliente,\n\nUn descuento de ese tamaño sin justificación de negocio no es algo que podamos considerar. Nuestro precio se mantiene en {{price}} IC por unidad. Seguiremos con otros compradores.\n\nSaludos,\nVentas del proveedor",
+        "meet10": "Estimado cliente,\n\nEs una petición fuerte, pero tu volumen y lealtad cuentan. Podemos encontrarnos a medio camino con un 10% de descuento: {{price}} IC por unidad. Oferta final.\n\nSaludos,\nVentas del proveedor",
+        "courtesy5": "Estimado cliente,\n\nPodemos ofrecer un modesto 5% de descuento de cortesía: {{price}} IC por unidad. Afina tu argumento (volumen, lealtad) la próxima vez para obtener más.\n\nSaludos,\nVentas del proveedor"
+      }
+    },
+    "brand": {
+      "voices": {
+        "Formal": "Formal",
+        "Casual": "Casual",
+        "Bold": "Atrevida",
+        "Friendly": "Amigable",
+        "Playful": "Divertida",
+        "Luxurious": "Lujosa"
+      },
+      "accent": "Acento",
+      "brandVoice": "Voz de marca",
+      "checkDrafts": "Al menos 3 borradores de eslogan",
+      "checkFinalize": "Define un eslogan (≤10 palabras)",
+      "checkMission": "Misión de marca ({{words}}+ palabras)",
+      "checkVoice1": "Ejemplo de voz 1 ({{words}}+ palabras)",
+      "checkVoice2": "Ejemplo de voz 2 ({{words}}+ palabras)",
+      "checkWhyAccent": "Por qué el color de acento ({{words}}+ palabras)",
+      "checkWhyPrimary": "Por qué el color principal ({{words}}+ palabras)",
+      "checkWhySecondary": "Por qué el color secundario ({{words}}+ palabras)",
+      "doneDesc": "Tu marca.",
+      "draftPlaceholder": "Escribe un borrador de eslogan…",
+      "editDesc": "Define tu marca desde cero.",
+      "lockInBrand": "Confirmar marca",
+      "maxWordsEach": "· máx. 10 palabras cada uno",
+      "mission": "Misión",
+      "missionPlaceholder": "En unas frases: qué representas y la sensación que quieres transmitir.",
+      "missionQuestion": "¿De qué trata tu marca?",
+      "primary": "Principal",
+      "secondary": "Secundario",
+      "taglineDrafts": "Borradores de eslogan ({{count}}/3 mín.)",
+      "taglineTooLong": "El eslogan debe tener 10 palabras o menos",
+      "tapToFinalize": "Toca un borrador para definirlo como tu eslogan.",
+      "voiceLabel": "Voz: {{voice}}",
+      "voiceSentence1": "Escribe una frase con tu voz \"{{voice}}\"",
+      "voiceSentence2": "Ahora una frase más con la voz \"{{voice}}\"",
+      "whyAccentColor": "¿Por qué este color de acento?",
+      "whyMainColor": "¿Por qué este color principal?",
+      "whySecondColor": "¿Por qué este segundo color?"
+    },
+    "marketing": {
+      "channels": {
+        "Social Media": "Redes sociales",
+        "Email": "Correo electrónico",
+        "Flyers": "Volantes",
+        "Events": "Eventos",
+        "Word of Mouth": "Boca a boca",
+        "Influencers": "Influencers"
+      },
+      "audience": "Audiencia",
+      "audiencePlaceholder": "Describe a tu cliente ideal: edad, intereses, qué le importa.",
+      "budgetLabel": "Presupuesto de marketing (% de ingresos)",
+      "budgetWarning": "La mayoría de los negocios pequeños gasta un 7-12% de sus ingresos en marketing.",
+      "channel1": "Canal 1",
+      "channel2": "Canal 2",
+      "channelPostLabel": "{{channel}}: ¿qué publicarás y con qué frecuencia?",
+      "channelsBudget": "Canales ({{budget}}% de presupuesto)",
+      "checkAudience": "Audiencia objetivo ({{words}}+ palabras)",
+      "checkBudget": "Presupuesto 5-30% de los ingresos",
+      "checkChannelPlan": "Plan de {{channel}} (50+ palabras)",
+      "checkChannels": "Elige 2 canales",
+      "checkSteps": "Completa los 4 pasos de lanzamiento",
+      "chooseExactly2": "Elige exactamente 2 canales",
+      "doneDesc": "Tu plan.",
+      "editDesc": "Planea cómo llegarás a tus clientes.",
+      "launchPlan": "Tu plan de lanzamiento de 30 días",
+      "launchPlanHint": "Un paso corto por línea; p. ej. 'Semana 1: publica un video adelanto.'",
+      "launchSteps": "Pasos de lanzamiento",
+      "pick2": "Elige exactamente 2 canales",
+      "submitPlan": "Enviar plan",
+      "weekPlaceholder": "Semana {{n}}: …",
+      "whoReach": "¿A quién quieres llegar?"
+    },
+    "ad": {
+      "platforms": {
+        "Instagram caption": "Descripción de Instagram",
+        "Email": "Correo electrónico",
+        "Flyer": "Volante",
+        "TikTok script": "Guion de TikTok"
+      },
+      "checkCopy": "Texto del anuncio {{n}} ({{words}}+ palabras)",
+      "checkWam": "Anuncio {{n}} - quién/acción/medición ({{words}}+ palabras)",
+      "copyLabel": "Anuncio {{n}}: escribe las palabras que la gente verá",
+      "copyPreview": "Vista previa del texto de tu anuncio…",
+      "doneDesc": "Tus anuncios en vivo.",
+      "editDesc": "Crea anuncios reales para 2 plataformas.",
+      "launchCampaign": "Lanzar campaña",
+      "measureSuccess": "¿Cómo medirás el éxito?",
+      "taglinePlaceholder": "Tu eslogan aquí",
+      "wamNote": "Quién + acción + medición juntos necesitan 40+ palabras.",
+      "whatAction": "¿Qué acción quieres?",
+      "whoTargeting": "¿A quién va dirigido?"
+    },
+    "brief": {
+      "chooseCheck": "Elige: {{label}}",
+      "fieldWords": "{{label}} ({{words}}+ palabras)",
+      "fillAll": "Completa los {{count}}: {{label}}",
+      "freshDesc": "Un nuevo informe de operaciones para este trimestre.",
+      "scenario": "Escenario",
+      "submitBrief": "Enviar informe",
+      "submittedDesc": "Enviado este trimestre."
+    },
+    "summary": {
+      "ad1": "Anuncio 1",
+      "audience": "Audiencia",
+      "collaboration": "Colaboración",
+      "feedbackV2": "Plan v2 de comentarios",
+      "marketing": "Marketing",
+      "mission": "Misión",
+      "opsRun": "todas las {{total}} operaciones de este trimestre",
+      "opsRunCoins": "todas las {{total}} operaciones de este trimestre · {{coins}} InvestiCoins este trimestre",
+      "partnerProposal": "Propuesta de alianza",
+      "pricing": "Precios",
+      "problem": "Problema",
+      "problemHandled": "Problema resuelto",
+      "product": "Producto",
+      "productBrief": "Resumen del producto",
+      "reportTitle": "Reporte de operaciones del trimestre {{quarter}}",
+      "savedNote": "Todas las respuestas se guardan en tu registro de negocio para revisión del docente.",
+      "tagline": "Eslogan",
+      "vendorCounter": "Contraoferta al proveedor"
+    },
+    "ops": {
+      "chooseMove": "Elige tu jugada",
+      "foldedDesc": "El efectivo, los clientes o la reputación llegaron a cero. Las lecciones están en los escombros.",
+      "foldedTitle": "Tu negocio quebró en el mes {{month}}.",
+      "intro": "Cada mes surge una nueva situación que exige una decisión. Mantén tu negocio vivo y creciendo durante meses.",
+      "pickMove": "Elige una jugada",
+      "rebuild": "Reconstruir desde cero",
+      "resolveMonth": "Resolver el mes {{month}}",
+      "runMonth": "Maneja el negocio - Mes {{month}}",
+      "startMonth": "Comenzar el mes {{month}}",
+      "writeReaction": "Escribe tu reacción ({{words}}+ palabras)"
+    },
+    "productLine": {
+      "addedMonth": "agregado en el mes {{month}}",
+      "addProductCoins": "Agregar producto (+75 🪙)",
+      "addToLine": "Agrega un producto a tu línea",
+      "checkName": "Nombre",
+      "checkPitch": "Propuesta ({{words}}+ palabras)",
+      "checkPrice": "Precio mayor que 0",
+      "itemCount": "{{count}} artículos",
+      "namePlaceholder": "Nombre del producto",
+      "pitchLabel": "Propuesta - qué es y para quién es ({{words}}+ palabras)",
+      "pricePlaceholder": "Precio (IC)",
+      "subtitle": "Sigue agregando artículos; un catálogo más grande hace crecer tu base de clientes.",
+      "title": "Tu línea de productos"
+    }
+  },
+  "microOffice": {
+    "title": "La oficina",
+    "subtitle": "Maneja la administración de tu negocio",
+    "hud": {
+      "week": "Semana",
+      "credit": "Crédito",
+      "creditTitle": "Puntaje de crédito del negocio",
+      "rating": "Calificación",
+      "endWeek": "Terminar semana"
+    },
+    "alerts": {
+      "payrollDue": "Nómina pendiente",
+      "taxesDue": "Impuestos trimestrales pendientes",
+      "supplierHike": "Alza de precios del proveedor",
+      "pitchUnlocked": "Presentación a inversionistas desbloqueada"
+    },
+    "tabs": {
+      "pnl": "G/P",
+      "payroll": "Nómina",
+      "reports": "Reportes",
+      "pitch": "Presentación",
+      "hr": "RR. HH.",
+      "taxes": "Impuestos"
+    },
+    "insights": {
+      "overspent": "Tus gastos superaron los ingresos esta semana. Revisa tu categoría de costo más grande.",
+      "thinMargins": "Márgenes ajustados. Considera subir los precios o reducir el COGS.",
+      "strongWeek": "Buena semana. Mantén constante tu principal fuente de ingresos.",
+      "steadyWeek": "Semana estable. Recorta un costo e impulsa una fuente de ingresos la próxima semana."
+    },
+    "toasts": {
+      "employeesQuitTitle": "¡Tus empleados renunciaron!",
+      "employeesQuitDesc": "Saltaste la nómina y tu reputación se vio afectada.",
+      "weekComplete": "Semana {{week}} completada",
+      "weekCompleteDesc": "Reporte semanal generado. +8 InvestiCoins"
+    },
+    "opex": {
+      "payroll": "Nómina",
+      "marketing": "Marketing",
+      "supplies": "Insumos y varios",
+      "rent": "Alquiler",
+      "other": "Otros"
+    },
+    "pnl": {
+      "title": "Ganancias y pérdidas",
+      "subtitle": "Estado en vivo. Se actualiza a medida que manejas el negocio.",
+      "exportCsv": "Exportar CSV",
+      "exported": "G/P exportado a CSV",
+      "account": "Cuenta",
+      "amount": "Monto (IC)",
+      "revenue": "Ingresos",
+      "cogs": "Costo de los bienes vendidos",
+      "grossProfit": "Ganancia bruta",
+      "operatingExpenses": "Gastos operativos",
+      "totalOpex": "Total de gastos operativos",
+      "netProfit": "Ganancia neta",
+      "supplierMultiplier": "Multiplicador de costo del proveedor: ×{{mult}} (negócialo a la baja en RR. HH.)."
+    },
+    "payroll": {
+      "title": "Nómina semanal",
+      "subtitle": "Paga a tu equipo cada semana o se irán.",
+      "noEmployees": "Aún no hay empleados. Contrata a alguien en la pestaña de RR. HH.",
+      "noEmployeesToPay": "No hay empleados a quienes pagar",
+      "alreadyRun": "La nómina ya se procesó esta semana",
+      "notEnough": "No tienes suficientes InvestiCoins para la nómina",
+      "needIc": "Necesitas {{amount}} IC.",
+      "paidTitle": "Nómina pagada. Impacto neto de efectivo: -{{amount}} IC",
+      "paidDesc": "Salarios {{gross}} + 15.3% de impuesto de nómina {{tax}}",
+      "underperforming": "bajo rendimiento",
+      "perWeek": "{{wage}}/sem",
+      "grossWages": "Salarios brutos",
+      "payrollTax": "Impuesto de nómina (15.3%)",
+      "netCashImpact": "Impacto neto de efectivo",
+      "runPayroll": "Procesar nómina ({{amount}} IC)",
+      "paidForWeek": "La nómina de la semana {{week}} está pagada.",
+      "skipWarning": "Salta la nómina y termina la semana → tus empleados renuncian y tu calificación baja."
+    },
+    "reports": {
+      "empty": "Termina tu primera semana para generar un reporte.",
+      "reviewTitle": "Resumen de la semana {{week}}",
+      "reviewSub": "Se genera automáticamente al final de cada semana.",
+      "revenueVsForecast": "Ingresos vs. pronóstico",
+      "vs": "vs.",
+      "topExpenses": "Principales categorías de gasto",
+      "noneYet": "Ninguna todavía",
+      "advisor": "Asesor · recomendación",
+      "cashFlow": "Flujo de efectivo por semana"
+    },
+    "pitch": {
+      "locked": "La presentación a inversionistas se desbloquea tras 4 semanas de operación. Actualmente en la semana {{week}}.",
+      "title": "Presentación a inversionistas",
+      "subtitle": "Preséntale a un inversionista simulado que revisa tu G/P real.",
+      "angelInvestor": "Inversionista ángel",
+      "reviewing": "Revisando: neto {{net}} IC · crédito {{credit}} · tendencia de {{weeks}} semanas",
+      "securedFunding": "Conseguiste financiamiento",
+      "pitchButton": "Presentar al inversionista",
+      "trendUp": "al alza",
+      "trendFlat": "estable",
+      "fundedFeedback": "¡Financiado! Tu ganancia neta es positiva y los ingresos van {{trend}}. Te respaldamos con {{amount}} IC. Mantén fuerte ese puntaje de crédito.",
+      "fundedToast": "💰 ¡Financiado! +{{amount}} InvestiCoins",
+      "reasonNotProfitable": "todavía no eres rentable: tus gastos superan a los ingresos",
+      "reasonTrendingDown": "los ingresos van a la baja en las últimas semanas",
+      "reasonLowCredit": "el puntaje de crédito de tu negocio ({{score}}) es demasiado bajo para prestarte",
+      "passedFeedback": "Por ahora voy a pasar. Esta es la razón: {{reasons}}. Vuelve cuando hayas tenido ganancias durante un par de semanas y ajustado tus costos.",
+      "passedToast": "El inversionista pasó",
+      "passedToastDesc": "Lee sus comentarios e inténtalo de nuevo más tarde."
+    },
+    "complaints": {
+      "title": "Queja de cliente",
+      "subtitle": "Responde bien: influye en tu calificación de estrellas.",
+      "subHandled": "Una por semana. Ya la atendiste esta semana.",
+      "scored": "Tu respuesta obtuvo {{score}}/10 · calificación actual",
+      "angryCustomer": "Cliente molesto",
+      "tip": "Consejo: discúlpate y ofrece una solución real. Palabras como \"sorry\", \"refund\", \"fix\", \"help\" y una respuesta más larga obtienen mejor puntaje.",
+      "placeholder": "Escribe una respuesta profesional y empática…",
+      "send": "Enviar respuesta",
+      "writeFirst": "Primero escribe una respuesta",
+      "noteThorough": "Completa, empática y enfocada en soluciones.",
+      "noteGood": "Bien: lo reconociste ({{keywords}}).",
+      "noteShort": "Demasiado corta e impersonal. Discúlpate y ofrece una solución.",
+      "noteEmpathy": "Agrega palabras de empatía como 'sorry' y ofrece una solución concreta.",
+      "scoreToast": "Obtuviste {{score}}/10 - {{note}}",
+      "list": {
+        "0": "Mi pedido llegó dos días tarde y el empaque estaba aplastado. Esto es inaceptable por el precio que pagué.",
+        "1": "Me cobraron dos veces el mismo artículo y nadie ha respondido mis correos en una semana.",
+        "2": "El producto no se parece en nada a las fotos de tu sitio. Me siento engañado.",
+        "3": "Tu personal fue grosero cuando hice una pregunta sencilla. No voy a volver.",
+        "4": "He sido cliente leal durante meses y ni siquiera me respetan un pequeño descuento. Decepcionante."
+      }
+    },
+    "suppliers": {
+      "title": "Negociación con el proveedor",
+      "subtitle": "{{emoji}} {{name}} subió los precios {{pct}}%. Convéncelo de bajarlos: afecta tu COGS.",
+      "placeholder": "Presenta tu argumento de negociación… (pista: menciona lealtad/volumen o a un competidor)",
+      "negotiate": "Negociar",
+      "makeCase": "Presenta tu argumento (15+ caracteres)",
+      "dealToast": "¡Trato! El multiplicador de costo ahora es ×{{mult}}",
+      "dealDesc": "{{name}} te dio {{pct}}% de descuento sobre el aumento.",
+      "heldFirmToast": "{{name}} se mantuvo firme",
+      "heldFirmDesc": "Se aplicó un multiplicador de COGS de ×{{mult}}.",
+      "firmFrank": {
+        "name": "Frank el Firme",
+        "win": "",
+        "lose": "Te escucho, pero un trato es un trato. El nuevo precio se queda: lo tomas o lo dejas."
+      },
+      "flexibleMaria": {
+        "name": "María la Flexible",
+        "win": "Has sido una clienta leal y de alto volumen. Te doy 10% de descuento sobre el aumento.",
+        "lose": "Comprométete con la lealtad o con más volumen y podemos negociar. Si no, el precio se mantiene."
+      },
+      "dealSeekerDave": {
+        "name": "Dave el Cazaofertas",
+        "win": "¿Te vas con un competidor? Está bien, les gano. 15% de descuento sobre el aumento, pero no le digas a los demás.",
+        "lose": "No me preocupa perderte. Tráeme una cotización real de la competencia y hablamos."
+      }
+    },
+    "taxes": {
+      "title": "Schedule C (simplificado)",
+      "subtitle": "Se llena automáticamente con tu G/P. Revisa y confirma cada línea, luego paga lo que debes.",
+      "noFiling": "No hay declaración pendiente. Un Schedule C simplificado vence cada 4 semanas (la próxima en la semana {{week}}).",
+      "lines": {
+        "rev": "Línea 1 - Ingresos brutos (Ingresos)",
+        "cogs": "Línea 4 - Costo de los bienes vendidos",
+        "gross": "Línea 7 - Ganancia bruta",
+        "exp": "Línea 28 - Total de gastos",
+        "net": "Línea 31 - Ganancia neta (o pérdida)"
+      },
+      "taxDueLabel": "Impuesto a pagar ({{pct}}% de la ganancia neta)",
+      "payAndFile": "Pagar {{amount}} y declarar",
+      "fileNoTax": "Declarar (sin impuesto a pagar)",
+      "submitIncomplete": "Enviar (incompleto: aplica penalización)",
+      "incompleteToast": "Declaración incompleta. Pagaste {{bill}} IC",
+      "incompleteDesc": "Impuesto adeudado {{taxOwed}} IC + {{penalty}} IC de penalización. Confirma cada línea el próximo trimestre para evitar el cargo.",
+      "filedPaidToast": "Schedule C presentado. Pagaste {{paid}} IC en impuestos",
+      "filedPaidDesc": "Eso es el {{pct}}% de tu ganancia neta, igual que lo que un negocio real le debe al IRS.",
+      "filedNoTaxToast": "Schedule C presentado. Sin impuesto a pagar",
+      "filedNoTaxDesc": "No tuviste ganancias este trimestre, así que no hay impuesto sobre la renta a pagar."
+    },
+    "hiring": {
+      "title": "Contratar (escribe un anuncio y luego entrevista)",
+      "subtitle": "Publica el puesto y luego lee las respuestas de la entrevista antes de comprometerte.",
+      "rolePlaceholder": "Puesto / título (p. ej. Asistente de Marketing)",
+      "responsibilitiesPlaceholder": "Responsabilidades…",
+      "skillsPlaceholder": "Habilidades requeridas (separadas por comas)",
+      "postJob": "Publicar puesto y conseguir postulante",
+      "fillFields": "Completa el puesto, las responsabilidades y las habilidades requeridas",
+      "teamMember": "Miembro del equipo",
+      "passedToast": "Descartaste al candidato",
+      "badHireToast": "Contrataste a {{name}}, pero no encaja bien",
+      "badHireDesc": "-20% de productividad semanal durante 2 semanas.",
+      "goodHireToast": "¡Contrataste a {{name}}! Una gran incorporación al equipo.",
+      "qPrefix": "P:",
+      "aPrefix": "R:",
+      "readCarefully": "Lee las respuestas con atención: un candidato vago es una contratación arriesgada (-20% de productividad durante 2 semanas).",
+      "pass": "Descartar",
+      "hire": "Contratar",
+      "questions": [
+        "¿Por qué quieres este puesto?",
+        "Cuéntame sobre una vez que resolviste un problema.",
+        "¿Cómo manejas un día ajetreado con prioridades que compiten entre sí?"
+      ],
+      "candidates": {
+        "maya": {
+          "background": "Manejó una tienda rentable de Etsy durante dos años mientras estudiaba.",
+          "answers": [
+            "He manejado mi propia tiendita, así que sé lo que se necesita para tener contentos a los clientes y las cuentas cuadradas. Quiero hacer eso a mayor escala aquí.",
+            "Cuando mi proveedor me falló justo antes de una temporada alta, encontré dos alternativos en un día y aun así envié todos los pedidos a tiempo.",
+            "Agrupo tareas similares, resuelvo primero la de mayor impacto y mantengo una lista activa para que nada se me escape."
+          ]
+        },
+        "priya": {
+          "background": "Tesorera de dos clubes escolares; buena con los números.",
+          "answers": [
+            "Me encanta el lado operativo: presupuestos, planificación y hacer que todo funcione sin problemas.",
+            "El presupuesto de nuestro club era un desastre; reconstruí la hoja de cálculo línea por línea y terminamos el año con superávit.",
+            "Priorizo por fecha límite e impacto, y no me da miedo pedir ayuda a tiempo en lugar de quedarme atrás."
+          ]
+        },
+        "jordan": {
+          "background": "Trabajó dos veranos en atención al cliente en comercio minorista.",
+          "answers": [
+            "Soy bueno con los clientes y confiable, y quiero crecer hacia más responsabilidad que una caja registradora.",
+            "Un cliente estaba furioso por un reembolso; me mantuve calmado, escuché y lo resolví dentro de las políticas.",
+            "Hago una lista rápida de tareas y pregunto cuál importa más si tengo dudas."
+          ]
+        },
+        "sam": {
+          "background": "Recién graduado, sin experiencia directa pero con ganas.",
+          "answers": [
+            "Parece una oportunidad genial y la verdad me vendría muy bien un trabajo ahora mismo.",
+            "Eh… ¿una vez ayudé a un amigo a mudarse? Soy bastante confiable, supongo.",
+            "Simplemente hago lo que tengo enfrente hasta terminarlo."
+          ]
+        },
+        "tyler": {
+          "background": "Enumera muchos pasatiempos, pero es vago sobre el trabajo real.",
+          "answers": [
+            "La verdad no estoy del todo seguro: un amigo me dijo que aplicara.",
+            "No se me ocurre ninguna ahora mismo, lo siento.",
+            "Normalmente improviso y espero que salga bien."
+          ]
+        }
+      }
+    },
+    "plan": {
+      "heading": "Escribe tu plan de negocio",
+      "subheading": "Completa cada campo para obtener 7/10 y desbloquear La oficina.",
+      "businessName": "Nombre del negocio",
+      "targetMarket": "Mercado objetivo",
+      "marketPlaceholder": "¿Quiénes son exactamente tus clientes? Sé específico (50+ caracteres).",
+      "pricingStrategy": "Estrategia de precios",
+      "pricingPlaceholder": "¿Cómo vas a fijar precios y por qué? (50+ caracteres)",
+      "startupCosts": "Desglose de costos de inicio",
+      "startupPlaceholder": "p. ej. 200 insumos, 100 marketing, 50 herramientas",
+      "revenueGoal": "Meta de ingresos a 3 meses",
+      "goalPlaceholder": "p. ej. 5000",
+      "fixThese": "Corrige esto:",
+      "submit": "Enviar plan",
+      "errors": {
+        "name": "Nombre del negocio: dale un nombre real.",
+        "market": "Mercado objetivo: necesita al menos 50 caracteres ({{count}}/50).",
+        "pricing": "Estrategia de precios: necesita al menos 50 caracteres ({{count}}/50).",
+        "startup": "Costos de inicio: incluye los números reales (p. ej. 200 insumos, 100 marketing).",
+        "goal": "Meta de ingresos a 3 meses: ingresa un número mayor que 0."
+      },
+      "fixHighlighted": "Corrige los campos resaltados",
+      "fixHighlightedDesc": "{{count}} elemento(s) necesitan atención.",
+      "approvedFeedback": "Tu plan cubre lo esencial: un mercado definido, una lógica de precios, costos de inicio reales y una meta clara. ¡Aprobado!",
+      "approvedToast": "¡El plan obtuvo 7/10 y fue aprobado! +15 InvestiCoins"
+    }
+  },
+  "partners": {
+    "studentFallback": "Estudiante",
+    "grade": "{{grade}}.º grado",
+    "invite": "Invitar",
+    "invited": "Invitado",
+    "accept": "Aceptar",
+    "declineInvite": "Rechazar invitación",
+    "partnerBadge": "Compañero",
+    "removePartner": "Eliminar compañero",
+    "searchPlaceholder": "Busca estudiantes por nombre…",
+    "searching": "Buscando…",
+    "noStudentsFound": "No se encontraron estudiantes para \"{{query}}\". ¡Revisa la ortografía!",
+    "typeAtLeast": "Escribe al menos 2 letras de un nombre o apellido.",
+    "invitesCount": "Invitaciones ({{count}})",
+    "myPartnersCount": "Mis compañeros ({{count}})",
+    "loading": "Cargando…",
+    "noPartnersYet": "Aún no tienes compañeros",
+    "noPartnersHint": "Busca el nombre de un compañero de clase arriba y envía tu primera invitación.",
+    "pickStudent": "Elige un estudiante",
+    "pickStudentHint": "Selecciona a alguien de los resultados de búsqueda o de tu lista de compañeros para ver sus acciones, su micronegocio y su puesto.",
+    "loadingProfile": "Cargando perfil…",
+    "profileLoadFailed": "No se pudo cargar el perfil de este estudiante.",
+    "leagueLabel": "Liga {{league}}",
+    "levelLabel": "Nivel {{level}}",
+    "investiCoinsLabel": "{{amount}} InvestiCoins",
+    "partnerCount_one": "{{count}} compañero",
+    "partnerCount_other": "{{count}} compañeros",
+    "stockPortfolio": "Portafolio de acciones",
+    "noStocks": "Aún no tiene acciones: su portafolio está vacío.",
+    "shares_one": "{{formatted}} acción",
+    "shares_other": "{{formatted}} acciones",
+    "microBusiness": "Micronegocio",
+    "noMicroBusiness": "Aún no ha iniciado un micronegocio.",
+    "employees_one": "{{count}} empleado",
+    "employees_other": "{{count}} empleados",
+    "planApproved": "Plan aprobado",
+    "investorFunded": "Financiado por inversionista",
+    "bizStats": {
+      "week": "Semana",
+      "revenue": "Ingresos",
+      "creditScore": "Puntaje crediticio",
+      "rating": "Calificación"
+    },
+    "toasts": {
+      "inviteFailed": "No se pudo enviar la invitación",
+      "nowPartnersTitle": "¡Ya son compañeros! 🤝",
+      "hadAlreadyInvited": "{{name}} ya te había invitado.",
+      "inviteSentTitle": "¡Invitación enviada! ✉️",
+      "inviteSentDesc": "{{name}} tiene que aceptar antes de que sean compañeros.",
+      "somethingWrong": "Algo salió mal",
+      "nowOnTeam": "{{name}} ya está en tu equipo.",
+      "removeFailed": "No se pudo eliminar al compañero"
+    },
+    "deals": {
+      "title": "Tratos entre compañeros en vivo",
+      "newCount": "{{count}} nuevos",
+      "proposeDeal": "Proponer trato",
+      "activeBoosting_one": "{{count}} trato activo impulsando tu negocio",
+      "activeBoosting_other": "{{count}} tratos activos impulsando tu negocio",
+      "yourMonthlyBoost": "Tu impulso mensual",
+      "theirBoost": "Impulso de {{name}}",
+      "activeForMonths": "Activo por 6 meses · los bonos se aplican cada vez que avanzas un mes de la simulación",
+      "cancel": "Cancelar",
+      "sending": "Enviando…",
+      "sendTo": "Enviar a {{name}} →",
+      "selectPartner": "Elige un compañero para proponerle:",
+      "loadingPartners": "Cargando compañeros…",
+      "noPartnersStarted": "Ninguno de tus compañeros ha iniciado un negocio todavía.",
+      "proposalPending": "Propuesta pendiente",
+      "incomingProposals": "Propuestas entrantes",
+      "from": "de {{name}}",
+      "bizTypeBusiness": "Negocio de {{type}}",
+      "decline": "Rechazar",
+      "accept": "Aceptar",
+      "activeDeals": "Tratos activos",
+      "with": "con {{name}}",
+      "daysRemaining_one": "queda {{count}} día",
+      "daysRemaining_other": "quedan {{count}} días",
+      "sentProposals": "Propuestas enviadas",
+      "awaitingResponse": "Esperando la respuesta de {{name}}",
+      "noPartnersWithBiz": "Aún no tienes compañeros con negocios",
+      "noPartnersWithBizHint": "Cuando un compañero inicie su negocio, podrás proponerle un trato aquí.",
+      "noDealsYet": "Aún no hay tratos",
+      "noDealsYetHint": "Tienes compañeros con negocios: propón un trato para desbloquear bonos reales.",
+      "proposeADeal": "+ Proponer un trato",
+      "pills": {
+        "revenue": "+{{pct}}% ingresos",
+        "customers_one": "+{{count}} cliente",
+        "customers_other": "+{{count}} clientes",
+        "rep": "+{{count}} rep.",
+        "customersPerMonth_one": "+{{count}} cliente/mes",
+        "customersPerMonth_other": "+{{count}} clientes/mes",
+        "repPerMonth": "+{{count}} rep./mes"
+      },
+      "toasts": {
+        "proposalSent": "¡Propuesta enviada!",
+        "proposalSentDesc": "{{name}} la verá en su pestaña Colaborar.",
+        "proposalFailed": "No se pudo enviar la propuesta",
+        "dealAccepted": "¡Trato aceptado! Los bonos ahora se aplican cada mes de la simulación.",
+        "dealDeclined": "Trato rechazado.",
+        "somethingWrong": "Algo salió mal"
+      }
+    }
+  },
+  "progress": {
+    "title": "Progreso",
+    "subtitle": "Sigue tu camino de aprendizaje y mide tu crecimiento",
+    "myProgress": "Mi progreso",
+    "classAverage": "Promedio de la clase",
+    "average": "Promedio",
+    "overallCompletion": "Completado general",
+    "overallMasteryScore": "Puntaje de dominio general",
+    "masteryScore": "Puntaje de dominio",
+    "notAssessed": "Sin evaluar",
+    "completion": "Completado",
+    "mastery": "Dominio",
+    "assessmentPlaceholder": "Los datos de la evaluación aparecerán aquí",
+    "unitLabel": "Unidad {{number}}",
+    "unitTitle": "Unidad {{number}}: {{title}}",
+    "lessonsCount": "{{done}}/{{total}} lecciones",
+    "reportCard": {
+      "title": "Boletín de calificaciones",
+      "description_one": "Calificaciones que tu docente te dio en {{count}} lección",
+      "description_other": "Calificaciones que tu docente te dio en {{count}} lecciones"
+    },
+    "benchmarkCta": {
+      "title": "Completa tu evaluación inicial",
+      "titleResume": "Termina tu evaluación inicial",
+      "description": "Te saltaste la evaluación inicial. Complétala para personalizar tu ruta de aprendizaje y desbloquear el seguimiento del progreso.",
+      "descriptionResume": "Empezaste la evaluación inicial pero no la terminaste. Continúa donde la dejaste para personalizar tu ruta de aprendizaje y desbloquear el seguimiento del progreso.",
+      "button": "Hacer la evaluación ahora",
+      "buttonResume": "Terminar la evaluación",
+      "note": "Puedes seguir usando InvestiPlay sin ella, pero el contenido no estará totalmente personalizado."
+    },
+    "benchmarkSection": {
+      "title": "Progreso de la evaluación inicial",
+      "description": "Tus áreas fuertes, medias y débiles se aplican directamente a tu ruta del plan de estudios."
+    },
+    "chartView": {
+      "grouped": "Agrupado",
+      "allUnits": "Todas las unidades"
+    },
+    "legend": {
+      "strength": "Fuerte ≥75",
+      "growing": "En desarrollo 50-74",
+      "development": "Por reforzar <50"
+    },
+    "areas": {
+      "strongTitle": "Áreas fuertes",
+      "strongDetail": "Contenido fundamental validado",
+      "strongEmpty": "Aún no hay áreas fuertes en la evaluación",
+      "mediumTitle": "Áreas medias",
+      "mediumDetail": "Punto de entrada aplicado con apoyo",
+      "mediumEmpty": "Aún no hay áreas medias en la evaluación",
+      "weakTitle": "Áreas débiles",
+      "weakDetail": "La ruta fundamental completa sigue activa",
+      "weakEmpty": "Aún no se identifican áreas débiles en la evaluación"
+    },
+    "unitBreakdown": {
+      "title": "Desglose por unidad",
+      "description": "Lo completado se muestra como progreso principal, con el dominio como métrica secundaria"
+    },
+    "evolution": {
+      "title": "Tu evolución de aprendizaje",
+      "byUnit": "Por unidad",
+      "emptyOne": "Haz otra evaluación para desbloquear información sobre tu crecimiento.",
+      "emptyNone": "Completa exámenes de unidad para ver tu evolución de aprendizaje."
+    },
+    "curriculum": {
+      "title": "Progreso del plan de estudios"
+    },
+    "table": {
+      "unit": "Unidad",
+      "lessons": "Lecciones",
+      "quizAvg": "Prom. cuestionario",
+      "status": "Estado"
+    },
+    "status": {
+      "mastered": "Dominado",
+      "inProgress": "En progreso",
+      "notStarted": "Sin empezar",
+      "complete": "Completado"
+    },
+    "tier": {
+      "notStarted": "Sin empezar",
+      "strength": "Fuerte",
+      "growing": "En desarrollo",
+      "development": "Por reforzar"
+    },
+    "groups": {
+      "foundational": "Fundamentos",
+      "markets": "Mercados",
+      "analysis": "Análisis",
+      "macroBusiness": "Macro y negocios",
+      "advanced": "Avanzado",
+      "other": "Otro"
+    }
+  },
+  "leaderboard": {
+    "title": "Tabla de posiciones",
+    "you": "Tú",
+    "youParen": "(Tú)",
+    "studentFallback": "Estudiante",
+    "coins": "Monedas",
+    "netWorth": "Patrimonio neto",
+    "yourCoins": "Tus monedas",
+    "yourRank": "Tu puesto",
+    "level": "Nivel {{level}}",
+    "levelShort": "Nv {{level}}",
+    "streakDays": "{{count}}d",
+    "leagueName": "Liga {{name}}",
+    "topLeague": "Liga máxima",
+    "coinsThreshold": "{{formatted}}+ monedas",
+    "spendableInvested": "InvestiCoins disponibles · {{amount}} más invertidas en acciones",
+    "spendableRanks": "InvestiCoins disponibles: esto es lo que ordena la tabla de posiciones",
+    "coinsToReach": "<b>{{coins}} monedas</b> para llegar a la Liga {{name}}",
+    "maxedLadder": "¡Llegaste a la cima de las ligas: legendario!",
+    "climbFaster": {
+      "title": "Sube más rápido",
+      "subtitle": "Cada acción gana InvestiCoins y te empuja hacia arriba en la tabla."
+    },
+    "leagueLadder": {
+      "title": "Escalera de ligas",
+      "subtitle": "Gana InvestiCoins para subir de nivel por cada liga."
+    },
+    "earn": {
+      "finishLesson": {
+        "label": "Termina una lección",
+        "detail": "Las monedas más grandes y constantes"
+      },
+      "dailyMissions": {
+        "label": "Misiones diarias",
+        "detail": "Monedas nuevas cada día"
+      },
+      "keepStreak": {
+        "label": "Mantén tu racha",
+        "detail": "No rompas la cadena"
+      },
+      "aceUnitTest": {
+        "label": "Domina un examen de unidad",
+        "detail": "Muchas monedas por el dominio"
+      }
+    },
+    "rankGate": {
+      "title": "Termina una lección para tener puesto",
+      "subtitle": "Tu puesto aparece cuando ganes monedas más allá del regalo de bienvenida de Jeff."
+    },
+    "startLesson": "Empieza una lección",
+    "ofClimbers": "de {{count}} competidores",
+    "podium": "¡Podio!",
+    "spotsToPodium_one": "{{count}} puesto para el podio",
+    "spotsToPodium_other": "{{count}} puestos para el podio",
+    "catch": "Alcanza a {{name}}",
+    "toGo": "faltan {{coins}} {{label}}",
+    "catchProgress": "Estás al {{pct}}% de su puntaje: un buen día podría alcanzarlos.",
+    "number1": "Eres el #1: ¡defiende tu corona! Cada lección amplía tu ventaja.",
+    "behindNumber1": "<b>{{coins}}</b> {{label}} detrás del #1",
+    "joinToClimb": {
+      "title": "Únete a una clase para empezar a subir",
+      "subtitle": "Sube de puesto frente a tus compañeros y corre hacia la liga máxima."
+    },
+    "scope": {
+      "class": "Mi clase",
+      "friends": "Compañeros",
+      "national": "Nacional"
+    },
+    "membersCount": "{{count}} miembros",
+    "empty": {
+      "noClassmates": "Aún no hay compañeros de clase",
+      "noPartners": "Aún no hay compañeros conectados",
+      "classDescription": "Únete a una clase para competir con tus compañeros y subir por las ligas, pero puedes empezar a ganar InvestiCoins y a subir la escalera ahora mismo.",
+      "partnersDescription": "Agrega compañeros en el directorio Buscar compañeros y aparecerán aquí para competir; tus estadísticas están listas cuando ellos lleguen."
+    },
+    "findPartners": "Buscar compañeros",
+    "joinClass": {
+      "title": "Unirse a una clase",
+      "instructions": "Ingresa el código de clase que te dio tu docente.",
+      "placeholder": "p. ej., ABC123",
+      "joining": "Uniéndote...",
+      "join": "Unirme"
+    },
+    "invite": {
+      "title": "Invitar compañeros",
+      "description": "Comparte este enlace con tus compañeros para invitarlos a InvestiPlay.",
+      "copyLink": "Copiar enlace de invitación"
+    },
+    "yourClasses": "Tus clases",
+    "demo": {
+      "preview": "Ver con datos de demostración",
+      "badge": "Datos de demostración",
+      "sample": "Entradas de muestra solo para previsualizar.",
+      "label": "Demostración"
+    },
+    "promotionZone": "Zona de ascenso: top 3",
+    "thePack": "El pelotón: sube en la tabla",
+    "moreRivals": {
+      "title": "Más rivales, más gloria",
+      "subtitle": "Invita compañeros y pelea por la corona."
+    },
+    "toast": {
+      "invalidCodeTitle": "Código inválido",
+      "invalidCodeDescription": "No se encontró ninguna clase con este código.",
+      "alreadyJoinedTitle": "Ya te uniste",
+      "alreadyJoinedDescription": "Ya estás en esta clase.",
+      "joinedTitle": "¡Te uniste!",
+      "joinedDescription": "Te uniste a {{name}}",
+      "errorTitle": "Error",
+      "linkCopiedTitle": "¡Enlace copiado!",
+      "linkCopiedDescription": "Comparte esto con tus compañeros para invitarlos."
+    }
+  },
+  "tokens": {
+    "nav": {
+      "dashboard": "Panel",
+      "lessons": "Lecciones",
+      "stocks": "Stocks",
+      "home": "Inicio",
+      "learn": "Aprender"
+    },
+    "title": "Token Simulator",
+    "subtitle": "Crea tokens educativos para aprender sobre tokenomics",
+    "mascotMessage": "¡Crea tu propio token!",
+    "cancel": "Cancelar",
+    "createNew": "Crear nuevo token",
+    "createTitle": "Crear token",
+    "createDescription": "Esto es solo con fines educativos",
+    "nameLabel": "Nombre del token",
+    "namePlaceholder": "ej., Mi token de aprendizaje",
+    "symbolLabel": "Símbolo",
+    "symbolPlaceholder": "ej., MLT",
+    "totalSupplyLabel": "Suministro total",
+    "createButton": "Crear token",
+    "emptyState": "Aún no has creado tokens. ¡Haz clic arriba para crear el primero!",
+    "simulated": "Simulado",
+    "supply": "Suministro:",
+    "created": "Creado:"
+  },
+  "unitTest": {
+    "notFound": "Examen de unidad no encontrado",
+    "backToLessons": "Volver a lecciones",
+    "preMascot": "¿Todo listo para demostrar lo que sabes?",
+    "questions": "Preguntas",
+    "toPass": "Para aprobar",
+    "alreadyPassed": "¡Ya lo aprobaste con {{score}}%!",
+    "canRetake": "Puedes repetirlo para mejorar tu puntaje",
+    "examRules": "Reglas del examen",
+    "rule1": "Responde cada pregunta antes de continuar",
+    "rule2": "Verás la retroalimentación después de cada respuesta",
+    "rule3": "Obtén {{score}}% o más para aprobar y ganar {{reward}} InvestiCoins",
+    "startExam": "Empezar examen",
+    "questionProgress": "Pregunta {{current}} de {{total}}",
+    "correctCount": "{{count}} correctas",
+    "correct": "✓ ¡Correcto!",
+    "notQuite": "✗ No es del todo correcto",
+    "whyMatters": "💡 Por qué importa:",
+    "correctAnswerIs": "✅ La respuesta correcta es: <b>{{answer}}</b>",
+    "nextQuestion": "Siguiente pregunta",
+    "seeResults": "Ver resultados",
+    "resultMascotPass": "¡Excelente trabajo!",
+    "resultMascotFail": "¡Sigue practicando!",
+    "congrats": "🎉 ¡Felicidades!",
+    "almostThere": "¡Casi lo logras!",
+    "scoreOf": "{{correct}} de {{total}} correctas",
+    "jeffsEarned": "¡InvestiCoins ganados!",
+    "youPassed": "Aprobaste el examen de unidad de {{title}}",
+    "youNeed": "Necesitas {{score}}% para aprobar",
+    "reviewAndRetry": "¡Repasa las lecciones e inténtalo de nuevo!",
+    "tryAgain": "Intentar de nuevo"
+  },
+  "overlays": {
+    "leagueUp": "¡SUBISTE DE LIGA!",
+    "levelUp": "¡SUBISTE DE NIVEL!",
+    "nowLevel": "¡Ahora estás en el nivel {{level}}!",
+    "keepGoing": "Seguir →",
+    "nicePick": "Buena elección: ¡disfruta tu recompensa! 🎉",
+    "pickOne": "Elige UN regalo para reclamar tu recompensa",
+    "pickedAtRandom": "Un regalo, elegido al azar.",
+    "pickFirst": "Elige un regalo primero",
+    "skipSmallest": "Omitir (llevarse el regalo más pequeño)",
+    "continue": "Continuar",
+    "movedUp": "¡Subiste de liga!",
+    "welcomeReward": "Bienvenido a {{icon}} {{name}}. Tu recompensa: <b>+{{coins}} 🪙</b>",
+    "giftPicked": "Regalo {{letter}}: {{label}}, {{coins}} monedas",
+    "giftOpen": "Abrir regalo {{letter}}",
+    "yours": "tuyo",
+    "notPicked": "no elegido",
+    "prizes": {
+      "treasureChest": "Cofre del tesoro",
+      "gemHaul": "Botín de gemas",
+      "royalBounty": "Botín real",
+      "rocketFuel": "Combustible de cohete",
+      "luckyStar": "Estrella de la suerte",
+      "mysteryBonus": "Bono misterioso",
+      "hotStreak": "Racha caliente",
+      "coinVault": "Bóveda de monedas"
+    }
+  },
+  "games": {
+    "coinsReward": "+{{reward}} monedas",
+    "correct": "✓ ¡Correcto! ",
+    "incorrect": "❌ Incorrecto. ",
+    "correctAnswerIs": "✅ La respuesta correcta es: <b>{{answer}}</b>",
+    "claiming": "Reclamando…",
+    "saving": "Guardando…",
+    "claimReward": "Reclamar recompensa",
+    "claimRewardCoins": "Reclamar recompensa · +{{reward}} monedas",
+    "tryAgainTomorrow": "Vuelve a intentarlo mañana",
+    "dailyScenario": {
+      "title": "Escenario diario",
+      "subtitle": "¿Qué harías?"
+    },
+    "higherOrLower": {
+      "title": "Mayor o menor",
+      "subtitle": "¿Qué número es más grande? 5 rondas",
+      "roundComplete": "¡Ronda completa!",
+      "gotRight": "Acertaste {{score}} de {{total}}",
+      "round": "Ronda {{current}} / {{total}}",
+      "score": "Puntaje {{score}}",
+      "pick": "Elegir {{side}}",
+      "seeResults": "Ver resultados",
+      "nextRound": "Siguiente ronda"
+    }
+  },
+  "jeffTour": {
+    "tourAria": "Recorrido por la app",
+    "skipTourAria": "Omitir recorrido",
+    "skip": "Omitir",
+    "next": "Siguiente",
+    "startFirstLesson": "Empezar mi primera lección 🚀",
+    "welcome": {
+      "title": "¡Hola, soy Jeff! 👋",
+      "body": "Soy tu coach financiero. Un recorrido rápido por la app y luego hacemos tu primera lección juntos. ¡Vamos!"
+    },
+    "homework": {
+      "title": "Tareas",
+      "body": "Cualquier tarea que asigne tu docente aparece aquí, así siempre sabes qué debes entregar."
+    },
+    "leaderboard": {
+      "title": "Tabla de posiciones",
+      "body": "Mira cómo te ubicas frente a tu clase. ¡Tócame en la esquina cuando necesites ayuda!"
+    },
+    "stocks": {
+      "title": "Stocks",
+      "body": "Opera con empresas reales usando InvestiCoins y observa crecer tu portafolio para ganar aún más monedas."
+    },
+    "missions": {
+      "title": "Misiones",
+      "body": "Este es el corazón de la app: tus lecciones. Termínalas para ganar InvestiCoins y subir de nivel. ¡Empecemos la primera ahora mismo!"
+    },
+    "allSet": {
+      "title": "¡Todo listo! 🎉",
+      "body": "Aquí tienes 10 InvestiCoins por terminar el recorrido. ¡Ahora hagamos tu primera lección!"
+    }
+  },
+  "apMode": {
+    "allCourses": "Todos los cursos",
+    "apMode": "Modo AP",
+    "aboutAria": "Acerca del Modo AP",
+    "tooltip": "Currículo avanzado alineado con los estándares de AP Economics y AP Personal Finance. Recomendado para estudiantes en cursos AP.",
+    "bannerTitle": "AP Business con Finanzas personales",
+    "bannerSubtitle": "Alineado al marco oficial de 5 unidades de College Board · Se lanza en otoño de 2026",
+    "businessCanvas": "Proyecto de Business Canvas",
+    "apRequired": "Requerido para AP",
+    "businessCanvasDesc": "Crea un Business Model Canvas completo para tu propia idea de negocio: 9 bloques guiados + entrega",
+    "beyondAp": "Más allá de AP - Contenido avanzado",
+    "beyondApCount_one": "{{count}} unidad adicional para exploración avanzada",
+    "beyondApCount_other": "{{count}} unidades adicionales para exploración avanzada"
+  },
+  "vocab": {
+    "title": "Glosario de vocabulario",
+    "termCount": "{{count}} términos de negocios que Jeff enseña — toca para repasar",
+    "description": "Cada término que Jeff resalta en verde. Toca una palabra verde en una lección para ver su definición, o busca una aquí.",
+    "searchPlaceholder": "Buscar términos…",
+    "noMatch": "Ningún término coincide con \"{{query}}\"."
+  },
+  "studentLessons": {
+    "title": "Lecciones",
+    "loading": "Cargando lecciones…",
+    "questionsAnswered": "{{answered}}/{{total}} preguntas respondidas",
+    "status": {
+      "notStarted": "Sin empezar",
+      "inProgress": "En progreso",
+      "completed": "Completado"
+    },
+    "cta": {
+      "review": "Repasar",
+      "resume": "Reanudar",
+      "start": "Empezar lección"
+    }
+  },
+  "jeffLines": {
+    "event": {
+      "coins_earned": [
+        "¡Cha-ching! ¡Más InvestiCoins! 💰",
+        "¡Monedas al banco, vamooos! 🤑",
+        "¡Así se acumula! 💸",
+        "Energía de niño rico, sigue así 😎"
+      ],
+      "lesson_complete": [
+        "¡Lección LISTA! ¡Eres imparable! 🎯",
+        "¡Momento de cerebrito! 🧠✨",
+        "¡Otra más al bolsillo! 🔥",
+        "Tú + conocimiento = peligroso 💪"
+      ],
+      "level_up": [
+        "¡SUBISTE DE NIVEL! Eres de otro nivel 🚀",
+        "Nuevo nivel desbloqueado, ¡leyenda! 👑",
+        "Transformación completa, siguiente nivel 📈"
+      ],
+      "streak_update": [
+        "¡Racha viva! No la rompas 🔥",
+        "Día tras día: eso es disciplina 💯",
+        "Realeza de la constancia 👑🔥"
+      ]
+    },
+    "generalTips": [
+      "Pequeños hábitos hoy = mucho dinero mañana 🌱",
+      "¿Aprender de dinero joven? Truco total 😎",
+      "Tu yo del futuro te lo va a agradecer 🙌",
+      "Mantén viva esa racha, creo en ti 🔥"
+    ],
+    "greeting": {
+      "dashboard": [
+        "¿Listos para juntar monedas hoy? 📈",
+        "¡Bienvenido de vuelta, futuro millonario! 💰",
+        "¡Hagamos que hoy cuente! ✨",
+        "Tu imperio financiero te espera 👑"
+      ],
+      "lessons": [
+        "Hora de la lección: ¡a subir de nivel ese cerebro! 🧠",
+        "Una lección más cerca de ser un genio 🚀",
+        "¡Súbete a la montaña rusa, vamos! 🎢",
+        "¡Estás SÚPER cerca del siguiente punto! 🏔️"
+      ],
+      "lab": [
+        "Aquí desbloqueas habilidades financieras de la vida real 🔬",
+        "¿Esto? Lo usarás toda la vida 💡",
+        "La vida adulta, pero divertida 🧪"
+      ],
+      "stocks": [
+        "Leamos estas gráficas juntos 📊",
+        "Compra barato, vende caro: tú puedes 🤔",
+        "¿Wall Street? El trader eres tú 📈",
+        "Cero riesgo, pura práctica 💸"
+      ],
+      "business": [
+        "Hora de ser el jefe 💼",
+        "¡Construye ese imperio, CEO! 🏪",
+        "Toda gran empresa empezó pequeña 🌱"
+      ],
+      "progress": [
+        "¡Mira lo lejos que has llegado! 📈",
+        "Prueba de que te estás volviendo más listo 🧠",
+        "Tu crecimiento brilla ✨"
+      ],
+      "leaderboard": [
+        "El puesto #1 tiene tu nombre 🏆",
+        "Ve a lucirte ante tus compañeros 😎",
+        "¡Sube, sube, sube! 🧗"
+      ],
+      "challenges": [
+        "El ganador se lleva el bote: ese eres tú 🏆",
+        "Apuesta por ti y GANA 💪",
+        "¿Aceptas el desafío? 😏"
+      ],
+      "profile": [
+        "Te ves bien: todo mérito tuyo 🌟",
+        "Revisa las insignias que ganaste 🎖️",
+        "Tus estadísticas van subiendo 📊"
+      ],
+      "daily": [
+        "Racha diaria = ganancias diarias 🔥",
+        "Juegos rápidos, monedas reales 🎮"
+      ]
+    },
+    "tips": {
+      "dashboard": [
+        "Oye, termina una lección hoy para mantener tu racha 🔥",
+        "Tip: las misiones son la forma más rápida de ganar monedas 💰",
+        "Mientras más aprendes, más ganas, literalmente 🧠"
+      ],
+      "lessons": [
+        "Aprueba el cuestionario final para monedas de bono 🎯",
+        "¿Atascado? Relee el repaso y luego arrasa con la prueba ✅",
+        "Termina una unidad completa para desbloquear la siguiente 🔓"
+      ],
+      "lab": [
+        "Estos escenarios son cosas reales de adultos: vas por delante 😎",
+        "Los impuestos y el crédito parecen aburridos… hasta que es tu dinero 💡"
+      ],
+      "stocks": [
+        "Precios reales, dinero de práctica: ¡experimenta sin miedo! 💸",
+        "Observa una acción unos días antes de 'comprar' 👀",
+        "No pongas todas tus monedas en una sola acción 🧺"
+      ],
+      "business": [
+        "Registra la ganancia cada ronda: piensa como CEO 📒",
+        "Reinvierte tus ganancias para crecer más rápido 🌱"
+      ],
+      "progress": [
+        "Ataca tu tema más débil para subir de nivel más rápido 📈",
+        "El dominio le gana a la velocidad: ve a fondo 🧠"
+      ],
+      "leaderboard": [
+        "¿Quieres subir? Las lecciones dan más InvestiCoins 🚀",
+        "Compite con un compañero por el #1 🏁"
+      ],
+      "challenges": [
+        "Entra a un desafío: el ganador se lleva TODAS las monedas 🏆",
+        "Aunque no ganes, aprendes. Sigue siendo una victoria 💪"
+      ]
+    },
+    "encouragements": [
+      "¡Sigue así, tú puedes! 💪",
+      "Cada lección te hace más rico 🧠",
+      "Pequeños pasos, grandes ganancias 📈",
+      "¡Creo en ti! 🌟",
+      "Futuro inversionista en formación 💼",
+      "Te estás volviendo más listo ahora mismo 🤓",
+      "¡No pares, estás muy cerca! 🏁",
+      "Energía de protagonista 💫"
+    ]
   }
 }

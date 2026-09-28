@@ -1,5 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react"
 import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
+import i18n from "@/i18n"
 import { useApp } from "@/contexts/AppContext"
 import { useAuth } from "@/hooks/useAuth"
 import { supabase } from "@/integrations/supabase/client"
@@ -50,16 +52,17 @@ interface UnitScore {
 }
 
 // Cluster units into readable groups for grouped radar view
-const UNIT_GROUPS: { label: string; levels: number[] }[] = [
-  { label: "Foundational", levels: [1, 2] },
-  { label: "Markets", levels: [3, 4] },
-  { label: "Analysis", levels: [5, 6] },
-  { label: "Macro & Business", levels: [7, 8] },
-  { label: "Advanced", levels: [9, 10] },
+const UNIT_GROUPS: { labelKey: string; levels: number[] }[] = [
+  { labelKey: "progress.groups.foundational", levels: [1, 2] },
+  { labelKey: "progress.groups.markets", levels: [3, 4] },
+  { labelKey: "progress.groups.analysis", levels: [5, 6] },
+  { labelKey: "progress.groups.macroBusiness", levels: [7, 8] },
+  { labelKey: "progress.groups.advanced", levels: [9, 10] },
 ]
 
 function getGroupForLevel(level: number): string {
-  return UNIT_GROUPS.find(g => g.levels.includes(level))?.label || "Other"
+  const g = UNIT_GROUPS.find(g => g.levels.includes(level))
+  return g ? i18n.t(g.labelKey) : i18n.t("progress.groups.other")
 }
 
 function getMasteryTier(score: number, hasActivity: boolean): UnitScore["masteryTier"] {
@@ -70,10 +73,10 @@ function getMasteryTier(score: number, hasActivity: boolean): UnitScore["mastery
 }
 
 function masteryTierMeta(tier: UnitScore["masteryTier"]): { label: string; color: string; bg: string; border: string } {
-  if (tier === "not-started") return { label: "Not Started", color: "text-muted-foreground", bg: "bg-muted/30", border: "border-muted/20" }
-  if (tier === "strength") return { label: "Strength", color: "text-success", bg: "bg-success/5", border: "border-success/15" }
-  if (tier === "growing") return { label: "Growing", color: "text-warning", bg: "bg-warning/5", border: "border-warning/15" }
-  return { label: "Development", color: "text-destructive", bg: "bg-destructive/5", border: "border-destructive/15" }
+  if (tier === "not-started") return { label: i18n.t("progress.tier.notStarted"), color: "text-muted-foreground", bg: "bg-muted/30", border: "border-muted/20" }
+  if (tier === "strength") return { label: i18n.t("progress.tier.strength"), color: "text-success", bg: "bg-success/5", border: "border-success/15" }
+  if (tier === "growing") return { label: i18n.t("progress.tier.growing"), color: "text-warning", bg: "bg-warning/5", border: "border-warning/15" }
+  return { label: i18n.t("progress.tier.development"), color: "text-destructive", bg: "bg-destructive/5", border: "border-destructive/15" }
 }
 
 function masteryBarColor(score: number, hasActivity: boolean): string {
@@ -110,6 +113,7 @@ const LESSON_TITLE = new Map(lessons.map((l) => [l.id, l.title]))
 interface StudentGrade { lesson_id: string; grade_percent: number | null; feedback: string | null }
 
 export default function ProgressPage() {
+  const { t } = useTranslation()
   const { user, lessonProgress, unitTestProgress } = useApp()
   const { isTeacher } = useAuth()
 
@@ -226,7 +230,7 @@ export default function ProgressPage() {
         ? Math.round(active.reduce((sum, u) => sum + u.masteryScore, 0) / active.length)
         : 0
       return {
-        category: g.label,
+        category: i18n.t(g.labelKey),
         score: avgScore,
         hasActivity: active.length > 0,
         fullMark: 100,
@@ -299,25 +303,25 @@ export default function ProgressPage() {
       <main className="container mx-auto px-4 py-8 max-w-5xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
           <div className="flex items-center justify-between mb-1.5">
-            <h1 className="font-display text-[28px] md:text-[32px] font-bold tracking-tight">Progress</h1>
+            <h1 className="font-display text-[28px] md:text-[32px] font-bold tracking-tight">{t("progress.title")}</h1>
             {isTeacher && (
               <div className="flex gap-1 bg-muted rounded-xl p-1">
                 <button
                   onClick={() => setViewMode("my")}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${viewMode === "my" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
                 >
-                  My Progress
+                  {t("progress.myProgress")}
                 </button>
                 <button
                   onClick={() => setViewMode("class")}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${viewMode === "class" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
                 >
-                  Class Average
+                  {t("progress.classAverage")}
                 </button>
               </div>
             )}
           </div>
-          <p className="text-muted-foreground text-sm mb-8">Track your learning journey and measure growth</p>
+          <p className="text-muted-foreground text-sm mb-8">{t("progress.subtitle")}</p>
         </motion.div>
 
         {/* ─── REPORT CARD: teacher's per-lesson grades + average ─── */}
@@ -334,14 +338,14 @@ export default function ProgressPage() {
                   <div>
                     <CardTitle className="flex items-center gap-2">
                       <GraduationCap className="w-5 h-5 text-primary" />
-                      Report Card
+                      {t("progress.reportCard.title")}
                     </CardTitle>
                     <CardDescription>
-                      Grades your teacher gave you across {gradedLessons.length} lesson{gradedLessons.length === 1 ? "" : "s"}
+                      {t("progress.reportCard.description", { count: gradedLessons.length })}
                     </CardDescription>
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Average</p>
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">{t("progress.average")}</p>
                     <p className="text-3xl font-extrabold tabular-nums text-primary leading-none">{gradeAverage}%</p>
                   </div>
                 </div>
@@ -389,24 +393,24 @@ export default function ProgressPage() {
                   <GraduationCap className="w-8 h-8 text-primary" />
                 </div>
                 <CardTitle className="text-xl">
-                  {benchmarkInProgress ? "Finish Your Benchmark Assessment" : "Complete Your Benchmark Assessment"}
+                  {benchmarkInProgress ? t("progress.benchmarkCta.titleResume") : t("progress.benchmarkCta.title")}
                 </CardTitle>
                 <CardDescription className="text-base mt-2">
                   {benchmarkInProgress
-                    ? "You started the benchmark but didn't finish. Pick up where you left off to personalize your learning path and unlock progress tracking."
-                    : "You skipped the initial assessment. Complete it to personalize your learning path and unlock progress tracking."}
+                    ? t("progress.benchmarkCta.descriptionResume")
+                    : t("progress.benchmarkCta.description")}
                 </CardDescription>
               </CardHeader>
               <CardContent className="relative space-y-4">
                 <Link to="/onboarding?benchmark=1">
                   <Button variant="hero" size="lg" className="press-scale w-full">
                     <Target className="w-5 h-5 mr-2" />
-                    {benchmarkInProgress ? "Finish Benchmark" : "Take Benchmark Now"}
+                    {benchmarkInProgress ? t("progress.benchmarkCta.buttonResume") : t("progress.benchmarkCta.button")}
                   </Button>
                 </Link>
                 <p className="text-xs text-muted-foreground flex items-center justify-center gap-1.5">
                   <AlertCircle className="w-3.5 h-3.5" />
-                  You can continue using InvestiPlay without it, but content won't be fully personalized.
+                  {t("progress.benchmarkCta.note")}
                 </p>
               </CardContent>
             </Card>
@@ -417,7 +421,7 @@ export default function ProgressPage() {
                 <div className="h-[280px] rounded-2xl bg-muted/20 flex items-center justify-center">
                   <div className="text-center">
                     <BarChart3 className="w-10 h-10 mx-auto text-muted-foreground/15 mb-3" />
-                    <p className="text-sm text-muted-foreground/50 font-medium">Assessment data will appear here</p>
+                    <p className="text-sm text-muted-foreground/50 font-medium">{t("progress.assessmentPlaceholder")}</p>
                   </div>
                 </div>
               </CardContent>
@@ -435,17 +439,17 @@ export default function ProgressPage() {
                 <CardContent className="pt-6 pb-5">
                   <div className="flex items-center justify-between mb-3">
                     <div>
-                      <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Overall Completion</p>
+                      <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("progress.overallCompletion")}</p>
                       <p className="text-3xl font-bold text-foreground">{overallCompletion}%</p>
                       <p className="text-xs text-muted-foreground mt-1">
-                        Overall Mastery Score: {hasAnyActivity ? `${overallMasteryScore}%` : "Not assessed"}
+                        {t("progress.overallMasteryScore")}: {hasAnyActivity ? `${overallMasteryScore}%` : t("progress.notAssessed")}
                       </p>
                     </div>
                     <div className="flex items-center gap-4 text-[11px] text-muted-foreground">
-                      <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-success inline-block" /> Strength ≥75</span>
-                      <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-warning inline-block" /> Growing 50-74</span>
-                      <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-destructive/60 inline-block" /> Development &lt;50</span>
-                      <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-muted inline-block" /> Not assessed</span>
+                      <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-success inline-block" /> {t("progress.legend.strength")}</span>
+                      <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-warning inline-block" /> {t("progress.legend.growing")}</span>
+                      <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-destructive/60 inline-block" /> {t("progress.legend.development")}</span>
+                      <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-muted inline-block" /> {t("progress.notAssessed")}</span>
                     </div>
                   </div>
                   {/* Segmented bar - all units */}
@@ -457,7 +461,7 @@ export default function ProgressPage() {
                         animate={{ scaleX: 1 }}
                         transition={{ duration: 0.4, delay: 0.1 + i * 0.02 }}
                         className={`flex-1 rounded-sm ${masteryBarColor(u.masteryScore, u.hasActivity)} origin-left`}
-                        title={`${u.title}: Completion ${u.completionPercent}% · Mastery ${u.hasActivity ? `${u.masteryScore}%` : "Not assessed"}`}
+                        title={`${u.title}: ${t("progress.completion")} ${u.completionPercent}% · ${t("progress.mastery")} ${u.hasActivity ? `${u.masteryScore}%` : t("progress.notAssessed")}`}
                       />
                     ))}
                   </div>
@@ -477,10 +481,10 @@ export default function ProgressPage() {
                     <div>
                       <CardTitle className="flex items-center gap-2">
                         <BarChart3 className="w-5 h-5 text-primary" />
-                        Benchmark Assessment Progress
+                        {t("progress.benchmarkSection.title")}
                       </CardTitle>
                       <CardDescription>
-                        Strong, medium, and weak areas are applied directly to your curriculum path.
+                        {t("progress.benchmarkSection.description")}
                       </CardDescription>
                     </div>
                     <div className="flex gap-1 bg-muted rounded-xl p-1">
@@ -488,13 +492,13 @@ export default function ProgressPage() {
                         onClick={() => setChartView("grouped")}
                         className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${chartView === "grouped" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
                       >
-                        <Layers className="w-3 h-3" /> Grouped
+                        <Layers className="w-3 h-3" /> {t("progress.chartView.grouped")}
                       </button>
                       <button
                         onClick={() => setChartView("all")}
                         className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${chartView === "all" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
                       >
-                        <LayoutGrid className="w-3 h-3" /> All Units
+                        <LayoutGrid className="w-3 h-3" /> {t("progress.chartView.allUnits")}
                       </button>
                     </div>
                   </div>
@@ -539,7 +543,7 @@ export default function ProgressPage() {
                     <div className="space-y-5">
                       <div>
                         <h4 className="text-sm font-bold text-success flex items-center gap-1.5 mb-2.5">
-                          <Sparkles className="w-4 h-4" /> Strong Areas
+                          <Sparkles className="w-4 h-4" /> {t("progress.areas.strongTitle")}
                         </h4>
                         {strengthZones.length > 0 ? strengthZones.map(s => {
                           const tier = masteryTierMeta(s.masteryTier)
@@ -555,20 +559,20 @@ export default function ProgressPage() {
                                 <div className="w-1 h-8 rounded-full bg-success" />
                                 <div>
                                   <span className="text-sm font-medium truncate block">{s.title}</span>
-                                  <span className="text-[11px] text-muted-foreground">Foundational content validated</span>
+                                  <span className="text-[11px] text-muted-foreground">{t("progress.areas.strongDetail")}</span>
                                 </div>
                               </div>
                               <Badge variant="outline" className={`${tier.color} border-current/20 font-bold shrink-0`}>{s.masteryScore}%</Badge>
                             </motion.div>
                           )
                         }) : (
-                          <p className="text-sm text-muted-foreground">No strong benchmark areas yet</p>
+                          <p className="text-sm text-muted-foreground">{t("progress.areas.strongEmpty")}</p>
                         )}
                       </div>
 
                       <div>
                         <h4 className="text-sm font-bold text-warning flex items-center gap-1.5 mb-2.5">
-                          <TrendingUp className="w-4 h-4" /> Medium Areas
+                          <TrendingUp className="w-4 h-4" /> {t("progress.areas.mediumTitle")}
                         </h4>
                         {growingZones.length > 0 ? growingZones.map(s => {
                           const tier = masteryTierMeta(s.masteryTier)
@@ -584,20 +588,20 @@ export default function ProgressPage() {
                                 <div className="w-1 h-8 rounded-full bg-warning" />
                                 <div>
                                   <span className="text-sm font-medium truncate block">{s.title}</span>
-                                  <span className="text-[11px] text-muted-foreground">Applied entry point with scaffolding</span>
+                                  <span className="text-[11px] text-muted-foreground">{t("progress.areas.mediumDetail")}</span>
                                 </div>
                               </div>
                               <Badge variant="outline" className={`${tier.color} border-current/20 font-bold shrink-0`}>{s.masteryScore}%</Badge>
                             </motion.div>
                           )
                         }) : (
-                          <p className="text-sm text-muted-foreground">No medium benchmark areas yet</p>
+                          <p className="text-sm text-muted-foreground">{t("progress.areas.mediumEmpty")}</p>
                         )}
                       </div>
 
                       <div>
                         <h4 className="text-sm font-bold text-destructive flex items-center gap-1.5 mb-2.5">
-                          <Target className="w-4 h-4" /> Weak Areas
+                          <Target className="w-4 h-4" /> {t("progress.areas.weakTitle")}
                         </h4>
                         {developmentZones.length > 0 ? developmentZones.map(s => {
                           const tier = masteryTierMeta(s.masteryTier)
@@ -613,14 +617,14 @@ export default function ProgressPage() {
                                 <div className="w-1 h-8 rounded-full bg-destructive/60" />
                                 <div>
                                   <span className="text-sm font-medium truncate block">{s.title}</span>
-                                  <span className="text-[11px] text-muted-foreground">Full foundational path remains active</span>
+                                  <span className="text-[11px] text-muted-foreground">{t("progress.areas.weakDetail")}</span>
                                 </div>
                               </div>
                               <Badge variant="outline" className={`${tier.color} border-current/20 font-bold shrink-0`}>{s.masteryScore}%</Badge>
                             </motion.div>
                           )
                         }) : (
-                          <p className="text-sm text-muted-foreground">No weak benchmark areas identified yet</p>
+                          <p className="text-sm text-muted-foreground">{t("progress.areas.weakEmpty")}</p>
                         )}
                       </div>
                     </div>
@@ -639,9 +643,9 @@ export default function ProgressPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <LayoutGrid className="w-5 h-5 text-primary" />
-                    Unit Breakdown
+                    {t("progress.unitBreakdown.title")}
                   </CardTitle>
-                  <CardDescription>Completion shown as primary progress, with mastery as a secondary metric</CardDescription>
+                  <CardDescription>{t("progress.unitBreakdown.description")}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -657,7 +661,7 @@ export default function ProgressPage() {
                         >
                           <div className="flex items-start justify-between mb-2">
                             <div className="min-w-0 flex-1">
-                              <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Unit {u.unitNumber}</p>
+                              <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">{t("progress.unitLabel", { number: u.unitNumber })}</p>
                               <p className="text-sm font-semibold truncate">{u.title}</p>
                             </div>
                             <span className="text-lg font-bold text-foreground shrink-0 ml-2">
@@ -675,17 +679,17 @@ export default function ProgressPage() {
 
                           <div className="flex items-center justify-between gap-2">
                             {u.status === "complete" ? (
-                              <Badge className="bg-success/10 text-success border-success/20 text-[9px]">Mastered</Badge>
+                              <Badge className="bg-success/10 text-success border-success/20 text-[9px]">{t("progress.status.mastered")}</Badge>
                             ) : u.status === "in-progress" ? (
-                              <Badge variant="outline" className="text-[9px] text-primary border-primary/20">In Progress</Badge>
+                              <Badge variant="outline" className="text-[9px] text-primary border-primary/20">{t("progress.status.inProgress")}</Badge>
                             ) : (
-                              <Badge variant="outline" className="text-[9px] text-muted-foreground">Not Started</Badge>
+                              <Badge variant="outline" className="text-[9px] text-muted-foreground">{t("progress.status.notStarted")}</Badge>
                             )}
-                            <span className="text-[10px] text-muted-foreground">{u.done}/{u.total} lessons</span>
+                            <span className="text-[10px] text-muted-foreground">{t("progress.lessonsCount", { done: u.done, total: u.total })}</span>
                           </div>
 
                           <p className={`text-[10px] mt-2 font-medium ${masteryLabelColor(u.masteryScore, u.hasActivity)}`}>
-                            Mastery Score: {u.hasActivity ? `${u.masteryScore}%` : "-"}
+                            {t("progress.masteryScore")}: {u.hasActivity ? `${u.masteryScore}%` : "-"}
                           </p>
                         </motion.div>
                       )
@@ -707,7 +711,7 @@ export default function ProgressPage() {
                     <div>
                       <CardTitle className="flex items-center gap-2">
                         <TrendingUp className="w-5 h-5 text-primary" />
-                        Your Learning Evolution
+                        {t("progress.evolution.title")}
                       </CardTitle>
                     </div>
                     <div className="flex items-center gap-2">
@@ -716,13 +720,13 @@ export default function ProgressPage() {
                           onClick={() => setEvolutionMode("overall")}
                           className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${evolutionMode === "overall" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
                         >
-                          Overall Mastery Score
+                          {t("progress.overallMasteryScore")}
                         </button>
                         <button
                           onClick={() => setEvolutionMode("category")}
                           className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${evolutionMode === "category" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
                         >
-                          By Unit
+                          {t("progress.evolution.byUnit")}
                         </button>
                       </div>
                       {evolutionMode === "category" && (
@@ -732,7 +736,7 @@ export default function ProgressPage() {
                           </SelectTrigger>
                           <SelectContent>
                             {unitInfo.filter(u => (u.track ?? "regular") === "regular").map(u => (
-                              <SelectItem key={u.id} value={u.id}>Unit {u.unitNumber}: {u.title}</SelectItem>
+                              <SelectItem key={u.id} value={u.id}>{t("progress.unitTitle", { number: u.unitNumber, title: u.title })}</SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
@@ -779,8 +783,8 @@ export default function ProgressPage() {
                       <BookOpen className="w-8 h-8 mx-auto text-muted-foreground/30 mb-3" />
                       <p className="text-sm text-muted-foreground">
                         {growthData.length === 1
-                          ? "Take another assessment to unlock growth insights."
-                          : "Complete unit tests to see your learning evolution."}
+                          ? t("progress.evolution.emptyOne")
+                          : t("progress.evolution.emptyNone")}
                       </p>
                     </div>
                   )}
@@ -798,16 +802,16 @@ export default function ProgressPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <BookOpen className="w-5 h-5 text-primary" />
-                    Curriculum Progress
+                    {t("progress.curriculum.title")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     <div className="grid grid-cols-[1fr_100px_80px_100px] gap-2 px-3 py-2 text-[11px] text-muted-foreground font-bold uppercase tracking-wider">
-                      <span>Unit</span>
-                      <span className="text-center">Lessons</span>
-                      <span className="text-center">Quiz Avg</span>
-                      <span className="text-center">Status</span>
+                      <span>{t("progress.table.unit")}</span>
+                      <span className="text-center">{t("progress.table.lessons")}</span>
+                      <span className="text-center">{t("progress.table.quizAvg")}</span>
+                      <span className="text-center">{t("progress.table.status")}</span>
                     </div>
                     {unitScores.map((u, i) => (
                       <motion.div
@@ -818,7 +822,7 @@ export default function ProgressPage() {
                         className="grid grid-cols-[1fr_100px_80px_100px] gap-2 items-center px-3 py-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors"
                       >
                         <div className="min-w-0">
-                          <p className="text-sm font-semibold truncate">Unit {u.unitNumber}: {u.title}</p>
+                          <p className="text-sm font-semibold truncate">{t("progress.unitTitle", { number: u.unitNumber, title: u.title })}</p>
                         </div>
                         <div className="text-center">
                           <span className="text-sm font-medium">{u.done}/{u.total}</span>
@@ -829,15 +833,15 @@ export default function ProgressPage() {
                         <div className="flex justify-center">
                           {u.status === "complete" ? (
                             <Badge className="bg-success/10 text-success border-success/20 text-[10px]">
-                              <CheckCircle2 className="w-3 h-3 mr-1" />Complete
+                              <CheckCircle2 className="w-3 h-3 mr-1" />{t("progress.status.complete")}
                             </Badge>
                           ) : u.status === "in-progress" ? (
                             <Badge className="bg-primary/10 text-primary border-primary/20 text-[10px]">
-                              <Clock className="w-3 h-3 mr-1" />In Progress
+                              <Clock className="w-3 h-3 mr-1" />{t("progress.status.inProgress")}
                             </Badge>
                           ) : (
                             <Badge variant="outline" className="text-muted-foreground text-[10px]">
-                              <Circle className="w-3 h-3 mr-1" />Not Started
+                              <Circle className="w-3 h-3 mr-1" />{t("progress.status.notStarted")}
                             </Badge>
                           )}
                         </div>

@@ -8,6 +8,7 @@
 
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -17,6 +18,7 @@ import { metricMeta, timeRemaining, isExpired, type ClassChallenge } from "@/lib
 import { Swords, Plus, ChevronRight, Coins, Users } from "lucide-react"
 
 export default function ChallengesWidget() {
+  const { t } = useTranslation()
   const { user } = useApp()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
@@ -71,13 +73,13 @@ export default function ChallengesWidget() {
               <Swords className="w-5 h-5 text-success" />
             </div>
             <div className="min-w-0">
-              <p className="font-display text-base md:text-lg font-extrabold text-white">Class Challenges</p>
+              <p className="font-display text-base md:text-lg font-extrabold text-white">{t("challenges.classChallenges")}</p>
               <p className="text-sm text-white/70 truncate">
                 {loading
-                  ? "Checking for live challenges…"
+                  ? t("challenges.widget.checking")
                   : active.length > 0
-                    ? `${active.length} challenge${active.length === 1 ? "" : "s"} live - winner takes the pot`
-                    : "Nothing running - start one and challenge your class!"}
+                    ? t("challenges.widget.liveCount", { count: active.length })
+                    : t("challenges.widget.nothingRunning")}
               </p>
             </div>
           </div>
@@ -86,7 +88,7 @@ export default function ChallengesWidget() {
             className="press-scale gap-1.5 shrink-0"
             onClick={() => navigate("/challenges?create=1")}
           >
-            <Plus className="w-4 h-4" /> Create
+            <Plus className="w-4 h-4" /> {t("challenges.widget.create")}
           </Button>
         </div>
 
@@ -102,9 +104,9 @@ export default function ChallengesWidget() {
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-bold text-white truncate">{ch.title}</span>
                     {enteredIds.has(ch.id) ? (
-                      <Badge className="bg-success/20 text-success border border-success/30 text-[10px] shrink-0">You're in</Badge>
+                      <Badge className="bg-success/20 text-success border border-success/30 text-[10px] shrink-0">{t("challenges.youreIn")}</Badge>
                     ) : (
-                      <Badge className="bg-white/10 text-white/80 border-0 text-[10px] shrink-0">Join for {ch.entry_fee} 🪙</Badge>
+                      <Badge className="bg-white/10 text-white/80 border-0 text-[10px] shrink-0">{t("challenges.widget.joinFor", { fee: ch.entry_fee })}</Badge>
                     )}
                   </div>
                   <p className="text-xs text-white/60 truncate">
@@ -112,7 +114,7 @@ export default function ChallengesWidget() {
                   </p>
                 </div>
                 <span className="hidden sm:flex items-center gap-1 text-xs font-bold text-gold shrink-0">
-                  <Coins className="w-3.5 h-3.5" /> {ch.pot.toLocaleString()} pot
+                  <Coins className="w-3.5 h-3.5" /> {t("challenges.potLabel", { amount: ch.pot.toLocaleString() })}
                 </span>
                 <span className="hidden sm:flex items-center gap-1 text-xs text-white/50 shrink-0">
                   <Users className="w-3.5 h-3.5" /> {entryCounts[ch.id] ?? 0}
@@ -122,7 +124,7 @@ export default function ChallengesWidget() {
             ))}
             {active.length > 3 && (
               <Link to="/challenges" className="block text-center text-xs font-bold text-white/60 hover:text-white pt-1">
-                View all {active.length} challenges →
+                {t("challenges.widget.viewAll", { count: active.length })}
               </Link>
             )}
           </div>

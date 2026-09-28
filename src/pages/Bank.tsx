@@ -14,6 +14,7 @@
 // (savings, loans, bonds, credit, career weeks) lives in useBankStore.
 
 import { useEffect, useMemo, useState } from "react"
+import { useTranslation, Trans } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import GameNav from "@/components/GameNav"
 import CareersDesk from "@/components/bank/CareersDesk"
@@ -29,6 +30,7 @@ import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
 import { useApp } from "@/contexts/AppContext"
 import { useBankStore } from "@/stores/bankStore"
+import i18n from "@/i18n"
 import { cn } from "@/lib/utils"
 import { formatCoins, roundCoins } from "@/lib/formatCoins"
 import {
@@ -47,11 +49,11 @@ const money = formatCoins
 
 // Human label + color for a 300-850 credit score.
 const creditRating = (s: number): { label: string; color: string } =>
-  s >= 800 ? { label: "Exceptional", color: "#34d399" }
-  : s >= 740 ? { label: "Very good", color: "#4ade80" }
-  : s >= 670 ? { label: "Good", color: "#facc15" }
-  : s >= 580 ? { label: "Fair", color: "#fb923c" }
-  : { label: "Poor", color: "#f87171" }
+  s >= 800 ? { label: i18n.t("bank.creditRating.exceptional"), color: "#34d399" }
+  : s >= 740 ? { label: i18n.t("bank.creditRating.veryGood"), color: "#4ade80" }
+  : s >= 670 ? { label: i18n.t("bank.creditRating.good"), color: "#facc15" }
+  : s >= 580 ? { label: i18n.t("bank.creditRating.fair"), color: "#fb923c" }
+  : { label: i18n.t("bank.creditRating.poor"), color: "#f87171" }
 
 /* ── shared bits ─────────────────────────────────────────────────────── */
 
@@ -79,6 +81,7 @@ function LearnCard({ icon: Icon, title, children }: { icon: LucideIcon; title: s
 /* ── Vault desk (Floor 01) ───────────────────────────────────────────── */
 
 function VaultDesk() {
+  const { t } = useTranslation()
   const { jeffsBalance, awardJeffs, spendJeffs } = useApp()
   const { toast } = useToast()
   const savings = useBankStore(s => s.savings)
@@ -93,23 +96,23 @@ function VaultDesk() {
   const doDeposit = (n: number) => {
     if (n <= 0) return
     if (!spendJeffs(n, "Deposited into InvestiBank vault")) {
-      toast({ title: "Not enough coins", description: "You can't deposit more than you have in your wallet.", variant: "destructive" })
+      toast({ title: t("bank.vault.notEnoughCoins"), description: t("bank.vault.depositTooMuch"), variant: "destructive" })
       return
     }
     deposit(n)
     setAmount("")
-    toast({ title: `Deposited ${money(n)} coins 🏦`, description: `Your vault earns ${SAVINGS_DAILY_RATE * 100}% compound interest every day.` })
+    toast({ title: t("bank.vault.depositedToast", { amount: money(n) }), description: t("bank.vault.depositedDesc", { rate: SAVINGS_DAILY_RATE * 100 }) })
   }
 
   const doWithdraw = (n: number) => {
     if (n <= 0) return
     if (!withdraw(n)) {
-      toast({ title: "Not enough in the vault", description: "You can't withdraw more than your vault balance.", variant: "destructive" })
+      toast({ title: t("bank.vault.notEnoughInVault"), description: t("bank.vault.withdrawTooMuch"), variant: "destructive" })
       return
     }
     awardJeffs(n, "Withdrew from InvestiBank vault")
     setAmount("")
-    toast({ title: `Withdrew ${money(n)} coins` })
+    toast({ title: t("bank.vault.withdrewToast", { amount: money(n) }) })
   }
 
   const dailyInterest = Math.floor(savings * SAVINGS_DAILY_RATE)
@@ -125,26 +128,26 @@ function VaultDesk() {
       <BankPanel className="p-5 sm:p-6">
         <div className="relative z-10 grid md:grid-cols-2 gap-6 items-center">
           <div>
-            <p className="text-[11px] uppercase font-bold tracking-[0.14em] text-white/40">Your balance</p>
+            <p className="text-[11px] uppercase font-bold tracking-[0.14em] text-white/40">{t("bank.vault.yourBalance")}</p>
             <p className="font-display text-5xl sm:text-6xl font-extrabold mt-1" style={{ color: ACCENT_SOFT }}>
               <AnimatedNumber value={savings} />
             </p>
-            <p className="text-xs text-white/40 mt-1">coins, locked behind 3 feet of steel</p>
+            <p className="text-xs text-white/40 mt-1">{t("bank.vault.lockedBehindSteel")}</p>
             <div className="flex items-center gap-2 mt-3 flex-wrap">
               <Badge className="bg-white/5 hover:bg-white/5 border gap-1" style={{ borderColor: `rgba(var(--brand-rgb),0.267)`, color: ACCENT_SOFT }}>
-                <Sparkles className="h-3 w-3" /> {SAVINGS_DAILY_RATE * 100}% / day, compounding
+                <Sparkles className="h-3 w-3" /> {t("bank.vault.perDayCompounding", { rate: SAVINGS_DAILY_RATE * 100 })}
               </Badge>
               {savings > 0 && (
-                <span className="text-xs font-bold text-primary">≈ +{money(dailyInterest)} tomorrow</span>
+                <span className="text-xs font-bold text-primary">≈ {t("bank.vault.tomorrow", { amount: money(dailyInterest) })}</span>
               )}
             </div>
           </div>
           <div>
-            <Engraving className="mb-3">If you leave it alone…</Engraving>
+            <Engraving className="mb-3">{t("bank.vault.ifYouLeaveItAlone")}</Engraving>
             <div className="grid grid-cols-3 gap-2">
               {projection.map(({ days, value }) => (
                 <div key={days} className="rounded-lg border px-2.5 py-2.5 text-center" style={{ borderColor: `rgba(var(--brand-rgb),0.188)`, background: "rgba(255,255,255,0.04)" }}>
-                  <p className="text-[10px] uppercase font-bold tracking-wide text-white/40">{days} days</p>
+                  <p className="text-[10px] uppercase font-bold tracking-wide text-white/40">{t("bank.vault.days", { count: days })}</p>
                   <p className="text-sm sm:text-base font-extrabold tabular-nums text-white mt-0.5">{savings > 0 ? money(value) : "-"}</p>
                   <p className="text-[11px] font-bold text-primary">{savings > 0 ? `+${money(value - savings)}` : " "}</p>
                 </div>
@@ -152,8 +155,8 @@ function VaultDesk() {
             </div>
             <p className="text-[11px] text-white/35 mt-2 text-center">
               {savings > 0
-                ? lifetimeInterest > 0 ? `Lifetime interest earned: ${money(lifetimeInterest)} coins` : "Compound interest: interest earning interest."
-                : "Deposit some coins to see compounding do its magic."}
+                ? lifetimeInterest > 0 ? t("bank.vault.lifetimeInterest", { amount: money(lifetimeInterest) }) : t("bank.vault.interestEarningInterest")
+                : t("bank.vault.depositToSeeMagic")}
             </p>
           </div>
         </div>
@@ -164,8 +167,8 @@ function VaultDesk() {
         <Card variant="elevated" className="lg:col-span-3">
           <CardContent className="p-4 sm:p-5 space-y-3">
             <div className="flex items-center justify-between">
-              <DeskLabel icon={Wallet}>Teller window</DeskLabel>
-              <span className="text-xs text-muted-foreground">Wallet: <span className="font-bold text-foreground">{money(wallet)}</span></span>
+              <DeskLabel icon={Wallet}>{t("bank.vault.tellerWindow")}</DeskLabel>
+              <span className="text-xs text-muted-foreground">{t("bank.vault.walletLabel")} <span className="font-bold text-foreground">{money(wallet)}</span></span>
             </div>
             <div className="flex gap-2 flex-wrap">
               {[100, 500, 1000].map(n => (
@@ -174,32 +177,31 @@ function VaultDesk() {
                 </Button>
               ))}
               <Button variant="outline" size="sm" className="press-scale text-xs" disabled={wallet <= 0} onClick={() => setAmount(String(Math.floor(wallet / 2)))}>
-                Half wallet
+                {t("bank.vault.halfWallet")}
               </Button>
               <Button variant="outline" size="sm" className="press-scale text-xs" disabled={savings <= 0} onClick={() => setAmount(String(savings))}>
-                Whole vault
+                {t("bank.vault.wholeVault")}
               </Button>
             </div>
             <Input
-              type="number" min={1} placeholder="Amount of coins…"
+              type="number" min={1} placeholder={t("bank.vault.amountPlaceholder")}
               value={amount} onChange={e => setAmount(e.target.value)}
               className="h-11 text-base font-semibold"
             />
             <div className="grid grid-cols-2 gap-2">
               <Button onClick={() => valid && doDeposit(parsed)} disabled={!valid} size="lg" className="press-scale gap-1.5">
-                <ArrowDownToLine className="h-4 w-4" /> Deposit
+                <ArrowDownToLine className="h-4 w-4" /> {t("bank.vault.deposit")}
               </Button>
               <Button onClick={() => valid && doWithdraw(parsed)} disabled={!valid} size="lg" variant="outline" className="press-scale gap-1.5">
-                <ArrowUpFromLine className="h-4 w-4" /> Withdraw
+                <ArrowUpFromLine className="h-4 w-4" /> {t("bank.vault.withdraw")}
               </Button>
             </div>
           </CardContent>
         </Card>
 
         <div className="lg:col-span-2">
-          <LearnCard icon={PiggyBank} title="How savings work:">
-            money in the vault earns compound interest - interest on your interest. Banks pay you to keep
-            money with them because they lend it out to others. Come back each day and watch it grow.
+          <LearnCard icon={PiggyBank} title={t("bank.vault.howSavingsWorkTitle")}>
+            {t("bank.vault.howSavingsWorkBody")}
           </LearnCard>
         </div>
       </div>
@@ -210,11 +212,11 @@ function VaultDesk() {
 /* ── Lending desk (Floor 02) ─────────────────────────────────────────── */
 
 function creditTier(score: number): { label: string; color: string } {
-  if (score >= 760) return { label: "Excellent", color: "#34d399" }
-  if (score >= 700) return { label: "Great", color: "#4ade80" }
-  if (score >= 620) return { label: "Good", color: "#facc15" }
-  if (score >= 500) return { label: "Fair", color: "#fb923c" }
-  return { label: "Needs work", color: "#f87171" }
+  if (score >= 760) return { label: i18n.t("bank.creditTier.excellent"), color: "#34d399" }
+  if (score >= 700) return { label: i18n.t("bank.creditTier.great"), color: "#4ade80" }
+  if (score >= 620) return { label: i18n.t("bank.creditTier.good"), color: "#facc15" }
+  if (score >= 500) return { label: i18n.t("bank.creditTier.fair"), color: "#fb923c" }
+  return { label: i18n.t("bank.creditTier.needsWork"), color: "#f87171" }
 }
 
 /** Semicircular brass gauge for the credit score. */
@@ -256,6 +258,7 @@ function CreditGauge({ score }: { score: number }) {
 }
 
 function LoansDesk() {
+  const { t } = useTranslation()
   const { jeffsBalance, awardJeffs, spendJeffs } = useApp()
   const { toast } = useToast()
   const creditScore = useBankStore(s => s.creditScore)
@@ -276,8 +279,8 @@ function LoansDesk() {
     })
     awardJeffs(product.amount, `Borrowed: ${product.name}`)
     toast({
-      title: `Borrowed ${money(product.amount)} coins 💸`,
-      description: `Repay ${money(totalDue)} within ${product.termDays} days to boost your credit score.`,
+      title: t("bank.loans.borrowedToast", { amount: money(product.amount) }),
+      description: t("bank.loans.borrowedDesc", { total: money(totalDue), days: product.termDays }),
     })
   }
 
@@ -285,14 +288,14 @@ function LoansDesk() {
     const loan = loans.find(l => l.id === loanId)
     if (!loan) return
     if (!spendJeffs(loan.totalDue, `Repaid loan (${loan.productId})`)) {
-      toast({ title: "Not enough coins", description: `You need ${money(loan.totalDue)} coins to repay this loan.`, variant: "destructive" })
+      toast({ title: t("bank.loans.notEnoughCoins"), description: t("bank.loans.needCoinsToRepay", { amount: money(loan.totalDue) }), variant: "destructive" })
       return
     }
     const onTime = !isPast(loan.dueAt)
     repayLoan(loanId)
     toast({
-      title: onTime ? "Loan repaid on time! 🎉" : "Loan repaid",
-      description: onTime ? "Credit score +25. Banks love reliable borrowers." : "Repaid late - debt cleared, but no credit boost this time.",
+      title: onTime ? t("bank.loans.repaidOnTimeToast") : t("bank.loans.repaidToast"),
+      description: onTime ? t("bank.loans.repaidOnTimeDesc") : t("bank.loans.repaidLateDesc"),
     })
   }
 
@@ -303,11 +306,11 @@ function LoansDesk() {
         <div className="relative z-10 grid md:grid-cols-2 gap-6 items-center">
           <CreditGauge score={creditScore} />
           <div className="space-y-2">
-            <Engraving className="mb-3">How your score moves</Engraving>
+            <Engraving className="mb-3">{t("bank.loans.howScoreMoves")}</Engraving>
             {[
-              { label: "Repay a loan on time", value: "+25", color: "#6ee7b7" },
-              { label: "Miss a due date", value: "-50", color: "#fca5a5" },
-              { label: "Loans repaid so far", value: String(loansRepaid), color: ACCENT_SOFT },
+              { label: t("bank.loans.repayOnTime"), value: "+25", color: "#6ee7b7" },
+              { label: t("bank.loans.missDueDate"), value: "-50", color: "#fca5a5" },
+              { label: t("bank.loans.loansRepaidSoFar"), value: String(loansRepaid), color: ACCENT_SOFT },
             ].map(r => (
               <div key={r.label} className="flex items-center justify-between rounded-lg border px-3 py-2" style={{ borderColor: `rgba(var(--brand-rgb),0.188)`, background: "rgba(255,255,255,0.04)" }}>
                 <span className="text-xs font-semibold text-white/60">{r.label}</span>
@@ -315,7 +318,7 @@ function LoansDesk() {
               </div>
             ))}
             <p className="text-[11px] text-white/35 pt-1">
-              Higher scores unlock bigger loans - 620+ for the Builder, 720+ for the Big Dream.
+              {t("bank.loans.higherScoresUnlock")}
             </p>
           </div>
         </div>
@@ -323,15 +326,14 @@ function LoansDesk() {
 
       <div className="grid lg:grid-cols-2 gap-4 items-start">
       <div className="space-y-4">
-        <LearnCard icon={ScrollText} title="How credit works:">
-          your credit score is your money reputation. Borrow only what you can pay back, repay on time,
-          and banks will trust you with bigger loans at better rates - in this game and in real life.
+        <LearnCard icon={ScrollText} title={t("bank.loans.howCreditWorksTitle")}>
+          {t("bank.loans.howCreditWorksBody")}
         </LearnCard>
 
         {/* active loans */}
         {loans.length > 0 && (
           <div className="space-y-2">
-            <DeskLabel icon={ReceiptText}>Your active loans</DeskLabel>
+            <DeskLabel icon={ReceiptText}>{t("bank.loans.yourActiveLoans")}</DeskLabel>
             {loans.map(loan => {
               const product = LOAN_PRODUCTS.find(p => p.id === loan.productId)
               const days = daysUntil(loan.dueAt)
@@ -342,16 +344,16 @@ function LoansDesk() {
                     <div className="flex-1 min-w-0">
                       <p className="font-display font-extrabold text-sm">{product?.name ?? loan.productId}</p>
                       <p className="text-xs text-muted-foreground mt-0.5">
-                        Owe <span className="font-bold text-foreground">{money(loan.totalDue)}</span> coins ·{" "}
+                        <Trans i18nKey="bank.loans.oweCoins" values={{ amount: money(loan.totalDue) }} components={{ b: <span className="font-bold text-foreground" /> }} /> ·{" "}
                         {overdue ? (
-                          <span className="text-red-500 font-bold inline-flex items-center gap-1"><AlertTriangle className="h-3 w-3" /> OVERDUE - credit hit!</span>
+                          <span className="text-red-500 font-bold inline-flex items-center gap-1"><AlertTriangle className="h-3 w-3" /> {t("bank.loans.overdue")}</span>
                         ) : (
-                          <span className="inline-flex items-center gap-1"><Clock className="h-3 w-3" /> due in {days} day{days === 1 ? "" : "s"}</span>
+                          <span className="inline-flex items-center gap-1"><Clock className="h-3 w-3" /> {t("bank.loans.dueIn", { count: days })}</span>
                         )}
                       </p>
                     </div>
                     <Button size="sm" onClick={() => repay(loan.id)} disabled={jeffsBalance < loan.totalDue} className="shrink-0 press-scale">
-                      Repay {money(loan.totalDue)}
+                      {t("bank.loans.repayAmount", { amount: money(loan.totalDue) })}
                     </Button>
                   </CardContent>
                 </Card>
@@ -363,7 +365,7 @@ function LoansDesk() {
 
       {/* loan products */}
       <div className="space-y-2">
-        <DeskLabel icon={HandCoins}>Available loans</DeskLabel>
+        <DeskLabel icon={HandCoins}>{t("bank.loans.availableLoans")}</DeskLabel>
         {LOAN_PRODUCTS.map(product => {
           const Icon = product.icon
           const qualifies = creditScore >= product.minCredit
@@ -379,16 +381,16 @@ function LoansDesk() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-display font-extrabold text-sm">{product.name}</span>
-                    <Badge variant="secondary" className="text-[10px] font-bold">{money(product.amount)} coins</Badge>
-                    <Badge variant="outline" className="text-[10px]">{product.interestRate * 100}% · {product.termDays} days</Badge>
+                    <Badge variant="secondary" className="text-[10px] font-bold">{t("bank.coinsAmount", { amount: money(product.amount) })}</Badge>
+                    <Badge variant="outline" className="text-[10px]">{product.interestRate * 100}% · {t("bank.loans.termDays", { count: product.termDays })}</Badge>
                   </div>
                   <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{product.blurb}</p>
                   {!qualifies && (
-                    <p className="text-[11px] text-red-500 font-bold mt-1">🔒 Needs {product.minCredit}+ credit score</p>
+                    <p className="text-[11px] text-red-500 font-bold mt-1">🔒 {t("bank.loans.needsCreditScore", { score: product.minCredit })}</p>
                   )}
                 </div>
                 <Button size="sm" disabled={disabled} onClick={() => borrow(product.id)} className="shrink-0 press-scale">
-                  {alreadyHave ? "Active" : atMax && qualifies ? "Max loans" : "Borrow"}
+                  {alreadyHave ? t("bank.loans.active") : atMax && qualifies ? t("bank.loans.maxLoans") : t("bank.loans.borrow")}
                 </Button>
               </CardContent>
             </Card>
@@ -403,6 +405,7 @@ function LoansDesk() {
 /* ── Bond market (Floor 03) ──────────────────────────────────────────── */
 
 function BondsDesk() {
+  const { t } = useTranslation()
   const { jeffsBalance, awardJeffs, spendJeffs } = useApp()
   const { toast } = useToast()
   const bonds = useBankStore(s => s.bonds)
@@ -414,11 +417,11 @@ function BondsDesk() {
     const product = BOND_PRODUCTS.find(p => p.id === productId)!
     const invested = Math.floor(Number(amounts[productId]))
     if (!Number.isFinite(invested) || invested < product.minInvestment) {
-      toast({ title: `Minimum is ${product.minInvestment} coins`, variant: "destructive" })
+      toast({ title: t("bank.bonds.minimumIs", { amount: product.minInvestment }), variant: "destructive" })
       return
     }
     if (!spendJeffs(invested, `Bought ${product.name}`)) {
-      toast({ title: "Not enough coins", variant: "destructive" })
+      toast({ title: t("bank.bonds.notEnoughCoins"), variant: "destructive" })
       return
     }
     const payout = Math.round(invested * (1 + product.couponRate))
@@ -431,8 +434,8 @@ function BondsDesk() {
     })
     setAmounts(a => ({ ...a, [productId]: "" }))
     toast({
-      title: `Bought a ${product.name}! 📜`,
-      description: `In ${product.termDays} days you'll collect ${money(payout)} coins (+${money(payout - invested)} profit).`,
+      title: t("bank.bonds.boughtToast", { name: product.name }),
+      description: t("bank.bonds.boughtDesc", { days: product.termDays, payout: money(payout), profit: money(payout - invested) }),
     })
   }
 
@@ -446,14 +449,14 @@ function BondsDesk() {
     collectBond(bondId)
     if (defaulted) {
       toast({
-        title: "Bond defaulted 💥",
-        description: `${product?.name ?? "The issuer"} couldn't repay - you lost your ${money(bond.invested)} coins. That's the risk of chasing higher yields.`,
+        title: t("bank.bonds.defaultedToast"),
+        description: t("bank.bonds.defaultedDesc", { issuer: product?.name ?? t("bank.bonds.theIssuer"), amount: money(bond.invested) }),
         variant: "destructive",
       })
       return
     }
     awardJeffs(bond.payout, `Bond matured (+${money(bond.payout - bond.invested)} interest)`)
-    toast({ title: `Collected ${money(bond.payout)} coins! 💰`, description: `That's ${money(bond.payout - bond.invested)} coins of pure interest.` })
+    toast({ title: t("bank.bonds.collectedToast", { amount: money(bond.payout) }), description: t("bank.bonds.collectedDesc", { amount: money(bond.payout - bond.invested) }) })
   }
 
   const riskColor = { "Very Low": "#34d399", Low: "#facc15", Medium: "#fb923c" } as const
@@ -464,7 +467,7 @@ function BondsDesk() {
         {/* certificates */}
         {bonds.length > 0 ? (
           <div className="space-y-3">
-            <DeskLabel icon={ScrollText}>Your certificates</DeskLabel>
+            <DeskLabel icon={ScrollText}>{t("bank.bonds.yourCertificates")}</DeskLabel>
             {bonds.map(bond => {
               const product = BOND_PRODUCTS.find(p => p.id === bond.productId)
               const mature = isPast(bond.maturesAt)
@@ -482,19 +485,19 @@ function BondsDesk() {
                   <div className="rounded-lg border border-dashed p-3.5 space-y-2.5" style={{ borderColor: `rgba(var(--brand-rgb),0.267)` }}>
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-[9px] font-extrabold uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
-                        InvestiBank Bond · Nº {serial}
+                        {t("bank.bonds.bondSerial", { serial })}
                       </span>
-                      {mature && <Badge variant="success" className="text-[10px]">Matured</Badge>}
+                      {mature && <Badge variant="success" className="text-[10px]">{t("bank.bonds.matured")}</Badge>}
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="flex-1 min-w-0">
                         <p className="font-display font-extrabold text-sm">{product?.name ?? bond.productId}</p>
                         <p className="text-xs text-muted-foreground">
-                          {money(bond.invested)} → <span className="font-bold text-primary dark:text-primary">{money(bond.payout)}</span> coins
+                          <Trans i18nKey="bank.bonds.investedToPayout" values={{ invested: money(bond.invested), payout: money(bond.payout) }} components={{ b: <span className="font-bold text-primary dark:text-primary" /> }} />
                         </p>
                       </div>
                       <Button size="sm" disabled={!mature} onClick={() => collect(bond.id)} className="shrink-0 press-scale gap-1">
-                        <Coins className="h-3.5 w-3.5" /> {mature ? "Collect!" : `${days}d left`}
+                        <Coins className="h-3.5 w-3.5" /> {mature ? t("bank.bonds.collect") : t("bank.bonds.daysLeft", { days })}
                       </Button>
                     </div>
                     <div className="h-1.5 rounded-full bg-muted overflow-hidden">
@@ -511,23 +514,21 @@ function BondsDesk() {
         ) : (
           <div className="rounded-xl border-2 border-dashed p-6 text-center" style={{ borderColor: `rgba(var(--brand-rgb),0.267)` }}>
             <ScrollText className="h-8 w-8 mx-auto mb-2" style={{ color: `rgba(var(--brand-rgb),0.533)` }} />
-            <p className="font-display font-extrabold text-sm">No certificates yet</p>
+            <p className="font-display font-extrabold text-sm">{t("bank.bonds.noCertificates")}</p>
             <p className="text-xs text-muted-foreground mt-1">
-              Buy a bond from the market and your certificates will live here, each with a countdown to payday.
+              {t("bank.bonds.noCertificatesHint")}
             </p>
           </div>
         )}
 
-        <LearnCard icon={CircleDollarSign} title="How bonds work:">
-          a bond is a loan <em>you</em> give to a government or company, and they pay you interest for it.
-          Safer issuers pay less; riskier issuers pay more - but the higher the yield, the bigger the
-          <em> default</em> chance that they can't repay and you lose what you put in. Your money stays locked until it matures.
+        <LearnCard icon={CircleDollarSign} title={t("bank.bonds.howBondsWorkTitle")}>
+          <Trans i18nKey="bank.bonds.howBondsWorkBody" components={{ em: <em /> }} />
         </LearnCard>
       </div>
 
       {/* bond market */}
       <div className="space-y-2">
-        <DeskLabel icon={Landmark}>Today's market</DeskLabel>
+        <DeskLabel icon={Landmark}>{t("bank.bonds.todaysMarket")}</DeskLabel>
         {BOND_PRODUCTS.map(product => {
           const Icon = product.icon
           return (
@@ -540,15 +541,15 @@ function BondsDesk() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-display font-extrabold text-sm">{product.name}</span>
-                      <Badge variant="secondary" className="text-[10px] font-bold">+{product.couponRate * 100}% in {product.termDays}d</Badge>
+                      <Badge variant="secondary" className="text-[10px] font-bold">{t("bank.bonds.couponInDays", { rate: product.couponRate * 100, days: product.termDays })}</Badge>
                       <span className="text-[10px] font-extrabold uppercase tracking-wide" style={{ color: riskColor[product.risk] }}>
-                        ● {product.risk} risk
+                        ● {t("bank.bonds.riskLabel", { risk: product.risk })}
                       </span>
                     </div>
                     <div className="flex items-center gap-1.5 mt-1 text-[10px] font-bold">
-                      <span style={{ color: "#f87171" }}>{Math.round(product.defaultRate * 100)}% default</span>
+                      <span style={{ color: "#f87171" }}>{t("bank.bonds.pctDefault", { pct: Math.round(product.defaultRate * 100) })}</span>
                       <span className="text-muted-foreground">·</span>
-                      <span style={{ color: "#34d399" }}>{Math.round((1 - product.defaultRate) * 100)}% pays out</span>
+                      <span style={{ color: "#34d399" }}>{t("bank.bonds.pctPaysOut", { pct: Math.round((1 - product.defaultRate) * 100) })}</span>
                     </div>
                     <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
                       <span className="font-semibold">{product.issuer}</span> - {product.blurb}
@@ -558,7 +559,7 @@ function BondsDesk() {
                 <div className="flex gap-2">
                   <Input
                     type="number" min={product.minInvestment}
-                    placeholder={`Min ${product.minInvestment} coins`}
+                    placeholder={t("bank.bonds.minCoinsPlaceholder", { amount: product.minInvestment })}
                     value={amounts[product.id] ?? ""}
                     onChange={e => setAmounts(a => ({ ...a, [product.id]: e.target.value }))}
                     className="h-9"
@@ -568,7 +569,7 @@ function BondsDesk() {
                     disabled={jeffsBalance < product.minInvestment}
                     onClick={() => buy(product.id)}
                   >
-                    Buy bond
+                    {t("bank.bonds.buyBond")}
                   </Button>
                 </div>
               </CardContent>
@@ -584,11 +585,14 @@ function BondsDesk() {
 
 type Floor = "vault" | "lending" | "bonds" | "careers"
 
-const FLOORS: { id: Floor; num: string; name: string; desc: string; blurb: string; icon: LucideIcon }[] = [
-  { id: "vault", num: "01", name: "The Vault", desc: "Savings & interest", blurb: "Park your coins and let compound interest do the heavy lifting.", icon: Vault },
-  { id: "lending", num: "02", name: "Lending Desk", desc: "Loans & credit", blurb: "Borrow against your credit score - and build it by paying on time.", icon: HandCoins },
-  { id: "bonds", num: "03", name: "Bond Market", desc: "Fixed income", blurb: "Lend your money out for a fixed term and collect the interest at maturity.", icon: ScrollText },
-  { id: "careers", num: "04", name: "Executive Floor", desc: "Your career", blurb: "Work a real finance job, week after week.", icon: Briefcase },
+type FloorMeta = { id: Floor; num: string; name: string; desc: string; blurb: string; icon: LucideIcon }
+
+// Built inside the component (via t) so labels track the active language.
+const buildFloors = (t: (k: string) => string): FloorMeta[] => [
+  { id: "vault", num: "01", name: t("bank.floors.vault.name"), desc: t("bank.floors.vault.desc"), blurb: t("bank.floors.vault.blurb"), icon: Vault },
+  { id: "lending", num: "02", name: t("bank.floors.lending.name"), desc: t("bank.floors.lending.desc"), blurb: t("bank.floors.lending.blurb"), icon: HandCoins },
+  { id: "bonds", num: "03", name: t("bank.floors.bonds.name"), desc: t("bank.floors.bonds.desc"), blurb: t("bank.floors.bonds.blurb"), icon: ScrollText },
+  { id: "careers", num: "04", name: t("bank.floors.careers.name"), desc: t("bank.floors.careers.desc"), blurb: t("bank.floors.careers.blurb"), icon: Briefcase },
 ]
 
 /* ── Bank building illustration ──────────────────────────────────────── */
@@ -638,8 +642,10 @@ function BankBuilding({ className }: { className?: string }) {
 /* ── Page ────────────────────────────────────────────────────────────── */
 
 export default function Bank() {
+  const { t } = useTranslation()
   const { toast } = useToast()
   const { jeffsBalance, user } = useApp()
+  const FLOORS = buildFloors(t)
   const accrueInterest = useBankStore(s => s.accrueInterest)
   const checkOverdueLoans = useBankStore(s => s.checkOverdueLoans)
   const savings = useBankStore(s => s.savings)
@@ -658,13 +664,13 @@ export default function Bank() {
   useEffect(() => {
     const interest = accrueInterest()
     if (interest > 0) {
-      toast({ title: `Your savings earned ${interest.toLocaleString()} coins of interest! ✨`, description: "That's compound interest working while you were away." })
+      toast({ title: t("bank.lobby.savingsEarnedToast", { amount: interest.toLocaleString() }), description: t("bank.lobby.savingsEarnedDesc") })
     }
     const late = checkOverdueLoans()
     if (late > 0) {
       toast({
-        title: "A loan went overdue 😬",
-        description: "Your credit score dropped 50 points. Repay it to clear the debt, then pay on time to rebuild.",
+        title: t("bank.lobby.loanOverdueToast"),
+        description: t("bank.lobby.loanOverdueDesc"),
         variant: "destructive",
       })
     }
@@ -682,13 +688,13 @@ export default function Bank() {
   // Live one-liner shown on each lobby door.
   const floorStat = (f: Floor): string => {
     switch (f) {
-      case "vault": return savings > 0 ? `${money(savings)} coins growing` : "Start saving today"
-      case "lending": return overdueLoans ? "A loan is overdue!" : loans.length > 0 ? `${loans.length} active loan${loans.length === 1 ? "" : "s"}` : `Credit score ${creditScore}`
-      case "bonds": return matureBonds > 0 ? `${matureBonds} bond${matureBonds === 1 ? "" : "s"} ready to collect!` : bonds.length > 0 ? `${bonds.length} certificate${bonds.length === 1 ? "" : "s"} maturing` : "3 bonds on the market"
+      case "vault": return savings > 0 ? t("bank.lobby.stat.coinsGrowing", { amount: money(savings) }) : t("bank.lobby.stat.startSaving")
+      case "lending": return overdueLoans ? t("bank.lobby.stat.loanOverdue") : loans.length > 0 ? t("bank.lobby.stat.activeLoans", { count: loans.length }) : t("bank.lobby.stat.creditScore", { score: creditScore })
+      case "bonds": return matureBonds > 0 ? t("bank.lobby.stat.bondsReady", { count: matureBonds }) : bonds.length > 0 ? t("bank.lobby.stat.certificatesMaturing", { count: bonds.length }) : t("bank.lobby.stat.bondsOnMarket")
       case "careers": {
-        if (!activeCareer) return "Get hired today"
+        if (!activeCareer) return t("bank.lobby.stat.getHired")
         const c = getCareer(activeCareer)
-        return c ? `${c.name} · week ${careerWeek[activeCareer] ?? 1}` : "Get hired today"
+        return c ? t("bank.lobby.stat.careerWeek", { name: c.name, week: careerWeek[activeCareer] ?? 1 }) : t("bank.lobby.stat.getHired")
       }
     }
   }
@@ -698,7 +704,7 @@ export default function Bank() {
       case "vault": return <VaultDesk />
       case "lending": return <LoansDesk />
       case "bonds": return <BondsDesk />
-      case "careers": return import.meta.env.DEV ? <CareersDesk /> : <ComingSoon title="Executive Floor" bare icon={Landmark} />
+      case "careers": return import.meta.env.DEV ? <CareersDesk /> : <ComingSoon title={t("bank.floors.careers.name")} bare icon={Landmark} />
       default: return null
     }
   }
@@ -709,20 +715,21 @@ export default function Bank() {
   // A living greeting: Jeff calls out whatever's most relevant right now instead
   // of the same canned hello every visit.
   const rating = creditRating(creditScore)
+  const nameSuffix = firstName ? `, ${firstName}` : ""
   const bankerLine = overdueLoans
-    ? `Heads up${firstName ? `, ${firstName}` : ""} - a loan's gone overdue. Clear it and we'll rebuild that credit together.`
+    ? t("bank.lobby.banker.overdue", { name: nameSuffix })
     : matureBonds > 0
-    ? `${matureBonds} bond${matureBonds === 1 ? "" : "s"} just matured${firstName ? `, ${firstName}` : ""} - let's collect your payday! 💰`
+    ? t("bank.lobby.banker.matured", { name: nameSuffix, count: matureBonds })
     : lifetimeInterest > 0
-    ? `Your vault's earned ${money(lifetimeInterest)} coins in interest while you were away${firstName ? `, ${firstName}` : ""}. Compound interest never sleeps. ✨`
-    : `Let's put your ${money(jeffsBalance)} coins to work${firstName ? `, ${firstName}` : ""}. Where to first?`
+    ? t("bank.lobby.banker.interest", { name: nameSuffix, amount: money(lifetimeInterest) })
+    : t("bank.lobby.banker.default", { name: nameSuffix, amount: money(jeffsBalance) })
 
   // Live lobby stats - each number rolls up on load and re-tweens when it changes.
   const bankStats: { label: string; value: number; hint: string; color: string }[] = [
-    { label: "In the vault", value: savings, hint: `Growing ${(SAVINGS_DAILY_RATE * 100).toFixed(0)}%/day`, color: "hsl(var(--accent))" },
-    { label: "Compounded", value: lifetimeInterest, hint: "Interest earned", color: "#34d399" },
-    { label: "Credit score", value: creditScore, hint: rating.label, color: rating.color },
-    { label: bonds.length > 0 ? "In bonds" : "Earned working", value: bonds.length > 0 ? bondsValue : careerEarnings, hint: bonds.length > 0 ? "Working for you" : "From finance jobs", color: "#facc15" },
+    { label: t("bank.lobby.stats.inVault"), value: savings, hint: t("bank.lobby.stats.growingPerDay", { rate: (SAVINGS_DAILY_RATE * 100).toFixed(0) }), color: "hsl(var(--accent))" },
+    { label: t("bank.lobby.stats.compounded"), value: lifetimeInterest, hint: t("bank.lobby.stats.interestEarned"), color: "#34d399" },
+    { label: t("bank.lobby.stats.creditScore"), value: creditScore, hint: rating.label, color: rating.color },
+    { label: bonds.length > 0 ? t("bank.lobby.stats.inBonds") : t("bank.lobby.stats.earnedWorking"), value: bonds.length > 0 ? bondsValue : careerEarnings, hint: bonds.length > 0 ? t("bank.lobby.stats.workingForYou") : t("bank.lobby.stats.fromFinanceJobs"), color: "#facc15" },
   ]
 
   return (
@@ -745,10 +752,10 @@ export default function Bank() {
                 <div className="relative z-10 grid md:grid-cols-2 gap-6 items-center">
                   <div>
                     <p className="text-[11px] font-extrabold uppercase tracking-[0.22em]" style={{ color: ACCENT }}>
-                      Main lobby · est. 2026
+                      {t("bank.lobby.mainLobby")}
                     </p>
                     <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-white leading-tight tracking-tight mt-1">
-                      Welcome to Investi<span style={{ color: ACCENT_SOFT }}>Bank</span>
+                      <Trans i18nKey="bank.lobby.welcome" components={{ accent: <span style={{ color: ACCENT_SOFT }} /> }} />
                     </h1>
                     <div className="flex items-end gap-1 mt-5">
                       <div className="h-28 w-28 sm:h-32 sm:w-32 shrink-0 -mb-2">
@@ -818,7 +825,7 @@ export default function Bank() {
                             <Icon className="h-7 w-7" style={{ color: ACCENT }} />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-muted-foreground">Floor {f.num}</p>
+                            <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-muted-foreground">{t("bank.floorLabel", { num: f.num })}</p>
                             <p className="font-display text-xl font-extrabold leading-tight">{f.name}</p>
                             <p className="text-xs text-muted-foreground mt-0.5">{f.blurb}</p>
                           </div>
@@ -850,23 +857,23 @@ export default function Bank() {
               <div className="flex items-center justify-between gap-3 flex-wrap">
                 <div>
                   <p className="text-[11px] font-extrabold uppercase tracking-[0.22em]" style={{ color: ACCENT }}>
-                    InvestiBank · Floor {meta!.num}
+                    {t("bank.investiBankFloor", { num: meta!.num })}
                   </p>
                   <h1 className="font-display text-2xl sm:text-3xl font-extrabold leading-tight">{meta!.name}</h1>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="hidden md:grid grid-cols-2 gap-1.5">
                     <div className="rounded-lg border border-border bg-card px-3 py-1 text-center">
-                      <p className="text-[9px] uppercase font-bold tracking-wide text-muted-foreground">Wallet</p>
+                      <p className="text-[9px] uppercase font-bold tracking-wide text-muted-foreground">{t("bank.wallet")}</p>
                       <p className="text-sm font-extrabold tabular-nums"><AnimatedNumber value={roundCoins(jeffsBalance)} /></p>
                     </div>
                     <div className="rounded-lg border border-border bg-card px-3 py-1 text-center">
-                      <p className="text-[9px] uppercase font-bold tracking-wide text-muted-foreground">Vault</p>
+                      <p className="text-[9px] uppercase font-bold tracking-wide text-muted-foreground">{t("bank.vaultLabel")}</p>
                       <p className="text-sm font-extrabold tabular-nums"><AnimatedNumber value={savings} /></p>
                     </div>
                   </div>
                   <Button variant="outline" onClick={() => setFloor(null)} className="gap-1.5 press-scale">
-                    <Landmark className="h-4 w-4" style={{ color: ACCENT }} /> Lobby
+                    <Landmark className="h-4 w-4" style={{ color: ACCENT }} /> {t("bank.lobbyButton")}
                   </Button>
                 </div>
               </div>

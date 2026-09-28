@@ -6,6 +6,7 @@
 // close and exit through AppContext.
 
 import { useMemo, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -71,12 +72,14 @@ function Avatar({ name }: { name: string }) {
 }
 
 function PointBadge({ p }: { p: 0 | 1 | 2 }) {
-  return <Badge variant={p === 2 ? "success" : p === 1 ? "warning" : "destructive"} className="shrink-0 text-[9px]">{p === 2 ? "Pro" : p === 1 ? "Okay" : "Rookie"}</Badge>
+  const { t } = useTranslation()
+  return <Badge variant={p === 2 ? "success" : p === 1 ? "warning" : "destructive"} className="shrink-0 text-[9px]">{p === 2 ? t("bankCareers.dealRoom.rating.pro") : p === 1 ? t("bankCareers.dealRoom.rating.okay") : t("bankCareers.dealRoom.rating.rookie")}</Badge>
 }
 
 /* ── negotiation runner ─────────────────────────────────────────────── */
 
 function NegotiationView({ neg, startRel, onFinish }: { neg: Negotiation; startRel: number; onFinish: (agreed: number, relDelta: number, points: number) => void }) {
+  const { t } = useTranslation()
   const [round, setRound] = useState(0)
   const [current, setCurrent] = useState(neg.start)
   const [relDelta, setRelDelta] = useState(0)
@@ -119,7 +122,7 @@ function NegotiationView({ neg, startRel, onFinish }: { neg: Negotiation; startR
           </div>
           <div className="ml-auto text-right">
             <p className="text-lg font-extrabold tabular-nums" style={{ color: ACCENT }}>{neg.unit === "×" ? fmtX(current) : fmtM(current)}</p>
-            <p className="text-[9px] text-muted-foreground uppercase">on the table</p>
+            <p className="text-[9px] text-muted-foreground uppercase">{t("bankCareers.dealRoom.onTheTable")}</p>
           </div>
         </div>
         <p className="text-sm text-foreground/90 leading-relaxed">{r.theirLine}</p>
@@ -127,7 +130,7 @@ function NegotiationView({ neg, startRel, onFinish }: { neg: Negotiation; startR
 
       {/* your move */}
       <div className="space-y-1.5">
-        <p className="text-[11px] font-extrabold uppercase tracking-wide text-muted-foreground flex items-center gap-1"><Handshake className="h-3.5 w-3.5" /> Your move · round {round + 1} of {neg.rounds.length}</p>
+        <p className="text-[11px] font-extrabold uppercase tracking-wide text-muted-foreground flex items-center gap-1"><Handshake className="h-3.5 w-3.5" /> {t("bankCareers.dealRoom.yourMove", { round: round + 1, total: neg.rounds.length })}</p>
         {rChoices.map((ch, i) => {
           const isPicked = picked === i
           const revealed = picked !== null
@@ -152,14 +155,14 @@ function NegotiationView({ neg, startRel, onFinish }: { neg: Negotiation; startR
             <div className="rounded-xl bg-muted/50 p-3">
               <div className="flex items-center gap-2 mb-1.5">
                 <Avatar name={neg.counterparty} />
-                <span className="text-xs font-bold">{neg.counterparty} replies</span>
+                <span className="text-xs font-bold">{t("bankCareers.dealRoom.replies", { name: neg.counterparty })}</span>
                 <span className="ml-auto text-xs font-extrabold tabular-nums" style={{ color: ACCENT }}>{neg.unit === "×" ? fmtX(afterNumber) : fmtM(afterNumber)}</span>
               </div>
               <p className="text-sm text-foreground/90 leading-relaxed">{chosen.reply}</p>
               <p className="text-[11px] text-muted-foreground leading-relaxed mt-2 pt-2 border-t border-border/50">{chosen.feedback}</p>
             </div>
             <Button size="lg" className="w-full press-scale gap-1.5" onClick={advance}>
-              {isLast ? "Shake on it" : "Next round"} <ChevronRight className="h-4 w-4" />
+              {isLast ? t("bankCareers.dealRoom.shakeOnIt") : t("bankCareers.dealRoom.nextRound")} <ChevronRight className="h-4 w-4" />
             </Button>
           </motion.div>
         )}
@@ -171,6 +174,7 @@ function NegotiationView({ neg, startRel, onFinish }: { neg: Negotiation; startR
 /* ── term sheet sidebar ─────────────────────────────────────────────── */
 
 function TermSheet({ v, company }: { v: PeVars; company: string }) {
+  const { t } = useTranslation()
   const hasEntry = v.entryMultiple > 0
   const Row = ({ k, val, show = true }: { k: string; val: string; show?: boolean }) => (
     <div className="flex items-baseline justify-between gap-2 py-1">
@@ -182,23 +186,23 @@ function TermSheet({ v, company }: { v: PeVars; company: string }) {
   return (
     <Card variant="elevated">
       <CardContent className="p-4">
-        <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-muted-foreground mb-2 flex items-center gap-1.5"><FileText className="h-3.5 w-3.5" /> Deal terms</p>
+        <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-muted-foreground mb-2 flex items-center gap-1.5"><FileText className="h-3.5 w-3.5" /> {t("bankCareers.dealRoom.terms.title")}</p>
         <div className="divide-y divide-border/50">
-          <Row k="Company" val={company} />
-          <Row k="Entry profit" val={fmtM(v.ebitda)} />
-          <Row k="Purchase multiple" val={fmtX(v.entryMultiple)} show={hasEntry} />
-          <Row k="Purchase price" val={fmtM(entryEV(v))} show={hasEntry} />
-          <Row k="Debt (leverage)" val={`${fmtM(entryDebt(v))} · ${v.leverageMult}×`} show={hasEntry} />
-          <Row k="Your equity check" val={fmtM(entryEquity(v))} show={hasEntry} />
-          <Row k="Banker rapport" val={`${v.bankerRel}/100`} />
+          <Row k={t("bankCareers.dealRoom.terms.company")} val={company} />
+          <Row k={t("bankCareers.dealRoom.terms.entryProfit")} val={fmtM(v.ebitda)} />
+          <Row k={t("bankCareers.dealRoom.terms.purchaseMultiple")} val={fmtX(v.entryMultiple)} show={hasEntry} />
+          <Row k={t("bankCareers.dealRoom.terms.purchasePrice")} val={fmtM(entryEV(v))} show={hasEntry} />
+          <Row k={t("bankCareers.dealRoom.terms.debtLeverage")} val={`${fmtM(entryDebt(v))} · ${v.leverageMult}×`} show={hasEntry} />
+          <Row k={t("bankCareers.dealRoom.terms.equityCheck")} val={fmtM(entryEquity(v))} show={hasEntry} />
+          <Row k={t("bankCareers.dealRoom.terms.bankerRapport")} val={`${v.bankerRel}/100`} />
         </div>
         {ex && (
           <div className="mt-3 pt-3 border-t-2" style={{ borderColor: `${ACCENT}55` }}>
-            <p className="text-[10px] uppercase font-extrabold" style={{ color: ACCENT }}>At exit</p>
+            <p className="text-[10px] uppercase font-extrabold" style={{ color: ACCENT }}>{t("bankCareers.dealRoom.terms.atExit")}</p>
             <div className="divide-y divide-border/50">
-              <Row k="Exit profit" val={fmtM(ex.exitEbitda)} />
-              <Row k="Exit multiple" val={fmtX(ex.exitMultiple)} />
-              <Row k="Equity value" val={fmtM(ex.exitEquity)} />
+              <Row k={t("bankCareers.dealRoom.terms.exitProfit")} val={fmtM(ex.exitEbitda)} />
+              <Row k={t("bankCareers.dealRoom.terms.exitMultiple")} val={fmtX(ex.exitMultiple)} />
+              <Row k={t("bankCareers.dealRoom.terms.equityValue")} val={fmtM(ex.exitEquity)} />
             </div>
             <div className="mt-2 flex items-center justify-between rounded-lg px-3 py-2" style={{ background: `${ACCENT}18` }}>
               <span className="text-xs font-extrabold">MOIC</span>
@@ -214,6 +218,7 @@ function TermSheet({ v, company }: { v: PeVars; company: string }) {
 /* ── main ───────────────────────────────────────────────────────────── */
 
 export default function PeDealRoom({ career }: { career: Career; week: number }) {
+  const { t } = useTranslation()
   const { earnJeffs } = useApp()
   const dealId = useBankStore(s => s.peDealId)
   const step = useBankStore(s => s.peDealStep)
@@ -259,10 +264,10 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
     return (
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-2">
-          <h3 className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-muted-foreground flex items-center gap-1.5"><Landmark className="h-3.5 w-3.5" /> Case-study library</h3>
-          <span className="text-[11px] text-muted-foreground">{Object.keys(done).length}/{DEALS.length} closed</span>
+          <h3 className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-muted-foreground flex items-center gap-1.5"><Landmark className="h-3.5 w-3.5" /> {t("bankCareers.dealRoom.library.title")}</h3>
+          <span className="text-[11px] text-muted-foreground">{t("bankCareers.dealRoom.library.closed", { done: Object.keys(done).length, total: DEALS.length })}</span>
         </div>
-        <p className="text-xs text-muted-foreground -mt-1">Nine real deals, each a different PE playbook. Pick one and run it end to end: emails, negotiations, and all.</p>
+        <p className="text-xs text-muted-foreground -mt-1">{t("bankCareers.dealRoom.library.intro")}</p>
         <div className="grid sm:grid-cols-2 gap-2.5">
           {DEALS.map(d => {
             const best = done[d.id]
@@ -299,11 +304,11 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
         <Card variant="elevated" className="overflow-hidden">
           <div className={`bg-gradient-to-br ${career.gradient} p-5 text-white text-center`}>
             <Trophy className="h-8 w-8 mx-auto mb-1" />
-            <p className="font-display text-lg font-extrabold">Deal complete</p>
-            <p className="text-sm text-white/80">Back to the library for the next case study.</p>
+            <p className="font-display text-lg font-extrabold">{t("bankCareers.dealRoom.complete.title")}</p>
+            <p className="text-sm text-white/80">{t("bankCareers.dealRoom.complete.body")}</p>
           </div>
           <CardContent className="p-4">
-            <Button className="w-full gap-1.5" onClick={() => { exitDeal(); setPaid(false) }}><ChevronLeft className="h-4 w-4" /> Back to the library</Button>
+            <Button className="w-full gap-1.5" onClick={() => { exitDeal(); setPaid(false) }}><ChevronLeft className="h-4 w-4" /> {t("bankCareers.dealRoom.backToLibrary")}</Button>
           </CardContent>
         </Card>
       </div>
@@ -315,7 +320,7 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
       {/* deal header */}
       <div className="flex items-center gap-2">
         <button onClick={() => exitDeal()} className="text-[11px] font-bold text-muted-foreground hover:text-foreground flex items-center gap-0.5 shrink-0">
-          <ChevronLeft className="h-3.5 w-3.5" /> Library
+          <ChevronLeft className="h-3.5 w-3.5" /> {t("bankCareers.dealRoom.library.short")}
         </button>
         <span className="text-muted-foreground/40">·</span>
         <span className="text-sm font-extrabold truncate">{deal.emoji} {deal.company}</span>
@@ -353,7 +358,7 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
                 </div>
                 <CardContent className="p-4 space-y-3">
                   {cur.body.map((p, i) => <p key={i} className="text-sm leading-relaxed text-foreground/90">{p}</p>)}
-                  <p className="text-xs text-muted-foreground italic">From {cur.from.name}</p>
+                  <p className="text-xs text-muted-foreground italic">{t("bankCareers.dealRoom.from", { name: cur.from.name })}</p>
                   <Button size="lg" className="w-full press-scale gap-1.5" onClick={() => go()}>{cur.cta} <ChevronRight className="h-4 w-4" /></Button>
                 </CardContent>
               </Card>
@@ -363,7 +368,7 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
             {cur.kind === "document" && (
               <Card variant="elevated" className="overflow-hidden">
                 <div className={`bg-gradient-to-r ${career.gradient} px-4 py-3 text-white`}>
-                  <p className="text-[10px] uppercase tracking-widest text-white/70 flex items-center gap-1"><FileText className="h-3 w-3" /> Confidential</p>
+                  <p className="text-[10px] uppercase tracking-widest text-white/70 flex items-center gap-1"><FileText className="h-3 w-3" /> {t("bankCareers.dealRoom.confidential")}</p>
                   <p className="font-display font-extrabold">{cur.title}</p>
                   <p className="text-[11px] text-white/70">{cur.subtitle}</p>
                 </div>
@@ -377,11 +382,11 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
                     ))}
                   </div>
                   <div>
-                    <p className="text-[10px] uppercase font-extrabold text-emerald-600 dark:text-emerald-400 mb-1">Why it's attractive</p>
+                    <p className="text-[10px] uppercase font-extrabold text-emerald-600 dark:text-emerald-400 mb-1">{t("bankCareers.dealRoom.whyAttractive")}</p>
                     <ul className="space-y-1">{cur.highlights.map((h, i) => <li key={i} className="text-xs text-foreground/85 flex gap-1.5"><span style={{ color: ACCENT }}>+</span>{h}</li>)}</ul>
                   </div>
                   <div>
-                    <p className="text-[10px] uppercase font-extrabold text-red-500 mb-1">Watch out for</p>
+                    <p className="text-[10px] uppercase font-extrabold text-red-500 mb-1">{t("bankCareers.dealRoom.watchOutFor")}</p>
                     <ul className="space-y-1">{cur.risks.map((rk, i) => <li key={i} className="text-xs text-foreground/85 flex gap-1.5"><span className="text-red-500">!</span>{rk}</li>)}</ul>
                   </div>
                   <Button size="lg" className="w-full press-scale gap-1.5" onClick={() => go()}>{cur.cta} <ChevronRight className="h-4 w-4" /></Button>
@@ -420,7 +425,7 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
                     })}
                   </div>
                   {picked !== null && (
-                    <Button size="lg" className="w-full press-scale gap-1.5" onClick={() => go(applyChoice(vars, decisionChoices[picked]))}>Continue <ChevronRight className="h-4 w-4" /></Button>
+                    <Button size="lg" className="w-full press-scale gap-1.5" onClick={() => go(applyChoice(vars, decisionChoices[picked]))}>{t("bankCareers.dealRoom.continue")} <ChevronRight className="h-4 w-4" /></Button>
                   )}
                 </CardContent>
               </Card>
@@ -432,7 +437,7 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
                 <div className="px-4 py-2.5 border-b border-border/60 bg-muted/30 flex items-center gap-2.5">
                   <Avatar name={cur.person.name} />
                   <div><p className="text-xs font-bold leading-tight">{cur.person.name}</p><p className="text-[11px] text-muted-foreground">{cur.person.role}</p></div>
-                  <Badge variant="outline" className="ml-auto text-[10px] gap-1"><MessageSquare className="h-3 w-3" /> pick {cur.pickCount}</Badge>
+                  <Badge variant="outline" className="ml-auto text-[10px] gap-1"><MessageSquare className="h-3 w-3" /> {t("bankCareers.dealRoom.pick", { count: cur.pickCount })}</Badge>
                 </div>
                 <CardContent className="p-4 space-y-3">
                   {cur.intro.map((p, i) => <p key={i} className="text-sm leading-relaxed text-foreground/90">{p}</p>)}
@@ -461,9 +466,9 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
                     return (
                       <>
                         <p className="text-xs text-muted-foreground leading-relaxed border-t border-border/50 pt-2">
-                          {keyCount === 3 ? "You spent every question on what actually matters - they can tell you get it." : keyCount >= 1 ? `You surfaced ${keyCount} of the real risks. A couple of questions were charm, not diligence.` : "Friendly chat - but you didn't probe the risks that decide this deal."}
+                          {keyCount === 3 ? t("bankCareers.dealRoom.meetingSummary.all") : keyCount >= 1 ? t("bankCareers.dealRoom.meetingSummary.some", { count: keyCount }) : t("bankCareers.dealRoom.meetingSummary.none")}
                         </p>
-                        <Button size="lg" className="w-full press-scale gap-1.5" onClick={() => go(patch)}>Head back to the office <ChevronRight className="h-4 w-4" /></Button>
+                        <Button size="lg" className="w-full press-scale gap-1.5" onClick={() => go(patch)}>{t("bankCareers.dealRoom.headBack")} <ChevronRight className="h-4 w-4" /></Button>
                       </>
                     )
                   })()}
@@ -475,7 +480,7 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
             {cur.kind === "negotiation" && (
               <Card variant="elevated" className="overflow-hidden">
                 <div className={`bg-gradient-to-r ${career.gradient} px-4 py-3 text-white`}>
-                  <p className="text-[10px] uppercase tracking-widest text-white/70 flex items-center gap-1"><Handshake className="h-3 w-3" /> Negotiation</p>
+                  <p className="text-[10px] uppercase tracking-widest text-white/70 flex items-center gap-1"><Handshake className="h-3 w-3" /> {t("bankCareers.dealRoom.negotiation")}</p>
                   <p className="font-display font-extrabold">{cur.neg.title}</p>
                 </div>
                 <CardContent className="p-4 space-y-3">
@@ -487,7 +492,7 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
                         bankerRel: clamp(vars.bankerRel + relDelta),
                         score: vars.score + pts,
                       } as Partial<PeVars>
-                      addMemo({ careerId: career.id, week: 0, dealTitle: `${deal.company} · ${cur.neg.title}`, prompt: "What was your negotiating approach?", text: `Agreed ${cur.neg.unit === "×" ? fmtX(agreed) : fmtM(agreed)} with ${cur.neg.counterparty}.` })
+                      addMemo({ careerId: career.id, week: 0, dealTitle: `${deal.company} · ${cur.neg.title}`, prompt: t("bankCareers.dealRoom.memo.negPrompt"), text: t("bankCareers.dealRoom.memo.negText", { amount: cur.neg.unit === "×" ? fmtX(agreed) : fmtM(agreed), name: cur.neg.counterparty }) })
                       go(patch)
                     }} />
                 </CardContent>
@@ -515,9 +520,9 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
 
         <div className="lg:sticky lg:top-3 space-y-2">
           <TermSheet v={vars} company={deal.company} />
-          <button onClick={() => { if (confirm("Restart this deal from the beginning?")) restart() }}
+          <button onClick={() => { if (confirm(t("bankCareers.dealRoom.restartConfirm"))) restart() }}
             className="w-full text-[11px] text-muted-foreground hover:text-foreground flex items-center justify-center gap-1 py-1">
-            <RotateCcw className="h-3 w-3" /> Restart deal
+            <RotateCcw className="h-3 w-3" /> {t("bankCareers.dealRoom.restartDeal")}
           </button>
         </div>
       </div>
@@ -528,9 +533,10 @@ export default function PeDealRoom({ career }: { career: Career; week: number })
 /* ── milestone card (close / exit scorecard) ────────────────────────── */
 
 function MilestoneCard({ step, vars, career, paid, onContinue }: { step: Extract<Step, { kind: "milestone" }>; vars: PeVars; career: Career; paid: boolean; onContinue: () => void }) {
+  const { t } = useTranslation()
   const ex: ExitResult | null = step.variant === "exit" ? computeExit(vars) : null
   const bonus = step.variant === "closed" ? closeBonus(vars) : ex ? exitCarry(vars, ex.moic) : 0
-  const grade = ex ? (ex.moic >= 3 ? "Home run" : ex.moic >= 2 ? "Strong win" : ex.moic >= 1.3 ? "Solid" : ex.moic >= 1 ? "Money back" : "A loss") : ""
+  const grade = ex ? (ex.moic >= 3 ? t("bankCareers.dealRoom.grade.homeRun") : ex.moic >= 2 ? t("bankCareers.dealRoom.grade.strongWin") : ex.moic >= 1.3 ? t("bankCareers.dealRoom.grade.solid") : ex.moic >= 1 ? t("bankCareers.dealRoom.grade.moneyBack") : t("bankCareers.dealRoom.grade.loss")) : ""
 
   return (
     <Card variant="elevated" className="overflow-hidden">
@@ -546,28 +552,28 @@ function MilestoneCard({ step, vars, career, paid, onContinue }: { step: Extract
             <div className="grid grid-cols-3 gap-2 text-center">
               <div><p className="text-[10px] text-muted-foreground uppercase font-bold">MOIC</p><p className="text-lg font-extrabold" style={{ color: ex.moic >= 1 ? "#10b981" : "#ef4444" }}>{ex.moic}×</p></div>
               <div><p className="text-[10px] text-muted-foreground uppercase font-bold">IRR</p><p className="text-lg font-extrabold" style={{ color: ex.irr >= 0 ? "#10b981" : "#ef4444" }}>{ex.irr}%</p></div>
-              <div><p className="text-[10px] text-muted-foreground uppercase font-bold">Grade</p><p className="text-sm font-extrabold pt-1">{grade}</p></div>
+              <div><p className="text-[10px] text-muted-foreground uppercase font-bold">{t("bankCareers.dealRoom.scorecard.grade")}</p><p className="text-sm font-extrabold pt-1">{grade}</p></div>
             </div>
             <p className="text-[11px] text-muted-foreground text-center leading-relaxed">
-              Bought at {fmtX(vars.entryMultiple)} for {fmtM(entryEquity(vars))} of equity · sold at {fmtX(ex.exitMultiple)} · profit grew {fmtM(vars.ebitda)} → {fmtM(ex.exitEbitda)}.
+              {t("bankCareers.dealRoom.scorecard.summary", { entryMult: fmtX(vars.entryMultiple), equity: fmtM(entryEquity(vars)), exitMult: fmtX(ex.exitMultiple), entryProfit: fmtM(vars.ebitda), exitProfit: fmtM(ex.exitEbitda) })}
             </p>
           </div>
         )}
 
         {step.variant === "closed" && (
           <div className="grid grid-cols-3 gap-2 text-center rounded-xl bg-muted/40 p-3">
-            <div><p className="text-[10px] text-muted-foreground uppercase font-bold">Price</p><p className="text-sm font-extrabold">{fmtM(entryEV(vars))}</p></div>
-            <div><p className="text-[10px] text-muted-foreground uppercase font-bold">Debt</p><p className="text-sm font-extrabold">{fmtM(entryDebt(vars))}</p></div>
-            <div><p className="text-[10px] text-muted-foreground uppercase font-bold">Your equity</p><p className="text-sm font-extrabold" style={{ color: ACCENT }}>{fmtM(entryEquity(vars))}</p></div>
+            <div><p className="text-[10px] text-muted-foreground uppercase font-bold">{t("bankCareers.dealRoom.scorecard.price")}</p><p className="text-sm font-extrabold">{fmtM(entryEV(vars))}</p></div>
+            <div><p className="text-[10px] text-muted-foreground uppercase font-bold">{t("bankCareers.dealRoom.scorecard.debt")}</p><p className="text-sm font-extrabold">{fmtM(entryDebt(vars))}</p></div>
+            <div><p className="text-[10px] text-muted-foreground uppercase font-bold">{t("bankCareers.dealRoom.scorecard.yourEquity")}</p><p className="text-sm font-extrabold" style={{ color: ACCENT }}>{fmtM(entryEquity(vars))}</p></div>
           </div>
         )}
 
         <div className="flex items-center justify-center gap-1.5 text-sm font-bold" style={{ color: ACCENT }}>
-          <Coins className="h-4 w-4" /> {step.variant === "closed" ? "Associate bonus" : "Your carried interest"}: +{bonus.toLocaleString()} coins
+          <Coins className="h-4 w-4" /> {step.variant === "closed" ? t("bankCareers.dealRoom.associateBonus", { amount: bonus.toLocaleString() }) : t("bankCareers.dealRoom.carriedInterest", { amount: bonus.toLocaleString() })}
         </div>
 
         <Button size="lg" className="w-full press-scale gap-1.5" onClick={onContinue}>
-          {step.variant === "exit" ? <><RotateCcw className="h-4 w-4" /> New deal</> : <>On to the 100-day plan <ChevronRight className="h-4 w-4" /></>}
+          {step.variant === "exit" ? <><RotateCcw className="h-4 w-4" /> {t("bankCareers.dealRoom.newDeal")}</> : <>{t("bankCareers.dealRoom.onTo100Day")} <ChevronRight className="h-4 w-4" /></>}
         </Button>
       </CardContent>
     </Card>

@@ -1,4 +1,5 @@
 import React from "react"
+import { useTranslation, Trans } from "react-i18next"
 import { Coins, Clock, Swords, Trophy, Check, X, Hourglass } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -18,9 +19,10 @@ interface Props {
 
 // A player's score column in the head-to-head layout.
 function Side({ name, score, unit, leading, isMe }: { name: string; score: number | null; unit: string; leading: boolean; isMe: boolean }) {
+  const { t } = useTranslation()
   return (
     <div className={`flex-1 rounded-xl p-3 text-center ${leading ? "bg-gold/10 ring-1 ring-gold/30" : "bg-muted/50"}`}>
-      <p className="text-xs font-semibold truncate mb-1">{isMe ? "You" : name}</p>
+      <p className="text-xs font-semibold truncate mb-1">{isMe ? t("challenges.you") : name}</p>
       <p className="text-2xl font-bold tabular-nums leading-none">{score == null ? "-" : score.toLocaleString()}</p>
       <p className="text-[10px] text-muted-foreground mt-1">{unit}</p>
     </div>
@@ -28,6 +30,7 @@ function Side({ name, score, unit, leading, isMe }: { name: string; score: numbe
 }
 
 export default function DuelCard({ duel, role, oppName, myScore, oppScore, busy, onAccept, onDecline, onCancel }: Props) {
+  const { t } = useTranslation()
   const meta = metricMeta(duel.metric)
   const isPending = duel.status === "pending"
   const incomingInvite = isPending && role === "opponent"
@@ -45,7 +48,7 @@ export default function DuelCard({ duel, role, oppName, myScore, oppScore, busy,
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-2 min-w-0">
             <Swords className="w-5 h-5 shrink-0" />
-            <h3 className="font-display font-bold text-base leading-tight truncate">Duel vs {oppName}</h3>
+            <h3 className="font-display font-bold text-base leading-tight truncate">{t("challenges.duelVs", { name: oppName })}</h3>
           </div>
           <Badge className="bg-primary-foreground/15 text-primary-foreground border-0 shrink-0">{meta.tracking}</Badge>
         </div>
@@ -55,17 +58,21 @@ export default function DuelCard({ duel, role, oppName, myScore, oppScore, busy,
       <div className="p-4 flex-1">
         {incomingInvite ? (
           <div className="text-center py-2">
-            <p className="text-sm"><span className="font-bold">{oppName}</span> challenged you to a duel!</p>
-            <p className="text-xs text-muted-foreground mt-1">{meta.tracking} · ends {timeRemaining(duel.ends_at).toLowerCase()}</p>
+            <p className="text-sm">
+              <Trans i18nKey="challenges.duel.challengedYou" values={{ name: oppName }} components={{ b: <span className="font-bold" /> }} />
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">{t("challenges.duel.trackingEnds", { tracking: meta.tracking, ends: timeRemaining(duel.ends_at).toLowerCase() })}</p>
             <div className="mt-3 inline-flex items-center gap-1.5 bg-gold/10 text-gold px-3 py-1.5 rounded-xl text-sm font-bold border border-gold/15">
-              <Coins className="w-4 h-4" /> Stake {duel.entry_fee} to accept · win {duel.entry_fee * 2}
+              <Coins className="w-4 h-4" /> {t("challenges.duel.stakeToAccept", { fee: duel.entry_fee, win: duel.entry_fee * 2 })}
             </div>
           </div>
         ) : sentInvite ? (
           <div className="text-center py-3">
             <Hourglass className="w-6 h-6 text-muted-foreground/60 mx-auto mb-2" />
-            <p className="text-sm">Waiting for <span className="font-bold">{oppName}</span> to accept…</p>
-            <p className="text-xs text-muted-foreground mt-1">You staked {duel.entry_fee} coins. Refunded if they decline.</p>
+            <p className="text-sm">
+              <Trans i18nKey="challenges.duel.waitingFor" values={{ name: oppName }} components={{ b: <span className="font-bold" /> }} />
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">{t("challenges.duel.youStaked", { fee: duel.entry_fee })}</p>
           </div>
         ) : (
           <>
@@ -73,12 +80,12 @@ export default function DuelCard({ duel, role, oppName, myScore, oppScore, busy,
             <div className="flex items-stretch gap-2">
               <Side name="You" score={myScore} unit={meta.unit} leading={myLeads} isMe />
               <div className="flex flex-col items-center justify-center px-1">
-                <span className="text-xs font-black text-muted-foreground">VS</span>
+                <span className="text-xs font-black text-muted-foreground">{t("challenges.duel.vs")}</span>
               </div>
               <Side name={oppName} score={oppScore} unit={meta.unit} leading={oppLeads} isMe={false} />
             </div>
             <div className="flex items-center justify-center gap-4 mt-3 text-xs text-muted-foreground">
-              <span className="inline-flex items-center gap-1"><Coins className="w-3.5 h-3.5 text-gold" /> {duel.pot} pot</span>
+              <span className="inline-flex items-center gap-1"><Coins className="w-3.5 h-3.5 text-gold" /> {t("challenges.potLabel", { amount: duel.pot })}</span>
               <span className="inline-flex items-center gap-1"><Clock className="w-3.5 h-3.5 text-primary" /> {timeRemaining(duel.ends_at)}</span>
             </div>
           </>
@@ -90,19 +97,19 @@ export default function DuelCard({ duel, role, oppName, myScore, oppScore, busy,
         {incomingInvite ? (
           <div className="flex gap-2">
             <Button variant="outline" className="flex-1 press-scale" disabled={busy} onClick={() => onDecline(duel)}>
-              <X className="w-4 h-4 mr-1" /> Decline
+              <X className="w-4 h-4 mr-1" /> {t("challenges.duel.decline")}
             </Button>
             <Button className="flex-1 press-scale" disabled={busy} onClick={() => onAccept(duel)}>
-              <Check className="w-4 h-4 mr-1" /> Accept · {duel.entry_fee}
+              <Check className="w-4 h-4 mr-1" /> {t("challenges.duel.accept", { fee: duel.entry_fee })}
             </Button>
           </div>
         ) : sentInvite ? (
           <Button variant="ghost" size="sm" className="w-full text-destructive hover:text-destructive press-scale" disabled={busy} onClick={() => onCancel(duel)}>
-            <X className="w-4 h-4 mr-1" /> Cancel & refund
+            <X className="w-4 h-4 mr-1" /> {t("challenges.cancelAndRefund")}
           </Button>
         ) : (
           <div className="w-full h-9 rounded-lg bg-muted text-muted-foreground text-sm font-semibold flex items-center justify-center gap-1.5">
-            <Trophy className="w-4 h-4 text-gold" /> Duel in progress
+            <Trophy className="w-4 h-4 text-gold" /> {t("challenges.duel.inProgress")}
           </div>
         )}
       </div>

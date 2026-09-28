@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { AnimatePresence, motion } from "framer-motion"
 import { MessageCircle, X } from "lucide-react"
 import { useApp } from "@/contexts/AppContext"
@@ -98,6 +99,7 @@ export function JeffScene({ activity }: { activity: JeffActivity }) {
 }
 
 export function JeffWidget() {
+  const { t } = useTranslation()
   const location = useLocation()
   const { user } = useApp()
   // Server-side role (user_roles) - the same check App.tsx and the global
@@ -185,10 +187,10 @@ export function JeffWidget() {
         role="note"
         className="fixed right-24 bottom-[calc(5rem+env(safe-area-inset-bottom))] md:right-32 md:bottom-[6.5rem] z-40 flex max-w-[15rem] items-start gap-2 rounded-xl border border-border bg-card px-3 py-2 text-xs text-card-foreground shadow-lg"
       >
-        <span>Each question costs {ASK_JEFF_COST} coins. If Jeff can't answer, you get them back.</span>
+        <span>{t("jeff.costNote", { cost: ASK_JEFF_COST })}</span>
         <button
           type="button"
-          aria-label="Dismiss"
+          aria-label={t("jeff.dismiss")}
           onClick={dismissCostNote}
           className="-mr-1 -mt-0.5 rounded-full p-0.5 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
@@ -198,7 +200,7 @@ export function JeffWidget() {
     )}
     <motion.button
       type="button"
-      aria-label={`Ask Jeff, ${ASK_JEFF_COST} coins per question`}
+      aria-label={t("jeff.askJeffAria", { cost: ASK_JEFF_COST })}
       onClick={openChat}
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: chatOpen ? 0 : 1, y: chatOpen ? 8 : 0 }}
@@ -208,7 +210,7 @@ export function JeffWidget() {
       className="fixed right-24 bottom-[calc(2.25rem+env(safe-area-inset-bottom))] md:right-32 md:bottom-14 z-40 flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary px-3.5 py-2 text-xs font-bold text-primary-foreground shadow-lg hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
     >
       <MessageCircle className="w-4 h-4" />
-      Ask Jeff
+      {t("jeff.askJeff")}
     </motion.button>
     <JeffTutorPanel open={chatOpen} onOpenChange={(o) => { setChatOpen(o); if (!o) setSeedPrompt(undefined) }} initialPrompt={seedPrompt} />
     </>
@@ -236,7 +238,7 @@ export function JeffWidget() {
         <JeffScene activity={activity} />
         <motion.button
           type="button"
-          aria-label="Jeff says hi"
+          aria-label={t("jeff.saysHiAria")}
           onClick={nudge}
           onHoverStart={() => setHovered(true)}
           onHoverEnd={() => setHovered(false)}

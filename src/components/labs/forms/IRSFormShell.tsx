@@ -7,6 +7,7 @@
 // rest of the UI. The wrapping <IRSFormShell> is horizontally scrollable inside
 // a bordered container on mobile rather than reflowing into a stack.
 import React from "react"
+import { useTranslation } from "react-i18next"
 import { Info, Check, X } from "lucide-react"
 import {
   Tooltip,
@@ -32,6 +33,7 @@ export function IRSFormShell({
   omb: string
   children: React.ReactNode
 }) {
+  const { t } = useTranslation()
   return (
     <div className="rounded-lg border border-border bg-muted/20 p-1.5">
       {/* Horizontal scroll on narrow screens; the sheet keeps a fixed min width
@@ -58,7 +60,7 @@ export function IRSFormShell({
             <div className="flex w-40 flex-col justify-center border-l-2 border-black px-2 py-2 text-right">
               <div className="text-[9px] leading-tight">OMB No. {omb}</div>
               <div className="mt-1 text-[9px] leading-tight text-black/70">
-                For simulation / education only — do not enter real SSNs.
+                {t("irsLab.simulationNotice")}
               </div>
             </div>
           </div>
@@ -104,13 +106,14 @@ export function BoxRow({ children }: { children: React.ReactNode }) {
 // ── One numbered box ──────────────────────────────────────────────────────
 
 function WhyTip({ text }: { text: string }) {
+  const { t } = useTranslation()
   return (
     <TooltipProvider delayDuration={100}>
       <Tooltip>
         <TooltipTrigger asChild>
           <button
             type="button"
-            aria-label="Why does this box exist?"
+            aria-label={t("irsLab.whyBoxExists")}
             className="ml-1 inline-flex text-black/50 hover:text-black focus:outline-none"
           >
             <Info className="h-3 w-3" />

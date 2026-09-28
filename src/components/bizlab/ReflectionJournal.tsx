@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { BookHeart, Check } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
@@ -22,6 +23,7 @@ export default function ReflectionJournal({
   partId: string
   prompts: ReflectionPrompt[]
 }) {
+  const { t } = useTranslation()
   const journals = useBizLabStore(s => s.journals)
   const saveJournal = useBizLabStore(s => s.saveJournal)
   const hasAwarded = useBizLabStore(s => s.hasAwarded)
@@ -46,11 +48,11 @@ export default function ReflectionJournal({
     prompts.forEach(p => saveJournal(p.id, drafts[p.id] ?? ""))
     touchStreak()
     if (allAnswered && !alreadyPaid) {
-      earnJeffs(JOURNAL_XP, "Biz Lab reflection journal")
+      earnJeffs(JOURNAL_XP, t("bizlab.reflection.reason"))
       markAwarded(awardKey)
-      toast({ title: "Reflections saved!", description: `+${JOURNAL_XP} InvestiCoins for your thoughtful answers.` })
+      toast({ title: t("bizlab.reflection.paidToastTitle"), description: t("bizlab.reflection.paidToastDescription", { xp: JOURNAL_XP }) })
     } else {
-      toast({ title: "Saved", description: "Your reflections are stored." })
+      toast({ title: t("bizlab.reflection.savedToastTitle"), description: t("bizlab.reflection.savedToastDescription") })
     }
   }
 
@@ -58,10 +60,10 @@ export default function ReflectionJournal({
     <div className="rounded-2xl border border-border/60 bg-muted/30 p-5">
       <div className="flex items-center gap-2 mb-4">
         <BookHeart className="w-5 h-5 text-pink-500" />
-        <h4 className="font-display font-bold text-lg">Reflection Journal</h4>
+        <h4 className="font-display font-bold text-lg">{t("bizlab.reflection.title")}</h4>
         {alreadyPaid && (
           <span className="ml-auto inline-flex items-center gap-1 text-xs font-semibold text-success">
-            <Check className="w-3.5 h-3.5" /> Completed
+            <Check className="w-3.5 h-3.5" /> {t("bizlab.reflection.completed")}
           </span>
         )}
       </div>
@@ -74,14 +76,14 @@ export default function ReflectionJournal({
             <Textarea
               value={drafts[p.id] ?? ""}
               onChange={e => setDrafts(d => ({ ...d, [p.id]: e.target.value }))}
-              placeholder="Write your reflection..."
+              placeholder={t("bizlab.reflection.placeholder")}
               rows={3}
             />
           </div>
         ))}
       </div>
       <Button onClick={handleSave} className="mt-4" variant="hero">
-        Save Reflections
+        {t("bizlab.reflection.saveButton")}
       </Button>
     </div>
   )

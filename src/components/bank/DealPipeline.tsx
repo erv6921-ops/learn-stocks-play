@@ -6,6 +6,7 @@
 // lives in bankStore.
 
 import { useMemo, useState } from "react"
+import { useTranslation, Trans } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -28,6 +29,7 @@ const NO_PIPE: Engagement[] = []
 type Selected = { mode: "mandate" | "engagement"; id: string } | null
 
 export default function DealPipeline({ career, week }: { career: Career; week: number }) {
+  const { t } = useTranslation()
   const { earnJeffs } = useApp()
   const pipeline = useBankStore(s => s.ibPipeline) ?? NO_PIPE
   const feesYtd = useBankStore(s => s.ibFeesYtd)
@@ -62,8 +64,8 @@ export default function DealPipeline({ career, week }: { career: Career; week: n
   const win = (e: Engagement, pitchText: string) => {
     if (wonIds.has(e.id)) return
     winMandate(e)
-    addMemo({ careerId: career.id, week, dealTitle: `Pitch won · ${e.project} (${e.client})`, prompt: "Why should the client hire you?", text: pitchText })
-    setFlash(`You won the mandate on ${e.project} for ${e.client}! Now execute it stage by stage to earn the fee.`)
+    addMemo({ careerId: career.id, week, dealTitle: t("bankCareers.pipeline.memo.pitchTitle", { project: e.project, client: e.client }), prompt: t("bankCareers.pipeline.memo.pitchPrompt"), text: pitchText })
+    setFlash(t("bankCareers.pipeline.flash.wonMandate", { project: e.project, client: e.client }))
     setSelected({ mode: "engagement", id: e.id })
     setTab("pipeline")
   }
@@ -72,9 +74,9 @@ export default function DealPipeline({ career, week }: { career: Career; week: n
     const fee = result.closedFee ?? 0
     if (fee > 0) earnJeffs(fee, `Success fee · ${engagement.project} (${engagement.client})`)
     workDeal(career.id, engagement.id, result.patch, result.repDelta, fee)
-    addMemo({ careerId: career.id, week, dealTitle: `Deal memo · ${engagement.project}: ${writeUp.headline}`, prompt: writeUp.question, text: writeUp.text })
-    if (result.closedFee) setFlash(`${engagement.project} closed! You banked a ${result.closedFee.toLocaleString()}-coin success fee. 🎉`)
-    else if (result.broke) setFlash(`${engagement.project} fell apart. No fee this time - execution risk is real.`)
+    addMemo({ careerId: career.id, week, dealTitle: t("bankCareers.pipeline.memo.dealTitle", { project: engagement.project, headline: writeUp.headline }), prompt: writeUp.question, text: writeUp.text })
+    if (result.closedFee) setFlash(t("bankCareers.pipeline.flash.closed", { project: engagement.project, fee: result.closedFee.toLocaleString() }))
+    else if (result.broke) setFlash(t("bankCareers.pipeline.flash.broke", { project: engagement.project }))
   }
 
   // ── detail ──
@@ -111,20 +113,20 @@ export default function DealPipeline({ career, week }: { career: Career; week: n
         <div className="p-4 sm:p-5">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-white/70 flex items-center gap-1"><Briefcase className="h-3 w-3" /> Advisory Desk</p>
-              <p className="font-display text-xl font-extrabold leading-tight">{liveCount} live {liveCount === 1 ? "deal" : "deals"}</p>
-              <p className="text-[11px] text-white/70">Win the mandate · execute · collect the fee</p>
+              <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-white/70 flex items-center gap-1"><Briefcase className="h-3 w-3" /> {t("bankCareers.pipeline.deskName")}</p>
+              <p className="font-display text-xl font-extrabold leading-tight">{liveCount === 1 ? t("bankCareers.pipeline.liveDeals_one", { count: liveCount }) : t("bankCareers.pipeline.liveDeals_other", { count: liveCount })}</p>
+              <p className="text-[11px] text-white/70">{t("bankCareers.pipeline.heroTagline")}</p>
             </div>
             <div className="flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 shrink-0">
               <Trophy className="h-4 w-4" />
               <span className="font-display font-extrabold text-lg leading-none">#{myRank}</span>
-              <span className="text-[10px] text-white/70 uppercase">league</span>
+              <span className="text-[10px] text-white/70 uppercase">{t("bankCareers.pipeline.league")}</span>
             </div>
           </div>
           <div className="flex gap-2 mt-3.5 flex-wrap">
-            <Kpi label="Pipeline" value={pipeValue >= 1000 ? `${Math.round(pipeValue / 1000)}k` : pipeValue.toLocaleString()} />
-            <Kpi label="Fees YTD" value={feesYtd >= 1000 ? `${(feesYtd / 1000).toFixed(1)}k` : Math.round(feesYtd).toLocaleString()} />
-            <Kpi label="Mandates" value={String(mandates.length)} />
+            <Kpi label={t("bankCareers.pipeline.kpi.pipeline")} value={pipeValue >= 1000 ? `${Math.round(pipeValue / 1000)}k` : pipeValue.toLocaleString()} />
+            <Kpi label={t("bankCareers.pipeline.kpi.feesYtd")} value={feesYtd >= 1000 ? `${(feesYtd / 1000).toFixed(1)}k` : Math.round(feesYtd).toLocaleString()} />
+            <Kpi label={t("bankCareers.pipeline.kpi.mandates")} value={String(mandates.length)} />
           </div>
         </div>
       </div>
@@ -132,7 +134,7 @@ export default function DealPipeline({ career, week }: { career: Career; week: n
       {/* league table */}
       <Card variant="elevated">
         <CardContent className="p-3">
-          <p className="text-[10px] uppercase font-extrabold tracking-wide text-muted-foreground mb-2 flex items-center gap-1"><Swords className="h-3 w-3" /> League table · fees this season</p>
+          <p className="text-[10px] uppercase font-extrabold tracking-wide text-muted-foreground mb-2 flex items-center gap-1"><Swords className="h-3 w-3" /> {t("bankCareers.pipeline.leagueTable")}</p>
           <div className="space-y-1">
             {league.map((row, i) => (
               <div key={row.bank} className={cn("flex items-center gap-2 rounded-md px-2 py-1 text-xs", row.you && "font-bold")} style={row.you ? { background: `${career.accent}14` } : undefined}>
@@ -147,8 +149,8 @@ export default function DealPipeline({ career, week }: { career: Career; week: n
 
       <Card variant="elevated" className="overflow-hidden">
         <div className="p-1.5 flex gap-1.5 bg-muted/40">
-          <TabButton id="pipeline" label="Pipeline" icon={Layers} />
-          <TabButton id="mandates" label="Mandates" icon={Search} />
+          <TabButton id="pipeline" label={t("bankCareers.pipeline.tabs.pipeline")} icon={Layers} />
+          <TabButton id="mandates" label={t("bankCareers.pipeline.tabs.mandates")} icon={Search} />
         </div>
 
         <CardContent className="p-3 sm:p-4">
@@ -164,9 +166,9 @@ export default function DealPipeline({ career, week }: { career: Career; week: n
             liveDeals.length === 0 ? (
               <div className="text-center py-8 space-y-2">
                 <Layers className="h-7 w-7 mx-auto text-muted-foreground/60" />
-                <p className="text-sm font-semibold">No live deals yet</p>
-                <p className="text-xs text-muted-foreground max-w-xs mx-auto">Open the <b>Mandates</b> tab to pitch for a deal. Win it, then execute each stage to close and collect your success fee.</p>
-                <Button size="sm" variant="outline" className="mt-1" onClick={() => setTab("mandates")}>See mandates</Button>
+                <p className="text-sm font-semibold">{t("bankCareers.pipeline.empty.title")}</p>
+                <p className="text-xs text-muted-foreground max-w-xs mx-auto"><Trans i18nKey="bankCareers.pipeline.empty.body" components={{ b: <b /> }} /></p>
+                <Button size="sm" variant="outline" className="mt-1" onClick={() => setTab("mandates")}>{t("bankCareers.pipeline.empty.cta")}</Button>
               </div>
             ) : (
               <div className="space-y-2">
@@ -181,7 +183,7 @@ export default function DealPipeline({ career, week }: { career: Career; week: n
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="font-display font-extrabold text-sm">{e.project}</span>
                             <Badge variant="outline" className="text-[9px]">{meta.icon} {meta.short}</Badge>
-                            {needsYou && <Badge className="text-[9px]" style={{ background: career.accent }}>Needs you</Badge>}
+                            {needsYou && <Badge className="text-[9px]" style={{ background: career.accent }}>{t("bankCareers.pipeline.needsYou")}</Badge>}
                           </div>
                           <p className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-2">
                             <span className="truncate max-w-[120px]">{e.client}</span>
@@ -192,7 +194,7 @@ export default function DealPipeline({ career, week }: { career: Career; week: n
                         <div className="flex items-center gap-2 shrink-0">
                           <div className="text-right">
                             <p className="text-xs font-bold">{e.value.toLocaleString()}</p>
-                            <p className="text-[10px] text-muted-foreground">size</p>
+                            <p className="text-[10px] text-muted-foreground">{t("bankCareers.pipeline.size")}</p>
                           </div>
                           <ChevronRight className="h-4 w-4 text-muted-foreground" />
                         </div>
@@ -200,12 +202,12 @@ export default function DealPipeline({ career, week }: { career: Career; week: n
                     </button>
                   )
                 })}
-                <p className="text-[10px] text-muted-foreground text-center pt-1">Tap a deal to work its current stage. Keep the health up - two rookie calls in a row can break a deal.</p>
+                <p className="text-[10px] text-muted-foreground text-center pt-1">{t("bankCareers.pipeline.pipelineTip")}</p>
               </div>
             )
           ) : (
             <div className="space-y-2">
-              <p className="text-[11px] text-muted-foreground flex items-center gap-1.5"><Coins className="h-3.5 w-3.5" /> Pipeline value <b className="text-foreground">{pipeValue.toLocaleString()}</b> · new mandates each week</p>
+              <p className="text-[11px] text-muted-foreground flex items-center gap-1.5"><Coins className="h-3.5 w-3.5" /> <Trans i18nKey="bankCareers.pipeline.pipelineValueLine" values={{ value: pipeValue.toLocaleString() }} components={{ b: <b className="text-foreground" /> }} /></p>
               {mandates.map(m => {
                 const meta = DEAL_TYPES[m.dealType]
                 const won = wonIds.has(m.id)
@@ -216,17 +218,17 @@ export default function DealPipeline({ career, week }: { career: Career; week: n
                         <div className="flex items-center gap-2 flex-wrap">
                           <span className="font-display font-extrabold text-sm">{m.project}</span>
                           <Badge variant="outline" className="text-[9px]">{meta.icon} {meta.label}</Badge>
-                          {won && <Badge variant="secondary" className="text-[9px]">Won</Badge>}
+                          {won && <Badge variant="secondary" className="text-[9px]">{t("bankCareers.pipeline.won")}</Badge>}
                         </div>
                         <p className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-2">
                           <span className="truncate max-w-[110px]">{m.client}</span>
-                          <span className="flex items-center gap-0.5"><Swords className="h-3 w-3" />{m.rivals.length} rivals</span>
+                          <span className="flex items-center gap-0.5"><Swords className="h-3 w-3" />{t("bankCareers.pipeline.rivals", { count: m.rivals.length })}</span>
                         </p>
                       </div>
                       <div className="flex items-center gap-2 shrink-0">
                         <div className="text-right">
                           <p className="text-xs font-bold">{m.value.toLocaleString()}</p>
-                          <p className="text-[10px] text-muted-foreground">deal size</p>
+                          <p className="text-[10px] text-muted-foreground">{t("bankCareers.pipeline.dealSize")}</p>
                         </div>
                         <ChevronRight className="h-4 w-4 text-muted-foreground" />
                       </div>
@@ -234,7 +236,7 @@ export default function DealPipeline({ career, week }: { career: Career; week: n
                   </button>
                 )
               })}
-              <p className="text-[10px] text-muted-foreground text-center pt-1">Tap a mandate to pitch for it. You advise for a fee - credibility wins the job, not the biggest promise.</p>
+              <p className="text-[10px] text-muted-foreground text-center pt-1">{t("bankCareers.pipeline.mandatesTip")}</p>
             </div>
           )}
         </CardContent>

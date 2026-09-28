@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { CalendarClock } from "lucide-react"
 import { KEY_DATES } from "@/data/bizLab"
 
@@ -18,6 +19,7 @@ function diffParts(target: Date) {
  * dates. Re-renders every minute so the numbers stay current.
  */
 export default function Countdown() {
+  const { t } = useTranslation()
   const [, force] = useState(0)
   useEffect(() => {
     const t = setInterval(() => force(n => n + 1), 60_000)
@@ -44,7 +46,7 @@ export default function Countdown() {
                 {new Date(d.date + "T08:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" })} · {d.day}
               </span>
               {past ? (
-                <span className="text-xs font-bold text-muted-foreground">Completed</span>
+                <span className="text-xs font-bold text-muted-foreground">{t("bizlab.countdown.completed")}</span>
               ) : (
                 <span className="text-sm font-extrabold tabular-nums text-foreground">
                   {days}d {hours}h {minutes}m

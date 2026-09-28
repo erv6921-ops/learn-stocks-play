@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import GameNav from "@/components/GameNav";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -151,6 +152,7 @@ function saveProject(data: ProjectData) {
 }
 
 export default function FinancialAdvisor() {
+  const { t } = useTranslation();
   const { earnJeffs } = useApp();
   const [project, setProject] = useState<ProjectData>(loadProject);
   const [step, setStep] = useState(0); // 0=intro, 1-4=areas, 5=report
@@ -183,7 +185,7 @@ export default function FinancialAdvisor() {
   };
 
   const handleReset = () => {
-    if (!window.confirm("Reset your entire Financial Advisor Project? This cannot be undone.")) return;
+    if (!window.confirm(t("financialAdvisor.resetConfirm"))) return;
     setProject(getEmptyProject());
     setStep(0);
   };
@@ -194,20 +196,20 @@ export default function FinancialAdvisor() {
       <div className="min-h-screen bg-background pb-24 md:pb-8">
         <GameNav />
         <main className="container mx-auto px-4 py-8 max-w-3xl">
-          <BackButton fallback="/lessons" label="Back to Missions" />
+          <BackButton fallback="/lessons" label={t("financialAdvisor.backToMissions")} />
 
           <div className="mt-6 text-center space-y-4">
             <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto">
               <ClipboardList className="w-8 h-8" />
             </div>
             <Badge variant="outline" className="text-xs font-bold border-primary/30 text-primary">
-              AP Culminating Project
+              {t("financialAdvisor.apCulminatingProject")}
             </Badge>
             <h1 className="font-display text-3xl md:text-4xl font-extrabold tracking-tight">
-              Financial Advisor Project
+              {t("financialAdvisor.projectTitle")}
             </h1>
             <p className="text-muted-foreground text-[15px] max-w-xl mx-auto leading-relaxed">
-              You've been hired as a financial advisor for the Martinez family. Review their financial profile, analyze their situation, and provide professional recommendations across 4 key areas.
+              {t("financialAdvisor.projectDesc")}
             </p>
           </div>
 
@@ -215,23 +217,23 @@ export default function FinancialAdvisor() {
           <Card className="mt-8 p-6 rounded-2xl border shadow-card">
             <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
               <FileText className="w-5 h-5 text-primary" />
-              Client Profile - {HOUSEHOLD.name}
+              {t("financialAdvisor.clientProfile", { name: HOUSEHOLD.name })}
             </h2>
             <div className="space-y-3 text-sm text-foreground/80">
               <div>
-                <span className="font-semibold text-foreground">Household:</span>{" "}
+                <span className="font-semibold text-foreground">{t("financialAdvisor.household")}</span>{" "}
                 {HOUSEHOLD.members}
               </div>
               <div>
-                <span className="font-semibold text-foreground">Income:</span>{" "}
+                <span className="font-semibold text-foreground">{t("financialAdvisor.income")}</span>{" "}
                 {HOUSEHOLD.grossIncome}
               </div>
               <div>
-                <span className="font-semibold text-foreground">Take-home pay:</span>{" "}
+                <span className="font-semibold text-foreground">{t("financialAdvisor.takeHomePay")}</span>{" "}
                 {HOUSEHOLD.netMonthlyIncome}
               </div>
               <div>
-                <span className="font-semibold text-foreground">Monthly expenses:</span>{" "}
+                <span className="font-semibold text-foreground">{t("financialAdvisor.monthlyExpenses")}</span>{" "}
                 ${TOTAL_EXPENSES.toLocaleString()}/month
                 <div className="mt-1.5 grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-1 text-xs text-muted-foreground pl-2">
                   {Object.entries(HOUSEHOLD.currentExpenses).map(([k, v]) => (
@@ -243,15 +245,15 @@ export default function FinancialAdvisor() {
                 </div>
               </div>
               <div>
-                <span className="font-semibold text-foreground">Debts:</span>{" "}
+                <span className="font-semibold text-foreground">{t("financialAdvisor.debts")}</span>{" "}
                 {HOUSEHOLD.debts}
               </div>
               <div>
-                <span className="font-semibold text-foreground">Current savings:</span>{" "}
+                <span className="font-semibold text-foreground">{t("financialAdvisor.currentSavings")}</span>{" "}
                 {HOUSEHOLD.savings}
               </div>
               <div>
-                <span className="font-semibold text-foreground">Goals:</span>{" "}
+                <span className="font-semibold text-foreground">{t("financialAdvisor.goals")}</span>{" "}
                 {HOUSEHOLD.goals}
               </div>
             </div>
@@ -293,9 +295,9 @@ export default function FinancialAdvisor() {
                 {project.submitted ? <CheckCircle className="w-5 h-5" /> : <FileText className="w-5 h-5" />}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-bold text-[14px] text-foreground">Financial Advisor Report</p>
+                <p className="font-bold text-[14px] text-foreground">{t("financialAdvisor.reportTitle")}</p>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  {project.submitted ? "Submitted ✓" : "Generate and submit your final report"}
+                  {project.submitted ? t("financialAdvisor.submittedCheck") : t("financialAdvisor.generateSubmit")}
                 </p>
               </div>
               <ArrowRight className="w-4 h-4 text-muted-foreground/40 shrink-0" />
@@ -303,7 +305,7 @@ export default function FinancialAdvisor() {
           </div>
 
           <p className="mt-6 text-center text-xs text-muted-foreground">
-            {completedAreas}/4 areas started · Progress saves automatically
+            {t("financialAdvisor.areasStarted", { count: completedAreas })}
           </p>
         </main>
       </div>
@@ -322,9 +324,9 @@ export default function FinancialAdvisor() {
           <div className="mb-6">
             <div className="flex items-center justify-between mb-2">
               <button onClick={() => setStep(0)} className="text-sm text-primary font-semibold hover:underline flex items-center gap-1">
-                <ArrowLeft className="w-3.5 h-3.5" /> Overview
+                <ArrowLeft className="w-3.5 h-3.5" /> {t("financialAdvisor.overview")}
               </button>
-              <span className="text-xs text-muted-foreground font-semibold">Area {area.number} of 4</span>
+              <span className="text-xs text-muted-foreground font-semibold">{t("financialAdvisor.areaOf", { number: area.number })}</span>
             </div>
             <Progress value={progress} variant="success" className="h-2" />
           </div>
@@ -348,7 +350,7 @@ export default function FinancialAdvisor() {
 
           {/* Context card */}
           <Card className="p-5 rounded-2xl border-primary/20 bg-primary/3 shadow-card mb-6">
-            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">📊 Key Data</p>
+            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">📊 {t("financialAdvisor.keyData")}</p>
             <p className="text-sm text-foreground/80 leading-relaxed">{area.context}</p>
           </Card>
 
@@ -389,7 +391,7 @@ export default function FinancialAdvisor() {
           {/* Calculation hint */}
           {area.calculationHint && (
             <Card className="mt-6 p-4 rounded-2xl bg-gold/5 border-gold/20 shadow-card">
-              <p className="text-xs font-bold text-gold uppercase tracking-widest mb-1.5">💡 Calculation Hint</p>
+              <p className="text-xs font-bold text-gold uppercase tracking-widest mb-1.5">💡 {t("financialAdvisor.calculationHint")}</p>
               <p className="text-xs text-foreground/70 leading-relaxed">{area.calculationHint}</p>
             </Card>
           )}
@@ -397,10 +399,10 @@ export default function FinancialAdvisor() {
           {/* Navigation */}
           <div className="flex items-center justify-between mt-8">
             <Button variant="outline" onClick={() => setStep(step - 1)} className="gap-1.5">
-              <ArrowLeft className="w-3.5 h-3.5" /> {step === 1 ? "Overview" : "Previous"}
+              <ArrowLeft className="w-3.5 h-3.5" /> {step === 1 ? t("financialAdvisor.overview") : t("financialAdvisor.previous")}
             </Button>
             <Button onClick={() => setStep(step + 1)} className="gap-1.5 press-scale">
-              {step === 4 ? "Review Report" : "Next Area"} <ArrowRight className="w-3.5 h-3.5" />
+              {step === 4 ? t("financialAdvisor.reviewReport") : t("financialAdvisor.nextArea")} <ArrowRight className="w-3.5 h-3.5" />
             </Button>
           </div>
         </main>
@@ -416,23 +418,23 @@ export default function FinancialAdvisor() {
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
             <button onClick={() => setStep(0)} className="text-sm text-primary font-semibold hover:underline flex items-center gap-1">
-              <ArrowLeft className="w-3.5 h-3.5" /> Overview
+              <ArrowLeft className="w-3.5 h-3.5" /> {t("financialAdvisor.overview")}
             </button>
-            <span className="text-xs text-muted-foreground font-semibold">Final Report</span>
+            <span className="text-xs text-muted-foreground font-semibold">{t("financialAdvisor.finalReport")}</span>
           </div>
           <Progress value={100} variant="success" className="h-2" />
         </div>
 
         <div className="text-center mb-8">
           <h1 className="font-display text-3xl font-extrabold tracking-tight mb-2">
-            Financial Advisor Report
+            {t("financialAdvisor.reportTitle")}
           </h1>
           <p className="text-muted-foreground text-sm">
-            {HOUSEHOLD.name} · {completedAreas}/4 areas completed
+            {HOUSEHOLD.name} · {t("financialAdvisor.areasCompleted", { count: completedAreas })}
           </p>
           {project.submitted && (
             <Badge variant="success" className="mt-2">
-              ✓ Submitted {project.submittedAt ? new Date(project.submittedAt).toLocaleDateString() : ""}
+              {t("financialAdvisor.submittedOn", { date: project.submittedAt ? new Date(project.submittedAt).toLocaleDateString() : "" })}
             </Badge>
           )}
         </div>
@@ -466,7 +468,7 @@ export default function FinancialAdvisor() {
                       </p>
                     ) : null
                   ))}
-                  {!hasContent && <p className="text-xs text-muted-foreground italic">Not started</p>}
+                  {!hasContent && <p className="text-xs text-muted-foreground italic">{t("financialAdvisor.notStarted")}</p>}
                 </div>
               </Card>
             );
@@ -476,10 +478,10 @@ export default function FinancialAdvisor() {
         {/* Executive summary */}
         <Card className="mt-6 p-5 rounded-2xl border shadow-card">
           <label className="text-sm font-bold text-foreground block mb-2">
-            Executive Summary - Write a one-paragraph summary of your recommendations for the Martinez family.
+            {t("financialAdvisor.executiveSummary")}
           </label>
           <Textarea
-            placeholder="As the financial advisor for the Martinez family, my key recommendations are..."
+            placeholder={t("financialAdvisor.executiveSummaryPlaceholder")}
             value={project.reportSummary}
             onChange={e => setProject(prev => ({ ...prev, reportSummary: e.target.value }))}
             className="min-h-[120px] text-sm"
@@ -492,18 +494,18 @@ export default function FinancialAdvisor() {
             <Button size="lg" onClick={handleSubmit} disabled={completedAreas < 3}
               className="gap-2 press-scale">
               <Send className="w-4 h-4" />
-              Submit Report (+5,000 pts)
+              {t("financialAdvisor.submitReport")}
             </Button>
           ) : (
-            <p className="text-sm text-success font-semibold">🎉 Report submitted! +5,000 InvestiCoins earned</p>
+            <p className="text-sm text-success font-semibold">{t("financialAdvisor.reportSubmitted")}</p>
           )}
           <Button variant="outline" onClick={handleReset} className="gap-1.5">
-            <RotateCcw className="w-3.5 h-3.5" /> Reset
+            <RotateCcw className="w-3.5 h-3.5" /> {t("financialAdvisor.reset")}
           </Button>
         </div>
         {completedAreas < 3 && !project.submitted && (
           <p className="text-center text-xs text-muted-foreground mt-3">
-            Complete at least 3 of 4 areas to submit
+            {t("financialAdvisor.minAreasNote")}
           </p>
         )}
       </main>

@@ -6,6 +6,7 @@
 // bankStore. No coins are spent to win clients - you earn by keeping them.
 
 import { useMemo, useState } from "react"
+import { useTranslation, Trans } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -28,14 +29,15 @@ import ClientDetail from "./ClientDetail"
 const NO_BOOK: ClientHousehold[] = []
 
 const STATUS_META = {
-  happy: { label: "Happy", color: "#10b981", Icon: Smile },
-  content: { label: "Content", color: "#d97706", Icon: Meh },
-  worried: { label: "Worried", color: "#ef4444", Icon: Frown },
+  happy: { labelKey: "bankCareers.wealth.status.happy", color: "#10b981", Icon: Smile },
+  content: { labelKey: "bankCareers.wealth.status.content", color: "#d97706", Icon: Meh },
+  worried: { labelKey: "bankCareers.wealth.status.worried", color: "#ef4444", Icon: Frown },
 } as const
 
 type Selected = { mode: "prospect" | "client"; id: string } | null
 
 export default function WealthBook({ career, week }: { career: Career; week: number }) {
+  const { t } = useTranslation()
   const { earnJeffs } = useApp()
   const book = useBankStore(s => s.wmBook) ?? NO_BOOK
   const signClient = useBankStore(s => s.signClient)
@@ -56,8 +58,9 @@ export default function WealthBook({ career, week }: { career: Career; week: num
     if (signedIds.has(p.id)) return
     const suit = scoreAllocation(p, alloc)
     signClient(householdFromProspect(p, alloc, week, plan, suit))
-    addMemo({ careerId: career.id, week, dealTitle: `Client plan · ${p.name}`, prompt: `Why does this mix fit ${p.name}?`, text: plan })
-    setFlash(`${p.name.split(" ")[0]} signed on with ${p.assets.toLocaleString()} coins to manage. ${suit.score === 2 ? "A great fit - they feel understood." : suit.score === 1 ? "A workable start." : "They're a little unsure about the mix."}`)
+    addMemo({ careerId: career.id, week, dealTitle: t("bankCareers.wealth.memo.planTitle", { name: p.name }), prompt: t("bankCareers.wealth.memo.planPrompt", { name: p.name }), text: plan })
+    const fit = suit.score === 2 ? t("bankCareers.wealth.flash.fitGreat") : suit.score === 1 ? t("bankCareers.wealth.flash.fitOk") : t("bankCareers.wealth.flash.fitUnsure")
+    setFlash(t("bankCareers.wealth.flash.signed", { name: p.name.split(" ")[0], amount: p.assets.toLocaleString(), fit }))
     setSelected(null)
     setTab("book")
   }
@@ -65,7 +68,7 @@ export default function WealthBook({ career, week }: { career: Career; week: num
   const review = (client: ClientHousehold, result: ReviewResult, writeUp: { headline: string; question: string; text: string }) => {
     if (result.fee > 0) earnJeffs(result.fee, `Advisory fee · ${client.name}`)
     reviewClient(career.id, client.id, result.patch, result.repDelta, result.left)
-    addMemo({ careerId: career.id, week, dealTitle: `Client letter · ${client.name}: ${writeUp.headline}`, prompt: writeUp.question, text: writeUp.text })
+    addMemo({ careerId: career.id, week, dealTitle: t("bankCareers.wealth.memo.letterTitle", { name: client.name, headline: writeUp.headline }), prompt: writeUp.question, text: writeUp.text })
   }
 
   // ── detail screen ──
@@ -105,25 +108,25 @@ export default function WealthBook({ career, week }: { career: Career; week: num
         <div className="bg-slate-900 text-white px-3 py-1.5 flex items-center gap-3 text-[11px] overflow-x-auto">
           <span className="font-extrabold uppercase tracking-wider shrink-0 flex items-center gap-1" style={{ color: career.accent }}>{regime.emoji} {regime.label}</span>
           <span className="h-3 w-px bg-white/20 shrink-0" />
-          <Tick label="STOCKS" val={regime.stocks} />
-          <Tick label="BONDS" val={regime.bonds} />
-          <Tick label="CASH" val={regime.cash} />
+          <Tick label={t("bankCareers.wealth.ticker.stocks")} val={regime.stocks} />
+          <Tick label={t("bankCareers.wealth.ticker.bonds")} val={regime.bonds} />
+          <Tick label={t("bankCareers.wealth.ticker.cash")} val={regime.cash} />
         </div>
         <div className={`bg-gradient-to-br ${career.gradient} text-white p-4 sm:p-5`}>
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-white/70 flex items-center gap-1"><Briefcase className="h-3 w-3" /> Private Wealth Office</p>
-              <p className="font-display text-xl font-extrabold leading-tight">{book.length} {book.length === 1 ? "household" : "households"}</p>
+              <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-white/70 flex items-center gap-1"><Briefcase className="h-3 w-3" /> {t("bankCareers.wealth.officeName")}</p>
+              <p className="font-display text-xl font-extrabold leading-tight">{book.length === 1 ? t("bankCareers.wealth.households_one", { count: book.length }) : t("bankCareers.wealth.households_other", { count: book.length })}</p>
               <p className="text-[11px] text-white/70">{regime.note}</p>
             </div>
             <div className="flex gap-2 shrink-0 text-center">
-              <div><p className="text-lg font-extrabold tabular-nums">{(totalAUM / 1000).toFixed(totalAUM >= 10000 ? 0 : 1)}k</p><p className="text-[9px] text-white/70 uppercase">AUM</p></div>
-              <div><p className="text-lg font-extrabold tabular-nums">{book.length ? avgTrust : "-"}</p><p className="text-[9px] text-white/70 uppercase">trust</p></div>
+              <div><p className="text-lg font-extrabold tabular-nums">{(totalAUM / 1000).toFixed(totalAUM >= 10000 ? 0 : 1)}k</p><p className="text-[9px] text-white/70 uppercase">{t("bankCareers.wealth.aum")}</p></div>
+              <div><p className="text-lg font-extrabold tabular-nums">{book.length ? avgTrust : "-"}</p><p className="text-[9px] text-white/70 uppercase">{t("bankCareers.wealth.trust")}</p></div>
             </div>
           </div>
           {needsReview > 0 && (
             <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-bold">
-              <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" /> {needsReview} {needsReview === 1 ? "client needs" : "clients need"} a review this week
+              <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" /> {needsReview === 1 ? t("bankCareers.wealth.needsReview_one", { count: needsReview }) : t("bankCareers.wealth.needsReview_other", { count: needsReview })}
             </div>
           )}
         </div>
@@ -131,8 +134,8 @@ export default function WealthBook({ career, week }: { career: Career; week: num
 
       <Card variant="elevated" className="overflow-hidden">
         <div className="p-1.5 flex gap-1.5 bg-muted/40">
-          <TabButton id="book" label="Book" icon={Users} />
-          <TabButton id="prospects" label="Prospects" icon={Search} />
+          <TabButton id="book" label={t("bankCareers.wealth.tabs.book")} icon={Users} />
+          <TabButton id="prospects" label={t("bankCareers.wealth.tabs.prospects")} icon={Search} />
         </div>
 
         <CardContent className="p-3 sm:p-4">
@@ -148,9 +151,9 @@ export default function WealthBook({ career, week }: { career: Career; week: num
             book.length === 0 ? (
               <div className="text-center py-8 space-y-2">
                 <Users className="h-7 w-7 mx-auto text-muted-foreground/60" />
-                <p className="text-sm font-semibold">Your book is empty</p>
-                <p className="text-xs text-muted-foreground max-w-xs mx-auto">Open the <b>Prospects</b> tab to meet people looking for an advisor. Build each a suitable plan, sign them, and earn fees as their money grows.</p>
-                <Button size="sm" variant="outline" className="mt-1" onClick={() => setTab("prospects")}>Meet prospects</Button>
+                <p className="text-sm font-semibold">{t("bankCareers.wealth.empty.title")}</p>
+                <p className="text-xs text-muted-foreground max-w-xs mx-auto"><Trans i18nKey="bankCareers.wealth.empty.body" components={{ b: <b /> }} /></p>
+                <Button size="sm" variant="outline" className="mt-1" onClick={() => setTab("prospects")}>{t("bankCareers.wealth.empty.cta")}</Button>
               </div>
             ) : (
               <div className="space-y-2">
@@ -165,11 +168,11 @@ export default function WealthBook({ career, week }: { career: Career; week: num
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="font-display font-extrabold text-sm">{c.name}</span>
                             <span className="text-[11px]">{c.goal.icon}</span>
-                            {needsYou && <Badge className="text-[9px]" style={{ background: career.accent }}>Needs you</Badge>}
+                            {needsYou && <Badge className="text-[9px]" style={{ background: career.accent }}>{t("bankCareers.wealth.needsYou")}</Badge>}
                           </div>
                           <p className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-2">
-                            <span className="flex items-center gap-0.5"><CalendarClock className="h-3 w-3" />{c.goal.horizon}y goal</span>
-                            <span style={{ color: meta.color }} className="flex items-center gap-0.5 font-semibold"><meta.Icon className="h-3 w-3" />{meta.label}</span>
+                            <span className="flex items-center gap-0.5"><CalendarClock className="h-3 w-3" />{t("bankCareers.wealth.yearGoal", { count: c.goal.horizon })}</span>
+                            <span style={{ color: meta.color }} className="flex items-center gap-0.5 font-semibold"><meta.Icon className="h-3 w-3" />{t(meta.labelKey)}</span>
                           </p>
                         </div>
                         <div className="flex items-center gap-2 shrink-0">
@@ -183,13 +186,13 @@ export default function WealthBook({ career, week }: { career: Career; week: num
                     </button>
                   )
                 })}
-                <p className="text-[10px] text-muted-foreground text-center pt-1">Tap a client to run their review. Keep them calm and suited, and their money - and your fee - grows.</p>
+                <p className="text-[10px] text-muted-foreground text-center pt-1">{t("bankCareers.wealth.bookTip")}</p>
               </div>
             )
           ) : (
             <div className="space-y-2">
               <p className="text-[11px] text-muted-foreground flex items-center gap-1.5">
-                <span>{regime.emoji}</span> Market this week: <b className="text-foreground">{regime.label}</b> · {regime.note} New prospects each week.
+                <span>{regime.emoji}</span> <Trans i18nKey="bankCareers.wealth.marketThisWeek" values={{ label: regime.label, note: regime.note }} components={{ b: <b className="text-foreground" /> }} />
               </p>
               {prospects.map(p => {
                 const signed = signedIds.has(p.id)
@@ -201,17 +204,17 @@ export default function WealthBook({ career, week }: { career: Career; week: num
                           <span className="font-display font-extrabold text-sm">{p.name}</span>
                           <span className="text-[11px]">{p.goal.icon}</span>
                           <Badge variant="outline" className="text-[9px] capitalize">{p.risk}</Badge>
-                          {signed && <Badge variant="secondary" className="text-[9px]">Client</Badge>}
+                          {signed && <Badge variant="secondary" className="text-[9px]">{t("bankCareers.wealth.client")}</Badge>}
                         </div>
                         <p className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-2">
                           <span>{p.age} · {p.job}</span>
-                          <span className="flex items-center gap-0.5"><CalendarClock className="h-3 w-3" />{p.goal.horizon}y</span>
+                          <span className="flex items-center gap-0.5"><CalendarClock className="h-3 w-3" />{t("bankCareers.wealth.years", { count: p.goal.horizon })}</span>
                         </p>
                       </div>
                       <div className="flex items-center gap-2 shrink-0">
                         <div className="text-right">
                           <p className="text-xs font-bold">{p.assets.toLocaleString()}</p>
-                          <p className="text-[10px] text-muted-foreground">to manage</p>
+                          <p className="text-[10px] text-muted-foreground">{t("bankCareers.wealth.toManage")}</p>
                         </div>
                         <ChevronRight className="h-4 w-4 text-muted-foreground" />
                       </div>
@@ -219,7 +222,7 @@ export default function WealthBook({ career, week }: { career: Career; week: num
                   </button>
                 )
               })}
-              <p className="text-[10px] text-muted-foreground text-center pt-1">Tap a prospect to learn their goals and build a mix that fits. The right plan wins the client.</p>
+              <p className="text-[10px] text-muted-foreground text-center pt-1">{t("bankCareers.wealth.prospectsTip")}</p>
             </div>
           )}
         </CardContent>
