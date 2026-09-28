@@ -39,7 +39,7 @@ import {
 } from "@/lib/friends"
 import {
   Users, UserPlus, Clock, Check, X, Loader2, Send, MoreVertical, Ban, Flag,
-  Mail, School, GraduationCap, MessageSquare, ArrowLeft,
+  Mail, School, GraduationCap, MessageSquare, ArrowLeft, ChevronDown,
 } from "lucide-react"
 
 const REPORT_REASONS = ["harassment", "spam", "inappropriate", "other"] as const
@@ -66,6 +66,7 @@ export default function Friends() {
   const [loading, setLoading] = useState(true)
   const [busyId, setBusyId] = useState<string | null>(null)
 
+  const [showAdd, setShowAdd] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [messages, setMessages] = useState<FriendMessage[]>([])
   const [loadingConvo, setLoadingConvo] = useState(false)
@@ -172,11 +173,23 @@ export default function Friends() {
       await respondRequest(r.user_id, accept)
       if (accept) toast({ title: t("friends.toast.nowFriends", { name: fullName(r) }) })
       await loadRoster()
+      // One accept = friends; jump straight into the conversation.
+      if (accept) setSelectedId(r.user_id)
     } catch (e) {
       toast({ title: t("friends.errors.action"), description: e instanceof Error ? e.message : undefined, variant: "destructive" })
     } finally {
       setBusyId(null)
     }
+  }
+
+  // One-line preview of the most recent message for a friend row.
+  const previewOf = (f: FriendRow): string | null => {
+    if (!f.last_message_type) return null
+    const prefix = f.last_message_sender && f.last_message_sender === user?.id ? `${t("common.you")}: ` : ""
+    if (f.last_message_type === "note") return `${prefix}${f.last_message_note ?? ""}`
+    const kind = t(`friends.cardType.${f.last_message_type}`)
+    const label = f.last_message_label
+    return `${prefix}${kind}${label && label !== kind ? ` · ${label}` : ""}`
   }
 
   const unfriend = async (f: FriendRow) => {
@@ -320,15 +333,21 @@ export default function Friends() {
                       >
                         <Initials first={f.first_name} last={f.last_name} size={40} />
                         <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-bold">{fullName(f)}</p>
-                          {f.school_name && (
-                            <p className="truncate text-xs text-muted-foreground">{f.school_name}</p>
-                          )}
+                          <p className={cn("truncate text-sm", Number(f.unread) > 0 ? "font-extrabold" : "font-bold")}>{fullName(f)}</p>
+                          {(() => {
+                            const preview = previewOf(f)
+                            if (preview) {
+                              return (
+                                <p className={cn("truncate text-xs", Number(f.unread) > 0 ? "font-semibold text-foreground/80" : "text-muted-foreground")}>
+                                  {preview}
+                                </p>
+                              )
+                            }
+                            return <p className="truncate text-xs text-muted-foreground">{f.school_name || t("friends.noMessagesYet")}</p>
+                          })()}
                         </div>
-                        {f.unread > 0 && (
-                          <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-destructive px-1.5 text-[11px] font-bold leading-none text-destructive-foreground">
-                            {f.unread > 9 ? "9+" : f.unread}
-                          </span>
+                        {Number(f.unread) > 0 && (
+                          <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-destructive" aria-label={t("friends.unreadDot")} />
                         )}
                       </motion.button>
                     ))}
@@ -337,16 +356,26 @@ export default function Friends() {
               )}
             </section>
 
-            {/* Add from my class */}
+            {/* Add from my class — collapsible section on the same screen */}
             <section>
-              <h2 className="mb-2 flex items-center gap-2 text-sm font-extrabold uppercase tracking-wider text-muted-foreground">
-                <UserPlus className="h-4 w-4 text-primary" /> {t("friends.addFromClass")}
-              </h2>
-              {addable.length === 0 ? (
-                <p className="px-1 text-xs text-muted-foreground">{t("friends.noClassmates")}</p>
-              ) : (
-                <div className="space-y-2">
-                  {addable.map((c) => (
+              <button
+                type="button"
+                onClick={() => setShowAdd((v) => !v)}
+                className="flex w-full items-center gap-2 rounded-xl border border-border bg-card px-3 py-2.5 text-sm font-extrabold transition-colors hover:bg-muted/60"
+              >
+                <UserPlus className="h-4 w-4 text-primary" />
+                {t("friends.addFromClass")}
+                {addable.length > 0 && (
+                  <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary">{addable.length}</span>
+                )}
+                <ChevronDown className={cn("ml-auto h-4 w-4 text-muted-foreground transition-transform", showAdd && "rotate-180")} />
+              </button>
+              {showAdd && (
+                addable.length === 0 ? (
+                  <p className="px-1 pt-2 text-xs text-muted-foreground">{t("friends.noClassmates")}</p>
+                ) : (
+                  <div className="space-y-2 pt-2">
+                    {addable.map((c) => (
                     <div key={c.user_id} className="flex items-center gap-3 rounded-xl border border-border bg-card p-3">
                       <Initials first={c.first_name} last={c.last_name} size={36} />
                       <div className="min-w-0 flex-1">
@@ -364,8 +393,9 @@ export default function Friends() {
                         </Button>
                       )}
                     </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )
               )}
             </section>
           </div>
