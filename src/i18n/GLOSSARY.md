@@ -213,7 +213,7 @@ Conventions
 
 | English | Spanish | Notes |
 |---|---|---|
-| mastery check | chequeo de dominio | the in-lesson 5-question gate; "micro check" = "micro chequeo" |
+| mastery check | prueba de dominio | the in-lesson 5-question gate; "micro check" = "micro chequeo" |
 | quick check | repaso rápido | the in-lesson interrupter card |
 | hint (power-up) | pista | rules out a wrong answer |
 | Time Freeze | Congelar tiempo | power-up that stops the countdown |
@@ -224,8 +224,8 @@ Conventions
 | come back tomorrow | vuelve mañana | daily-game/mission return prompt (tú) |
 | gainers / losers | ganadoras / perdedoras | top-movers tabs; feminine (acciones) |
 | top movers | las que más se mueven | HS-casual phrasing |
-| EPS / earnings per share | BPA / beneficio por acción | |
-| P/E (TTM) | P/G (TTM) | mirrors the P/L=G/P convention |
+| EPS | EPS | acronym left in English (help text explains it as "beneficio por acción") |
+| P/E | P/E | acronym left in English (help text explains it as "Precio-Ganancia") |
 | market cap | capitalización de mercado | "Cap. de mercado" / "Cap. merc." when tight |
 | beta / EBITDA | beta / EBITDA | standard finance terms, unchanged |
 | prev close | cierre anterior | "Cierre ant." when tight |
