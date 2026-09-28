@@ -46,6 +46,7 @@ import { Switch } from "@/components/ui/switch"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { ScenarioReviewTab } from "@/components/teacher/ScenarioReviewTab"
 import { CurriculumTab } from "@/components/teacher/CurriculumTab"
+import { MaterialsTab } from "@/components/teacher/materials/MaterialsTab"
 import { FriendReports } from "@/components/teacher/FriendReports"
 import { LessonPreviewButtons } from "@/components/teacher/LessonPreviewButtons"
 import { countLessons, lessonsForTracks, enrollmentToCourseTrack } from "@/lib/lessonCount"
@@ -376,6 +377,38 @@ export default function TeacherDashboard() {
     } finally {
       setAssigningAll(false)
     }
+  }
+
+  // Assign every selected lesson to the class as classwork, reusing the same
+  // assigned_lessons insert + generated-lesson linking as the single-lesson
+  // flow. Used by the Materials tab's "Assign all". Already-assigned lessons
+  // (unique-violation) are counted as skipped rather than failing the batch.
+  const assignManyLessons = async (ids: string[]): Promise<{ assigned: number; skipped: number }> => {
+    if (!selectedClass) throw new Error("No class selected")
+    if (blockedInDemo()) throw new Error("Exit demo mode to assign lessons.")
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) throw new Error("Not authenticated")
+    let assigned = 0
+    let skipped = 0
+    for (const lessonId of ids) {
+      const { error } = await supabase.from("assigned_lessons").insert({
+        class_id: selectedClass.id,
+        lesson_id: lessonId,
+        assigned_by: user.id,
+        assignment_type: "classwork",
+        due_date: null,
+        due_time: null,
+      })
+      if (error) {
+        if (error.code === "23505") skipped++
+        else throw error
+      } else {
+        assigned++
+        await linkGeneratedLesson(lessonId, selectedClass.id)
+      }
+    }
+    await loadClassMembers(selectedClass.id)
+    return { assigned, skipped }
   }
 
   useEffect(() => {
@@ -1233,9 +1266,10 @@ export default function TeacherDashboard() {
                 </Card>
 
                 <Tabs defaultValue={initialTab} className="w-full">
-                  <TabsList className="grid w-full grid-cols-8">
+                  <TabsList className="grid w-full grid-cols-9">
                     <TabsTrigger value="students">Students</TabsTrigger>
                     <TabsTrigger value="assign">Assign</TabsTrigger>
+                    <TabsTrigger value="materials">Materials</TabsTrigger>
                     <TabsTrigger value="analytics">Analytics</TabsTrigger>
                     <TabsTrigger value="scenarios">Scenarios</TabsTrigger>
                     <TabsTrigger value="curriculum">Curriculum</TabsTrigger>
@@ -1252,6 +1286,15 @@ export default function TeacherDashboard() {
                   {/* ── Reports: student-filed Friends abuse reports ── */}
                   <TabsContent value="reports" className="mt-4">
                     <FriendReports />
+                  </TabsContent>
+
+                  {/* ── Materials: multi-select lessons → presentation / activity ── */}
+                  <TabsContent value="materials" className="mt-4">
+                    <MaterialsTab
+                      lessons={searchableLessons}
+                      onAssignMany={assignManyLessons}
+                      blocked={sampleMode}
+                    />
                   </TabsContent>
 
                   {/* ── Assign a lesson to the whole class ── */}

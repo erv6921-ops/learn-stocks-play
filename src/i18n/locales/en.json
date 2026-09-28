@@ -997,5 +997,76 @@
         "blurb": "Make your first trade."
       }
     }
+  },
+  "materials": {
+    "tab": "Materials",
+    "bankTitle": "Lesson bank",
+    "bankHelp": "Select lessons, then assign them or generate a presentation or class activity (up to {{cap}}).",
+    "searchPlaceholder": "Search lessons by topic…",
+    "noLessons": "No lessons match your search.",
+    "otherUnit": "Other lessons",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "jeffBuilt": "Jeff-built",
+    "selectAllUnit": "Select all in unit",
+    "clearUnit": "Clear unit",
+    "selectedCount": "{{count}} selected",
+    "overCap": "Pick {{cap}} or fewer for a presentation or activity.",
+    "assignAll": "Assign all",
+    "makePresentation": "Make presentation",
+    "makeActivity": "Make class activity",
+    "clear": "Clear",
+    "savedTitle": "My presentations & activities",
+    "emptySaved": "Nothing saved yet. Select lessons above to create a presentation or activity.",
+    "slidesCount": "{{count}} slides",
+    "lessonsCount": "{{count}} lessons",
+    "open": "Open",
+    "delete": "Delete",
+    "present": "Present",
+    "downloadPptx": "Download .pptx",
+    "exitPresent": "Exit",
+    "deleteSlide": "Delete slide",
+    "heading": "Heading",
+    "bullets": "Bullet points",
+    "onePerLine": "One per line.",
+    "speakerNotes": "Speaker notes",
+    "printPdf": "Print / PDF",
+    "timingMinutes": "Time (minutes)",
+    "teacherInstructions": "Teacher instructions",
+    "scenario": "Scenario",
+    "tasks": "Tasks",
+    "shareOut": "Share-out",
+    "discussionPrompts": "Discussion prompts (one per line)",
+    "addCard": "Add card",
+    "question": "Question",
+    "answerKey": "Answer",
+    "addQuestion": "Add question",
+    "pickFormatTitle": "Choose an activity format",
+    "pickFormatDesc": "Grounded only in the lessons you selected.",
+    "format": {
+      "team-challenge": {
+        "title": "Team challenge",
+        "desc": "Groups solve a realistic scenario with real numbers, then share out."
+      },
+      "decision-cards": {
+        "title": "Decision cards",
+        "desc": "6–10 “would you rather” money dilemmas for class debate."
+      },
+      "exit-ticket": {
+        "title": "Exit ticket",
+        "desc": "5 quick questions with an answer key."
+      }
+    },
+    "assignedToast": "Assigned {{count}} lessons to the class",
+    "assignedSkipped": "{{count}} were already assigned.",
+    "assignFailed": "Couldn’t assign lessons",
+    "generateFailed": "Generation failed",
+    "savedToast": "Saved",
+    "saveFailed": "Couldn’t save",
+    "confirmDelete": "Delete “{{title}}”? This can’t be undone.",
+    "deleteFailed": "Couldn’t delete",
+    "assigning": "Assigning lessons…",
+    "buildingDeck": "Building your presentation… this can take up to a minute.",
+    "buildingActivity": "Building your activity… this can take up to a minute."
   }
 }
