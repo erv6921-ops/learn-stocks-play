@@ -102,6 +102,27 @@ export function BrowserNotifier() {
             })
           }
         )
+        // A card a partner sent me on the Friends page: a short note, or a
+        // lesson / stock / Jeff-prompt card pointing at something.
+        .on(
+          "postgres_changes",
+          { event: "INSERT", schema: "public", table: "friend_messages", filter: `recipient_id=eq.${uid}` },
+          (payload) => {
+            const row = payload.new as { type?: string; note?: string | null; reference_label?: string | null }
+            const body =
+              row?.type === "note" && row.note
+                ? row.note
+                : row?.reference_label
+                  ? t("push.messageBodyLabeled", { label: row.reference_label })
+                  : t("push.messageBody")
+            notify({
+              title: t("push.messageTitle"),
+              body,
+              tag: "friend-message",
+              url: "/friends",
+            })
+          }
+        )
         .subscribe()
 
       return channel
