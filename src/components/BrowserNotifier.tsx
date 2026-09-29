@@ -10,8 +10,8 @@ const LESSON_TITLE = new Map(lessons.map((l) => [l.id, l.title]))
 // App-wide bridge from Supabase realtime events to native OS notifications, for
 // signed-in students who opted in from Settings. It listens to the same tables
 // the on-screen pop-ups use, but fires a browser notification when a LIVE event
-// lands while the tab is hidden - so a new grade / assignment / friend request
-// reaches the student even when InvestiPlay isn't the tab they're looking at.
+// lands while InvestiPlay isn't the focused window - so a new grade / assignment
+// / friend request reaches the student even when it's not the tab they're on.
 //
 // This mounts app-wide (not just on the dashboard) so the alert works from any
 // page. It only reacts to live realtime events, never an on-load re-scan, so
