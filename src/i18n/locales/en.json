@@ -180,7 +180,10 @@
     "homeworkTitle": "New homework",
     "homeworkBody": "Your teacher assigned new homework. Tap to get started.",
     "friendTitle": "New friend request",
-    "friendBody": "Someone wants to be your partner. Tap to view."
+    "friendBody": "Someone wants to be your partner. Tap to view.",
+    "messageTitle": "New message from a friend",
+    "messageBody": "A friend sent you something. Tap to view.",
+    "messageBodyLabeled": "A friend sent you: {{label}}"
   },
   "bugReport": {
     "button": "Report a bug",
