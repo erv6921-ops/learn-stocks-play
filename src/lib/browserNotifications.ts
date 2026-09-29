@@ -4,8 +4,9 @@
 // A thin wrapper over the Web Notification API. Students opt in from the
 // Settings card on their profile; once the OS grants permission, live events
 // (a lesson/business grade posted, new classwork/homework, a friend request)
-// fire a native notification WHEN THE TAB IS HIDDEN - so they hear about it
-// without staring at the app. The in-app modals + notification bell still
+// fire a native notification WHEN THE APP ISN'T THE FOCUSED WINDOW - so they
+// hear about it without staring at the app. The in-app modals + notification
+// bell still
 // handle everything while the tab is focused; this only adds an alert for when
 // InvestiPlay isn't the tab the student is looking at.
 //
@@ -111,15 +112,23 @@ export interface NotifyOptions {
   body?: string
   tag?: string // collapse repeats of the same kind (e.g. one grade notice)
   url?: string // focus the tab and navigate here when the notification is clicked
-  force?: boolean // fire even if the tab is focused (default: only when hidden)
+  force?: boolean // fire even when the app is focused (default: only when unfocused)
 }
 
 // Fire a native notification - but only when it actually helps: supported,
-// opted-in, permission granted, and (unless forced) the tab is hidden, so we
-// never double up with the on-screen modal/toast the student is already seeing.
+// opted-in, permission granted, and (unless forced) the app window isn't
+// focused, so we never double up with the on-screen modal/toast a student
+// who's actively looking at InvestiPlay is already seeing.
+//
+// We gate on document.hasFocus() rather than visibilityState on purpose:
+// visibilityState only goes "hidden" when the tab is fully out of view (another
+// tab active, window minimised), so two windows side by side - a common way to
+// use a second account - would both read "visible" and suppress the alert.
+// hasFocus() is false whenever InvestiPlay isn't the focused window, which is
+// exactly "the tab isn't focused".
 export function notify(opts: NotifyOptions): void {
   if (!isEnabled()) return
-  if (!opts.force && typeof document !== "undefined" && document.visibilityState === "visible") return
+  if (!opts.force && typeof document !== "undefined" && document.hasFocus()) return
   try {
     const n = new Notification(opts.title, {
       body: opts.body,
