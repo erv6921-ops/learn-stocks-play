@@ -86,7 +86,8 @@ Return ONLY valid JSON (no markdown, no preamble):
   }
 }`;
   }
-  return base + `FORMAT: Exit ticket. Exactly 5 short questions that check understanding, each with a clear answer for the answer key.
+  return base + `FORMAT: Exit ticket. Exactly 5 questions that check understanding. Prefer MULTIPLE-CHOICE: each question has exactly 4 options (one clearly correct, three plausible distractors from the source). Use a short-answer question (empty "options" array) only when the concept truly can't be multiple-choice.
+For every question set "answer" to the FULL TEXT of the correct answer (for multiple choice, the exact text of the correct option, so it works as an answer key).
 Return ONLY valid JSON (no markdown, no preamble):
 {
   "title": "...",
@@ -94,7 +95,7 @@ Return ONLY valid JSON (no markdown, no preamble):
   "teacherInstructions": ["Give students 8-10 minutes at the end of class.", "Answer key is included below.", "..."],
   "body": {
     "format": "exit-ticket",
-    "questions": [ { "question": "...", "answer": "the correct answer for the key" } ]
+    "questions": [ { "question": "...", "options": ["A","B","C","D"], "answer": "the exact text of the correct option" } ]
   }
 }`;
 }
@@ -122,7 +123,7 @@ function normalizeBody(format: Format, raw: Rec): Rec | null {
   }
   // exit-ticket
   const questions = (Array.isArray(b.questions) ? b.questions : [])
-    .map((q: Rec) => ({ question: str(q.question), answer: str(q.answer) }))
+    .map((q: Rec) => ({ question: str(q.question), options: strArr(q.options).slice(0, 6), answer: str(q.answer) }))
     .filter((q: Rec) => q.question)
     .slice(0, 10);
   if (questions.length === 0) return null;

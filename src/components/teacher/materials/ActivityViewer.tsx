@@ -174,6 +174,17 @@ export function ActivityViewer({ open, onOpenChange, activity, onActivityChange,
                       </Button>
                     </div>
                     <Textarea value={q.question} onChange={(e) => update({ question: e.target.value })} rows={2} />
+                    {(q.options?.length ?? 0) > 0 && (
+                      <div>
+                        <Label className="text-[11px] text-muted-foreground">{t("materials.options")}</Label>
+                        <Textarea
+                          value={(q.options ?? []).join("\n")}
+                          onChange={(e) => update({ options: e.target.value.split("\n").filter(Boolean) })}
+                          rows={4}
+                        />
+                        <p className="text-[11px] text-muted-foreground mt-1">{t("materials.onePerLine")}</p>
+                      </div>
+                    )}
                     <div>
                       <Label className="text-[11px] text-muted-foreground">{t("materials.answerKey")}</Label>
                       <Input value={q.answer} onChange={(e) => update({ answer: e.target.value })} />
@@ -184,7 +195,7 @@ export function ActivityViewer({ open, onOpenChange, activity, onActivityChange,
               <Button
                 size="sm"
                 variant="outline"
-                onClick={() => setBody({ questions: [...b.questions, { question: "", answer: "" }] })}
+                onClick={() => setBody({ questions: [...b.questions, { question: "", options: [], answer: "" }] })}
               >
                 <Plus className="h-4 w-4 mr-1.5" />
                 {t("materials.addQuestion")}

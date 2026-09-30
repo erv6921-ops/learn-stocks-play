@@ -36,7 +36,17 @@ function bodyHtml(a: ActivityContent): string {
     return section("Decision cards", cards)
   }
   // exit-ticket
-  const qs = b.questions.map((q, i) => `<li>${esc(q.question)}<div class="blank"></div></li>`).join("")
+  const letter = (i: number) => String.fromCharCode(65 + i)
+  const qs = b.questions
+    .map((q) => {
+      const opts = (q.options ?? []).length
+        ? `<ul class="options">${q.options
+            .map((o, k) => `<li><strong>${letter(k)}.</strong> ${esc(o)}</li>`)
+            .join("")}</ul>`
+        : `<div class="blank"></div>`
+      return `<li>${esc(q.question)}${opts}</li>`
+    })
+    .join("")
   const key = b.questions
     .map((q, i) => `<li><strong>${i + 1}.</strong> ${esc(q.answer)}</li>`)
     .join("")
@@ -77,6 +87,8 @@ export function printActivity(a: ActivityContent): void {
   .card .opt { margin: 2px 0; }
   .timing { color: #6b7280; font-weight: 600; margin: 0 0 8px; }
   .questions li { margin: 14px 0; }
+  .options { list-style: none; margin: 6px 0 0 18px; padding: 0; }
+  .options li { margin: 3px 0; }
   .blank { border-bottom: 1px solid #9ca3af; height: 28px; margin-top: 6px; }
   .answer-key { break-before: page; }
   @media print { body { margin: 0.6in; } }

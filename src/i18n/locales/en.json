@@ -1067,6 +1067,7 @@
     "deleteFailed": "Couldn’t delete",
     "assigning": "Assigning lessons…",
     "buildingDeck": "Building your presentation… this can take up to a minute.",
-    "buildingActivity": "Building your activity… this can take up to a minute."
+    "buildingActivity": "Building your activity… this can take up to a minute.",
+    "options": "Options"
   }
 }

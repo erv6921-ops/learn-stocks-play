@@ -1067,6 +1067,7 @@
     "deleteFailed": "No se pudo eliminar",
     "assigning": "Asignando lecciones…",
     "buildingDeck": "Creando tu presentación… puede tardar hasta un minuto.",
-    "buildingActivity": "Creando tu actividad… puede tardar hasta un minuto."
+    "buildingActivity": "Creando tu actividad… puede tardar hasta un minuto.",
+    "options": "Opciones"
   }
 }

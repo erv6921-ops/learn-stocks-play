@@ -177,6 +177,26 @@ export function MaterialsTab({ lessons, onAssignMany, blocked }: Props) {
 
   return (
     <div className="space-y-6">
+      {/* Saved materials first, so a freshly generated deck/activity shows at
+          the top of the tab (not scrolled off the bottom). Hidden until the
+          teacher has at least one, to keep the bank front-and-center at first. */}
+      {(loadingMaterials || materials.length > 0) && (
+        <Card variant="elevated">
+          <CardContent className="pt-6">
+            <p className="text-sm font-semibold mb-3 flex items-center gap-2">
+              <Presentation className="w-4 h-4 text-primary" />
+              {t("materials.savedTitle")}
+            </p>
+            <MyMaterials
+              materials={materials}
+              loading={loadingMaterials}
+              onOpen={(row) => setEditing({ row, content: row.content })}
+              onDelete={handleDelete}
+            />
+          </CardContent>
+        </Card>
+      )}
+
       <Card variant="elevated">
         <CardContent className="pt-6">
           <p className="text-sm font-semibold mb-1 flex items-center gap-2">
@@ -196,21 +216,6 @@ export function MaterialsTab({ lessons, onAssignMany, blocked }: Props) {
             onAssignAll={handleAssignAll}
             onMakePresentation={handleMakePresentation}
             onMakeActivity={() => setFormatOpen(true)}
-          />
-        </CardContent>
-      </Card>
-
-      <Card variant="elevated">
-        <CardContent className="pt-6">
-          <p className="text-sm font-semibold mb-3 flex items-center gap-2">
-            <Presentation className="w-4 h-4 text-primary" />
-            {t("materials.savedTitle")}
-          </p>
-          <MyMaterials
-            materials={materials}
-            loading={loadingMaterials}
-            onOpen={(row) => setEditing({ row, content: row.content })}
-            onDelete={handleDelete}
           />
         </CardContent>
       </Card>

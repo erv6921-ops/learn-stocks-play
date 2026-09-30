@@ -61,9 +61,12 @@ export interface DecisionCardsContent {
   cards: DecisionCard[]
 }
 
-/** Exit ticket: short questions + answer key. */
+/** Exit ticket: questions + answer key. Multiple-choice when `options` is set. */
 export interface ExitTicketQuestion {
   question: string
+  /** Multiple-choice options; empty/omitted means a short-answer question. */
+  options: string[]
+  /** The correct answer text (for the answer key). */
   answer: string
 }
 export interface ExitTicketContent {
