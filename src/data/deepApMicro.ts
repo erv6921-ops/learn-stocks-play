@@ -1,9 +1,8 @@
 import { StructuredLessonContent } from "@/types"
 
-// Deepened lesson content (Mortgages-depth rebuild) for: AP microeconomics units 2-6.
-// Unit 1 (apm-1-x) already ships full content in apMicroUnit1.ts, so this file
-// covers apm-2-x through apm-6-x. Each entry replaces the thin auto-generated
-// version for its lessonId.
+// Deepened lesson content (Mortgages-depth rebuild) for: AP microeconomics units 1-6.
+// This file authors apm-1-x through apm-6-x. Each entry replaces the thin
+// auto-generated version for its lessonId.
 export const deepApMicro: StructuredLessonContent[] = [
   // ═══════════════════════════════════════════════
   // UNIT 2: SUPPLY AND DEMAND (apm-2-x)
