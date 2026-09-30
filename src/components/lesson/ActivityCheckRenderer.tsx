@@ -14,6 +14,8 @@
 // All tap targets are >=44px; there are no hover-only affordances, so every
 // kind works on mobile.
 import { useEffect, useMemo, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import i18n from "@/i18n"
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -68,6 +70,7 @@ export function ActivityCheckRenderer({
   section: ActivityCheckSection
   onContinue: () => void
 }) {
+  const { t } = useTranslation()
   const session = useQuizSession()
   // null while unsolved; true = solved cleanly, false = solved with a slip.
   const [clean, setClean] = useState<boolean | null>(null)
@@ -96,7 +99,7 @@ export function ActivityCheckRenderer({
     <Card variant="elevated" className="overflow-hidden">
       <div className="bg-accent/10 border-b border-border px-6 py-3 flex items-center gap-2">
         <BrainCircuit className="w-4 h-4 text-accent" />
-        <span className="text-xs font-semibold text-accent uppercase tracking-wider">Micro Check</span>
+        <span className="text-xs font-semibold text-accent uppercase tracking-wider">{t("lessonPlayer.microCheck")}</span>
         <Badge variant="outline" className="ml-auto text-xs">{activityLabel(section.activity.kind)}</Badge>
       </div>
       <CardContent className="p-6 space-y-4">
@@ -108,7 +111,7 @@ export function ActivityCheckRenderer({
           <motion.div ref={footerRef} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
             <div className={`p-4 rounded-lg border ${clean ? "bg-success/10 border-success/20" : "bg-amber-500/10 border-amber-500/20"}`}>
               <p className={`font-medium text-sm ${clean ? "text-success" : "text-amber-600"}`}>
-                {clean ? "✓ Nailed it!" : "✗ Not quite — here's the idea"}
+                {clean ? t("lessonPlayer.nailedIt") : t("lessonPlayer.notQuiteIdea")}
               </p>
               {explanation && (
                 <p className="text-xs text-muted-foreground mt-1.5 flex items-start gap-1.5">
@@ -118,7 +121,7 @@ export function ActivityCheckRenderer({
               )}
             </div>
             <Button size="sm" onClick={onContinue}>
-              Continue <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+              {t("lessonPlayer.continue")} <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
             </Button>
           </motion.div>
         )}
@@ -129,12 +132,12 @@ export function ActivityCheckRenderer({
 
 function activityLabel(kind: ActivityCheck["kind"]): string {
   switch (kind) {
-    case "vocab-match": return "Match"
-    case "fill-blank": return "Fill in"
-    case "categorize": return "Sort"
-    case "sequence": return "Order"
-    case "odd-one-out": return "Odd one out"
-    case "two-truths-a-lie": return "Spot the lie"
+    case "vocab-match": return i18n.t("lessonPlayer.activityMatch")
+    case "fill-blank": return i18n.t("lessonPlayer.activityFillIn")
+    case "categorize": return i18n.t("lessonPlayer.activitySort")
+    case "sequence": return i18n.t("lessonPlayer.activityOrder")
+    case "odd-one-out": return i18n.t("lessonPlayer.activityOddOneOut")
+    case "two-truths-a-lie": return i18n.t("lessonPlayer.activitySpotLie")
   }
 }
 
@@ -160,6 +163,7 @@ type BodyProps<T> = { data: T; onResolve: (clean: boolean) => void }
 // definition. A correct pair locks green; a wrong pair flashes and clears.
 // Solved when every pair is locked; clean only if no wrong tap happened.
 function VocabMatch({ data, onResolve }: BodyProps<VocabMatchActivity>) {
+  const { t } = useTranslation()
   const termOrder = useMemo(() => shuffled(data.pairs.map((_, i) => i)), [data.pairs])
   const defOrder = useMemo(() => shuffled(data.pairs.map((_, i) => i)), [data.pairs])
   const [selected, setSelected] = useState<number | null>(null) // pair index of picked term
@@ -197,7 +201,7 @@ function VocabMatch({ data, onResolve }: BodyProps<VocabMatchActivity>) {
 
   return (
     <div>
-      <p className="text-sm font-semibold text-foreground mb-3">Match each term to its meaning.</p>
+      <p className="text-sm font-semibold text-foreground mb-3">{t("lessonPlayer.matchEachTerm")}</p>
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-2">
           {termOrder.map(i => {
@@ -300,6 +304,7 @@ function FillBlank({ data, onResolve }: BodyProps<FillBlankActivity>) {
 // Each item is a row with the bins as pills. Correct pick locks green; a wrong
 // pick flashes and clears so they retry. Clean only if no wrong pick.
 function Categorize({ data, onResolve }: BodyProps<CategorizeActivity>) {
+  const { t } = useTranslation()
   const [choice, setChoice] = useState<(number | null)[]>(() => data.items.map(() => null))
   const [wrongItem, setWrongItem] = useState<number | null>(null)
   const erred = useRef(false)
@@ -328,7 +333,7 @@ function Categorize({ data, onResolve }: BodyProps<CategorizeActivity>) {
 
   return (
     <div>
-      <p className="text-sm font-semibold text-foreground mb-3">Put each one in the right group.</p>
+      <p className="text-sm font-semibold text-foreground mb-3">{t("lessonPlayer.putInGroup")}</p>
       <div className="space-y-2">
         {data.items.map((it, i) => {
           const locked = choice[i] === it.bin
@@ -373,6 +378,7 @@ function Categorize({ data, onResolve }: BodyProps<CategorizeActivity>) {
 // Tap items into the correct order; a complete-but-wrong order shakes and
 // resets. Clean only if the first completed order is correct.
 function Sequence({ data, onResolve }: BodyProps<SequenceActivity>) {
+  const { t } = useTranslation()
   // Display order is shuffled; `data.steps` is the correct order. Each rendered
   // item carries its correct rank (index in data.steps).
   const items = useMemo(
@@ -411,7 +417,7 @@ function Sequence({ data, onResolve }: BodyProps<SequenceActivity>) {
   return (
     <div>
       <p className="text-sm font-semibold text-foreground mb-1">{data.prompt}</p>
-      <p className="text-xs text-muted-foreground mb-3">Tap them in the correct order.</p>
+      <p className="text-xs text-muted-foreground mb-3">{t("lessonPlayer.tapInOrder")}</p>
       <div className="space-y-2">
         {items.map((item, i) => {
           const pos = sequence.indexOf(i)
@@ -486,6 +492,7 @@ function OddOneOut({ data, onResolve }: BodyProps<OddOneOutActivity>) {
 
 // ─── Two truths and a lie ── (single pick)
 function TwoTruths({ data, onResolve }: BodyProps<TwoTruthsActivity>) {
+  const { t } = useTranslation()
   const order = useMemo(() => shuffled(data.statements.map((_, i) => i)), [data.statements])
   const [chosen, setChosen] = useState<number | null>(null) // original index
 
@@ -497,7 +504,7 @@ function TwoTruths({ data, onResolve }: BodyProps<TwoTruthsActivity>) {
 
   return (
     <div>
-      <p className="text-sm font-semibold text-foreground mb-3">{data.prompt ?? "Two of these are true. Tap the one that's false."}</p>
+      <p className="text-sm font-semibold text-foreground mb-3">{data.prompt ?? t("lessonPlayer.twoTruthsPrompt")}</p>
       <div className="grid gap-2">
         {order.map(origIdx => {
           const s: TapState =

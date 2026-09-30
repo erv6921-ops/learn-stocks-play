@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation, Trans } from "react-i18next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -26,6 +27,7 @@ export const LessonResultsScreen: React.FC<LessonResultsScreenProps> = ({
   onBackToDashboard,
   onNextLesson,
 }) => {
+  const { t } = useTranslation();
   const pct = total > 0 ? Math.round((score / total) * 100) : 0;
 
   return (
@@ -49,11 +51,14 @@ export const LessonResultsScreen: React.FC<LessonResultsScreenProps> = ({
 
           <div className="space-y-1">
             <h2 className="text-2xl font-bold text-slate-900">
-              {passed ? "🎉 Lesson complete!" : "Lesson complete"}
+              {passed ? t("lessonPlayer.lessonCompletePassed") : t("lessonPlayer.lessonComplete")}
             </h2>
             <p className="text-sm text-slate-500">
-              You answered <span className="font-semibold text-slate-700">{score}/{total}</span>{" "}
-              correct ({pct}%).
+              <Trans
+                i18nKey="lessonPlayer.youAnswered"
+                values={{ score, total, pct }}
+                components={{ b: <span className="font-semibold text-slate-700" /> }}
+              />
             </p>
           </div>
 
@@ -69,19 +74,18 @@ export const LessonResultsScreen: React.FC<LessonResultsScreenProps> = ({
             {passed ? (
               <div className="space-y-1">
                 <p className="text-sm font-semibold text-emerald-800">
-                  You&apos;ve mastered this lesson!
+                  {t("lessonPlayer.masteredLesson")}
                 </p>
                 {typeof thetaDelta === "number" && (
                   <p className="text-xs text-emerald-700">
-                    Ability {thetaDelta >= 0 ? "+" : ""}
-                    {thetaDelta.toFixed(2)} theta points
+                    {t("lessonPlayer.abilityThetaPoints", { delta: `${thetaDelta >= 0 ? "+" : ""}${thetaDelta.toFixed(2)}` })}
                   </p>
                 )}
               </div>
             ) : (
               <div className="space-y-1">
                 <p className="text-sm font-medium text-slate-700">
-                  Keep going to reach mastery.
+                  {t("lessonPlayer.keepGoingMastery")}
                 </p>
                 {masteryProgress && (
                   <p className="text-xs text-slate-500">{masteryProgress}</p>
@@ -96,7 +100,7 @@ export const LessonResultsScreen: React.FC<LessonResultsScreenProps> = ({
                 onClick={onNextLesson}
                 className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700"
               >
-                Next lesson
+                {t("lessonPlayer.nextLesson")}
                 <ArrowRight className="ml-1.5 h-4 w-4" />
               </Button>
             )}
@@ -110,7 +114,7 @@ export const LessonResultsScreen: React.FC<LessonResultsScreenProps> = ({
               )}
             >
               <LayoutDashboard className="mr-1.5 h-4 w-4" />
-              Back to dashboard
+              {t("lessonPlayer.backToDashboard")}
             </Button>
           </div>
         </CardContent>

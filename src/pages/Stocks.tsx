@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react"
 import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { useApp } from "@/contexts/AppContext"
 import { supabase } from "@/integrations/supabase/client"
 
@@ -192,6 +193,7 @@ function StockRow({
 }
 
 export default function Stocks() {
+  const { t } = useTranslation()
   const { user, watchlist, addToWatchlist, removeFromWatchlist } = useApp()
   const navigate = useNavigate()
 
@@ -337,8 +339,8 @@ export default function Stocks() {
 
   const toggleWatchlist = (sym: string, e?: React.MouseEvent) => {
     e?.preventDefault(); e?.stopPropagation()
-    if (watchlist.includes(sym)) { removeFromWatchlist(sym); toast("Removed from Watchlist") }
-    else { addToWatchlist(sym); toast.success("Added to Watchlist") }
+    if (watchlist.includes(sym)) { removeFromWatchlist(sym); toast(t("stocks.removedFromWatchlist")) }
+    else { addToWatchlist(sym); toast.success(t("stocks.addedToWatchlist")) }
   }
 
   // Real market-wide top movers from Yahoo's day_gainers / day_losers screeners.
@@ -378,19 +380,19 @@ export default function Stocks() {
       <main className="container mx-auto px-4 py-6 md:py-10">
         <div className="flex items-start justify-between gap-4 mb-6 md:mb-8">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-primary/70 mb-1.5">Live Markets</p>
-            <h1 className="font-display text-[30px] md:text-[40px] font-extrabold mb-2.5 tracking-tight text-gradient leading-none">Stock Market</h1>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-primary/70 mb-1.5">{t("stocks.liveMarkets")}</p>
+            <h1 className="font-display text-[30px] md:text-[40px] font-extrabold mb-2.5 tracking-tight text-gradient leading-none">{t("stocks.stockMarket")}</h1>
             {/* 2. MARKET STATUS BADGE */}
             <div className="inline-flex items-center gap-2 text-sm rounded-full bg-card border border-border/70 pl-2.5 pr-3.5 py-1 shadow-sm">
               <span
                 className={`w-2 h-2 rounded-full ${marketOpen ? 'bg-success market-dot-breathe' : 'bg-muted-foreground/50'}`}
               />
               <span className="text-muted-foreground font-medium">
-                {marketOpen ? 'Market open · Live prices' : 'Market closed · Last close prices'}
+                {marketOpen ? t("stocks.marketOpenLive") : t("stocks.marketClosedLastClose")}
               </span>
             </div>
           </div>
-          <JeffMascot size="sm" message="Search any stock ticker to see its details!" className="hidden sm:flex shrink-0" />
+          <JeffMascot size="sm" message={t("stocks.jeffSearchHint")} className="hidden sm:flex shrink-0" />
         </div>
 
         {/* Search Bar - Front and Center */}
@@ -398,7 +400,7 @@ export default function Stocks() {
           <div className="relative max-w-2xl mx-auto" ref={anchor("stocks-search")}>
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground z-10" />
             <Input
-              placeholder="Search any ticker or company (e.g. AAPL, Tesla)..."
+              placeholder={t("stocks.searchPlaceholder")}
               className="pl-14 h-14 text-base rounded-full shadow-lg border-border/60 bg-card focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary/40 transition-shadow"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
@@ -413,7 +415,7 @@ export default function Stocks() {
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-5">
               <h2 className="font-display text-lg md:text-xl font-bold">
-                Results for <span className="text-primary">"{searchQuery.trim().toUpperCase()}"</span>
+                {t("stocks.resultsFor")} <span className="text-primary">"{searchQuery.trim().toUpperCase()}"</span>
               </h2>
               {searching && <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />}
             </div>
@@ -451,10 +453,10 @@ export default function Stocks() {
                             )}
                           </span>
                         ) : (
-                          <span className="text-xs text-muted-foreground truncate">{sr.exchange || 'Tap to view'}</span>
+                          <span className="text-xs text-muted-foreground truncate">{sr.exchange || t("stocks.tapToView")}</span>
                         )}
                         <span className="inline-flex items-center gap-0.5 text-xs font-semibold text-primary shrink-0 group-hover:gap-1.5 transition-all">
-                          View <ChevronRight className="w-3.5 h-3.5" />
+                          {t("stocks.view")} <ChevronRight className="w-3.5 h-3.5" />
                         </span>
                       </div>
                     </button>
@@ -468,8 +470,8 @@ export default function Stocks() {
             ) : (
               <div className="text-center py-16 rounded-2xl border border-dashed border-border">
                 <Search className="w-8 h-8 text-muted-foreground/40 mx-auto mb-3" />
-                <p className="text-sm text-muted-foreground">No matches for "{searchQuery.trim().toUpperCase()}".</p>
-                <p className="text-xs text-muted-foreground/70 mt-1">Press Enter to open it directly.</p>
+                <p className="text-sm text-muted-foreground">{t("stocks.noMatches", { query: searchQuery.trim().toUpperCase() })}</p>
+                <p className="text-xs text-muted-foreground/70 mt-1">{t("stocks.pressEnter")}</p>
               </div>
             )}
           </div>
@@ -478,7 +480,7 @@ export default function Stocks() {
             {/* 3. MAJOR INDEXES - the visual anchor: live price, % change, sparkline */}
             <div className="mb-8 md:mb-12">
               <h2 className="font-display text-lg font-bold mb-4 flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-primary" /> Major Indexes
+                <TrendingUp className="w-5 h-5 text-primary" /> {t("stocks.majorIndexes")}
               </h2>
               <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 md:gap-4">
                 {MAJOR_INDEXES.map(idx => {
@@ -548,7 +550,7 @@ export default function Stocks() {
 
             {/* 4. MOST ACTIVE STRIP - live */}
             <div className="mb-8 md:mb-12">
-              <h2 className="font-display text-sm font-bold mb-3 text-muted-foreground uppercase tracking-wider">Most active today</h2>
+              <h2 className="font-display text-sm font-bold mb-3 text-muted-foreground uppercase tracking-wider">{t("stocks.mostActiveToday")}</h2>
               <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1 -mx-1 px-1">
                 {MOST_ACTIVE_SYMBOLS.map(sym => {
                   const c = quotes[sym]?.changePercent
@@ -585,7 +587,7 @@ export default function Stocks() {
               <section className="rounded-2xl border border-border bg-card p-4 md:p-5 shadow-sm">
                 <div className="flex items-center gap-2 mb-3">
                   <Star className="w-5 h-5 text-warning fill-warning" />
-                  <h2 className="font-display text-base font-bold">Your watchlist</h2>
+                  <h2 className="font-display text-base font-bold">{t("stocks.yourWatchlist")}</h2>
                   {watchlist.length > 0 && (
                     <span className="ml-auto text-xs font-semibold text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{watchlist.length}</span>
                   )}
@@ -593,7 +595,7 @@ export default function Stocks() {
                 {watchlist.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-12 text-center rounded-xl border border-dashed border-border">
                     <Star className="w-6 h-6 text-muted-foreground/50 mb-2" />
-                    <p className="text-sm text-muted-foreground">Star any stock to track it here</p>
+                    <p className="text-sm text-muted-foreground">{t("stocks.starToTrack")}</p>
                   </div>
                 ) : (
                   <div className="grid gap-0.5">
@@ -616,19 +618,19 @@ export default function Stocks() {
               {/* Top movers panel */}
               <section className="rounded-2xl border border-border bg-card p-4 md:p-5 shadow-sm">
                 <div className="flex items-center gap-2 mb-3" ref={anchor("stocks-movers")}>
-                  <h2 className="font-display text-base font-bold mr-1">Top movers</h2>
+                  <h2 className="font-display text-base font-bold mr-1">{t("stocks.topMovers")}</h2>
                   <div className="ml-auto flex items-center gap-1 bg-muted/60 rounded-full p-0.5">
                     <button
                       onClick={() => setMoverTab('gainers')}
                       className={`flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full transition-colors ${moverTab === 'gainers' ? 'bg-success/15 text-success shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
                     >
-                      <TrendingUp className="w-3.5 h-3.5" /> Gainers
+                      <TrendingUp className="w-3.5 h-3.5" /> {t("stocks.gainers")}
                     </button>
                     <button
                       onClick={() => setMoverTab('losers')}
                       className={`flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full transition-colors ${moverTab === 'losers' ? 'bg-destructive/15 text-destructive shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
                     >
-                      <TrendingDown className="w-3.5 h-3.5" /> Losers
+                      <TrendingDown className="w-3.5 h-3.5" /> {t("stocks.losers")}
                     </button>
                   </div>
                 </div>
@@ -638,7 +640,7 @@ export default function Stocks() {
                   </div>
                 ) : movers.length === 0 ? (
                   <p className="text-sm text-muted-foreground py-10 text-center">
-                    No {moverTab} right now.
+                    {moverTab === 'gainers' ? t("stocks.noGainers") : t("stocks.noLosers")}
                   </p>
                 ) : (
                   <div className="grid gap-0.5">
@@ -671,16 +673,16 @@ export default function Stocks() {
                   <Sparkles className="w-5 h-5 text-gold" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-white font-bold">Unlock analyst reports</p>
-                  <p className="text-white/60 text-sm truncate">Get AI-generated insights for any stock</p>
+                  <p className="text-white font-bold">{t("stocks.unlockAnalystReports")}</p>
+                  <p className="text-white/60 text-sm truncate">{t("stocks.analystReportsDesc")}</p>
                 </div>
               </div>
               <button
-                onClick={() => toast("Coming soon!")}
+                onClick={() => toast(t("stocks.comingSoon"))}
                 className="relative shrink-0 w-full sm:w-auto px-5 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap inline-flex items-center justify-center gap-1.5 transition-transform hover:-translate-y-0.5"
                 style={{ backgroundColor: '#0a2016', color: '#f59e0b', border: '1px solid #f59e0b44' }}
               >
-                <Coins className="w-4 h-4" /> 100 coins · Unlock
+                <Coins className="w-4 h-4" /> {t("stocks.coinsUnlock", { count: 100 })}
               </button>
             </div>
           </>

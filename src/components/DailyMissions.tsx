@@ -1,4 +1,5 @@
 import { Target, CheckCircle2, Coins } from "lucide-react"
+import { useTranslation } from "react-i18next"
 import { useDailyMissions } from "@/hooks/useDailyMissions"
 import { DIFFICULTY_META } from "@/lib/dailyMissions"
 
@@ -12,6 +13,7 @@ interface DailyMissionsProps {
 // coin awards all live in the hook / lib now, so this stays presentational.
 export default function DailyMissions({ headless }: DailyMissionsProps) {
   const { missions, completedCount, total } = useDailyMissions({ award: true })
+  const { t } = useTranslation()
 
   if (headless) return null
 
@@ -20,10 +22,10 @@ export default function DailyMissions({ headless }: DailyMissionsProps) {
       <div className="flex items-center justify-between mb-2.5">
         <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground flex items-center gap-1.5">
           <Target className="w-3.5 h-3.5 text-primary" />
-          Daily missions
+          {t("dashboard.dailyMissions")}
         </p>
         <span className="text-[11px] font-bold tabular-nums text-muted-foreground">
-          {completedCount}/{total} done
+          {t("common.doneCount", { done: completedCount, total })}
         </span>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -55,7 +57,7 @@ export default function DailyMissions({ headless }: DailyMissionsProps) {
                   </span>
                 </div>
                 <span className="text-[11px] text-warning font-bold flex items-center gap-0.5 mt-0.5">
-                  <Coins className="w-3 h-3" />{isDone ? "Earned" : `+${mission.reward}`}
+                  <Coins className="w-3 h-3" />{isDone ? t("missions.earned") : `+${mission.reward}`}
                 </span>
               </div>
             </div>

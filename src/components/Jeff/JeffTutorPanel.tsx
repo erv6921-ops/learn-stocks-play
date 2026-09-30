@@ -9,6 +9,7 @@
 // gold coin pill from GameNav, AnimatedNumber for the balance tick) so it
 // follows the app's light/dark theme automatically.
 import React, { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { AnimatePresence, motion } from "framer-motion"
 import ReactMarkdown from "react-markdown"
@@ -25,10 +26,10 @@ import SendToFriendButton from "@/components/friends/SendToFriendButton"
 // Same asset + cache-bust as JeffMascot / JeffChat / JeffLogo.
 const MASCOT_SRC = "/brand/mascot-character.png?v=2"
 
-const STARTERS = [
-  "What's the difference between a stock and a bond?",
-  "How does compound interest actually work?",
-  "Why did my portfolio go down today?",
+const STARTER_KEYS = [
+  "jeff.starters.stockVsBond",
+  "jeff.starters.compoundInterest",
+  "jeff.starters.portfolioDown",
 ]
 
 function JeffAvatar({ size = 32, className }: { size?: number; className?: string }) {
@@ -47,6 +48,7 @@ function JeffAvatar({ size = 32, className }: { size?: number; className?: strin
 
 /** Jeff rocking gently (the CookSkit body motion) + three bouncing dots. */
 function TypingIndicator() {
+  const { t } = useTranslation()
   return (
     <motion.div
       className="flex items-end gap-2"
@@ -73,13 +75,14 @@ function TypingIndicator() {
             />
           ))}
         </span>
-        <span className="text-xs text-muted-foreground">Jeff's putting it together…</span>
+        <span className="text-xs text-muted-foreground">{t("jeff.puttingItTogether")}</span>
       </div>
     </motion.div>
   )
 }
 
 function LessonCard({ lesson, onStart }: { lesson: JeffTutorLesson; onStart: (l: JeffTutorLesson) => void }) {
+  const { t } = useTranslation()
   return (
     <motion.button
       type="button"
@@ -96,7 +99,7 @@ function LessonCard({ lesson, onStart }: { lesson: JeffTutorLesson; onStart: (l:
       <span className="min-w-0 flex-1">
         <span className="block truncate text-sm font-bold text-foreground">{lesson.title}</span>
         <span className="mt-0.5 flex items-center gap-1 text-xs font-semibold text-primary">
-          Start this lesson <ArrowRight className="h-3.5 w-3.5" />
+          {t("jeff.startLesson")} <ArrowRight className="h-3.5 w-3.5" />
         </span>
       </span>
     </motion.button>
@@ -181,6 +184,7 @@ export interface JeffTutorPanelProps {
 }
 
 export function JeffTutorPanel({ open, onOpenChange, initialPrompt }: JeffTutorPanelProps) {
+  const { t } = useTranslation()
   const isMobile = useIsMobile()
   const navigate = useNavigate()
   const { messages, loading, balance, cost, dailyRemaining, dailyLimit, canSend, send } = useJeffTutor()
@@ -222,12 +226,12 @@ export function JeffTutorPanel({ open, onOpenChange, initialPrompt }: JeffTutorP
   const outOfQuestions = dailyRemaining <= 0
   const broke = balance < cost
   const hint = loading
-    ? "Jeff's thinking…"
+    ? t("jeff.hint.thinking")
     : outOfQuestions
-      ? `You've used today's ${dailyLimit} questions. Jeff's back tomorrow!`
+      ? t("jeff.hint.outOfQuestions", { count: dailyLimit })
       : broke
-        ? `Each question costs ${cost} coins and you have ${balance.toLocaleString()}. Finish a lesson to earn more.`
-        : `${dailyRemaining} question${dailyRemaining === 1 ? "" : "s"} left today · ${cost} coins each`
+        ? t("jeff.hint.broke", { cost, balance: balance.toLocaleString() })
+        : t("jeff.hint.questionsLeft", { count: dailyRemaining, cost })
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -247,8 +251,8 @@ export function JeffTutorPanel({ open, onOpenChange, initialPrompt }: JeffTutorP
             <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-background bg-success" aria-hidden />
           </div>
           <div className="min-w-0 flex-1">
-            <SheetTitle className="text-base font-extrabold leading-tight text-foreground">Chat with Jeff</SheetTitle>
-            <SheetDescription className="text-xs text-muted-foreground">Your money tutor · answers from your class material</SheetDescription>
+            <SheetTitle className="text-base font-extrabold leading-tight text-foreground">{t("lessons.chatWithJeff")}</SheetTitle>
+            <SheetDescription className="text-xs text-muted-foreground">{t("jeff.tutorSubtitle")}</SheetDescription>
           </div>
           {/* Same gold pill as the GameNav HUD; AnimatedNumber tweens the debit. */}
           <div
@@ -271,13 +275,15 @@ export function JeffTutorPanel({ open, onOpenChange, initialPrompt }: JeffTutorP
                 <JeffAvatar size={88} />
               </motion.div>
               <div>
-                <p className="text-lg font-extrabold text-foreground">Hey! What are we figuring out today?</p>
-                <p className="mt-1 text-sm text-muted-foreground">Ask me anything about money, investing, or your class.</p>
+                <p className="text-lg font-extrabold text-foreground">{t("jeff.empty.title")}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{t("jeff.empty.subtitle")}</p>
               </div>
               <div className="flex w-full max-w-sm flex-col gap-2">
-                {STARTERS.map((q, i) => (
+                {STARTER_KEYS.map((key, i) => {
+                  const q = t(key)
+                  return (
                   <motion.button
-                    key={q}
+                    key={key}
                     type="button"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -288,7 +294,8 @@ export function JeffTutorPanel({ open, onOpenChange, initialPrompt }: JeffTutorP
                   >
                     {q}
                   </motion.button>
-                ))}
+                  )
+                })}
               </div>
             </div>
           ) : (
@@ -317,21 +324,21 @@ export function JeffTutorPanel({ open, onOpenChange, initialPrompt }: JeffTutorP
                   submit(draft)
                 }
               }}
-              placeholder={outOfQuestions ? "Come back tomorrow!" : "Ask Jeff a question…"}
+              placeholder={outOfQuestions ? t("jeff.composer.comeBackTomorrow") : t("jeff.composer.placeholder")}
               rows={1}
               maxLength={2000}
               disabled={outOfQuestions}
-              aria-label="Your question for Jeff"
+              aria-label={t("jeff.composer.ariaLabel")}
               className="min-h-[2.75rem] max-h-32 flex-1 resize-none rounded-2xl bg-background text-[15px]"
             />
             <Button
               type="submit"
               disabled={!canSend || !draft.trim()}
               className="press-scale h-11 shrink-0 rounded-2xl px-4 font-bold"
-              aria-label={`Send, costs ${cost} coins`}
+              aria-label={t("jeff.composer.sendAria", { cost })}
             >
               <Send className="mr-1.5 h-4 w-4" />
-              Send · {cost}
+              {t("jeff.composer.send", { cost })}
             </Button>
           </form>
           <p

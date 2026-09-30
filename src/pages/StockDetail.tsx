@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
+import { useTranslation, Trans } from "react-i18next"
 import { useApp } from "@/contexts/AppContext"
 import { formatMarketCap, formatVolume } from "@/data/stocksData"
 import { supabase } from "@/integrations/supabase/client"
@@ -22,6 +23,7 @@ import { toast } from "sonner"
 import { formatHistoryTimestamp, formatLocalTimestamp, getMarketSessionStatus, isLiveMarketSessionNow } from "@/lib/marketSession"
 import { anchor } from "@/lib/tourAnchors"
 import { recordStockView } from "@/lib/dailyMissions"
+import i18n from "@/i18n"
 
 interface StockData {
   symbol: string
@@ -163,46 +165,60 @@ const HARDCODED_PRICES: Record<string, number> = {
   TSLA: 377.68, NVDA: 175.32, META: 601.93,
 }
 
-// Kid-friendly, plain-English definitions for every stat shown on this page.
-// Keyed by the exact label text used in the UI (both header + panel variants).
-const STAT_HELP: Record<string, string> = {
-  "Open": "The price of one share when the stock market opened this morning.",
-  "Prev Close": "The price of one share when the market closed yesterday.",
-  "Previous Close": "The price of one share when the market closed yesterday.",
-  "Day's Range": "The lowest and highest price the stock has traded at so far today.",
-  "52-Week Range": "The lowest and highest price this stock hit over the past year.",
-  "Volume": "How many shares were bought and sold today. Bigger means more people are trading it.",
-  "Avg Volume (3M)": "The average number of shares traded each day over the last 3 months.",
-  "Market Cap": "The total value of the whole company: share price times the number of shares that exist.",
-  "Mkt Cap": "The total value of the whole company: share price times the number of shares that exist.",
-  "Net Assets": "The total value of everything this fund holds.",
-  "Shares Outstanding": "The total number of shares the company has created.",
-  "P/E (TTM)": "Price-to-Earnings: how much investors pay for each $1 the company earns. Higher = pricier.",
-  "Forward P/E": "Like P/E, but based on how much the company is expected to earn next year.",
-  "Price/Sales": "The company's value compared to how much money it makes in sales.",
-  "Price/Book": "The company's value compared to what its assets are worth on paper.",
-  "EPS (TTM)": "Earnings Per Share: the profit the company made for each share over the past year.",
-  "Forward EPS": "The profit per share the company is expected to make next year.",
-  "Revenue (TTM)": "All the money the company brought in from sales over the past year.",
-  "EBITDA": "A measure of profit before subtracting things like taxes and interest.",
-  "Profit Margin": "Out of every $1 the company makes, how much is actual profit.",
-  "Operating Margin": "How much profit the company keeps from its main business, before taxes and interest.",
-  "Beta (5Y Monthly)": "How wild the price swings are compared to the whole market. Above 1 means bumpier than average.",
-  "1Y Target Est": "What experts guess the price could be one year from now.",
-  "Dividend Yield": "The yearly cash a company pays you, shown as a % of the share price.",
-  "Dividend Rate": "The amount of cash a company pays you per share each year.",
-  "Ex-Dividend Date": "You need to own the stock before this date to get the next dividend payment.",
-  "Shares Owned": "How many shares of this stock you own right now.",
-  "Avg. Purchase Price": "The average price you paid for each share you own.",
-  "Current Value": "What all of your shares are worth right now.",
-  "Profit/Loss": "How much you've gained or lost since you bought, in coins and percent.",
+// Maps each exact English stat label (the code-level lookup key used across the
+// UI) to an i18n slug. The visible label and its help tooltip are translated at
+// render time via i18n; the English label stays the internal key so all the
+// existing STAT_HELP lookups and prop passing keep working unchanged.
+const STAT_SLUGS: Record<string, string> = {
+  "Open": "open",
+  "Prev Close": "prevClose",
+  "Previous Close": "previousClose",
+  "Day's Range": "daysRange",
+  "52-Week Range": "week52Range",
+  "Volume": "volume",
+  "Avg Volume (3M)": "avgVolume3m",
+  "Market Cap": "marketCap",
+  "Mkt Cap": "mktCap",
+  "Net Assets": "netAssets",
+  "Shares Outstanding": "sharesOutstanding",
+  "P/E (TTM)": "peTtm",
+  "Forward P/E": "forwardPe",
+  "Price/Sales": "priceSales",
+  "Price/Book": "priceBook",
+  "EPS (TTM)": "epsTtm",
+  "Forward EPS": "forwardEps",
+  "Revenue (TTM)": "revenueTtm",
+  "EBITDA": "ebitda",
+  "Profit Margin": "profitMargin",
+  "Operating Margin": "operatingMargin",
+  "Beta (5Y Monthly)": "beta5yMonthly",
+  "1Y Target Est": "targetEst1y",
+  "Dividend Yield": "dividendYield",
+  "Dividend Rate": "dividendRate",
+  "Ex-Dividend Date": "exDividendDate",
+  "Shares Owned": "sharesOwned",
+  "Avg. Purchase Price": "avgPurchasePrice",
+  "Current Value": "currentValue",
+  "Profit/Loss": "profitLoss",
+}
+
+// The visible label for a stat, translated. Falls back to the raw label.
+function statLabel(label: string): string {
+  const slug = STAT_SLUGS[label]
+  return slug ? i18n.t(`stocks.statLabel.${slug}`) : label
+}
+
+// Kid-friendly help text for a stat, translated. Empty string = no tooltip.
+function statHelp(label: string): string {
+  const slug = STAT_SLUGS[label]
+  return slug ? i18n.t(`stocks.statHelp.${slug}`) : ""
 }
 
 // Tiny hoverable "?" that explains what a stat means. Works on hover, tap and
 // keyboard focus (Radix Tooltip). stopPropagation keeps it from triggering any
 // clickable parent.
 function HelpTip({ label, dark = false }: { label: string; dark?: boolean }) {
-  const text = STAT_HELP[label]
+  const text = statHelp(label)
   if (!text) return null
   return (
     <UiTooltip delayDuration={100}>
@@ -210,7 +226,7 @@ function HelpTip({ label, dark = false }: { label: string; dark?: boolean }) {
         <button
           type="button"
           onClick={(e) => { e.stopPropagation(); e.preventDefault() }}
-          aria-label={`What does ${label} mean?`}
+          aria-label={i18n.t("stocks.whatDoesMean", { label: statLabel(label) })}
           className={`inline-grid place-items-center shrink-0 rounded-full transition-colors ${dark ? 'text-white/30 hover:text-white/80' : 'text-muted-foreground/50 hover:text-muted-foreground'}`}
         >
           <HelpCircle className="w-3 h-3" />
@@ -228,7 +244,7 @@ function StatChip({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-0.5 rounded-xl bg-muted/60 px-3 py-2 min-w-[88px]">
       <span className="flex items-center gap-1 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-        {label}
+        {statLabel(label)}
         <HelpTip label={label} />
       </span>
       <span className="text-sm font-semibold tabular-nums whitespace-nowrap">{value}</span>
@@ -241,7 +257,7 @@ function DarkStat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl bg-white/[0.04] border border-white/[0.06] px-3 py-2.5 transition-colors hover:bg-white/[0.06]">
       <div className="flex items-center gap-1 mb-1 min-w-0">
-        <p className="text-[10px] text-white/40 truncate">{label}</p>
+        <p className="text-[10px] text-white/40 truncate">{statLabel(label)}</p>
         <HelpTip label={label} dark />
       </div>
       <p className="text-sm font-semibold text-white/90 tabular-nums">{value}</p>
@@ -260,6 +276,7 @@ function DarkStatSection({ title }: { title: string }) {
 }
 
 export default function StockDetail() {
+  const { t } = useTranslation()
   const { symbol } = useParams<{ symbol: string }>()
   const { user, watchlist, addToWatchlist, removeFromWatchlist, jeffsBalance, buyStock, sellStock, getHolding } = useApp()
   const navigate = useNavigate()
@@ -671,7 +688,7 @@ export default function StockDetail() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Loader2 className="w-5 h-5 animate-spin text-primary" />
-        <span className="ml-3 text-muted-foreground text-sm">Loading stock data...</span>
+        <span className="ml-3 text-muted-foreground text-sm">{t("stocks.loadingStockData")}</span>
       </div>
     )
   }
@@ -686,12 +703,12 @@ export default function StockDetail() {
           <div className="w-16 h-16 rounded-2xl bg-muted flex items-center justify-center mb-5">
             <Search className="w-7 h-7 text-muted-foreground" />
           </div>
-          <h1 className="text-2xl font-extrabold mb-2">Stock not found</h1>
+          <h1 className="text-2xl font-extrabold mb-2">{t("stocks.notFoundTitle")}</h1>
           <p className="text-muted-foreground max-w-sm mb-6">
-            We couldn't find a stock with the symbol <span className="font-mono font-bold">{symbol}</span>. It may be misspelled or not available to trade.
+            <Trans i18nKey="stocks.notFoundBody" values={{ symbol }} components={{ sym: <span className="font-mono font-bold" /> }} />
           </p>
           <Button asChild variant="hero" size="lg" className="press-scale">
-            <Link to="/stocks">Browse stocks</Link>
+            <Link to="/stocks">{t("stocks.browseStocks")}</Link>
           </Button>
         </div>
       </div>
@@ -710,18 +727,18 @@ export default function StockDetail() {
 
   const handleBuy = () => {
     if (!hasValidPrice) {
-      toast.error("Live price unavailable", { description: "We couldn't load a price for this stock. Try again in a moment." })
+      toast.error(t("stocks.livePriceUnavailable"), { description: t("stocks.livePriceUnavailableDesc") })
       return
     }
     if (!canAfford) {
-      toast.error("Not enough InvestiCoins!", { description: `You need ${fmtCoins(totalCost)} but have ${fmtCoins(jeffsBalance)}.` })
+      toast.error(t("stocks.notEnoughCoins"), { description: t("stocks.notEnoughCoinsDesc", { need: fmtCoins(totalCost), have: fmtCoins(jeffsBalance) }) })
       return
     }
     const before = jeffsBalance
     const success = buyStock(stock.symbol, shares, stock.price)
     if (success) {
-      toast.success(`Bought ${shares} share${shares === 1 ? "" : "s"} of ${stock.symbol}`, {
-        description: `Balance ${fmtCoins(before)} to ${fmtCoins(before - totalCost)} InvestiCoins.`,
+      toast.success(t("stocks.boughtShares", { count: shares, symbol: stock.symbol }), {
+        description: t("stocks.balanceChange", { from: fmtCoins(before), to: fmtCoins(before - totalCost) }),
       })
       setShowConfirm(false)
     }
@@ -729,18 +746,18 @@ export default function StockDetail() {
 
   const handleSell = () => {
     if (!hasValidPrice) {
-      toast.error("Live price unavailable", { description: "We couldn't load a price for this stock. Try again in a moment." })
+      toast.error(t("stocks.livePriceUnavailable"), { description: t("stocks.livePriceUnavailableDesc") })
       return
     }
     if (!canSell) {
-      toast.error("Not enough shares!", { description: `You only have ${holding?.shares || 0} shares.` })
+      toast.error(t("stocks.notEnoughShares"), { description: t("stocks.notEnoughSharesDesc", { count: holding?.shares || 0 }) })
       return
     }
     const before = jeffsBalance
     const success = sellStock(stock.symbol, shares, stock.price)
     if (success) {
-      toast.success(`Sold ${shares} share${shares === 1 ? "" : "s"} of ${stock.symbol}`, {
-        description: `Balance ${fmtCoins(before)} to ${fmtCoins(before + totalCost)} InvestiCoins.`,
+      toast.success(t("stocks.soldShares", { count: shares, symbol: stock.symbol }), {
+        description: t("stocks.balanceChange", { from: fmtCoins(before), to: fmtCoins(before + totalCost) }),
       })
       setShowConfirm(false)
     }
@@ -786,7 +803,7 @@ export default function StockDetail() {
           onClick={() => navigate(-1)}
           className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-4 press-scale"
         >
-          <ArrowLeft className="w-4 h-4" /> Back to markets
+          <ArrowLeft className="w-4 h-4" /> {t("stocks.backToMarkets")}
         </button>
 
         {/* Stock Header */}
@@ -796,7 +813,7 @@ export default function StockDetail() {
               <div className="flex items-center gap-2.5 mb-1">
                 <h1 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight">{stock.symbol}</h1>
                 <Badge variant="outline" className="text-[10px] px-1.5 py-0">
-                  {stock.type === 'index' ? 'INDEX' : stock.type.toUpperCase()}
+                  {stock.type === 'index' ? t("stocks.indexBadge") : stock.type.toUpperCase()}
                 </Badge>
               </div>
               <p className="text-muted-foreground text-sm mb-3 truncate">{displayStockName}</p>
@@ -806,7 +823,7 @@ export default function StockDetail() {
                 // Price History panel next to the range selector).
                 const headerDollar = stock.change ?? 0
                 const headerPercent = stock.changePercent ?? 0
-                const rangeLabel = 'Today'
+                const rangeLabel = t("stocks.today")
                 const up = headerDollar >= 0
                 return (
                   <div className="flex items-baseline gap-3 flex-wrap">
@@ -833,7 +850,7 @@ export default function StockDetail() {
                         if (marketStatus.session === 'closed') {
                           return (
                             <span className="text-[11px] text-muted-foreground">
-                              Market Closed · Closed at {marketStatus.regularCloseTimeET}
+                              {t("stocks.marketClosedAt", { time: marketStatus.regularCloseTimeET })}
                             </span>
                           )
                         }
@@ -841,7 +858,7 @@ export default function StockDetail() {
                         if (marketStatus.session === 'post') {
                           return (
                             <span className="text-[11px] text-muted-foreground">
-                              After Hours · Closed at {marketStatus.regularCloseTimeET}{marketStatus.quoteTimeText ? ` · Quote as of ${marketStatus.quoteTimeText}` : ''}
+                              {t("stocks.afterHoursClosedAt", { time: marketStatus.regularCloseTimeET })}{marketStatus.quoteTimeText ? t("stocks.quoteAsOfSuffix", { time: marketStatus.quoteTimeText }) : ''}
                             </span>
                           )
                         }
@@ -849,14 +866,14 @@ export default function StockDetail() {
                         if (marketStatus.session === 'pre') {
                           return (
                             <span className="text-[11px] text-muted-foreground">
-                              Pre-Market{marketStatus.quoteTimeText ? ` · As of ${marketStatus.quoteTimeText}` : ''} · Opens 9:30 AM ET
+                              {t("stocks.preMarket")}{marketStatus.quoteTimeText ? t("stocks.asOfSuffix", { time: marketStatus.quoteTimeText }) : ''}{t("stocks.opensEtSuffix")}
                             </span>
                           )
                         }
 
                         return (
                           <span className="text-[11px] text-muted-foreground">
-                            Market Open · As of {marketStatus.quoteTimeText || '--'}
+                            {t("stocks.marketOpenAsOf", { time: marketStatus.quoteTimeText || '--' })}
                           </span>
                         )
                       })()}
@@ -872,10 +889,10 @@ export default function StockDetail() {
                 onClick={() => {
                   if (isInWatchlist) {
                     removeFromWatchlist(stock.symbol)
-                    toast("Removed from Watchlist", { description: stock.symbol })
+                    toast(t("stocks.removedFromWatchlist"), { description: stock.symbol })
                   } else {
                     addToWatchlist(stock.symbol)
-                    toast.success("Added to Watchlist", { description: stock.symbol })
+                    toast.success(t("stocks.addedToWatchlist"), { description: stock.symbol })
                   }
                 }}
                 className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border text-sm font-semibold press-scale transition-colors ${
@@ -885,8 +902,8 @@ export default function StockDetail() {
                 }`}
               >
                 {isInWatchlist
-                  ? <><Star className="w-4 h-4 fill-current" /> Watching</>
-                  : <><StarOff className="w-4 h-4" /> Add to watchlist</>}
+                  ? <><Star className="w-4 h-4 fill-current" /> {t("stocks.watching")}</>
+                  : <><StarOff className="w-4 h-4" /> {t("stocks.addToWatchlist")}</>}
               </button>
               <SendToFriendButton
                 variant="pill"
@@ -918,7 +935,7 @@ export default function StockDetail() {
             <div className="flex items-center justify-between flex-wrap gap-2">
               <div className="flex items-center gap-3">
                 <h3 className="text-sm font-bold text-white/90">
-                  Price History
+                  {t("stocks.priceHistory")}
                   {historyLoading && <Loader2 className="w-3 h-3 animate-spin text-white/50 inline ml-2" />}
                 </h3>
                 {!historyLoading && rangeChangePercent != null && rangeDollarChange != null && (
@@ -926,7 +943,7 @@ export default function StockDetail() {
                     {rangeDollarChange >= 0 ? "+" : ""}{stock.type === 'index' ? '' : '$'}{Math.abs(rangeDollarChange).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     <span className="ml-1">({rangeChangePercent >= 0 ? "+" : ""}{rangeChangePercent.toFixed(2)}%)</span>
                     <span className="text-xs font-normal text-white/40 ml-1">
-                      {TIME_RANGES.find(r => r.value === selectedRange)?.label}
+                      {t(`stocks.range.${selectedRange}`)}
                     </span>
                   </span>
                 )}
@@ -943,7 +960,7 @@ export default function StockDetail() {
                           : 'text-white/40 hover:text-white/70'
                       }`}
                     >
-                      {r.label}
+                      {t(`stocks.range.${r.value}`)}
                     </button>
                   ))}
                 </div>
@@ -1016,9 +1033,9 @@ export default function StockDetail() {
             <div className="px-5 pb-1 flex items-center gap-1 text-[10px] text-white/25">
               <Clock className="w-3 h-3" />
               {lastQuoteTime
-                ? <>As of {lastQuoteTime.toLocaleTimeString()}</>
+                ? <>{t("stocks.asOf", { time: lastQuoteTime.toLocaleTimeString() })}</>
                 : lastDataTimestamp
-                  ? <>Data as of {lastDataTimestamp}</>
+                  ? <>{t("stocks.dataAsOf", { time: lastDataTimestamp })}</>
                   : null
               }
             </div>
@@ -1032,26 +1049,26 @@ export default function StockDetail() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-base">
                   <ShoppingCart className="w-4 h-4 text-primary" />
-                  Trade {stock.symbol}
+                  {t("stocks.tradeSymbol", { symbol: stock.symbol })}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between p-3 rounded-xl bg-primary/5 border border-primary/10">
                   <span className="text-sm text-muted-foreground flex items-center gap-1.5">
-                    <Coins className="w-4 h-4 text-gold" /> InvestiCoins Balance
+                    <Coins className="w-4 h-4 text-gold" /> {t("stocks.investiCoinsBalance")}
                   </span>
                   <span className="font-bold text-base">{jeffsBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </div>
 
                 <div className="flex gap-2" ref={anchor("stock-trade-toggle")}>
                   <Button variant={buyMode === "buy" ? "default" : "outline"} className="flex-1 press-scale" size="sm"
-                    onClick={() => { setBuyMode("buy"); setSharesValue(1); setShowConfirm(false) }}>Buy</Button>
+                    onClick={() => { setBuyMode("buy"); setSharesValue(1); setShowConfirm(false) }}>{t("stocks.buy")}</Button>
                   <Button variant={buyMode === "sell" ? "default" : "outline"} className="flex-1 press-scale" size="sm"
-                    onClick={() => { setBuyMode("sell"); setSharesValue(1); setShowConfirm(false) }} disabled={!holding}>Sell</Button>
+                    onClick={() => { setBuyMode("sell"); setSharesValue(1); setShowConfirm(false) }} disabled={!holding}>{t("stocks.sell")}</Button>
                 </div>
 
                 <div>
-                  <Label htmlFor="shares" className="text-xs text-muted-foreground mb-2 block">Number of Shares</Label>
+                  <Label htmlFor="shares" className="text-xs text-muted-foreground mb-2 block">{t("stocks.numberOfShares")}</Label>
                   <div className="flex items-center gap-3" ref={anchor("stock-shares")}>
                     <Button variant="outline" size="icon" className="press-scale" onClick={() => setSharesValue(shares - 0.25)} disabled={shares <= 0.01}><Minus className="w-4 h-4" /></Button>
                     <Input
@@ -1073,26 +1090,26 @@ export default function StockDetail() {
                     <Button variant="outline" size="icon" className="press-scale" onClick={() => setSharesValue(shares + 0.25)}><Plus className="w-4 h-4" /></Button>
                   </div>
                   <p id="shares-help" className={`mt-1.5 text-xs ${sharesInvalid ? "text-destructive" : "text-muted-foreground"}`}>
-                    {sharesInvalid ? "Minimum is 0.01 shares" : "You can buy part of a share, like 0.5."}
+                    {sharesInvalid ? t("stocks.minShares") : t("stocks.partialShareHint")}
                   </p>
                 </div>
 
                 <div className="p-3 rounded-xl bg-muted space-y-2 text-sm">
-                  <div className="flex justify-between"><span className="text-muted-foreground">Price per share</span><span className="font-medium">{fmtDollar(stock.price)}</span></div>
-                  <div className="flex justify-between"><span className="text-muted-foreground">Shares</span><span className="font-medium">× {shares}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">{t("stocks.pricePerShare")}</span><span className="font-medium">{fmtDollar(stock.price)}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">{t("stocks.shares")}</span><span className="font-medium">× {shares}</span></div>
                   <div className="border-t border-border pt-2 flex justify-between">
-                    <span className="font-bold">{buyMode === "buy" ? "Cost" : "You receive"}</span>
+                    <span className="font-bold">{buyMode === "buy" ? t("stocks.cost") : t("stocks.youReceive")}</span>
                     <span className="font-bold flex items-center gap-1"><Coins className="w-3.5 h-3.5 text-gold" />{totalCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} InvestiCoins</span>
                   </div>
                   {buyMode === "buy" && (
                     <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>Balance after purchase</span>
+                      <span>{t("stocks.balanceAfterPurchase")}</span>
                       <span className={canAfford ? "text-success" : "text-destructive"}>{(jeffsBalance - totalCost).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                   )}
                   {buyMode === "sell" && (
                     <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>Balance after sale</span>
+                      <span>{t("stocks.balanceAfterSale")}</span>
                       <span className="text-success">{(jeffsBalance + totalCost).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                   )}
@@ -1100,30 +1117,30 @@ export default function StockDetail() {
 
                 {!hasValidPrice && (
                   <div className="flex items-center gap-2 text-destructive text-xs">
-                    <AlertCircle className="w-3.5 h-3.5" /><span>Live price unavailable right now - trading is disabled.</span>
+                    <AlertCircle className="w-3.5 h-3.5" /><span>{t("stocks.tradingDisabled")}</span>
                   </div>
                 )}
                 {hasValidPrice && buyMode === "buy" && !canAfford && (
                   <div className="flex items-center gap-2 text-destructive text-xs">
-                    <AlertCircle className="w-3.5 h-3.5" /><span>You need {fmtCoins(totalCost - jeffsBalance)} more InvestiCoins.</span>
+                    <AlertCircle className="w-3.5 h-3.5" /><span>{t("stocks.needMoreCoins", { amount: fmtCoins(totalCost - jeffsBalance) })}</span>
                   </div>
                 )}
                 {hasValidPrice && buyMode === "sell" && !canSell && (
                   <div className="flex items-center gap-2 text-destructive text-xs">
-                    <AlertCircle className="w-3.5 h-3.5" /><span>You only own {holding?.shares || 0} shares.</span>
+                    <AlertCircle className="w-3.5 h-3.5" /><span>{t("stocks.youOnlyOwn", { count: holding?.shares || 0 })}</span>
                   </div>
                 )}
 
                 {!showConfirm ? (
                   <Button ref={anchor("stock-trade")} className="w-full press-scale" onClick={() => setShowConfirm(true)} disabled={!hasValidPrice || sharesInvalid || (buyMode === "buy" ? !canAfford : !canSell)}>
-                    {buyMode === "buy" ? "Buy" : "Sell"} {shares} Share{shares > 1 ? "s" : ""}
+                    {buyMode === "buy" ? t("stocks.buyShares", { count: shares }) : t("stocks.sellShares", { count: shares })}
                   </Button>
                 ) : (
                   <div className="space-y-3">
-                    <p className="text-center text-xs text-muted-foreground">Confirm {buyMode === "buy" ? "purchase" : "sale"} of {shares} share{shares > 1 ? "s" : ""} for {fmtCoins(totalCost)} InvestiCoins?</p>
+                    <p className="text-center text-xs text-muted-foreground">{buyMode === "buy" ? t("stocks.confirmPurchase", { count: shares, cost: fmtCoins(totalCost) }) : t("stocks.confirmSale", { count: shares, cost: fmtCoins(totalCost) })}</p>
                     <div className="flex gap-2">
-                      <Button variant="outline" className="flex-1 press-scale" size="sm" onClick={() => setShowConfirm(false)}>Cancel</Button>
-                      <Button className="flex-1 press-scale" size="sm" onClick={buyMode === "buy" ? handleBuy : handleSell}><CheckCircle2 className="w-3.5 h-3.5 mr-1.5" />Confirm</Button>
+                      <Button variant="outline" className="flex-1 press-scale" size="sm" onClick={() => setShowConfirm(false)}>{t("common.cancel")}</Button>
+                      <Button className="flex-1 press-scale" size="sm" onClick={buyMode === "buy" ? handleBuy : handleSell}><CheckCircle2 className="w-3.5 h-3.5 mr-1.5" />{t("stocks.confirm")}</Button>
                     </div>
                   </div>
                 )}
@@ -1136,17 +1153,17 @@ export default function StockDetail() {
             {holding && (
               <Card variant="elevated" className="hover-lift">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base"><Wallet className="w-4 h-4 text-primary" />Your Position</CardTitle>
+                  <CardTitle className="flex items-center gap-2 text-base"><Wallet className="w-4 h-4 text-primary" />{t("stocks.yourPosition")}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2 text-sm">
-                  <div className="flex justify-between"><span className="flex items-center gap-1 text-muted-foreground">Shares Owned<HelpTip label="Shares Owned" /></span><span className="font-bold">{holding.shares}</span></div>
-                  <div className="flex justify-between"><span className="flex items-center gap-1 text-muted-foreground">Avg. Purchase Price<HelpTip label="Avg. Purchase Price" /></span><span className="font-medium">{fmtDollar(holding.purchasePrice)}</span></div>
+                  <div className="flex justify-between"><span className="flex items-center gap-1 text-muted-foreground">{statLabel("Shares Owned")}<HelpTip label="Shares Owned" /></span><span className="font-bold">{holding.shares}</span></div>
+                  <div className="flex justify-between"><span className="flex items-center gap-1 text-muted-foreground">{statLabel("Avg. Purchase Price")}<HelpTip label="Avg. Purchase Price" /></span><span className="font-medium">{fmtDollar(holding.purchasePrice)}</span></div>
                   <div className="flex justify-between">
-                    <span className="flex items-center gap-1 text-muted-foreground">Current Value<HelpTip label="Current Value" /></span>
+                    <span className="flex items-center gap-1 text-muted-foreground">{statLabel("Current Value")}<HelpTip label="Current Value" /></span>
                     <span className="font-bold flex items-center gap-1"><Coins className="w-3.5 h-3.5 text-gold" />{fmtPrice(holding.shares * stock.price)}</span>
                   </div>
                   <div className="border-t border-border pt-2 flex justify-between">
-                    <span className="flex items-center gap-1 text-muted-foreground">Profit/Loss<HelpTip label="Profit/Loss" /></span>
+                    <span className="flex items-center gap-1 text-muted-foreground">{statLabel("Profit/Loss")}<HelpTip label="Profit/Loss" /></span>
                     <span className={`font-bold ${profitLoss >= 0 ? "text-success" : "text-destructive"}`}>
                       {profitLoss >= 0 ? "+" : ""}{fmtPrice(Math.abs(profitLoss))} ({profitLossPercent >= 0 ? "+" : ""}{(Math.round(profitLossPercent * 10) / 10).toFixed(1)}%)
                     </span>
@@ -1159,10 +1176,10 @@ export default function StockDetail() {
             <div className="trader-panel rounded-2xl">
               <div className="p-5">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-bold text-white/90">Key Statistics</h3>
+                  <h3 className="text-sm font-bold text-white/90">{t("stocks.keyStatistics")}</h3>
                 </div>
 
-                <DarkStatSection title="Trading" />
+                <DarkStatSection title={t("stocks.sectionTrading")} />
                 <div className="grid grid-cols-2 gap-2 mb-5">
                   {stock.open > 0 && <DarkStat label="Open" value={fmtDollar(stock.open)} />}
                   {stock.previousClose > 0 && <DarkStat label="Previous Close" value={fmtDollar(stock.previousClose)} />}
@@ -1178,7 +1195,7 @@ export default function StockDetail() {
 
                 {!isETF && (stock.peRatio > 0 || (stock.forwardPE != null && stock.forwardPE > 0) || (stock.priceToSales != null && stock.priceToSales > 0) || (stock.priceToBook != null && stock.priceToBook > 0)) && (
                   <>
-                    <DarkStatSection title="Valuation" />
+                    <DarkStatSection title={t("stocks.sectionValuation")} />
                     <div className="grid grid-cols-2 gap-2 mb-5">
                       {stock.peRatio > 0 && <DarkStat label="P/E (TTM)" value={stock.peRatio.toFixed(2)} />}
                       {stock.forwardPE != null && stock.forwardPE > 0 && <DarkStat label="Forward P/E" value={stock.forwardPE.toFixed(2)} />}
@@ -1190,7 +1207,7 @@ export default function StockDetail() {
 
                 {!isETF && (stock.eps > 0 || (stock.revenue != null && stock.revenue > 0) || (stock.ebitda != null && stock.ebitda > 0)) && (
                   <>
-                    <DarkStatSection title="Financial Performance" />
+                    <DarkStatSection title={t("stocks.sectionFinancialPerformance")} />
                     <div className="grid grid-cols-2 gap-2 mb-5">
                       {stock.eps > 0 && <DarkStat label="EPS (TTM)" value={fmtDollar(stock.eps)} />}
                       {stock.forwardEPS != null && stock.forwardEPS > 0 && <DarkStat label="Forward EPS" value={fmtDollar(stock.forwardEPS)} />}
@@ -1204,7 +1221,7 @@ export default function StockDetail() {
 
                 {(stock.beta > 0 || stock.dividendYield > 0 || (stock.dividendRate != null && stock.dividendRate > 0) || (stock.targetEst != null && stock.targetEst > 0)) && (
                   <>
-                    <DarkStatSection title="Risk & Dividends" />
+                    <DarkStatSection title={t("stocks.sectionRiskDividends")} />
                     <div className="grid grid-cols-2 gap-2">
                       {stock.beta > 0 && <DarkStat label="Beta (5Y Monthly)" value={stock.beta.toFixed(2)} />}
                       {stock.targetEst != null && stock.targetEst > 0 && <DarkStat label="1Y Target Est" value={fmtDollar(stock.targetEst)} />}

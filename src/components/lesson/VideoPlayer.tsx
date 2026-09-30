@@ -1,4 +1,5 @@
 import React, { useCallback, useRef, useState, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { useLessonAudio } from "@/hooks/useLessonAudio"
@@ -27,8 +28,9 @@ export function VideoPlayer({
   videoPath, 
   videoSegments,
   onVideoWatched, 
-  videoWatched 
+  videoWatched
 }: VideoPlayerProps) {
+  const { t } = useTranslation()
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
@@ -221,7 +223,7 @@ export function VideoPlayer({
           <div className="absolute inset-0 flex items-center justify-center bg-black/60">
             <div className="text-center text-white">
               <Loader2 className="w-8 h-8 animate-spin mx-auto mb-2" />
-              <p className="text-sm">Loading narration...</p>
+              <p className="text-sm">{t("lessonPlayer.loadingNarration")}</p>
             </div>
           </div>
         )}
@@ -314,24 +316,24 @@ export function VideoPlayer({
               {audioLoading && (
                 <span className="text-white/70 text-xs flex items-center gap-1 ml-2">
                   <Loader2 className="w-3 h-3 animate-spin" />
-                  Loading audio...
+                  {t("lessonPlayer.loadingAudio")}
                 </span>
               )}
               {audioError && !usingFallback && (
                 <span className="text-red-400 text-xs ml-2">
-                  Audio unavailable
+                  {t("lessonPlayer.audioUnavailable")}
                 </span>
               )}
               {usingFallback && (
                 <span className="text-yellow-400 text-xs ml-2">
-                  Using browser voice
+                  {t("lessonPlayer.usingBrowserVoice")}
                 </span>
               )}
             </div>
             <div className="flex items-center gap-2">
               {hasSegments && (
                 <span className="text-white/60 text-xs">
-                  Part {currentSegmentIndex + 1}/{totalSegments}
+                  {t("lessonPlayer.partOf", { current: currentSegmentIndex + 1, total: totalSegments })}
                 </span>
               )}
               <Button
@@ -351,7 +353,7 @@ export function VideoPlayer({
       {videoWatched && (
         <div className="p-3 bg-success/10 border-t border-success/20">
           <p className="text-sm text-success flex items-center gap-2">
-            <CheckCircle className="w-4 h-4" /> Video watched - ready to take the quiz!
+            <CheckCircle className="w-4 h-4" /> {t("lessonPlayer.videoWatched")}
           </p>
         </div>
       )}

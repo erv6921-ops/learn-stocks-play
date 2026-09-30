@@ -23,6 +23,9 @@ export default defineConfig(({ mode }) => ({
       workbox: {
         maximumFileSizeToCacheInBytes: 16 * 1024 * 1024,
         globPatterns: ["**/*.{js,css,html,ico,png,svg,jpg,jpeg,webp,woff,woff2}"],
+        // Pull our notificationclick handler into the generated SW so clicking a
+        // browser notification focuses/opens the right InvestiPlay tab.
+        importScripts: ["/notif-sw.js"],
         navigateFallbackDenylist: [/^\/~oauth/],
         runtimeCaching: [
           {

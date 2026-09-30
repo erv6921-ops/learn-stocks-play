@@ -7,6 +7,7 @@ import { recordMoneyEvent } from "@/lib/notifications"
 import { logEvent } from "@/lib/analyticsEvents"
 import { DEV_LOCAL_BYPASS, DEV_LOCAL_USER_ID } from "@/lib/devBypass"
 import { isExplicitlyNonFlorida } from "@/lib/geography"
+import i18n, { I18N_ENABLED, SUPPORTED_LANGUAGES, currentLanguage, setLanguage, type SupportedLanguage } from "@/i18n"
 
 interface UnitTestProgress {
   category: string
@@ -153,6 +154,17 @@ function profileToUser(uid: string, profile: any | null): UserProfile {
     stateCourse: profile.state_course ?? undefined,
     createdAt: new Date(profile.created_at ?? Date.now()),
   }
+}
+
+// UI language read-back: on sign-in the profile row's `language` wins over
+// whatever localStorage/browser detection picked (signed-out visitors keep
+// the localStorage choice). Read-only here - the Settings selector owns the
+// profile write. Skipped when the i18n layer is switched off.
+function applyProfileLanguage(profile: any | null) {
+  if (!I18N_ENABLED || !profile) return
+  const lng = typeof profile.language === "string" ? profile.language.slice(0, 2) : ""
+  if (!(SUPPORTED_LANGUAGES as readonly string[]).includes(lng)) return
+  if (lng !== currentLanguage()) void setLanguage(lng as SupportedLanguage)
 }
 
 // Every per-user localStorage key. Cleared on logout / sign-out so one
@@ -349,6 +361,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const profile = profileRes?.data
       if (profile) {
         setUser(profileToUser(uid, profile))
+        applyProfileLanguage(profile)
       }
 
       if (lessonsRes?.data) {
@@ -408,7 +421,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         if (!welcomeGiftedRef.current && !h.some(e => e.reason === WELCOME_GIFT_REASON)) {
           welcomeGiftedRef.current = true
           awardJeffs(WELCOME_GIFT_AMOUNT, WELCOME_GIFT_REASON)
-          toast.success(`Jeff gifted you ${WELCOME_GIFT_AMOUNT} coins for signing in! 🎉`, { duration: 5000 })
+          toast.success(i18n.t("app.welcomeGift", { count: WELCOME_GIFT_AMOUNT }), { duration: 5000 })
         }
       }
 
@@ -505,6 +518,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
             // with an unfinished profile is routed into onboarding instead of
             // being bounced to the dashboard.
             setUser(profileToUser(session.user.id, existingUser))
+            applyProfileLanguage(existingUser)
 
             // Post-login routing, only on a fresh sign-in (login or
             // email-confirmation), never on a page-refresh restore. Teachers go

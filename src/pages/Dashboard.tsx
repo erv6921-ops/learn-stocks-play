@@ -828,7 +828,7 @@ export default function Dashboard() {
                       </span>
                       <div className="min-w-0 w-full sm:flex-1">
                         <div className="flex flex-col items-center gap-0.5 sm:flex-row sm:items-center sm:gap-1.5 min-w-0">
-                          <p className="text-[11px] leading-[1.15] sm:text-[13px] font-bold sm:leading-tight sm:truncate break-words">{blurb}</p>
+                          <p className="text-[11px] leading-[1.15] sm:text-[13px] font-bold sm:leading-tight break-words">{blurb}</p>
                           <span className="hidden sm:inline-block text-[8px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded-full shrink-0"
                             style={{ color: diff.color, background: diff.bg }}>
                             {diff.label}

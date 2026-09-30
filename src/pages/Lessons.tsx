@@ -1,6 +1,8 @@
 import React, { useMemo, useState, useEffect, useRef, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 import { useApp } from "@/contexts/AppContext";
 import { supabase } from "@/integrations/supabase/client";
 import { lessons, unitInfo, getUnitRewardTotal, getLessonsByUnit } from "@/data/lessons";
@@ -37,38 +39,40 @@ import { isTrackEnabled } from "@/lib/classSettings";
 import MissionsWorldMap, { UnitMeta } from "@/components/MissionsWorldMap";
 
 // ── #4 Next-lesson one-line descriptions, keyed L<unit>.<lesson> ──
+// Values are i18n keys (see src/i18n/locales, lessons.lessonDescriptions).
 const lessonDescriptions: Record<string, string> = {
-  "L1.1": "Why our brains make terrible money decisions",
-  "L1.2": "How waiting pays off - literally",
-  "L1.3": "The trap of wanting what others have",
-  "L1.4": "Why you spend more than you think",
-  "L2.1": "What your time is actually worth per hour",
-  "L2.2": "Salary vs. hourly - which is really better?",
-  "L2.3": "How taxes shrink your paycheck",
-  "L2.4": "Side hustles that actually make money",
-  "L3.1": "Build a budget that doesn't feel like a punishment",
-  "L3.2": "The 50/30/20 rule explained",
-  "L3.3": "Needs vs. wants - drawing the line",
-  "L3.4": "Tracking spending without losing your mind",
+  "L1.1": "lessons.lessonDescriptions.L1_1",
+  "L1.2": "lessons.lessonDescriptions.L1_2",
+  "L1.3": "lessons.lessonDescriptions.L1_3",
+  "L1.4": "lessons.lessonDescriptions.L1_4",
+  "L2.1": "lessons.lessonDescriptions.L2_1",
+  "L2.2": "lessons.lessonDescriptions.L2_2",
+  "L2.3": "lessons.lessonDescriptions.L2_3",
+  "L2.4": "lessons.lessonDescriptions.L2_4",
+  "L3.1": "lessons.lessonDescriptions.L3_1",
+  "L3.2": "lessons.lessonDescriptions.L3_2",
+  "L3.3": "lessons.lessonDescriptions.L3_3",
+  "L3.4": "lessons.lessonDescriptions.L3_4",
 };
-const FALLBACK_LESSON_DESC = "Master this concept to unlock the next level.";
+const FALLBACK_LESSON_DESC = "lessons.lessonDescriptions.fallback";
 const lessonDescFor = (unitNumber?: number, lessonNumber?: number) =>
-  lessonDescriptions[`L${unitNumber}.${lessonNumber}`] || FALLBACK_LESSON_DESC;
+  i18n.t(lessonDescriptions[`L${unitNumber}.${lessonNumber}`] || FALLBACK_LESSON_DESC);
 
 // ── #8 One-sentence unit summaries (keyed by unitId so they stay attached to
 // the right unit regardless of display numbering) ──
+// Values are i18n keys (see src/i18n/locales, lessons.unitSummaries).
 const unitSummaries: Record<string, string> = {
-  "unit-1":  "Understand why we make bad money decisions and how to rewire your thinking.",
-  "unit-2":  "Learn how income works, what affects your earning power, and how to grow it.",
-  "unit-3":  "Master budgeting so your money goes where you actually want it to go.",
-  "unit-25": "Learn to invest early and let compound interest do the heavy lifting.",
-  "unit-4":  "Learn how banks work and how to make the banking system work for you.",
-  "unit-5":  "Understand debt, credit scores, and how to use borrowing without getting trapped.",
-  "unit-35": "Protect yourself and your assets with the right insurance strategies.",
-  "unit-6":  "Get started investing - why it matters and how to take your first steps.",
+  "unit-1":  "lessons.unitSummaries.unit-1",
+  "unit-2":  "lessons.unitSummaries.unit-2",
+  "unit-3":  "lessons.unitSummaries.unit-3",
+  "unit-25": "lessons.unitSummaries.unit-25",
+  "unit-4":  "lessons.unitSummaries.unit-4",
+  "unit-5":  "lessons.unitSummaries.unit-5",
+  "unit-35": "lessons.unitSummaries.unit-35",
+  "unit-6":  "lessons.unitSummaries.unit-6",
 };
 const unitSummaryFor = (unitId: string, title: string) =>
-  unitSummaries[unitId] || `Dive into ${title} and level up your financial skills.`;
+  unitSummaries[unitId] ? i18n.t(unitSummaries[unitId]) : i18n.t("lessons.unitSummaries.fallback", { title });
 
 // ── Pulse animation for current dot (injected once) ──
 const PULSE_STYLE_ID = "chart-pulse-keyframe";
@@ -83,6 +87,7 @@ function ensurePulseStyle() {
 export default function Lessons() {
   const { user, lessonProgress, unitTestProgress, getRewardMultiplier, jeffsBalance, jeffsHistory } = useApp();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const multiplier = getRewardMultiplier();
   const stripRef = useRef<HTMLDivElement>(null);
 
@@ -343,22 +348,22 @@ export default function Lessons() {
   }, []);
   const unitsDone = unitScores.filter(u => u.total > 0 && u.done >= u.total).length;
   const badges = useMemo(() => [
-    { id: 'first-step',     name: 'First Step',     Icon: Footprints,    earned: completedLessonsAll >= 1 },
-    { id: 'getting-going',  name: 'Getting Going',  Icon: BookOpen,      earned: completedLessonsAll >= 10 },
-    { id: 'scholar',        name: 'Scholar',        Icon: GraduationCap, earned: completedLessonsAll >= 25 },
-    { id: 'centurion',      name: 'Centurion',      Icon: Medal,         earned: completedLessonsAll >= 100 },
-    { id: 'on-a-roll',      name: 'On a Roll',      Icon: Flame,         earned: bestStreak >= 3 },
-    { id: 'week-warrior',   name: 'Week Warrior',   Icon: Zap,           earned: bestStreak >= 7 },
-    { id: 'unstoppable',    name: 'Unstoppable',    Icon: Rocket,        earned: bestStreak >= 30 },
-    { id: 'unit-master',    name: 'Unit Master',    Icon: Crown,         earned: anyUnitComplete },
-    { id: 'trailblazer',    name: 'Trailblazer',    Icon: Compass,       earned: unitsDone >= 3 },
-    { id: 'graduate',       name: 'Graduate',       Icon: Shield,        earned: unitsDone >= 5 },
-    { id: 'rising-star',    name: 'Rising Star',    Icon: Sparkles,      earned: level >= 5 },
-    { id: 'maxed-out',      name: 'Maxed Out',      Icon: Star,          earned: level >= 10 },
-    { id: 'market-watcher', name: 'Market Watcher', Icon: LineChart,     earned: stocksVisits >= 5 },
-    { id: 'coin-collector', name: 'Coin Collector', Icon: CoinsIcon,     earned: totalEarned >= 500 },
-    { id: 'big-earner',     name: 'Big Earner',     Icon: Gem,           earned: totalEarned >= 10000 },
-  ], [completedLessonsAll, bestStreak, anyUnitComplete, unitsDone, level, stocksVisits, totalEarned]);
+    { id: 'first-step',     name: t('lessons.badges.first-step'),     Icon: Footprints,    earned: completedLessonsAll >= 1 },
+    { id: 'getting-going',  name: t('lessons.badges.getting-going'),  Icon: BookOpen,      earned: completedLessonsAll >= 10 },
+    { id: 'scholar',        name: t('lessons.badges.scholar'),        Icon: GraduationCap, earned: completedLessonsAll >= 25 },
+    { id: 'centurion',      name: t('lessons.badges.centurion'),      Icon: Medal,         earned: completedLessonsAll >= 100 },
+    { id: 'on-a-roll',      name: t('lessons.badges.on-a-roll'),      Icon: Flame,         earned: bestStreak >= 3 },
+    { id: 'week-warrior',   name: t('lessons.badges.week-warrior'),   Icon: Zap,           earned: bestStreak >= 7 },
+    { id: 'unstoppable',    name: t('lessons.badges.unstoppable'),    Icon: Rocket,        earned: bestStreak >= 30 },
+    { id: 'unit-master',    name: t('lessons.badges.unit-master'),    Icon: Crown,         earned: anyUnitComplete },
+    { id: 'trailblazer',    name: t('lessons.badges.trailblazer'),    Icon: Compass,       earned: unitsDone >= 3 },
+    { id: 'graduate',       name: t('lessons.badges.graduate'),       Icon: Shield,        earned: unitsDone >= 5 },
+    { id: 'rising-star',    name: t('lessons.badges.rising-star'),    Icon: Sparkles,      earned: level >= 5 },
+    { id: 'maxed-out',      name: t('lessons.badges.maxed-out'),      Icon: Star,          earned: level >= 10 },
+    { id: 'market-watcher', name: t('lessons.badges.market-watcher'), Icon: LineChart,     earned: stocksVisits >= 5 },
+    { id: 'coin-collector', name: t('lessons.badges.coin-collector'), Icon: CoinsIcon,     earned: totalEarned >= 500 },
+    { id: 'big-earner',     name: t('lessons.badges.big-earner'),     Icon: Gem,           earned: totalEarned >= 10000 },
+  ], [completedLessonsAll, bestStreak, anyUnitComplete, unitsDone, level, stocksVisits, totalEarned, t]);
   const earnedBadgeCount = badges.filter(b => b.earned).length;
 
   // ── #9 Class rank (same query the Leaderboard page uses) ──
@@ -461,19 +466,19 @@ export default function Lessons() {
           <div className="flex items-center gap-4 flex-1 min-w-0">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1 flex-wrap">
-                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.15em]">Unit {unit.unitNumber}</span>
+                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.15em]">{t("lessons.unitLabel", { unit: unit.unitNumber })}</span>
                 {unitIsLocked && (
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg border bg-muted text-muted-foreground border-border flex items-center gap-1">
-                    <Lock className="w-3 h-3" /> Locked
+                    <Lock className="w-3 h-3" /> {t("lessons.locked")}
                   </span>
                 )}
               </div>
               <h3 className="font-display font-bold text-lg leading-snug tracking-tight">{unit.title}</h3>
               <div className="flex items-center gap-4 mt-2">
-                <span className="text-xs text-muted-foreground">{reqLessons.length} lessons</span>
-                {valLessons.length > 0 && <span className="text-xs text-success">{valLessons.length} validated</span>}
+                <span className="text-xs text-muted-foreground">{t("lessons.lessonsCount", { count: reqLessons.length })}</span>
+                {valLessons.length > 0 && <span className="text-xs text-success">{t("lessons.validatedCount", { count: valLessons.length })}</span>}
                 <span className="text-xs text-gold font-bold flex items-center gap-1">
-                  <Coins className="w-3.5 h-3.5" />{totalReward.toLocaleString()}
+                  <Coins className="w-3.5 h-3.5" />{totalReward.toLocaleString(i18n.language)}
                 </span>
               </div>
             </div>
@@ -490,27 +495,27 @@ export default function Lessons() {
   // keep their own (container) layouts.
   const trackTabs: { key: CourseTrack; label: string }[] = bizLabEnrolled
     ? [
-        { key: "regular", label: "Course" },
-        { key: "gulliver-biz-lab", label: "Biz Lab" },
+        { key: "regular", label: t("lessons.tabs.course") },
+        { key: "gulliver-biz-lab", label: t("lessons.tabs.bizLab") },
       ]
     : hidesApElective
     // Gulliver Intro: no AP elective and no Biz Lab tab. They get their own
     // Intro course PLUS the full regular curriculum (all 34 units), so they can
     // also work through the standard course.
     ? [
-        { key: courseTrack, label: "Intro" },
-        { key: "regular", label: "Personal Finance" },
+        { key: courseTrack, label: t("lessons.tabs.intro") },
+        { key: "regular", label: t("lessons.tabs.personalFinance") },
       ]
     : ibEconEnrolled
     // IB Econ: their own IB Econ course tab + Personal Finance to switch to the
     // regular curriculum. No AP/Biz Lab.
     ? [
-        { key: "ib-econ", label: "IB Econ" },
-        { key: "regular", label: "Personal Finance" },
+        { key: "ib-econ", label: t("lessons.tabs.ibEcon") },
+        { key: "regular", label: t("lessons.tabs.personalFinance") },
       ]
     : [
-        { key: "regular", label: "Personal Finance" },
-        { key: "ap-micro", label: "AP Micro" },
+        { key: "regular", label: t("lessons.tabs.personalFinance") },
+        { key: "ap-micro", label: t("lessons.tabs.apMicro") },
       ];
   // MODIFIED: drop any track the teacher has disabled for this class.
   const visibleTrackTabs = trackTabs.filter((t) => isTrackEnabled(classSettings, t.key));
@@ -527,7 +532,7 @@ export default function Lessons() {
     <div className="fixed inset-0 z-[60] bg-background">
       <FullScreenCoaster
         unitNumber={activeUnit?.unitNumber}
-        unitTitle={activeUnit?.title ?? "Your ride"}
+        unitTitle={activeUnit?.title ?? t("lessons.yourRide")}
         unitReward={Math.round(unitTotalPts * multiplier)}
         stations={coasterStations}
         currentIdx={currentLessonIdx}
@@ -540,7 +545,7 @@ export default function Lessons() {
         className="absolute top-4 left-4 z-[61] inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-[#0d3524] shadow-lg transition-transform active:scale-95"
         style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.9)" }}
       >
-        <Minimize2 className="w-4 h-4" /> Exit fullscreen
+        <Minimize2 className="w-4 h-4" /> {t("dashboard.exitFullscreen")}
       </button>
     </div>
   );
@@ -560,7 +565,7 @@ export default function Lessons() {
           <FullScreenCoaster
             embedded
             unitNumber={activeUnit?.unitNumber}
-            unitTitle={activeUnit?.title ?? "Introduction to Business"}
+            unitTitle={activeUnit?.title ?? t("lessons.introToBusiness")}
             unitReward={Math.round(unitTotalPts * multiplier)}
             stations={coasterStations}
             currentIdx={currentLessonIdx}
@@ -570,11 +575,11 @@ export default function Lessons() {
           {/* Minimize: drop from the fullscreen coaster to the normal Missions view. */}
           <button
             onClick={() => setGulliverMinimized(true)}
-            aria-label="Minimize"
+            aria-label={t("lessons.minimize")}
             className="absolute top-3 right-3 z-20 inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-[#0d3524] shadow-lg transition-transform active:scale-95"
             style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.9)" }}
           >
-            <Minimize2 className="w-4 h-4" /> Minimize
+            <Minimize2 className="w-4 h-4" /> {t("lessons.minimize")}
           </button>
         </div>
       </div>
@@ -590,7 +595,7 @@ export default function Lessons() {
             <FullScreenCoaster
               embedded
               unitNumber={activeUnit?.unitNumber}
-              unitTitle={activeUnit?.title ?? "Your ride"}
+              unitTitle={activeUnit?.title ?? t("lessons.yourRide")}
               unitReward={Math.round(unitTotalPts * multiplier)}
               stations={activeLessons.map(al => ({
                 id: al.lesson.id,
@@ -625,9 +630,9 @@ export default function Lessons() {
               <button
                 onClick={() => setApMode(true)}
                 className="px-3 py-1 rounded-full text-[12px] font-bold text-muted-foreground hover:text-foreground transition-all"
-                title="Switch to AP business list view"
+                title={t("lessons.apModeTitle")}
               >
-                AP Mode
+                {t("lessons.apMode")}
               </button>
             )}
           </div>
@@ -648,26 +653,26 @@ export default function Lessons() {
           <div className="inline-flex items-center rounded-full bg-muted/60 p-1 border border-border/40">
             {((bizLabEnrolled
               ? [
-                  { key: "regular", label: "Regular Course" },
-                  { key: "gulliver-biz-lab", label: "Gulliver Biz Lab" },
+                  { key: "regular", label: t("onboarding.regularCourse") },
+                  { key: "gulliver-biz-lab", label: t("lessons.tabs.gulliverBizLab") },
                 ]
               : hidesApElective
               // Gulliver Intro: no AP elective and no Biz Lab tab. They get
               // their own Intro course PLUS the full regular curriculum (all 34
               // units) so they can also work through the standard course.
               ? [
-                  { key: courseTrack, label: "Intro" },
-                  { key: "regular", label: "Personal Finance" },
+                  { key: courseTrack, label: t("lessons.tabs.intro") },
+                  { key: "regular", label: t("lessons.tabs.personalFinance") },
                 ]
               : ibEconEnrolled
               // IB Econ course + Personal Finance switch tab.
               ? [
-                  { key: "ib-econ", label: "IB Economics" },
-                  { key: "regular", label: "Personal Finance" },
+                  { key: "ib-econ", label: t("onboarding.ibEconomics") },
+                  { key: "regular", label: t("lessons.tabs.personalFinance") },
                 ]
               : [
-                  { key: "regular", label: "Personal Finance" },
-                  { key: "ap-micro", label: "AP Microeconomics" },
+                  { key: "regular", label: t("lessons.tabs.personalFinance") },
+                  { key: "ap-micro", label: t("lessons.tabs.apMicroeconomics") },
                 ]) as { key: CourseTrack; label: string }[]
             // MODIFIED: hide any track the teacher has disabled for this class.
             ).filter(t => isTrackEnabled(classSettings, t.key)).map(t => (
@@ -686,7 +691,7 @@ export default function Lessons() {
               className="shrink-0 inline-flex items-center gap-1.5 rounded-full pl-2.5 pr-3.5 py-2 text-[13px] font-bold text-white shadow-md transition-transform active:scale-95"
               style={{ background: "linear-gradient(135deg,var(--brand-bright),var(--brand-strong))", boxShadow: "0 6px 16px rgba(var(--brand-rgb),0.35)" }}
             >
-              <Maximize2 className="w-4 h-4" /> Fullscreen
+              <Maximize2 className="w-4 h-4" /> {t("dashboard.fullscreen")}
             </button>
           )}
         </div>
@@ -703,9 +708,9 @@ export default function Lessons() {
         {activeTrack === "ap-micro" && (
           <div className="rounded-2xl p-4 mb-5 text-white" style={{ background: "linear-gradient(135deg,hsl(var(--primary)),var(--brand))" }}>
             <p className="text-sm font-bold flex items-center gap-2">
-              <GraduationCap className="w-4 h-4 text-gold" /> AP Microeconomics - College Board aligned
+              <GraduationCap className="w-4 h-4 text-gold" /> {t("lessons.apBanner")}
             </p>
-            <p className="text-white/60 text-xs mt-0.5">An elective track. Your required curriculum and level are unaffected.</p>
+            <p className="text-white/60 text-xs mt-0.5">{t("lessons.apBannerDesc")}</p>
           </div>
         )}
 
@@ -730,7 +735,7 @@ export default function Lessons() {
               <div className="px-5 pt-4 pb-1 flex items-end justify-between gap-3">
                 <div className="min-w-0">
                   <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.12em] truncate">
-                    {activeUnit ? `Unit ${activeUnit.unitNumber} · Your ride` : "Your ride"}
+                    {activeUnit ? t("dashboard.unitYourRide", { unit: activeUnit.unitNumber }) : t("lessons.yourRide")}
                   </p>
                   <p className="font-display font-extrabold text-foreground tracking-tight leading-tight mt-0.5 text-lg truncate">
                     {activeUnit?.title ?? "-"}
@@ -738,11 +743,11 @@ export default function Lessons() {
                 </div>
                 <div className="text-right shrink-0">
                   <p className="text-foreground tracking-tight" style={{ fontSize: 15, fontWeight: 600 }}>
-                    {completedCount} of {totalLessons} done
+                    {t("lessons.doneOf", { done: completedCount, total: totalLessons })}
                   </p>
                   <div className="flex items-center justify-end gap-2 mt-1">
                     <span className="text-sm font-bold" style={{ color: "var(--brand)" }}>
-                      {earnedPts.toLocaleString()} pts
+                      {t("lessons.pts", { pts: earnedPts.toLocaleString(i18n.language) })}
                     </span>
                     <span className="text-[11px] font-bold px-2 py-0.5 rounded-full"
                       style={{ background: "rgba(var(--brand-rgb),0.1)", color: "var(--brand)" }}>
@@ -768,13 +773,13 @@ export default function Lessons() {
                 {/* Overall track progress (replaces the old pie) */}
                 <div className="mt-2 flex items-center justify-center gap-2 flex-wrap text-center">
                   <span className="text-sm font-bold text-foreground">
-                    {trackDoneLessons} of {trackTotalLessons} done
+                    {t("lessons.doneOf", { done: trackDoneLessons, total: trackTotalLessons })}
                   </span>
                   <span className="text-muted-foreground text-xs">·</span>
-                  <span className="text-sm font-extrabold" style={{ color: "var(--brand)" }}>{trackPct}% of all units complete</span>
+                  <span className="text-sm font-extrabold" style={{ color: "var(--brand)" }}>{t("lessons.allUnitsComplete", { pct: trackPct })}</span>
                   <span className="text-muted-foreground text-xs">·</span>
                   <span className="text-sm font-bold text-foreground">
-                    {lessonsLeft} {lessonsLeft === 1 ? "lesson" : "lessons"} to the finish line
+                    {t("lessons.toFinish", { count: lessonsLeft })}
                   </span>
                 </div>
               </div>
@@ -788,7 +793,7 @@ export default function Lessons() {
                 business terms Jeff highlights in green during lessons. */}
             {activeTrack === "gulliver-intro" && (
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground mb-2">Vocab</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground mb-2">{t("lessons.vocab")}</p>
                 <VocabGlossary />
               </div>
             )}
@@ -796,8 +801,8 @@ export default function Lessons() {
             {/* 3. Unit strip - scrollable "mission" tabs */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">Units</p>
-                <span className="text-[11px] font-semibold text-muted-foreground">{trackUnits.length} in this track</span>
+                <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{t("lessons.units")}</p>
+                <span className="text-[11px] font-semibold text-muted-foreground">{t("lessons.inThisTrack", { count: trackUnits.length })}</span>
               </div>
               <div className="relative">
                 <div ref={stripRef} className="flex gap-2.5 overflow-x-auto pb-2 no-scrollbar">
@@ -834,7 +839,7 @@ export default function Lessons() {
                       >
                         <div className="flex items-center justify-between">
                           <span className="text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: labelColor }}>
-                            Unit {unit.unitNumber}
+                            {t("lessons.unitLabel", { unit: unit.unitNumber })}
                           </span>
                           <span className="shrink-0 flex items-center">
                             {isLocked ? <Lock className="w-3 h-3" style={{ color: labelColor }} />
@@ -867,10 +872,10 @@ export default function Lessons() {
                 style={{ border: "0.5px solid hsl(45 10% 82%)" }}>
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.15em]">
-                    Unit {previewUnit.unitNumber}
+                    {t("lessons.unitLabel", { unit: previewUnit.unitNumber })}
                   </span>
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg border bg-muted text-muted-foreground border-border flex items-center gap-1">
-                    <Lock className="w-3 h-3" /> Locked
+                    <Lock className="w-3 h-3" /> {t("lessons.locked")}
                   </span>
                 </div>
                 <h3 className="font-display font-bold text-lg leading-snug tracking-tight">{previewUnit.title}</h3>
@@ -879,7 +884,7 @@ export default function Lessons() {
                 </p>
                 <p className="text-[13px] font-semibold mt-3 flex items-center gap-1.5" style={{ color: "#C77F12" }}>
                   <Lock className="w-3.5 h-3.5" />
-                  Complete Unit {Math.max(1, previewUnit.unitNumber - 1)} first to unlock
+                  {t("lessons.completeUnitFirst", { unit: Math.max(1, previewUnit.unitNumber - 1) })}
                 </p>
               </div>
             )}
@@ -890,7 +895,7 @@ export default function Lessons() {
                 style={{ background: "var(--brand)" }}>
                 <div>
                   <p className="text-white font-extrabold text-base">
-                    Unit complete - {earnedPts.toLocaleString()} earned
+                    {t("lessons.unitComplete", { pts: earnedPts.toLocaleString(i18n.language) })}
                   </p>
                 </div>
                 {nextUnit && (
@@ -899,7 +904,7 @@ export default function Lessons() {
                     onClick={() => setActiveUnitId(nextUnit.id)}
                     className="bg-white text-foreground hover:bg-white/90 font-bold gap-1.5"
                   >
-                    Next Unit <ArrowRight className="w-3.5 h-3.5" />
+                    {t("lessons.nextUnit")} <ArrowRight className="w-3.5 h-3.5" />
                   </Button>
                 )}
               </div>
@@ -913,7 +918,7 @@ export default function Lessons() {
                 <div className="min-w-0">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.12em] mb-1"
                     style={{ color: "rgba(255,255,255,0.4)" }}>
-                    Next lesson · L{nextLessonInUnit.lesson.lessonNumber}
+                    {t("lessons.nextLesson", { lesson: nextLessonInUnit.lesson.lessonNumber })}
                   </p>
                   <p className="text-white font-bold text-[15px]">
                     {nextLessonInUnit.lesson.title}
@@ -925,7 +930,7 @@ export default function Lessons() {
                 </div>
                 <Link to={`/lessons/${nextLessonInUnit.lesson.id}`} className="shrink-0">
                   <Button size="sm" className="bg-[var(--brand)] hover:bg-[var(--brand-strong)] text-white font-bold gap-1.5 press-scale">
-                    Start <ArrowRight className="w-3.5 h-3.5" />
+                    {t("lessons.start")} <ArrowRight className="w-3.5 h-3.5" />
                   </Button>
                 </Link>
               </motion.div>
@@ -935,9 +940,9 @@ export default function Lessons() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
-                  {activeUnit ? `Unit ${activeUnit.unitNumber} lessons` : "Lessons"}
+                  {activeUnit ? t("lessons.unitLessons", { unit: activeUnit.unitNumber }) : t("dashboard.lessons")}
                 </p>
-                <span className="text-[11px] font-semibold text-muted-foreground">{completedCount}/{totalLessons} done</span>
+                <span className="text-[11px] font-semibold text-muted-foreground">{t("common.doneCount", { done: completedCount, total: totalLessons })}</span>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                 {activeLessons.map((al, idx) => {
@@ -965,12 +970,12 @@ export default function Lessons() {
                     >
                       <div className="flex items-center justify-between">
                         <span className="text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: labelColor }}>
-                          Lesson {idx + 1}
+                          {t("lessons.lessonN", { n: idx + 1 })}
                         </span>
                         <span className="shrink-0 flex items-center">
                           {locked ? <Lock className="w-3 h-3" style={{ color: labelColor }} />
                             : completed ? <CheckCircle className="w-4 h-4" style={{ color: "var(--brand)" }} />
-                            : isCurrent ? <span className="text-[9px] font-extrabold uppercase tracking-wider" style={{ color: "#EF9F27" }}>Up next</span>
+                            : isCurrent ? <span className="text-[9px] font-extrabold uppercase tracking-wider" style={{ color: "#EF9F27" }}>{t("lessons.upNext")}</span>
                             : null}
                         </span>
                       </div>
@@ -979,9 +984,9 @@ export default function Lessons() {
                       </span>
                       <div className="mt-2.5 flex items-center justify-end gap-2">
                         {!completed && !locked && (
-                          <span title="Chat with Jeff" className="shrink-0 inline-flex"><JeffChatAvatar size={16} /></span>
+                          <span title={t("lessons.chatWithJeff")} className="shrink-0 inline-flex"><JeffChatAvatar size={16} /></span>
                         )}
-                        {isValidated && <span className="text-[9px] font-bold" style={{ color: "var(--brand)" }}>Validated</span>}
+                        {isValidated && <span className="text-[9px] font-bold" style={{ color: "var(--brand)" }}>{t("lessons.validated")}</span>}
                         {!locked && (
                           <SendToFriendButton
                             variant="icon"
@@ -1011,7 +1016,7 @@ export default function Lessons() {
             {activeTrack === "ap-micro" && AP_UNIT_CHALLENGES[activeUnitId] && (
               <div className="rounded-[20px] px-5 py-4 border" style={{ borderColor: "hsl(45 10% 82%)", background: "rgba(var(--brand-rgb),0.06)" }}>
                 <p className="text-[11px] font-bold uppercase tracking-wider text-[var(--brand)] flex items-center gap-1.5 mb-1">
-                  <Target className="w-3.5 h-3.5" /> Apply it - challenge
+                  <Target className="w-3.5 h-3.5" /> {t("lessons.applyChallenge")}
                 </p>
                 <p className="text-sm text-foreground/80">{AP_UNIT_CHALLENGES[activeUnitId]}</p>
               </div>
@@ -1035,23 +1040,23 @@ export default function Lessons() {
                     {passed ? <CheckCircle className="w-4.5 h-4.5" /> : <Trophy className="w-4.5 h-4.5" />}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold">Unit Test</p>
+                    <p className="text-sm font-bold">{t("lessons.unitTest")}</p>
                     <p className="text-xs text-muted-foreground truncate">
                       {passed
-                        ? "Passed - nice work!"
+                        ? t("lessons.passed")
                         : allDone
-                          ? `${test.questions.length} questions · score ${test.passingScore}%+ to earn ${Math.round(test.reward * multiplier)} coins`
-                          : "Finish every lesson in this unit to unlock"}
+                          ? t("lessons.testMeta", { questions: test.questions.length, pass: test.passingScore, coins: Math.round(test.reward * multiplier) })
+                          : t("lessons.finishToUnlock")}
                     </p>
                   </div>
                   {passed ? (
                     <Link to={`/unit-test/${testCategory}`} className="shrink-0">
-                      <Button size="sm" variant="outline" className="press-scale">Retake</Button>
+                      <Button size="sm" variant="outline" className="press-scale">{t("lessons.retake")}</Button>
                     </Link>
                   ) : allDone ? (
                     <Link to={`/unit-test/${testCategory}`} className="shrink-0">
                       <Button size="sm" className="bg-[#EF9F27] hover:bg-[#df8f1a] text-white font-bold press-scale">
-                        Take the test
+                        {t("lessons.takeTest")}
                       </Button>
                     </Link>
                   ) : (
@@ -1066,9 +1071,9 @@ export default function Lessons() {
               style={{ border: "0.5px solid hsl(45 10% 82%)" }}>
               <div className="flex items-center justify-between mb-3">
                 <h2 className="font-display text-sm font-bold flex items-center gap-1.5">
-                  <Award className="w-4 h-4 text-gold" /> Your badges
+                  <Award className="w-4 h-4 text-gold" /> {t("lessons.yourBadges")}
                 </h2>
-                <span className="text-[11px] font-semibold text-muted-foreground">{earnedBadgeCount} earned</span>
+                <span className="text-[11px] font-semibold text-muted-foreground">{t("lessons.earnedCount", { count: earnedBadgeCount })}</span>
               </div>
               {statsReady ? (
                 <div className="grid grid-cols-3 gap-x-2 gap-y-4">
@@ -1111,16 +1116,8 @@ export default function Lessons() {
    tap one to jump straight to it. Horizontally scrollable for long units.
    ════════════════════════════════════════════════ */
 // Jeff's coaster chatter - one line rotates in based on the current station.
-const JEFF_DIALOGUE = [
-  "Next stop: new skills! 🎢",
-  "You're on a roll - keep going!",
-  "Climbing higher every lesson 📈",
-  "Coins ahead… let's grab 'em! 🪙",
-  "Smooth ride so far, nice work!",
-  "Hop in, let's learn something!",
-  "Almost at the top - hang on!",
-  "Big brain energy, let's go! 🧠",
-];
+// i18n keys, resolved at render.
+const JEFF_DIALOGUE = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => `lessons.jeffDialogue.${n}`);
 
 // Dense Catmull-Rom samples through the station points. Used to draw real
 // coaster rails + cross-ties that hug the exact curve the cart rides.
@@ -1157,6 +1154,7 @@ interface CoasterTrackProps {
 export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, isCompleted, onSelect, celebrate }: CoasterTrackProps) {
   const [hovered, setHovered] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
   const n = lessons.length;
 
   // Geometry in viewBox units, then rendered at a fixed pixel height so Jeff's
@@ -1183,10 +1181,10 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
   const jeffIdx = Math.min(currentIdx, n - 1);
   const jeff = pts[Math.max(jeffIdx, 0)];
   const dialogue = celebrate
-    ? "Woohoo - unit complete! 🎉"
+    ? t("lessons.unitCompleteCheer")
     : currentIdx <= 0
-      ? "All aboard! Tap to start 🎢"
-      : JEFF_DIALOGUE[Math.max(jeffIdx, 0) % JEFF_DIALOGUE.length];
+      ? t("lessons.allAboard")
+      : t(JEFF_DIALOGUE[Math.max(jeffIdx, 0) % JEFF_DIALOGUE.length]);
 
   // Smooth curve through a slice of points (Catmull-Rom → cubic bezier).
   const smooth = (slice: { x: number; y: number }[]) => {
@@ -1241,7 +1239,7 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
   }, [jeffIdx, n]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (n === 0) {
-    return <div className="h-44 flex items-center justify-center text-sm text-muted-foreground">No lessons in this unit yet</div>;
+    return <div className="h-44 flex items-center justify-center text-sm text-muted-foreground">{t("lessons.noLessonsYet")}</div>;
   }
 
   const px = (v: number) => v * scale;
@@ -1378,7 +1376,7 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
         {!celebrate && (
           <div className="absolute pointer-events-none" style={{ left: px(pts[n - 1].x), top: px(pts[n - 1].y), transform: "translate(-50%,-155%)", zIndex: 2 }}>
             <span className="text-[11px] font-extrabold px-2 py-1 rounded-md text-white whitespace-nowrap" style={{ background: "#2C2C2A" }}>
-              🏁 +{unitTotalPts.toLocaleString()}
+              🏁 +{unitTotalPts.toLocaleString(i18n.language)}
             </span>
           </div>
         )}
@@ -1392,7 +1390,7 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
               if (al && (isUnlocked(al.lesson.id) || isCompleted(al))) onSelect(al.lesson.id);
             }}
             className="flex flex-col items-center cursor-pointer select-none"
-            aria-label={celebrate ? "Unit complete" : "Continue current lesson"}
+            aria-label={celebrate ? t("lessons.ariaUnitComplete") : t("lessons.ariaContinueLesson")}
           >
             {/* Jeff's speech bubble - shifted near the edges so it never clips */}
             <div className="relative mb-2">

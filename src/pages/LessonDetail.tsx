@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { useApp } from "@/contexts/AppContext"
 import { getLessonById } from "@/data/lessons"
 import { getNextLessonId } from "@/lib/lessonNavigation"
@@ -95,13 +96,14 @@ function LessonHeader({
   step: { current: number; total: number } | null
 }) {
   const pct = step && step.total > 0 ? (step.current / step.total) * 100 : 0
+  const { t } = useTranslation()
   return (
     <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
       {previewMode && <TeacherPreviewBanner onExit={onPreviewExit} />}
       <div className="container mx-auto px-4">
         <div className="flex items-center h-14 gap-4">
           {showBack && !previewMode && (
-            <Button variant="ghost" size="icon" onClick={onLeave} aria-label="Back to missions">
+            <Button variant="ghost" size="icon" onClick={onLeave} aria-label={t("lessons.detail.backToMissions")}>
               <ArrowLeft className="w-4 h-4" />
             </Button>
           )}
@@ -125,7 +127,7 @@ function LessonHeader({
           {/* Exit: always available so a student can leave a lesson mid-way and
               come back later. The run record resumes exactly where they were. */}
           {showExit && (
-            <Button variant="ghost" size="icon" aria-label="Exit lesson" title="Exit lesson" onClick={onLeave}>
+            <Button variant="ghost" size="icon" aria-label={t("lessons.detail.exitLesson")} title={t("lessons.detail.exitLesson")} onClick={onLeave}>
               <X className="w-4 h-4" />
             </Button>
           )}
@@ -142,6 +144,7 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
   const id = lessonIdProp ?? routeId
   const navigate = useNavigate()
   const { user, lessonProgress } = useApp()
+  const { t } = useTranslation()
 
   // Leaving the lesson: the modal preview closes itself; the route navigates.
   // Back from a lesson always goes to the lessons list, never the dashboard.
@@ -303,8 +306,8 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-2">Lesson not found</h2>
-          <Button onClick={() => exit("/lessons")}>Back to Missions</Button>
+          <h2 className="text-2xl font-bold mb-2">{t("lessons.detail.notFound")}</h2>
+          <Button onClick={() => exit("/lessons")}>{t("lessons.detail.backToMissions")}</Button>
         </div>
       </div>
     )
@@ -345,8 +348,8 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
   // Same numbering as the in-lesson header (walk steps only); Jeff's chat
   // comes before step 1.
   const resumeLabel = run && run.chatDone
-    ? `step ${Math.min(run.sectionIndex + 1, Math.max(1, walkCount))} of ${walkCount}`
-    : "Jeff's chat"
+    ? t("lessons.detail.stepOf", { current: Math.min(run.sectionIndex + 1, Math.max(1, walkCount)), total: walkCount })
+    : t("lessons.detail.jeffsChat")
 
   const startFresh = () => {
     clearChat(lesson.id)
@@ -396,22 +399,22 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
                   <JeffMascot size="sm" />
                   <div>
                     <p className="text-sm text-muted-foreground flex items-center gap-2">
-                      <Clock className="w-4 h-4" /> {lesson.duration} min lesson
+                      <Clock className="w-4 h-4" /> {t("lessons.detail.minLesson", { count: lesson.duration })}
                     </p>
                     <p className="text-sm text-muted-foreground flex items-center gap-2 mt-1">
-                      <Coins className="w-4 h-4 text-gold" /> Right answers earn coins, wrong ones cost some.
+                      <Coins className="w-4 h-4 text-gold" /> {t("lessons.detail.coinsHint")}
                     </p>
                   </div>
                 </div>
                 <p className="text-muted-foreground">{lesson.description}</p>
                 {isCompleted && (
                   <p className="text-sm font-semibold text-success mt-3">
-                    ✓ Completed{progress?.quizScore != null ? ` · your score: ${Math.round(progress.quizScore)}%` : ""} - a retake can only raise it.
+                    {t("lessons.detail.completedScore", { score: progress?.quizScore != null ? t("lessons.detail.yourScore", { pct: Math.round(progress.quizScore) }) : "" })}
                   </p>
                 )}
 
                 <div className="mt-4 grid grid-cols-3 gap-2">
-                  {["📖 Learn", "🧪 Apply", "✅ Master"].map((label, i) => (
+                  {[t("lessons.detail.phaseLearn"), t("lessons.detail.phaseApply"), t("lessons.detail.phaseMaster")].map((label, i) => (
                     <div key={i} className="text-center p-2 rounded-lg bg-muted/50 border border-border">
                       <span className="text-xs text-muted-foreground">{label}</span>
                     </div>
@@ -428,10 +431,10 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
                   onClick={continueRun}
                   className="w-full h-16 text-lg font-bold rounded-2xl shadow-lg shadow-primary/30"
                 >
-                  Continue where you left off ({resumeLabel}) <ArrowRight className="ml-2 w-6 h-6" />
+                  {t("lessons.detail.continueWhere", { label: resumeLabel })} <ArrowRight className="ml-2 w-6 h-6" />
                 </Button>
                 <Button variant="ghost" size="lg" className="w-full text-muted-foreground" onClick={startFresh}>
-                  <RotateCcw className="mr-2 w-4 h-4" /> Start over
+                  <RotateCcw className="mr-2 w-4 h-4" /> {t("lessons.detail.startOver")}
                 </Button>
               </div>
             ) : (
@@ -442,9 +445,9 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
                   onClick={startFresh}
                   className="w-full h-16 text-xl font-bold rounded-2xl shadow-lg shadow-primary/30"
                 >
-                  Start Mission <ArrowRight className="ml-2 w-6 h-6" />
+                  {t("lessons.detail.startMission")} <ArrowRight className="ml-2 w-6 h-6" />
                 </Button>
-                <p className="text-sm text-muted-foreground mt-3">👆 Tap here to begin — 💬 Jeff will teach you this one in chat</p>
+                <p className="text-sm text-muted-foreground mt-3">{t("lessons.detail.tapToBegin")}</p>
               </div>
             )}
           </div>
@@ -490,6 +493,7 @@ function LessonRunPlayer({
   nextLesson,
 }: LessonRunPlayerProps) {
   const { updateLessonProgress, earnJeffs, awardJeffs } = useApp()
+  const { t } = useTranslation()
 
   // Reshuffles the GENERATED question selection on a genuine mastery retry
   // (fail → recap → retry) and the reinforcement round. Rereading with Jeff
@@ -700,8 +704,8 @@ function LessonRunPlayer({
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-2">Lesson not found</h2>
-          <Button onClick={() => exit("/lessons")}>Back to Missions</Button>
+          <h2 className="text-2xl font-bold mb-2">{t("lessons.detail.notFound")}</h2>
+          <Button onClick={() => exit("/lessons")}>{t("lessons.detail.backToMissions")}</Button>
         </div>
       </div>
     )
@@ -999,13 +1003,12 @@ function LessonRunPlayer({
           <Card variant="elevated">
             <CardContent className="p-8 text-center space-y-4">
               <JeffMascot size="sm" />
-              <h2 className="text-xl font-bold">Finished in another tab</h2>
+              <h2 className="text-xl font-bold">{t("lessons.detail.finishedElsewhere")}</h2>
               <p className="text-muted-foreground">
-                This lesson was finished (or restarted) in another tab, so this tab's run is closed and its score
-                wasn't written over it. Coins already earned here stay in your balance; nothing more is paid in this tab.
+                {t("lessons.detail.finishedElsewhereDesc")}
               </p>
               <Button size="lg" className="font-bold" onClick={() => exit("/lessons?category=" + lesson.category)}>
-                Back to missions <ArrowRight className="ml-2 w-4 h-4" />
+                {t("lessons.detail.backToMissions")} <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </CardContent>
           </Card>
@@ -1014,7 +1017,7 @@ function LessonRunPlayer({
           <Card variant="elevated">
             <CardContent className="p-8 text-center space-y-4">
               <JeffMascot size="sm" />
-              <p className="text-sm text-muted-foreground animate-pulse">Checking in on that…</p>
+              <p className="text-sm text-muted-foreground animate-pulse">{t("lessons.detail.checkingIn")}</p>
             </CardContent>
           </Card>
         ) : pendingReinforcement ? (
@@ -1022,13 +1025,13 @@ function LessonRunPlayer({
           <Card variant="elevated">
             <CardContent className="p-8 text-center space-y-4">
               <JeffMascot size="sm" />
-              <h2 className="text-xl font-bold">Nice, you passed! 🎯</h2>
+              <h2 className="text-xl font-bold">{t("lessons.detail.passedTitle")}</h2>
               <p className="text-muted-foreground">
-                Let's lock it in with one more round before we move on.
+                {t("lessons.detail.lockItIn")}
               </p>
-              <p className="text-xs text-muted-foreground">One quick round, then you're done - promise.</p>
+              <p className="text-xs text-muted-foreground">{t("lessons.detail.oneQuickRound")}</p>
               <Button size="lg" className="font-bold" onClick={handleReinforcementContinue}>
-                Let's go <ArrowRight className="ml-2 w-4 h-4" />
+                {t("lessons.detail.letsGo")} <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </CardContent>
           </Card>
@@ -1045,15 +1048,15 @@ function LessonRunPlayer({
               <div className="flex items-start gap-4">
                 <JeffMascot size="sm" />
                 <div>
-                  <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-primary">Make it stick</p>
-                  <h2 className="text-xl font-bold mt-0.5">Nice - you passed! Now make it yours.</h2>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-primary">{t("lessons.detail.makeItStick")}</p>
+                  <h2 className="text-xl font-bold mt-0.5">{t("lessons.detail.passedMakeYours")}</h2>
                   {pendingMastery.tier === "high_confidence" && (
                     <p className="text-xs font-semibold text-primary mt-1">
-                      🔥 Crushing this one - expect a tougher round next time.
+                      {t("lessons.detail.crushingIt")}
                     </p>
                   )}
                   <p className="text-sm text-muted-foreground mt-1">
-                    Learning sticks when you put it in your own words and make a real plan.
+                    {t("lessons.detail.learningSticks")}
                   </p>
                 </div>
               </div>
@@ -1066,22 +1069,22 @@ function LessonRunPlayer({
                 <Textarea
                   value={reflectionText}
                   onChange={(e) => setReflectionText(e.target.value)}
-                  placeholder="Write your plan in your own words…"
+                  placeholder={t("lessons.detail.reflectionPlaceholder")}
                   rows={5}
                   className="resize-none text-[15px]"
                   autoFocus
                 />
                 <div className="flex items-center justify-between mt-2">
                   <span className={`text-xs font-semibold ${reflectionWords >= MIN_REFLECTION_WORDS ? "text-success" : "text-muted-foreground"}`}>
-                    {reflectionWords} / {MIN_REFLECTION_WORDS} words {reflectionWords >= MIN_REFLECTION_WORDS && "✓"}
+                    {t("lessons.detail.wordsCount", { count: reflectionWords, min: MIN_REFLECTION_WORDS })} {reflectionWords >= MIN_REFLECTION_WORDS && "✓"}
                   </span>
                   <span className="text-xs font-bold text-gold flex items-center gap-1">
-                    <Coins className="w-3.5 h-3.5" /> +{REFLECTION_BONUS} bonus
+                    <Coins className="w-3.5 h-3.5" /> {t("lessons.detail.bonus", { count: REFLECTION_BONUS })}
                   </span>
                 </div>
                 {reflectionText.trim() && reflectionLowEffort && (
                   <p className="text-xs font-semibold text-destructive mt-1.5">
-                    Looks repetitive — write it in your own words.
+                    {t("lessons.detail.looksRepetitive")}
                   </p>
                 )}
               </div>
@@ -1092,10 +1095,10 @@ function LessonRunPlayer({
                 disabled={reflectionWords < MIN_REFLECTION_WORDS || reflectionLowEffort || savingReflection}
                 onClick={handleReflectionSubmit}
               >
-                {savingReflection ? "Saving…" :
+                {savingReflection ? t("common.saving") :
                   reflectionWords < MIN_REFLECTION_WORDS
-                    ? `Write ${MIN_REFLECTION_WORDS - reflectionWords} more ${MIN_REFLECTION_WORDS - reflectionWords === 1 ? "word" : "words"} to finish`
-                    : "Lock it in & finish mission"}
+                    ? t("lessons.detail.writeMore", { count: MIN_REFLECTION_WORDS - reflectionWords })
+                    : t("lessons.detail.lockAndFinish")}
                 {reflectionWords >= MIN_REFLECTION_WORDS && !savingReflection && <ArrowRight className="ml-2 w-4 h-4" />}
               </Button>
             </CardContent>

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useRef, useState, ReactNode } from "react"
+import { useTranslation } from "react-i18next"
 import { toast } from "sonner"
 import { useApp } from "@/contexts/AppContext"
 import { useAbility } from "@/hooks/useAbility"
@@ -160,6 +161,7 @@ export function useQuizSession(): QuizSession {
  * the provider unmounts (exiting the lesson) - so key it on the lesson id.
  */
 export function QuizSessionProvider({ children, lessonId, concept, previewMode = false, run }: { children: ReactNode; lessonId?: string; concept?: string; previewMode?: boolean; run?: QuizRunBridge }) {
+  const { t } = useTranslation()
   const { awardJeffs, jeffsBalance } = useApp()
   // Live per-topic ability estimate: loaded on entry, updated per answer,
   // debounce-persisted on exit. Drives adaptive question selection. In teacher
@@ -194,7 +196,7 @@ export function QuizSessionProvider({ children, lessonId, concept, previewMode =
       const { key, source } = run.resolveAnswer(ctx, true)
       const fresh = run.recordAnswer(key, { correct: true, coins: previewMode ? 0 : total, timedOut: false, source })
       if (!fresh) {
-        toast.success("Already counted", { id: "quiz-feedback", duration: 1500, description: "You answered this one earlier in this run." })
+        toast.success(t("lessonPlayer.alreadyCounted"), { id: "quiz-feedback", duration: 1500, description: t("lessonPlayer.answeredEarlier") })
         return
       }
     }
@@ -222,10 +224,10 @@ export function QuizSessionProvider({ children, lessonId, concept, previewMode =
     setAnsweredTotal(t => t + 1)
     // Reuse one toast id so rapid answers update a single toast in place
     // instead of stacking a fresh one per question.
-    toast.success(`+${total} coins`, {
+    toast.success(t("lessonPlayer.plusCoins", { count: total }), {
       id: "quiz-feedback",
       duration: 2000,
-      description: mult > 1 ? `${mult}x combo 🔥` : tier === "quick" ? "⚡ Quick answer!" : "Correct! 🎉",
+      description: mult > 1 ? t("lessonPlayer.comboDesc", { mult }) : tier === "quick" ? t("lessonPlayer.quickAnswer") : t("lessonPlayer.correctCheer"),
     })
   }
 
@@ -246,7 +248,7 @@ export function QuizSessionProvider({ children, lessonId, concept, previewMode =
       const { key, source } = run.resolveAnswer(ctx, false)
       const fresh = run.recordAnswer(key, { correct: false, coins: previewMode ? 0 : -penalty, timedOut, source })
       if (!fresh) {
-        toast.error("Already counted", { id: "quiz-feedback", duration: 1500, description: "You answered this one earlier in this run." })
+        toast.error(t("lessonPlayer.alreadyCounted"), { id: "quiz-feedback", duration: 1500, description: t("lessonPlayer.answeredEarlier") })
         return
       }
     }
@@ -273,10 +275,10 @@ export function QuizSessionProvider({ children, lessonId, concept, previewMode =
       setCoinsEarned(c => c - penalty)
       setCoinsLost(l => l + penalty)
     }
-    toast.error(timedOut ? "⏰ Time's up" : penalty > 0 ? `−${penalty} coins${mult > 1 ? ` (${mult}x combo)` : ""}` : "Not quite!", {
+    toast.error(timedOut ? t("lessonPlayer.timesUp") : penalty > 0 ? (mult > 1 ? t("lessonPlayer.minusCoinsCombo", { count: penalty, mult }) : t("lessonPlayer.minusCoins", { count: penalty })) : t("lessonPlayer.notQuite"), {
       id: "quiz-feedback",
       duration: 2000,
-      description: timedOut ? "No coins lost - the clock just ran out" : penalty > 0 ? "Wrong answer" : undefined,
+      description: timedOut ? t("lessonPlayer.noCoinsLost") : penalty > 0 ? t("lessonPlayer.wrongAnswer") : undefined,
     })
   }
 

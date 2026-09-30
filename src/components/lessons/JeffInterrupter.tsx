@@ -8,6 +8,7 @@
 // the interaction + presentation. All tap targets are >=44px and there are no
 // hover-only affordances, so every type works on mobile.
 import { useEffect, useMemo, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import type { Interrupter } from "@/lib/jeffInterrupter"
@@ -35,6 +36,7 @@ const GOLD = "#f59e0b"
 
 /** The card chrome shared by the loading and loaded states. */
 function CardShell({ children }: { children: React.ReactNode }) {
+  const { t } = useTranslation()
   return (
     <motion.div
       initial={{ y: 40, opacity: 0 }}
@@ -56,7 +58,7 @@ function CardShell({ children }: { children: React.ReactNode }) {
           className="font-extrabold uppercase tracking-wider rounded-full px-2 py-0.5"
           style={{ background: GOLD, color: "#3b2a06", fontSize: 10 }}
         >
-          Quick check
+          {t("jeff.quickCheck")}
         </span>
       </div>
       {children}
@@ -66,8 +68,9 @@ function CardShell({ children }: { children: React.ReactNode }) {
 
 /** Two text lines + two button placeholders, gently shimmering. */
 function Skeleton() {
+  const { t } = useTranslation()
   return (
-    <div className="animate-pulse space-y-3" aria-label="Loading quick check">
+    <div className="animate-pulse space-y-3" aria-label={t("jeff.loadingQuickCheckAria")}>
       <div className="h-3.5 rounded bg-black/10 w-[85%]" />
       <div className="h-3.5 rounded bg-black/10 w-[60%]" />
       <div className="grid gap-2 pt-1">
@@ -148,6 +151,7 @@ function Footer({
   // This footer only mounts once the quick-check is solved. Inside the scrolling
   // chat, the "Continue →" button can appear below the fold — so scroll it into
   // view on mount, otherwise it reads as a missing/absent Continue button.
+  const { t } = useTranslation()
   const ref = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth", block: "center" })
@@ -162,7 +166,7 @@ function Footer({
     >
       {explanation && <p className="text-sm text-muted-foreground leading-snug">{explanation}</p>}
       {coinLabel && <CoinFlash label={coinLabel} />}
-      <Button onClick={onContinue} className="w-full font-bold h-11">Continue →</Button>
+      <Button onClick={onContinue} className="w-full font-bold h-11">{t("jeff.continue")}</Button>
     </motion.div>
   )
 }
@@ -177,6 +181,7 @@ function TrueFalse({
   onCoins: (a: number, r: string) => void
   onComplete: (result: InterrupterResult) => void
 }) {
+  const { t } = useTranslation()
   const [chosen, setChosen] = useState<boolean | null>(null)
   const correct = chosen !== null && chosen === data.answer
 
@@ -217,7 +222,7 @@ function TrueFalse({
                       : "border-primary/30 hover:border-primary hover:bg-primary/5"
               }`}
             >
-              {value ? "True" : "False"}
+              {value ? t("jeff.true") : t("jeff.false")}
             </motion.button>
           )
         })}
@@ -225,7 +230,7 @@ function TrueFalse({
       {chosen !== null && (
         <Footer
           explanation={data.explanation}
-          coinLabel={correct ? "+25 coins" : undefined}
+          coinLabel={correct ? t("jeff.coins25") : undefined}
           onContinue={() =>
             onComplete({
               description: data.statement,
@@ -248,6 +253,7 @@ function FillBlank({
   onCoins: (a: number, r: string) => void
   onComplete: (result: InterrupterResult) => void
 }) {
+  const { t } = useTranslation()
   const [chosen, setChosen] = useState<string | null>(null)
   const correct = chosen !== null && chosen === data.answer
   // Shuffle once so the correct answer isn't always the first pill.
@@ -325,7 +331,7 @@ function FillBlank({
       {chosen !== null && (
         <Footer
           explanation={data.explanation}
-          coinLabel={correct ? "+25 coins" : undefined}
+          coinLabel={correct ? t("jeff.coins25") : undefined}
           onContinue={() =>
             onComplete({
               description: data.sentence.replace("[BLANK]", data.answer),
@@ -348,6 +354,7 @@ function PollActivity({
   onCoins: (a: number, r: string) => void
   onComplete: (result: InterrupterResult) => void
 }) {
+  const { t } = useTranslation()
   const [chosen, setChosen] = useState<number | null>(null)
 
   const pick = (i: number) => {
@@ -401,7 +408,7 @@ function PollActivity({
       </div>
       {chosen !== null && (
         <Footer
-          coinLabel="+15 for sharing your opinion!"
+          coinLabel={t("jeff.coins15Opinion")}
           onContinue={() =>
             onComplete({
               description: data.question,
@@ -426,6 +433,7 @@ function SpotMistake({
   onCoins: (a: number, r: string) => void
   onComplete: (result: InterrupterResult) => void
 }) {
+  const { t } = useTranslation()
   const [solved, setSolved] = useState(false)
   const [wrongIdx, setWrongIdx] = useState<number | null>(null)
   const awarded = useRef(false)
@@ -446,7 +454,7 @@ function SpotMistake({
 
   return (
     <div>
-      <p className="text-[15px] font-semibold text-foreground mb-3">Which one is the money mistake?</p>
+      <p className="text-[15px] font-semibold text-foreground mb-3">{t("jeff.whichMoneyMistake")}</p>
       <div className="grid gap-2">
         {data.scenarios.map((s, i) => {
           const mistakeHere = solved && i === data.mistakeIndex
@@ -473,12 +481,12 @@ function SpotMistake({
         })}
       </div>
       {wrongIdx !== null && !solved && (
-        <p className="text-sm text-red-500 mt-2">Not quite — try again.</p>
+        <p className="text-sm text-red-500 mt-2">{t("jeff.notQuiteTryAgain")}</p>
       )}
       {solved && (
         <Footer
           explanation={data.explanation}
-          coinLabel="+25 coins"
+          coinLabel={t("jeff.coins25")}
           onContinue={() =>
             onComplete({ description: "spotting the money mistake", outcome: "correct" })
           }
@@ -501,6 +509,7 @@ function SortIt({
   onCoins: (a: number, r: string) => void
   onComplete: (result: InterrupterResult) => void
 }) {
+  const { t } = useTranslation()
   const [choice, setChoice] = useState<(number | null)[]>(() => data.items.map(() => null))
   const [misses, setMisses] = useState(0)
   const awarded = useRef(false)
@@ -525,7 +534,7 @@ function SortIt({
 
   return (
     <div>
-      <p className="text-[15px] font-semibold text-foreground mb-3">Put each into the right group.</p>
+      <p className="text-[15px] font-semibold text-foreground mb-3">{t("jeff.putEachInGroup")}</p>
       <div className="space-y-2 max-h-[42vh] overflow-y-auto pr-0.5">
         {data.items.map((it, i) => {
           const locked = choice[i] === it.bin
@@ -566,7 +575,7 @@ function SortIt({
                   })}
                 </div>
               </div>
-              {hasWrong && <p className="text-[12px] text-red-500 mt-0.5">Try the other group.</p>}
+              {hasWrong && <p className="text-[12px] text-red-500 mt-0.5">{t("jeff.tryOtherGroup")}</p>}
             </div>
           )
         })}
@@ -574,7 +583,7 @@ function SortIt({
       {solved && (
         <Footer
           explanation={data.explanation}
-          coinLabel={earned ? "+25 coins" : undefined}
+          coinLabel={earned ? t("jeff.coins25") : undefined}
           onContinue={() => onComplete({ description: "sorting into the right groups", outcome: "correct" })}
         />
       )}
@@ -596,6 +605,7 @@ function RankIt({
   onCoins: (a: number, r: string) => void
   onComplete: (result: InterrupterResult) => void
 }) {
+  const { t } = useTranslation()
   const [sequence, setSequence] = useState<number[]>([])
   const [misses, setMisses] = useState(0)
   const [revealed, setRevealed] = useState(false)
@@ -638,7 +648,7 @@ function RankIt({
   return (
     <div>
       <p className="text-[15px] font-semibold text-foreground mb-1">{data.prompt}</p>
-      <p className="text-xs text-muted-foreground mb-3">Tap them in order.</p>
+      <p className="text-xs text-muted-foreground mb-3">{t("jeff.tapInOrder")}</p>
       <div className="grid gap-2">
         {data.items.map((s, i) => {
           const pos = sequence.indexOf(i)
@@ -678,19 +688,19 @@ function RankIt({
       </div>
       {wrongComplete && (
         <p className="text-sm text-red-500 mt-2">
-          Not the right order — {correctCount} of {data.items.length} correct.
+          {t("jeff.notRightOrder", { correct: correctCount, total: data.items.length })}
         </p>
       )}
       {!solved && (sequence.length > 0 || misses >= 2) && (
         <div className="flex gap-2 mt-2">
           {sequence.length > 0 && (
             <Button variant="outline" size="sm" onClick={undoLast} className="h-9">
-              Undo last
+              {t("jeff.undoLast")}
             </Button>
           )}
           {misses >= 2 && (
             <Button variant="outline" size="sm" onClick={showMe} className="h-9">
-              Show me
+              {t("jeff.showMe")}
             </Button>
           )}
         </div>
@@ -698,7 +708,7 @@ function RankIt({
       {solved && (
         <Footer
           explanation={data.explanation}
-          coinLabel={solvedCorrectly ? "+25 coins" : undefined}
+          coinLabel={solvedCorrectly ? t("jeff.coins25") : undefined}
           onContinue={() =>
             onComplete({ description: data.prompt, outcome: solvedCorrectly ? "correct" : "wrong" })
           }
@@ -719,6 +729,7 @@ function SmartMove({
   onCoins: (a: number, r: string) => void
   onComplete: (result: InterrupterResult) => void
 }) {
+  const { t } = useTranslation()
   const [chosen, setChosen] = useState<number | null>(null)
   const correct = chosen !== null && chosen === data.answer
 
@@ -769,7 +780,7 @@ function SmartMove({
       {chosen !== null && (
         <Footer
           explanation={data.explanation}
-          coinLabel={correct ? "+25 coins" : undefined}
+          coinLabel={correct ? t("jeff.coins25") : undefined}
           onContinue={() =>
             onComplete({
               description: "picking the smarter money move",

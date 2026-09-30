@@ -12,6 +12,7 @@
 // reachable by tap/click and keyboard (<button>). Hover is a progressive
 // enhancement on top of the click behaviour.
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -33,12 +34,13 @@ export function DiagramRenderer({
   section: InteractiveDiagramSection
   onContinue: () => void
 }) {
+  const { t } = useTranslation()
   return (
     <Card variant="elevated" className="overflow-hidden">
       <div className="bg-gold/10 border-b border-border px-6 py-3 flex items-center gap-2">
         <Compass className="w-4 h-4 text-gold" />
-        <span className="text-xs font-semibold text-gold uppercase tracking-wider">Explore</span>
-        <Badge variant="outline" className="ml-auto text-[10px] uppercase tracking-wide">Interactive</Badge>
+        <span className="text-xs font-semibold text-gold uppercase tracking-wider">{t("lessonPlayer.explore")}</span>
+        <Badge variant="outline" className="ml-auto text-[10px] uppercase tracking-wide">{t("lessonPlayer.interactive")}</Badge>
       </div>
       <CardContent className="p-5 sm:p-6 space-y-4">
         {section.title && <h2 className="text-xl font-bold text-foreground">{section.title}</h2>}
@@ -48,7 +50,7 @@ export function DiagramRenderer({
         <DiagramBody diagram={section.diagram} />
         <div className="pt-1">
           <Button onClick={onContinue}>
-            Continue <ArrowRight className="ml-1.5 w-4 h-4" />
+            {t("lessonPlayer.continue")} <ArrowRight className="ml-1.5 w-4 h-4" />
           </Button>
         </div>
       </CardContent>
@@ -96,6 +98,7 @@ const CONCEPTS: Concept[] = [
 ]
 
 function ConceptNetwork() {
+  const { t } = useTranslation()
   const [selected, setSelected] = useState<string>("scarcity")
   const cx = 180, cy = 150, R = 112
   const outer = CONCEPTS.slice(1) // scarcity is the hub
@@ -107,7 +110,7 @@ function ConceptNetwork() {
 
   return (
     <div className="space-y-3">
-      <TapHint>Tap a concept to explore how it connects to scarcity</TapHint>
+      <TapHint>{t("lessonPlayer.tapConcept")}</TapHint>
       <div className="grid md:grid-cols-2 gap-4 items-center">
         <svg viewBox="0 0 360 300" className="w-full h-auto" role="img" aria-label="Network of the nine key economic concepts around scarcity">
           {/* connecting spokes */}
@@ -168,10 +171,10 @@ function ConceptNetwork() {
             className="bg-muted/40 rounded-xl p-4 border border-border space-y-2">
             <h3 className="text-base font-bold text-foreground">{current.label}</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">{current.def}</p>
-            <p className="text-xs text-foreground"><span className="font-semibold text-primary">Why it matters: </span>{current.why}</p>
+            <p className="text-xs text-foreground"><span className="font-semibold text-primary">{t("lessonPlayer.whyItMatters")} </span>{current.why}</p>
             <div className="bg-card rounded-lg p-2.5 border border-border">
               <p className="text-[11px] font-semibold text-foreground flex items-center gap-1 mb-0.5">
-                <Lightbulb className="w-3 h-3 text-gold" /> In practice
+                <Lightbulb className="w-3 h-3 text-gold" /> {t("lessonPlayer.inPractice")}
               </p>
               <p className="text-xs text-muted-foreground leading-relaxed">{current.example}</p>
             </div>
@@ -210,10 +213,11 @@ const FACTORS: { icon: React.ComponentType<{ className?: string }>; node: Factor
 ]
 
 function FactorsTree() {
+  const { t } = useTranslation()
   const [open, setOpen] = useState<string | null>("Land")
   return (
     <div className="space-y-3">
-      <TapHint>Tap a factor to expand its categories</TapHint>
+      <TapHint>{t("lessonPlayer.tapFactor")}</TapHint>
       <div className="grid sm:grid-cols-2 gap-3">
         {FACTORS.map(({ icon: Icon, node }) => {
           const isOpen = open === node.label
@@ -260,6 +264,7 @@ function FactorsTree() {
 // 3. MICRO vs MACRO — microscope vs. telescope, tap to expand.
 // ═══════════════════════════════════════════════════════════════
 function MicroMacro() {
+  const { t } = useTranslation()
   const [side, setSide] = useState<"micro" | "macro">("micro")
   const data = {
     micro: {
@@ -279,7 +284,7 @@ function MicroMacro() {
   } as const
   return (
     <div className="space-y-3">
-      <TapHint>Tap either lens to compare the two views</TapHint>
+      <TapHint>{t("lessonPlayer.tapLens")}</TapHint>
       <div className="grid grid-cols-2 gap-3">
         {(["micro", "macro"] as const).map((k) => {
           const d = data[k]; const Icon = d.icon; const active = side === k
@@ -336,12 +341,13 @@ const SYS_TINT: Record<string, string> = {
 }
 
 function EconomicSystems() {
+  const { t } = useTranslation()
   const [sel, setSel] = useState<string>("market")
   const cur = SYSTEMS.find((s) => s.key === sel)!
   const tint = SYS_TINT[sel]
   return (
     <div className="space-y-3">
-      <TapHint>Tap a system to see how it answers the three questions</TapHint>
+      <TapHint>{t("lessonPlayer.tapSystem")}</TapHint>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {SYSTEMS.map((s) => {
           const active = sel === s.key; const t = SYS_TINT[s.key]
@@ -359,10 +365,10 @@ function EconomicSystems() {
           initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.22 }}
           className="rounded-xl border border-border overflow-hidden">
           <div className="px-4 py-2.5 text-white text-sm font-bold" style={{ backgroundColor: `hsl(var(--${tint}))` }}>
-            {cur.name} economy
+            {t("lessonPlayer.systemEconomy", { name: cur.name })}
           </div>
           <div className="grid sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-border bg-card">
-            {[["What to produce?", cur.what], ["How to produce?", cur.how], ["For whom?", cur.forWhom]].map(([q, a]) => (
+            {[[t("lessonPlayer.whatToProduce"), cur.what], [t("lessonPlayer.howToProduce"), cur.how], [t("lessonPlayer.forWhom"), cur.forWhom]].map(([q, a]) => (
               <div key={q} className="p-3">
                 <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{q}</p>
                 <p className="text-sm text-foreground mt-0.5">{a}</p>
@@ -371,16 +377,16 @@ function EconomicSystems() {
           </div>
           <div className="grid grid-cols-2 divide-x divide-border border-t border-border bg-muted/30">
             <div className="p-3">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-success">Strengths</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-success">{t("lessonPlayer.strengths")}</p>
               <p className="text-sm text-foreground mt-0.5">{cur.pros}</p>
             </div>
             <div className="p-3">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-destructive">Weaknesses</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-destructive">{t("lessonPlayer.weaknesses")}</p>
               <p className="text-sm text-foreground mt-0.5">{cur.cons}</p>
             </div>
           </div>
           <div className="px-4 py-2.5 border-t border-border bg-card">
-            <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Examples </span>
+            <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{t("lessonPlayer.examples")} </span>
             <span className="text-sm text-foreground">{cur.examples}</span>
           </div>
         </motion.div>
@@ -416,6 +422,7 @@ const SCENARIO_INFO: Record<Exclude<Scenario, "none">, { label: string; text: st
 }
 
 function PpfGraph() {
+  const { t } = useTranslation()
   const [sc, setSc] = useState<Scenario>("none")
   const A = ppfPoint(0.22), B = ppfPoint(0.5), C = ppfPoint(0.78)
   const D = { x: 150, y: 175 } // inside the curve (inefficient)
@@ -475,9 +482,9 @@ function PpfGraph() {
           )}
         </svg>
         <div className="flex flex-wrap gap-3 text-[11px] text-muted-foreground">
-          <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: "hsl(var(--primary))" }} /> On the curve = efficient</span>
-          <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: "hsl(var(--destructive))" }} /> Inside = idle resources</span>
-          <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: "hsl(var(--muted-foreground))" }} /> Outside = unattainable</span>
+          <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: "hsl(var(--primary))" }} /> {t("lessonPlayer.ppfOnCurve")}</span>
+          <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: "hsl(var(--destructive))" }} /> {t("lessonPlayer.ppfInside")}</span>
+          <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: "hsl(var(--muted-foreground))" }} /> {t("lessonPlayer.ppfOutside")}</span>
         </div>
       </div>
 
@@ -501,7 +508,7 @@ function PpfGraph() {
           </AnimatePresence>
         </div>
         <div className="bg-card rounded-xl p-3 border border-border">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-primary mb-1">Model assumptions</p>
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-primary mb-1">{t("lessonPlayer.modelAssumptions")}</p>
           <ul className="text-xs text-muted-foreground space-y-0.5 list-disc pl-4">
             <li>Only two goods are produced</li>
             <li>Resources are fixed in quantity and quality</li>
@@ -530,16 +537,17 @@ const FLOWS: Flow[] = [
 ]
 
 function CircularFlow() {
+  const { t } = useTranslation()
   const [active, setActive] = useState<string | null>(null)
   const [showAll, setShowAll] = useState(false)
   const cur = FLOWS.find((f) => f.key === active)
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between gap-2 flex-wrap">
-        <TapHint>Tap any arrow to see what flows</TapHint>
+        <TapHint>{t("lessonPlayer.tapArrow")}</TapHint>
         <button onClick={() => setShowAll((s) => !s)}
           className="text-xs font-semibold text-primary hover:underline">
-          {showAll ? "Hide all labels" : "Show all labels"}
+          {showAll ? t("lessonPlayer.hideLabels") : t("lessonPlayer.showLabels")}
         </button>
       </div>
       <svg viewBox="0 0 360 300" className="w-full h-auto" role="img" aria-label="Circular flow of income between households and firms">

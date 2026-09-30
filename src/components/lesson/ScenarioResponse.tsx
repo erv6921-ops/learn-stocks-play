@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -25,6 +26,7 @@ function wordCount(s: string) {
 }
 
 export function ScenarioResponse({ lessonId }: { lessonId: string }) {
+  const { t } = useTranslation()
   const set = getScenarioSet(lessonId)
   const [openId, setOpenId] = useState<string | null>(null)
   const [drafts, setDrafts] = useState<Record<string, string>>({})
@@ -65,7 +67,7 @@ export function ScenarioResponse({ lessonId }: { lessonId: string }) {
     try {
       const { data: userData } = await supabase.auth.getUser()
       const uid = userData.user?.id
-      if (!uid) throw new Error("Not signed in")
+      if (!uid) throw new Error(t("lessonPlayer.notSignedIn"))
       const { error } = await (supabase as any).from("scenario_responses").insert({
         user_id: uid,
         lesson_id: lessonId,
@@ -75,12 +77,12 @@ export function ScenarioResponse({ lessonId }: { lessonId: string }) {
       if (error) throw error
       setSubmitted((s) => ({ ...s, [scenarioId]: true }))
       setOpenId(null)
-      toast.success("Sent to your teacher 📨", {
-        description: "Nice thinking — this won't change your score.",
+      toast.success(t("lessonPlayer.sentToTeacher"), {
+        description: t("lessonPlayer.sentToTeacherDesc"),
       })
     } catch (e: any) {
-      toast.error("Couldn't save that response", {
-        description: e?.message || "Please try again in a bit.",
+      toast.error(t("lessonPlayer.couldntSaveResponse"), {
+        description: e?.message || t("lessonPlayer.tryAgainBit"),
       })
     } finally {
       setSaving(null)
@@ -98,7 +100,7 @@ export function ScenarioResponse({ lessonId }: { lessonId: string }) {
             <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-primary">
               {set.title}
             </p>
-            <h3 className="text-lg font-bold mt-0.5">Put it to work</h3>
+            <h3 className="text-lg font-bold mt-0.5">{t("lessonPlayer.putItToWork")}</h3>
             <p className="text-sm text-muted-foreground mt-0.5">{set.subtitle}</p>
           </div>
         </div>
@@ -128,7 +130,7 @@ export function ScenarioResponse({ lessonId }: { lessonId: string }) {
                     {p.prompt}
                   </span>
                   {isDone && (
-                    <span className="text-[11px] font-bold text-success shrink-0">Sent ✓</span>
+                    <span className="text-[11px] font-bold text-success shrink-0">{t("lessonPlayer.sentCheck")}</span>
                   )}
                 </button>
 
@@ -137,7 +139,7 @@ export function ScenarioResponse({ lessonId }: { lessonId: string }) {
                     <Textarea
                       value={draft}
                       onChange={(e) => setDrafts((d) => ({ ...d, [p.id]: e.target.value }))}
-                      placeholder="Write your answer in your own words…"
+                      placeholder={t("lessonPlayer.answerInOwnWords")}
                       rows={4}
                       className="resize-none text-[15px]"
                       autoFocus
@@ -151,7 +153,7 @@ export function ScenarioResponse({ lessonId }: { lessonId: string }) {
                           enough ? "text-success" : "text-muted-foreground"
                         }`}
                       >
-                        {words} / {set.minWords} words {enough && "✓"}
+                        {t("lessonPlayer.wordsOf", { words, min: set.minWords })} {enough && "✓"}
                       </span>
                       <Button
                         size="sm"
@@ -160,10 +162,10 @@ export function ScenarioResponse({ lessonId }: { lessonId: string }) {
                         onClick={() => handleSubmit(p.id)}
                       >
                         {saving === p.id
-                          ? "Sending…"
+                          ? t("lessonPlayer.sending")
                           : enough
-                            ? "Send to teacher"
-                            : `Write ${set.minWords - words} more`}
+                            ? t("lessonPlayer.sendToTeacher")
+                            : t("lessonPlayer.writeMoreWords", { count: set.minWords - words })}
                       </Button>
                     </div>
                   </div>

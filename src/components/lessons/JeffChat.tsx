@@ -7,6 +7,7 @@
 // function) and persists to localStorage so closing mid-lesson resumes.
 
 import React, { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { JeffMascot } from "@/components/Jeff/JeffMascot"
@@ -46,10 +47,10 @@ export function JeffChatAvatar({ size = 16 }: { size?: number }) {
    Intro is a deeper, longer course, so it shows more beats. */
 const EXPECTED_TURNS = 6
 
-/* Last-resort reply options. Used only to guarantee the student is never left
-   with zero ways to continue (e.g. if a turn ever comes back with no options),
-   so the lesson can never dead-end. */
-const SAFE_OPTIONS = ["Tell me more", "Keep going", "Got it 👍"]
+/* Last-resort reply options (i18n keys). Used only to guarantee the student is
+   never left with zero ways to continue (e.g. if a turn ever comes back with no
+   options), so the lesson can never dead-end. Resolved via t() at usage. */
+const SAFE_OPTION_KEYS = ["jeff.safeOptions.tellMeMore", "jeff.safeOptions.keepGoing", "jeff.safeOptions.gotIt"]
 
 /* Interrupter cadence: pause for a "quick check" every this-many Jeff messages,
    but never before the student has had time to settle in (see MIN_TURNS). */
@@ -69,6 +70,7 @@ const isSystemNote = (content: string) => content.startsWith(SYSTEM_NOTE_PREFIX)
    new skit if the wait drags on. */
 
 interface Skit {
+  /** i18n key resolved at render time; also used as the stable skit identity. */
   caption: string
   Body: React.FC
 }
@@ -366,16 +368,18 @@ function ThinkSkit() {
   )
 }
 
+// `caption` is an i18n key (translated at render time in the speech bubble); it
+// also serves as each skit's stable identity for randomSkit's exclude filter.
 const SKITS: Skit[] = [
-  { caption: "Jeff is thinking hard… 🤔", Body: ThinkSkit },
-  { caption: "Jeff's cooking up an answer… 🍳", Body: CookSkit },
-  { caption: "Jeff's recharging with a micro-nap… 💤", Body: NapSkit },
-  { caption: "Jeff's digging through his notes… 🎒", Body: NotesSkit },
-  { caption: "Jeff's doing his hype jumps! 🔥", Body: JumpSkit },
-  { caption: "Jeff's sketching it out… ✏️", Body: SketchSkit },
-  { caption: "Jeff's juggling the numbers… 🪙", Body: JuggleSkit },
-  { caption: "Jeff's pacing back and forth… 💭", Body: PaceSkit },
-  { caption: "Jeff's flipping through the textbook… 📖", Body: BookSkit },
+  { caption: "jeff.skits.think", Body: ThinkSkit },
+  { caption: "jeff.skits.cook", Body: CookSkit },
+  { caption: "jeff.skits.nap", Body: NapSkit },
+  { caption: "jeff.skits.notes", Body: NotesSkit },
+  { caption: "jeff.skits.jump", Body: JumpSkit },
+  { caption: "jeff.skits.sketch", Body: SketchSkit },
+  { caption: "jeff.skits.juggle", Body: JuggleSkit },
+  { caption: "jeff.skits.pace", Body: PaceSkit },
+  { caption: "jeff.skits.book", Body: BookSkit },
 ]
 
 const randomSkit = (excludeCaption?: string): Skit => {
@@ -414,6 +418,8 @@ interface JeffChatProps {
 }
 
 export default function JeffChat({ lesson, script = [], source, mustCover, vocabulary, chatKey, onQuizReady, onClose, reviewMode = false, onCoins }: JeffChatProps) {
+  const { t } = useTranslation()
+  const SAFE_OPTIONS = SAFE_OPTION_KEYS.map(k => t(k))
   const storageKey = chatKey ?? lesson.id
   // Deeper, longer teaching for the Gulliver Intro academic course.
   const deep = isDeepLesson(lesson)
@@ -567,7 +573,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
         // Couldn't reach Jeff and there's no script. Append onto the *current*
         // messages (functional update - don't drop the student's just-added
         // reply) and restore tappable options so a retry is always possible.
-        setMessages(prev => [...prev, { role: "assistant", content: "Hmm, lost my train of thought for a sec! Try tapping that again." }])
+        setMessages(prev => [...prev, { role: "assistant", content: t("jeff.lostTrainOfThought") }])
         setOptions(lastOptionsRef.current.length ? lastOptionsRef.current : SAFE_OPTIONS)
       }
     }
@@ -693,10 +699,10 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
       {/* ── Top bar: lesson + progress dots + close ── */}
       <div className="relative z-10 flex items-center gap-3 px-4 py-3 shrink-0">
         <div className="flex-1 min-w-0">
-          <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-primary/70">{reviewMode ? "Rereading Jeff's class" : "Jeff's class"}</p>
+          <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-primary/70">{reviewMode ? t("jeff.rereadingClass") : t("jeff.class")}</p>
           <p className="font-display font-extrabold text-foreground truncate">{lesson.title}</p>
         </div>
-        <div className="flex items-center gap-1.5" aria-label="Lesson progress">
+        <div className="flex items-center gap-1.5" aria-label={t("jeff.lessonProgress")}>
           {(() => {
             // Cap the rendered dots (deep lessons have many beats) and fill them
             // proportionally so the strip never overflows a narrow screen.
@@ -713,7 +719,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
         </div>
         <button
           onClick={() => setShowHistory(h => !h)}
-          aria-label="Conversation history"
+          aria-label={t("jeff.conversationHistory")}
           className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${showHistory ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-black/5"}`}
         >
           <History className="w-4.5 h-4.5" />
@@ -722,8 +728,8 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
             reopening the lesson later resumes Jeff's class where it left off. */}
         <button
           onClick={onClose}
-          aria-label={reviewMode ? "Back to the mastery check" : "Exit lesson"}
-          title={reviewMode ? "Back to the mastery check" : "Exit lesson"}
+          aria-label={reviewMode ? t("jeff.backToMasteryCheck") : t("jeff.exitLesson")}
+          title={reviewMode ? t("jeff.backToMasteryCheck") : t("jeff.exitLesson")}
           className="w-9 h-9 rounded-full flex items-center justify-center text-muted-foreground hover:bg-black/5 transition-colors"
         >
           <X className="w-4.5 h-4.5" />
@@ -755,7 +761,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                   className="text-xs text-muted-foreground text-right mb-2 italic"
                 >
-                  You: "{lastChoice}"
+                  {t("jeff.youSaid", { choice: lastChoice })}
                 </motion.p>
               )}
               <AnimatePresence mode="wait">
@@ -787,7 +793,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
                           exit={{ opacity: 0, y: -4 }}
                           className="text-sm text-muted-foreground"
                         >
-                          {skit.caption}
+                          {t(skit.caption)}
                         </motion.span>
                       </AnimatePresence>
                     </div>
@@ -836,9 +842,9 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
               offer a Retry to reconnect. */}
           {liveDropped && !reviewMode && !done && (
             <div className="mb-2 flex items-center gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2">
-              <span className="flex-1 text-[13px] font-medium text-amber-700">Jeff's live connection dropped — teaching from notes</span>
+              <span className="flex-1 text-[13px] font-medium text-amber-700">{t("jeff.liveDropped")}</span>
               <Button size="sm" variant="outline" className="h-8 shrink-0" disabled={thinking} onClick={retryLive}>
-                Retry
+                {t("jeff.retry")}
               </Button>
             </div>
           )}
@@ -847,13 +853,13 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
                the only way out is straight back to the mastery check. */
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
               <Button size="lg" onClick={onClose} className="w-full text-base font-bold press-scale h-12">
-                Back to the mastery check →
+                {t("jeff.backToMasteryCheckArrow")}
               </Button>
             </motion.div>
           ) : done ? (
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
               <Button size="lg" onClick={onQuizReady} className="w-full text-base font-bold press-scale h-12">
-                Take the Quiz →
+                {t("jeff.takeQuiz")}
               </Button>
             </motion.div>
           ) : (interrupterLoading || interrupter) ? (
@@ -861,7 +867,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
                up in their place until the student taps Continue. */
             <>
               {interrupterLoading && (
-                <p className="text-center text-xs font-semibold text-muted-foreground pb-2">Loading a quick check…</p>
+                <p className="text-center text-xs font-semibold text-muted-foreground pb-2">{t("jeff.loadingQuickCheck")}</p>
               )}
               <JeffInterrupter
                 interrupter={interrupter}
@@ -873,7 +879,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
           ) : quickCheckSkipped ? (
             /* The quick check couldn't be produced - say so briefly, then the
                reply pills return (see skipQuickCheck). */
-            <p className="text-center text-sm text-muted-foreground py-4">Skipping this one</p>
+            <p className="text-center text-sm text-muted-foreground py-4">{t("jeff.skippingThisOne")}</p>
           ) : (
             <div className="grid gap-2 min-h-[3rem]">
               {!thinking && options.map((opt, i) => (
@@ -889,7 +895,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
                 </motion.button>
               ))}
               {thinking && (
-                <p className="text-center text-xs text-muted-foreground py-3">Jeff's putting it together…</p>
+                <p className="text-center text-xs text-muted-foreground py-3">{t("jeff.puttingItTogether")}</p>
               )}
             </div>
           )}

@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import { useJeff } from "@/contexts/JeffContext"
 import { useApp } from "@/contexts/AppContext"
@@ -83,6 +84,7 @@ interface QuizAnswerProps {
 }
 
 function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue, coins = 20, onAnswered, shuffleOptions = false }: QuizAnswerProps) {
+  const { t } = useTranslation()
   // Questions are already shuffled & validated by the MCQ engine in LessonDetail.
   // When shuffleOptions is set (mastery check), we shuffle the option order once
   // more per mount so each attempt presents the choices in a fresh position -
@@ -235,12 +237,12 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
     // Teacher preview: the power-up works visually but spends nothing.
     if (previewMode) { setFrozen(true); clearInterval(intervalRef.current); return }
     if (!spendJeffs(FREEZE_COST, "Time freeze power-up")) {
-      toast.error("Not enough InvestiCoins", { description: `Time Freeze costs ${FREEZE_COST} coins.` })
+      toast.error(t("lessonPlayer.notEnoughCoins"), { description: t("lessonPlayer.freezeCostDesc", { cost: FREEZE_COST }) })
       return
     }
     setFrozen(true)
     clearInterval(intervalRef.current) // stop the countdown; it can't hit zero now
-    toast.error(`−${FREEZE_COST} coins`, { description: "Time frozen ❄️, take your time." })
+    toast.error(t("lessonPlayer.minusCoins", { count: FREEZE_COST }), { description: t("lessonPlayer.timeFrozenDesc") })
   }
 
   const isCorrect = selected === shuffledQ.correctAnswer
@@ -261,13 +263,13 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
   const combo = session.combo
   const comboPill =
     session.lostCombo != null
-      ? { text: "Combo lost!", broken: true as const, pulse: undefined }
+      ? { text: t("lessonPlayer.comboLost"), broken: true as const, pulse: undefined }
       : combo >= 10
-      ? { text: "10x COMBO 🚀", broken: false as const, pulse: 0.6 }
+      ? { text: t("lessonPlayer.combo10x"), broken: false as const, pulse: 0.6 }
       : combo >= 5
-      ? { text: "5x COMBO ⚡", broken: false as const, pulse: 1 }
+      ? { text: t("lessonPlayer.combo5x"), broken: false as const, pulse: 1 }
       : combo >= 3
-      ? { text: "3x COMBO 🔥", broken: false as const, pulse: undefined }
+      ? { text: t("lessonPlayer.combo3x"), broken: false as const, pulse: undefined }
       : null
 
   return (
@@ -334,7 +336,9 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
       {shuffledQ.isReview && (
         <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 border border-primary/20 px-2.5 py-1 text-[11px] font-semibold text-primary">
           <RotateCcw className="w-3 h-3" />
-          Review from last lesson{shuffledQ.reviewFromTitle ? `: ${shuffledQ.reviewFromTitle}` : ""}
+          {shuffledQ.reviewFromTitle
+            ? t("lessonPlayer.reviewFromTitled", { title: shuffledQ.reviewFromTitle })
+            : t("lessonPlayer.reviewFromLast")}
         </div>
       )}
 
@@ -399,7 +403,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
               {showGreen && <CheckCircle className="w-4 h-4 flex-shrink-0" />}
               {showRed && <XCircle className="w-4 h-4 flex-shrink-0" />}
               <span className="flex-1">{opt}</span>
-              {isEliminated && <span className="text-[10px] font-semibold shrink-0">ruled out</span>}
+              {isEliminated && <span className="text-[10px] font-semibold shrink-0">{t("lessonPlayer.ruledOut")}</span>}
             </motion.button>
           )
         })}
@@ -421,8 +425,8 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
               >
                 <Lightbulb className={`w-3.5 h-3.5 ${hints.hintsLeft > 0 ? "text-amber-500" : "text-muted-foreground"}`} />
                 {hints.hintsLeft > 0
-                  ? `Hint · ${hints.hintsLeft} left`
-                  : "No hints left"}
+                  ? t("lessonPlayer.hintLeft", { count: hints.hintsLeft })
+                  : t("lessonPlayer.noHintsLeft")}
               </Button>
             )}
             <Button
@@ -432,18 +436,18 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
               disabled={!canFreeze || (!previewMode && jeffsBalance < FREEZE_COST)}
               onClick={freezeTime}
               className="gap-1.5"
-              title={jeffsBalance < FREEZE_COST ? `Costs ${FREEZE_COST} coins` : undefined}
+              title={jeffsBalance < FREEZE_COST ? t("lessonPlayer.freezeCostTitle", { cost: FREEZE_COST }) : undefined}
             >
               <Snowflake className={`w-3.5 h-3.5 ${frozen ? "text-sky-400" : jeffsBalance >= FREEZE_COST ? "text-sky-500" : "text-muted-foreground"}`} />
-              {frozen ? "Time frozen" : `Time Freeze · ${FREEZE_COST}`}
+              {frozen ? t("lessonPlayer.timeFrozen") : t("lessonPlayer.timeFreeze", { cost: FREEZE_COST })}
             </Button>
           </div>
           {frozen ? (
-            <span className="text-[11px] text-muted-foreground">❄️ Timer paused for this question</span>
+            <span className="text-[11px] text-muted-foreground">{t("lessonPlayer.timerPaused")}</span>
           ) : hints && eliminated.length > 0 ? (
-            <span className="text-[11px] text-muted-foreground">👀 Crossed out a wrong answer</span>
+            <span className="text-[11px] text-muted-foreground">{t("lessonPlayer.crossedOut")}</span>
           ) : hints && hints.hintsLeft > 0 ? (
-            <span className="text-[11px] text-muted-foreground">Stuck? A hint rules one out.</span>
+            <span className="text-[11px] text-muted-foreground">{t("lessonPlayer.stuckHint")}</span>
           ) : null}
         </div>
       )}
@@ -451,18 +455,18 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
       {revealed && (
         <div className={`p-4 rounded-lg ${isCorrect ? "bg-success/10 border border-success/20" : "bg-amber-500/10 border border-amber-500/20"}`}>
           <p className={`font-medium text-sm ${isCorrect ? "text-success" : "text-amber-600"}`}>
-            {isCorrect ? "✓ Correct!" : timedOut ? "⏰ Time's up" : "✗ Not quite right"}
+            {isCorrect ? t("lessonPlayer.correct") : timedOut ? t("lessonPlayer.timesUp") : t("lessonPlayer.notQuiteRight")}
           </p>
           {!isCorrect && (
             <div className="mt-2 space-y-2">
               <div className="bg-background/50 rounded-lg p-3">
                 <p className="text-xs font-medium text-foreground flex items-center gap-1.5">
-                  <Lightbulb className="w-3.5 h-3.5" /> Why this matters:
+                  <Lightbulb className="w-3.5 h-3.5" /> {t("lessonPlayer.whyThisMatters")}
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">{shuffledQ.explanation}</p>
               </div>
               <p className="text-xs text-muted-foreground">
-                ✅ Correct answer: <strong className="text-foreground">{shuffledQ.options[shuffledQ.correctAnswer]}</strong>
+                {t("lessonPlayer.correctAnswerLabel")} <strong className="text-foreground">{shuffledQ.options[shuffledQ.correctAnswer]}</strong>
               </p>
             </div>
           )}
@@ -475,7 +479,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
       {revealed && showContinue && (
         <div ref={continueRef} className="pt-2">
           <Button size="sm" onClick={onContinue}>
-            Continue <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+            {t("lessonPlayer.continue")} <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
           </Button>
         </div>
       )}
@@ -486,11 +490,12 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
 // ─── Section Components ───
 
 export function ConceptRenderer({ section, onContinue }: { section: ConceptSection; onContinue: () => void }) {
+  const { t } = useTranslation()
   return (
     <Card variant="elevated" className="overflow-hidden">
       <div className="bg-primary/5 border-b border-border px-6 py-3 flex items-center gap-2">
         <BookOpen className="w-4 h-4 text-primary" />
-        <span className="text-xs font-semibold text-primary uppercase tracking-wider">Concept</span>
+        <span className="text-xs font-semibold text-primary uppercase tracking-wider">{t("lessonPlayer.concept")}</span>
       </div>
       <CardContent className="p-6 space-y-4">
         <h2 className="text-xl font-bold text-foreground">{section.title}</h2>
@@ -510,14 +515,14 @@ export function ConceptRenderer({ section, onContinue }: { section: ConceptSecti
         {section.realWorldExample && (
           <div className="bg-muted/50 rounded-xl p-4 border border-border">
             <p className="text-xs font-semibold text-foreground flex items-center gap-1.5 mb-1.5">
-              <Lightbulb className="w-3.5 h-3.5 text-gold" /> Real-World Example
+              <Lightbulb className="w-3.5 h-3.5 text-gold" /> {t("lessonPlayer.realWorldExample")}
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed"><HighlightedText text={section.realWorldExample} /></p>
           </div>
         )}
         <div className="pt-2">
           <Button onClick={onContinue}>
-            Continue <ArrowRight className="ml-1.5 w-4 h-4" />
+            {t("lessonPlayer.continue")} <ArrowRight className="ml-1.5 w-4 h-4" />
           </Button>
         </div>
       </CardContent>
@@ -526,6 +531,7 @@ export function ConceptRenderer({ section, onContinue }: { section: ConceptSecti
 }
 
 export function MicroCheckRenderer({ section, onContinue }: { section: MicroCheckSection; onContinue: () => void }) {
+  const { t } = useTranslation()
   const [currentQ, setCurrentQ] = useState(0)
   const total = section.questions.length
 
@@ -538,7 +544,7 @@ export function MicroCheckRenderer({ section, onContinue }: { section: MicroChec
     <Card variant="elevated" className="overflow-hidden">
       <div className="bg-accent/10 border-b border-border px-6 py-3 flex items-center gap-2">
         <BrainCircuit className="w-4 h-4 text-accent" />
-        <span className="text-xs font-semibold text-accent uppercase tracking-wider">Micro Check</span>
+        <span className="text-xs font-semibold text-accent uppercase tracking-wider">{t("lessonPlayer.microCheck")}</span>
         <Badge variant="outline" className="ml-auto text-xs">{currentQ + 1}/{total}</Badge>
       </div>
       <CardContent className="p-6">
@@ -557,11 +563,12 @@ export function MicroCheckRenderer({ section, onContinue }: { section: MicroChec
 }
 
 export function ScenarioRenderer({ section, onContinue }: { section: ScenarioSection; onContinue: () => void }) {
+  const { t } = useTranslation()
   return (
     <Card variant="elevated" className="overflow-hidden">
       <div className="bg-warning/10 border-b border-border px-6 py-3 flex items-center gap-2">
         <FileQuestion className="w-4 h-4 text-warning" />
-        <span className="text-xs font-semibold text-warning uppercase tracking-wider">Applied Scenario</span>
+        <span className="text-xs font-semibold text-warning uppercase tracking-wider">{t("lessonPlayer.appliedScenario")}</span>
       </div>
       <CardContent className="p-6 space-y-4">
         <h3 className="text-lg font-bold text-foreground">{section.title}</h3>
@@ -578,7 +585,7 @@ export function ScenarioRenderer({ section, onContinue }: { section: ScenarioSec
         )}
         <div className="pt-2">
           <Button onClick={onContinue}>
-            Continue <ArrowRight className="ml-1.5 w-4 h-4" />
+            {t("lessonPlayer.continue")} <ArrowRight className="ml-1.5 w-4 h-4" />
           </Button>
         </div>
       </CardContent>
@@ -587,11 +594,12 @@ export function ScenarioRenderer({ section, onContinue }: { section: ScenarioSec
 }
 
 export function AppliedQuestionRenderer({ section, onContinue }: { section: AppliedQuestionSection; onContinue: () => void }) {
+  const { t } = useTranslation()
   return (
     <Card variant="elevated" className="overflow-hidden">
       <div className="bg-secondary/10 border-b border-border px-6 py-3 flex items-center gap-2">
         <Target className="w-4 h-4 text-secondary" />
-        <span className="text-xs font-semibold text-secondary uppercase tracking-wider">Applied Question</span>
+        <span className="text-xs font-semibold text-secondary uppercase tracking-wider">{t("lessonPlayer.appliedQuestion")}</span>
       </div>
       <CardContent className="p-6">
         <QuizAnswer
@@ -608,11 +616,12 @@ export function AppliedQuestionRenderer({ section, onContinue }: { section: Appl
 }
 
 export function RecapRenderer({ section, onContinue }: { section: RecapSection; onContinue: () => void }) {
+  const { t } = useTranslation()
   return (
     <Card variant="elevated" className="overflow-hidden">
       <div className="bg-primary/5 border-b border-border px-6 py-3 flex items-center gap-2">
         <ListChecks className="w-4 h-4 text-primary" />
-        <span className="text-xs font-semibold text-primary uppercase tracking-wider">Key Takeaways</span>
+        <span className="text-xs font-semibold text-primary uppercase tracking-wider">{t("lessonPlayer.keyTakeaways")}</span>
       </div>
       <CardContent className="p-6 space-y-3">
         {section.takeaways.map((t, i) => (
@@ -623,7 +632,7 @@ export function RecapRenderer({ section, onContinue }: { section: RecapSection; 
         ))}
         <div className="pt-2">
           <Button onClick={onContinue}>
-            Start Mastery Check <ArrowRight className="ml-1.5 w-4 h-4" />
+            {t("lessonPlayer.startMasteryCheck")} <ArrowRight className="ml-1.5 w-4 h-4" />
           </Button>
         </div>
       </CardContent>
@@ -678,6 +687,7 @@ export function MasteryCheckRenderer({
    */
   seenHistory?: { missedIds: string[]; correctIds: string[] }
 }) {
+  const { t } = useTranslation()
   const { react } = useJeff()
   const { user } = useApp()
   const session = useQuizSession()
@@ -792,10 +802,10 @@ export function MasteryCheckRenderer({
   }
 
   const CORRECT_CHEERS = [
-    "Boom! Nailed it. 💥",
-    "Yes! You've got this. ⭐",
-    "Sharp! Keep it rolling. 📈",
-    "That's the way! 🙌",
+    t("lessonPlayer.cheer1"),
+    t("lessonPlayer.cheer2"),
+    t("lessonPlayer.cheer3"),
+    t("lessonPlayer.cheer4"),
   ]
 
   const handleCorrect = () => {
@@ -804,14 +814,14 @@ export function MasteryCheckRenderer({
     setTotalAttempts(prev => prev + 1)
     if (nc >= required) {
       // The one that secures the pass - Jeff does a backflip.
-      react("celebrate", "YESSS! That's the one - you passed! 🎉", "flip")
+      react("celebrate", t("lessonPlayer.cheerPassed"), "flip")
     } else {
       react("celebrate", CORRECT_CHEERS[nc % CORRECT_CHEERS.length], "jump")
     }
   }
   const handleIncorrect = () => {
     setTotalAttempts(prev => prev + 1)
-    react("encourage", "Shake it off - lock in on the next one. 💪")
+    react("encourage", t("lessonPlayer.encourageWrong"))
   }
 
   const handleNext = () => {
@@ -825,7 +835,7 @@ export function MasteryCheckRenderer({
       setCurrentQ(currentQ + 1)
       // Clutch moment: one correct answer away from passing.
       if (!previewMode && required > 1 && correctCount === required - 1) {
-        react("think", "Focus up - get this one and you pass. It's for all the marbles! 🎯")
+        react("think", t("lessonPlayer.thinkClutch"))
       }
     } else {
       setFinished(true)
@@ -845,19 +855,19 @@ export function MasteryCheckRenderer({
       <Card variant="elevated" className="overflow-hidden">
         <div className="bg-destructive/10 border-b border-border px-6 py-3 flex items-center gap-2">
           <Target className="w-4 h-4 text-destructive" />
-          <span className="text-xs font-semibold text-destructive uppercase tracking-wider">Mastery Check - Retry Needed</span>
+          <span className="text-xs font-semibold text-destructive uppercase tracking-wider">{t("lessonPlayer.masteryRetryNeeded")}</span>
         </div>
         <CardContent className="p-6 text-center space-y-4">
           <XCircle className="w-12 h-12 text-destructive mx-auto" />
-          <p className="text-lg font-bold">You got {actualCorrect} / {total} correct</p>
-          <p className="text-sm text-muted-foreground">You need at least {required} correct answers to pass. Reread the lesson with Jeff, then run it back!</p>
+          <p className="text-lg font-bold">{t("lessonPlayer.youGotCorrect", { correct: actualCorrect, total })}</p>
+          <p className="text-sm text-muted-foreground">{t("lessonPlayer.needToPass", { required })}</p>
           <div className="flex flex-col gap-2 items-stretch max-w-xs mx-auto">
             {onReread && (
               <Button onClick={() => {
-                react("encourage", "Smart move - let's run back through it together, then crush it. 📖")
+                react("encourage", t("lessonPlayer.encourageReread"))
                 onReread()
               }}>
-                <BookOpen className="w-4 h-4 mr-2" /> Reread the lesson with Jeff
+                <BookOpen className="w-4 h-4 mr-2" /> {t("lessonPlayer.rereadWithJeff")}
               </Button>
             )}
             <Button variant={onReread ? "outline" : "default"} onClick={() => {
@@ -865,10 +875,10 @@ export function MasteryCheckRenderer({
               // unmounts this component entirely; the next attempt's
               // sessionId/number come back down fresh via props from
               // LessonDetail, which is what actually survives the remount.
-              react("encourage", "No sweat - we run it back and get it this time. 🔁")
+              react("encourage", t("lessonPlayer.encourageRetry"))
               onFail()
             }}>
-              Retry Mastery Check
+              {t("lessonPlayer.retryMasteryCheck")}
             </Button>
           </div>
         </CardContent>
@@ -880,13 +890,13 @@ export function MasteryCheckRenderer({
     <Card variant="elevated" className="overflow-hidden">
       <div className="bg-primary/10 border-b border-border px-6 py-3 flex items-center gap-2">
         <Target className="w-4 h-4 text-primary" />
-        <span className="text-xs font-semibold text-primary uppercase tracking-wider">Mastery Check</span>
+        <span className="text-xs font-semibold text-primary uppercase tracking-wider">{t("lessonPlayer.masteryCheck")}</span>
         <Badge variant="outline" className="ml-auto text-xs">{currentQ + 1}/{total}</Badge>
       </div>
       <CardContent className="p-6 space-y-4">
         <div>
           <div className="flex justify-between text-xs mb-1.5">
-            <span>{previewMode ? `Full pool: ${total} questions · students need ${required} correct` : `Goal: ${required} correct`}</span>
+            <span>{previewMode ? t("lessonPlayer.fullPool", { total, required }) : t("lessonPlayer.goalCorrect", { required })}</span>
             <span className="text-success font-medium">{correctCount} / {previewMode ? total : required} ✓</span>
           </div>
           <Progress value={(correctCount / Math.max(1, previewMode ? total : required)) * 100} className="h-2" />

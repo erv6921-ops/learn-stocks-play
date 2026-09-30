@@ -16,6 +16,8 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Progress as ProgressBar } from "@/components/ui/progress"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
+import { useBrowserNotifications } from "@/hooks/useBrowserNotifications"
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription,
 } from "@/components/ui/dialog"
@@ -28,7 +30,7 @@ import {
   Coins, Zap, Flame, BookOpen, Layers, Award, Star, GraduationCap,
   School, KeyRound, CalendarDays, Sparkles, Store, TrendingUp, TrendingDown,
   Gamepad2, Lock, CheckCircle2, ChevronRight, Trophy, Rocket,
-  Pencil, Sun, Moon, Monitor, Palette, Check,
+  Pencil, Sun, Moon, Monitor, Palette, Check, Bell,
   Crown, Medal, Target, Gem, PiggyBank, Briefcase, LineChart, Brain,
   Shield, Banknote, Diamond, BarChart3, Wallet, Compass, Trash2, LogOut,
   Languages,
@@ -204,6 +206,23 @@ export default function Profile() {
       .update({ language: lng })
       .eq("id", user.id)
     if (error) toast.error(t("settings.couldntSaveLanguage"))
+  }
+
+  // ── Browser (OS-level) notifications - opt-in, client-side only ──
+  const browserNotifications = useBrowserNotifications()
+  const toggleBrowserNotifications = async (on: boolean) => {
+    if (!on) {
+      browserNotifications.disable()
+      return
+    }
+    const result = await browserNotifications.enable()
+    if (result === "granted") {
+      toast.success(t("settings.notificationsEnabled"))
+    } else if (result === "denied") {
+      toast.error(t("settings.notificationsDenied"))
+    } else if (result === "unsupported") {
+      toast.error(t("settings.notificationsUnsupported"))
+    }
   }
 
   const [dailyGames, setDailyGames] = useState<{ game_type: string; coins_earned: number | null; completed_at: string | null }[]>([])
@@ -617,6 +636,33 @@ export default function Profile() {
                       )
                     })}
                   </div>
+                </div>
+              )}
+
+              {/* Browser notifications - native OS alerts for grades, new work and
+                  friend requests when the tab isn't focused. Client-side opt-in. */}
+              {browserNotifications.supported && (
+                <div className="border-t border-border/60 pt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <Bell className="w-4 h-4 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">{t("settings.notifications")}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {browserNotifications.permission === "denied"
+                          ? t("settings.notificationsBlocked")
+                          : t("settings.notificationsDesc")}
+                      </p>
+                    </div>
+                  </div>
+                  <Switch
+                    checked={browserNotifications.enabled}
+                    onCheckedChange={toggleBrowserNotifications}
+                    disabled={browserNotifications.permission === "denied"}
+                    aria-label={t("settings.notifications")}
+                    className="self-start sm:self-auto"
+                  />
                 </div>
               )}
             </CardContent>
