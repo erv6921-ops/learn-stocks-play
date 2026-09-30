@@ -57,6 +57,7 @@ import AdminAnalytics from "./pages/AdminAnalytics";
 import TowerPreviewV2 from "./pages/TowerPreviewV2";
 import TowerDashboard from "@/components/tower-v2/TowerDashboard";
 import { DashboardPopups } from "./components/popups/DashboardPopups";
+import { BrowserNotifier } from "@/components/BrowserNotifier";
 import { JeffProvider } from "@/contexts/JeffContext";
 import { JeffWidget } from "@/components/Jeff";
 import JeffTour from "@/components/JeffTour";
@@ -283,6 +284,11 @@ const App = () => (
                   level-up overlay reacting to a coin change on lesson finish -
                   can never blank the whole app (the old "white screen"). */}
               <ErrorBoundary fallback={null}>
+                {/* Bridges Supabase realtime events to native OS notifications for
+                    students who opted in (Settings). Fires only when the tab is
+                    hidden; no-ops otherwise. Mounted app-wide so it works on any
+                    page, not just the dashboard. */}
+                <BrowserNotifier />
                 {/* Persistent animated mascot - z-40 (below modals). Hides itself on
                     auth/onboarding routes and when signed out. */}
                 <JeffWidget />
