@@ -5,6 +5,8 @@ import { useApp } from "@/contexts/AppContext"
 import { getLessonById } from "@/data/lessons"
 import { getNextLessonId } from "@/lib/lessonNavigation"
 import { getStructuredContent } from "@/data/lessonContent"
+import { getUnitVocab } from "@/data/curriculumVocab"
+import { GlossaryProvider } from "@/lib/glossary"
 import { generateStructuredContent, tierDifficulty } from "@/lib/contentGenerator"
 import { Lesson, LessonSection, StructuredLessonContent, QuizQuestion, MasteryTier, UserProfile, LessonProgress } from "@/types"
 import { shuffleQuestionSet, normalizeOptionLengths, questionPassesQualityChecks } from "@/lib/mcqEngine"
@@ -500,6 +502,12 @@ function LessonRunPlayer({
   // deliberately does NOT bump it: nothing remounts, nothing regenerates.
   const [regenerationCount, setRegenerationCount] = useState(0)
 
+  // Key words for this unit, highlighted green with a hover/tap definition in
+  // the concept reader, scenarios, recaps, and Jeff's chat below - the same
+  // treatment the Gulliver Intro track gives its business vocabulary. null for
+  // units with no glossary (special tracks / unknown ids), which is a no-op.
+  const unitVocab = useMemo(() => getUnitVocab(lesson.unitId), [lesson.unitId])
+
   // Always use structured content - hand-written or generated.
   // On mastery-check retries (regenerationCount > 0), getStructuredContent
   // keeps hand-written sections and the AP quiz overlay intact and only
@@ -960,6 +968,7 @@ function LessonRunPlayer({
   }
 
   return (
+    <GlossaryProvider entries={unitVocab}>
     <HintProvider key={run.runId} total={2}>
     <QuizSessionProvider lessonId={lesson.id} concept={lesson.category} previewMode={previewMode} run={runBridge}>
     <div className="min-h-screen bg-background pb-24 md:pb-8">
@@ -1170,5 +1179,6 @@ function LessonRunPlayer({
     </div>
     </QuizSessionProvider>
     </HintProvider>
+    </GlossaryProvider>
   )
 }
