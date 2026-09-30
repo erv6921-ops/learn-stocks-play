@@ -113,7 +113,7 @@
     },
     "reportDialog": {
       "title": "Reportar a {{name}}",
-      "body": "Tu profesor podrá ver este reporte.",
+      "body": "Tu docente podrá ver este reporte.",
       "notePlaceholder": "Agrega detalles (opcional)…",
       "submit": "Enviar reporte"
     },
@@ -172,13 +172,13 @@
   },
   "push": {
     "gradeTitle": "Calificaron tu trabajo",
-    "lessonGradeBody": "Tu profesor calificó una de tus lecciones. Toca para verla.",
-    "lessonGradeBodyNamed": "Tu profesor calificó \"{{lesson}}\". Toca para verla.",
-    "businessGradeBody": "Tu profesor calificó tu trabajo de negocio. Toca para verlo.",
+    "lessonGradeBody": "Tu docente calificó una de tus lecciones. Toca para verla.",
+    "lessonGradeBodyNamed": "Tu docente calificó \"{{lesson}}\". Toca para verla.",
+    "businessGradeBody": "Tu docente calificó tu trabajo de negocio. Toca para verlo.",
     "classworkTitle": "Nuevo trabajo de clase",
-    "classworkBody": "Tu profesor asignó nuevo trabajo de clase. Toca para empezar.",
+    "classworkBody": "Tu docente asignó nuevo trabajo de clase. Toca para empezar.",
     "homeworkTitle": "Nueva tarea",
-    "homeworkBody": "Tu profesor asignó una nueva tarea. Toca para empezar.",
+    "homeworkBody": "Tu docente asignó una nueva tarea. Toca para empezar.",
     "friendTitle": "Nueva solicitud de compañero",
     "friendBody": "Alguien quiere ser tu compañero. Toca para verlo.",
     "messageTitle": "Nuevo mensaje de un compañero",
