@@ -107,6 +107,7 @@ Conventions
 | startup (phase) | inicio | phases: Idea, Inicio, Crecimiento, Consolidación, Expansión, Imperio |
 | retail | comercio minorista | |
 | food & beverage | alimentos y bebidas | |
+| marketing | marketing | loanword, not "mercadotecnia" — matches existing es.json usage ("Plan de marketing", "Presupuesto de marketing") and is standard in Latin American business Spanish |
 
 ## Accounts and classes
 
