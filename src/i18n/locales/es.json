@@ -3657,7 +3657,7 @@
     "nav": {
       "dashboard": "Panel",
       "lessons": "Lecciones",
-      "stocks": "Stocks",
+      "stocks": "Acciones",
       "home": "Inicio",
       "learn": "Aprender"
     },
@@ -3784,7 +3784,7 @@
       "body": "Mira cómo te ubicas frente a tu clase. ¡Tócame en la esquina cuando necesites ayuda!"
     },
     "stocks": {
-      "title": "Stocks",
+      "title": "Acciones",
       "body": "Opera con empresas reales usando InvestiCoins y observa crecer tu portafolio para ganar aún más monedas."
     },
     "missions": {
