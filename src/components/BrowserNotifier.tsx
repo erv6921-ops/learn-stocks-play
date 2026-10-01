@@ -23,8 +23,14 @@ export function BrowserNotifier() {
   const { user, isTeacher } = useAuth()
   const { t } = useTranslation()
 
+  // [notif-debug] TEMPORARY instrumentation - remove once notifications verified.
+  console.log("[notif-debug] BrowserNotifier render", { user: user?.id ?? null, isTeacher })
+
   useEffect(() => {
-    if (!user || isTeacher) return
+    if (!user || isTeacher) {
+      console.log("[notif-debug] effect skipped", { hasUser: !!user, isTeacher })
+      return
+    }
     const uid = user.id
     let cancelled = false
 
@@ -33,12 +39,16 @@ export function BrowserNotifier() {
     let classIds = new Set<string>()
 
     const wire = async () => {
-      const { data: memberships } = await supabase
+      const { data: memberships, error: memErr } = await supabase
         .from("class_members")
         .select("class_id")
         .eq("user_id", uid)
       if (cancelled) return
       classIds = new Set((memberships || []).map((m) => m.class_id))
+      console.log("[notif-debug] class_members loaded", {
+        classIds: [...classIds],
+        error: memErr?.message ?? null,
+      })
 
       const channel = supabase
         .channel(`push-notify-${uid}`)
@@ -79,6 +89,12 @@ export function BrowserNotifier() {
           { event: "INSERT", schema: "public", table: "assigned_lessons" },
           (payload) => {
             const row = payload.new as { class_id?: string; assignment_type?: string }
+            // [notif-debug] TEMPORARY
+            console.log("[notif-debug] assigned_lessons INSERT received", {
+              row,
+              myClassIds: [...classIds],
+              matches: !!row?.class_id && classIds.has(row.class_id),
+            })
             if (!row?.class_id || !classIds.has(row.class_id)) return
             const isHomework = row.assignment_type === "homework"
             notify({
@@ -123,7 +139,10 @@ export function BrowserNotifier() {
             })
           }
         )
-        .subscribe()
+        .subscribe((status, err) => {
+          // [notif-debug] TEMPORARY - 'SUBSCRIBED' means realtime is connected.
+          console.log("[notif-debug] channel status:", status, err?.message ?? "")
+        })
 
       return channel
     }
