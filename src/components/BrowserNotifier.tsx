@@ -82,9 +82,35 @@ export function BrowserNotifier() {
       console.log("[notif-debug] subscribe effect skipped", { instance: idRef.current, uid, isTeacher })
       return
     }
-    console.log("[notif-debug] subscribe effect RUN -> creating channel", { instance: idRef.current, uid })
+    console.log("[notif-debug] subscribe effect RUN", { instance: idRef.current, uid })
 
-    const channel = supabase
+    let cancelled = false
+    let channel: ReturnType<typeof supabase.channel> | null = null
+
+    // Authenticate the realtime SOCKET with the student's JWT BEFORE binding the
+    // channel. supabase-js sets realtime auth asynchronously at startup and does
+    // not re-propagate on INITIAL_SESSION, so a channel that binds postgres_changes
+    // before that lands stays bound as anon - RLS then sees auth.uid()=NULL and
+    // silently drops every row (the "SUBSCRIBED but nothing delivered" symptom).
+    ;(async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      console.log("[notif-debug] pre-subscribe session", {
+        instance: idRef.current,
+        hasToken: !!session?.access_token,
+      })
+      if (session?.access_token) {
+        try {
+          await supabase.realtime.setAuth(session.access_token)
+          console.log("[notif-debug] realtime.setAuth OK")
+        } catch (e) {
+          console.warn("[notif-debug] realtime.setAuth failed", e)
+        }
+      }
+      if (cancelled) return
+
+      channel = supabase
       .channel(`push-notify-${uid}`)
       .on(
         "postgres_changes",
@@ -180,10 +206,12 @@ export function BrowserNotifier() {
       .subscribe((status, err) => {
         console.log("[notif-debug] channel status:", status, "instance", idRef.current, err?.message ?? "")
       })
+    })()
 
     return () => {
+      cancelled = true
       console.log("[notif-debug] subscribe effect CLEANUP -> removeChannel", { instance: idRef.current, uid })
-      supabase.removeChannel(channel)
+      if (channel) supabase.removeChannel(channel)
     }
   }, [uid, isTeacher])
 
