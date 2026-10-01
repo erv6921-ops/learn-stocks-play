@@ -1,13 +1,13 @@
 import { test } from "node:test"
 import assert from "node:assert/strict"
-import { rankLessons, tokenize, stem, expandQuery, isMeaningfulQuery, type SearchableLesson } from "./lessonSearch.ts"
+import { rankLessons, tokenize, stem, expandQuery, isMeaningfulQuery, lessonLabel, byLessonNumber, type SearchableLesson } from "./lessonSearch.ts"
 
 const LESSONS: SearchableLesson[] = [
-  { id: "1.1", title: "Why Money Feels the Way It Does", description: "Emotions, habits and the psychology behind spending.", category: "psychology-of-money", unitTitle: "The Psychology of Money" },
-  { id: "3.2", title: "Building a Budget", description: "The 50/30/20 rule and tracking expenses.", category: "budgeting", unitTitle: "Budgeting Mastery" },
-  { id: "5.1", title: "How Savings Accounts Work", description: "APY, compounding, and why time matters.", category: "banking", unitTitle: "Banking Systems" },
-  { id: "6.3", title: "Credit Scores Explained", description: "What goes into a score and how to build one.", category: "credit-debt", unitTitle: "Credit & Debt" },
-  { id: "8.1", title: "What Is a Stock?", description: "Owning a share of a company.", category: "stocks", unitTitle: "Stocks Explained" },
+  { id: "1.1", lessonNumber: "1.1", title: "Why Money Feels the Way It Does", description: "Emotions, habits and the psychology behind spending.", category: "psychology-of-money", unitTitle: "The Psychology of Money" },
+  { id: "3.2", lessonNumber: "3.2", title: "Building a Budget", description: "The 50/30/20 rule and tracking expenses.", category: "budgeting", unitTitle: "Budgeting Mastery" },
+  { id: "5.1", lessonNumber: "5.1", title: "How Savings Accounts Work", description: "APY, compounding, and why time matters.", category: "banking", unitTitle: "Banking Systems" },
+  { id: "6.3", lessonNumber: "6.3", title: "Credit Scores Explained", description: "What goes into a score and how to build one.", category: "credit-debt", unitTitle: "Credit & Debt" },
+  { id: "8.1", lessonNumber: "8.1", title: "What Is a Stock?", description: "Owning a share of a company.", category: "stocks", unitTitle: "Stocks Explained" },
   { id: "gen-1", title: "Reading Your First Paycheck", generated: true, keywords: ["Explain gross versus net pay", "Identify withholding on a pay stub"] },
 ]
 
@@ -62,4 +62,29 @@ test("expandQuery adds related terms but never duplicates direct ones", () => {
   assert.deepEqual(direct, ["credit"])
   assert.ok(related.includes("debt"))
   assert.ok(!related.includes("credit"))
+})
+
+test("typing a lesson number finds that lesson", () => {
+  const r = rankLessons(LESSONS, "1.1")
+  assert.equal(r[0].lesson.id, "1.1")
+  assert.ok(r.every((x) => x.lesson.lessonNumber?.startsWith("1.1")), "only 1.1 lessons should match")
+})
+
+test("typing a chapter number lists that chapter's lessons", () => {
+  const r = rankLessons(LESSONS, "5")
+  assert.ok(r.length > 0)
+  assert.ok(r.every((x) => x.lesson.lessonNumber?.startsWith("5")), "only chapter 5 lessons should match")
+})
+
+test("lessonLabel prefixes the lesson number when present", () => {
+  assert.equal(lessonLabel({ lessonNumber: "1.1", title: "Why People Mismanage Money" }), "1.1 · Why People Mismanage Money")
+})
+
+test("lessonLabel falls back to the title for lessons with no number", () => {
+  assert.equal(lessonLabel({ title: "Reading Your First Paycheck" }), "Reading Your First Paycheck")
+})
+
+test("byLessonNumber orders numerically, so 1.2 comes before 1.10", () => {
+  const sorted = [{ lessonNumber: "1.10" }, { lessonNumber: "1.2" }, { lessonNumber: "1.1" }].sort(byLessonNumber)
+  assert.deepEqual(sorted.map((l) => l.lessonNumber), ["1.1", "1.2", "1.10"])
 })

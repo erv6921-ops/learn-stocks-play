@@ -36,7 +36,7 @@ import { useToast } from "@/hooks/use-toast"
 import TeacherPredictionView from "@/components/StockPredictionDraft/TeacherPredictionView"
 import { lessons, getLessonsByTrack, unitInfo } from "@/data/lessons"
 import { isGeneratedLessonId } from "@/lib/generatedLessons"
-import type { SearchableLesson } from "@/lib/lessonSearch"
+import { byLessonNumber, type SearchableLesson } from "@/lib/lessonSearch"
 import { LessonFinder } from "@/components/teacher/LessonFinder"
 import { CreateLessonDialog, type CreatedLesson } from "@/components/teacher/CreateLessonDialog"
 // Loosely-typed client: the generated Database type predates the curriculum tables.
@@ -212,13 +212,17 @@ export default function TeacherDashboard() {
   // teacher's program) plus approved Jeff-built lessons.
   const searchableLessons = useMemo<SearchableLesson[]>(() => {
     const unitTitle = new Map(unitInfo.map((u) => [u.id, u.title]))
-    const builtIn: SearchableLesson[] = assignableLessons.map((l) => ({
-      id: l.id,
-      title: l.title,
-      description: l.description,
-      category: l.category,
-      unitTitle: unitTitle.get(l.unitId),
-    }))
+    const builtIn: SearchableLesson[] = assignableLessons
+      .map((l) => ({
+        id: l.id,
+        title: l.title,
+        lessonNumber: l.lessonNumber,
+        description: l.description,
+        category: l.category,
+        unitTitle: unitTitle.get(l.unitId),
+      }))
+      // "1.2" before "1.10" so the number prefix reads in curriculum order.
+      .sort(byLessonNumber)
     const generated: SearchableLesson[] = genLessons
       .filter((r) => r.teacher_approved_at && String(r.version) === "2")
       .map((r) => ({
