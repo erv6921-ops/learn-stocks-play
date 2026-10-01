@@ -7,36 +7,50 @@ import { notify } from "@/lib/browserNotifications"
 
 const LESSON_TITLE = new Map(lessons.map((l) => [l.id, l.title]))
 
+// [notif-debug] TEMPORARY - module-level counter to tell remount from re-render.
+// A fresh instance id on each cycle => the component is remounting (parent/tree
+// problem). Same id but effects re-run => a dependency changed.
+let NOTIF_INSTANCE_SEQ = 0
+
 // App-wide bridge from Supabase realtime events to native OS notifications, for
-// signed-in students who opted in from Settings. It listens to the same tables
-// the on-screen pop-ups use, but fires a browser notification when a LIVE event
-// lands while InvestiPlay isn't the focused window - so a new grade / assignment
-// / friend request reaches the student even when it's not the tab they're on.
-//
-// The realtime channel must subscribe ONCE per user and stay SUBSCRIBED: if the
-// effect re-ran on every render it would tear the channel down and recreate it,
-// and any event that landed during a reconnect gap would be dropped. So the only
-// dependencies are stable primitives (uid, isTeacher). Values the handlers need
-// but that change identity across renders - the i18n t() function and the
-// student's class ids - live in refs, updated without resubscribing.
-//
-// notify() is the final gate: it no-ops when signed out, for teachers, when not
-// opted in, or when the tab is focused, so mounting this unconditionally is safe.
+// signed-in students who opted in from Settings. The realtime channel must
+// subscribe ONCE per user and stay SUBSCRIBED; a teardown/recreate gap drops any
+// event that lands during the reconnect. See [notif-debug] logging below.
 export function BrowserNotifier() {
   const { user, isTeacher } = useAuth()
   const { t } = useTranslation()
   const uid = user?.id ?? null
 
-  // [notif-debug] TEMPORARY instrumentation - remove once notifications verified.
-  console.log("[notif-debug] BrowserNotifier render", { uid, isTeacher })
+  // [notif-debug] stable per-mount id + change tracking.
+  const idRef = useRef<number>(0)
+  if (idRef.current === 0) idRef.current = ++NOTIF_INSTANCE_SEQ
+  const prevRef = useRef<{ uid: string | null; isTeacher: boolean; userObj: unknown } | null>(null)
+  const changed =
+    prevRef.current === null
+      ? "first-render"
+      : [
+          prevRef.current.uid !== uid ? "uid" : null,
+          prevRef.current.isTeacher !== isTeacher ? "isTeacher" : null,
+          prevRef.current.userObj !== user ? "user-object-identity" : null,
+        ]
+          .filter(Boolean)
+          .join(",") || "none"
+  prevRef.current = { uid, isTeacher, userObj: user }
+  console.log("[notif-debug] render", { instance: idRef.current, uid, isTeacher, changed })
+
+  // Empty-dep mount/unmount logger: fires exactly once per real mount. If this
+  // logs repeatedly, the component is being REMOUNTED by a parent.
+  useEffect(() => {
+    console.log("[notif-debug] >>> MOUNT instance", idRef.current)
+    return () => console.log("[notif-debug] <<< UNMOUNT instance", idRef.current)
+  }, [])
 
   // Latest t() without making it a subscription dependency.
   const tRef = useRef(t)
   tRef.current = t
 
-  // Classwork/homework assignments are class-level (no user_id), so we match
-  // inserts against the student's class ids. Kept in a ref so membership loading
-  // updates the matcher WITHOUT tearing down the realtime channel.
+  // Student's class ids in a ref so membership loading updates the matcher
+  // WITHOUT tearing down the realtime channel.
   const classIdsRef = useRef<Set<string>>(new Set())
   useEffect(() => {
     if (!uid || isTeacher) {
@@ -44,6 +58,7 @@ export function BrowserNotifier() {
       return
     }
     let cancelled = false
+    console.log("[notif-debug] class_members effect RUN", { instance: idRef.current, uid })
     supabase
       .from("class_members")
       .select("class_id")
@@ -52,6 +67,7 @@ export function BrowserNotifier() {
         if (cancelled) return
         classIdsRef.current = new Set((data || []).map((m) => m.class_id).filter(Boolean))
         console.log("[notif-debug] class_members loaded", {
+          instance: idRef.current,
           classIds: [...classIdsRef.current],
           error: error?.message ?? null,
         })
@@ -63,13 +79,13 @@ export function BrowserNotifier() {
 
   useEffect(() => {
     if (!uid || isTeacher) {
-      console.log("[notif-debug] subscribe effect skipped", { uid, isTeacher })
+      console.log("[notif-debug] subscribe effect skipped", { instance: idRef.current, uid, isTeacher })
       return
     }
+    console.log("[notif-debug] subscribe effect RUN -> creating channel", { instance: idRef.current, uid })
 
     const channel = supabase
       .channel(`push-notify-${uid}`)
-      // Lesson grade posted / updated.
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "lesson_grades", filter: `user_id=eq.${uid}` },
@@ -88,7 +104,6 @@ export function BrowserNotifier() {
           })
         },
       )
-      // Business simulator work graded.
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "business_grades", filter: `user_id=eq.${uid}` },
@@ -105,9 +120,8 @@ export function BrowserNotifier() {
         },
       )
       // New classwork / homework assigned to one of the student's classes.
-      // No server-side filter: assignments are class-level, and RLS ("Class
-      // members view assignments") already scopes realtime delivery to the
-      // student's own classes. classIdsRef is a client-side safety check.
+      // No server-side filter: assignments are class-level and RLS ("Class
+      // members view assignments") already scopes realtime delivery.
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "assigned_lessons" },
@@ -115,6 +129,7 @@ export function BrowserNotifier() {
           const row = payload.new as { class_id?: string; assignment_type?: string }
           const matches = !!row?.class_id && classIdsRef.current.has(row.class_id)
           console.log("[notif-debug] assigned_lessons INSERT received", {
+            instance: idRef.current,
             row,
             myClassIds: [...classIdsRef.current],
             matches,
@@ -129,7 +144,6 @@ export function BrowserNotifier() {
           })
         },
       )
-      // Incoming friend / partner request.
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "partners", filter: `partner_id=eq.${uid}` },
@@ -143,8 +157,6 @@ export function BrowserNotifier() {
           })
         },
       )
-      // A card a partner sent me on the Friends page: a short note, or a
-      // lesson / stock / Jeff-prompt card pointing at something.
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "friend_messages", filter: `recipient_id=eq.${uid}` },
@@ -166,11 +178,11 @@ export function BrowserNotifier() {
         },
       )
       .subscribe((status, err) => {
-        // [notif-debug] TEMPORARY - 'SUBSCRIBED' means realtime is connected.
-        console.log("[notif-debug] channel status:", status, err?.message ?? "")
+        console.log("[notif-debug] channel status:", status, "instance", idRef.current, err?.message ?? "")
       })
 
     return () => {
+      console.log("[notif-debug] subscribe effect CLEANUP -> removeChannel", { instance: idRef.current, uid })
       supabase.removeChannel(channel)
     }
   }, [uid, isTeacher])
