@@ -96,10 +96,14 @@ export function BrowserNotifier() {
       const {
         data: { session },
       } = await supabase.auth.getSession()
-      console.log("[notif-debug] pre-subscribe session", {
-        instance: idRef.current,
-        hasToken: !!session?.access_token,
-      })
+      console.log(
+        "[notif-debug] pre-subscribe session: hasToken=" +
+          String(!!session?.access_token) +
+          " tokenLen=" +
+          String(session?.access_token?.length ?? 0) +
+          " instance=" +
+          String(idRef.current),
+      )
       if (session?.access_token) {
         try {
           await supabase.realtime.setAuth(session.access_token)
@@ -143,6 +147,23 @@ export function BrowserNotifier() {
             tag: "business-grade",
             url: "/dashboard",
           })
+        },
+      )
+      // [notif-debug] ISOLATION TEST - simple auth.uid()=user_id policy, on the
+      // SAME channel. The student self-triggers it by opening/doing a lesson
+      // (writes lesson_progress). If THIS delivers but assigned_lessons doesn't,
+      // realtime + socket auth are fine and the is_class_member class-scoped
+      // policy is what realtime can't evaluate. If this ALSO never fires,
+      // realtime delivery is broken for this session regardless of policy.
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "lesson_progress", filter: `user_id=eq.${uid}` },
+        (payload) => {
+          console.log(
+            "[notif-debug] ISOLATION lesson_progress event received:",
+            payload.eventType,
+            payload.new,
+          )
         },
       )
       // New classwork / homework assigned to one of the student's classes.
@@ -204,7 +225,14 @@ export function BrowserNotifier() {
         },
       )
       .subscribe((status, err) => {
-        console.log("[notif-debug] channel status:", status, "instance", idRef.current, err?.message ?? "")
+        console.log(
+          "[notif-debug] SUBSCRIBE CALLBACK status=" +
+            String(status) +
+            " err=" +
+            (err ? String(err.message || err) : "none") +
+            " instance=" +
+            String(idRef.current),
+        )
       })
     })()
 
