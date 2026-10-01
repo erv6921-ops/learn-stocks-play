@@ -131,8 +131,24 @@ export interface NotifyOptions {
 // hasFocus() is false whenever InvestiPlay isn't the focused window, which is
 // exactly "the tab isn't focused".
 export function notify(opts: NotifyOptions): void {
-  if (!isEnabled()) return
-  if (!opts.force && typeof document !== "undefined" && document.hasFocus()) return
+  // [notif-debug] TEMPORARY instrumentation - remove once notifications verified.
+  const focused = typeof document !== "undefined" && document.hasFocus()
+  console.log("[notif-debug] notify() called", {
+    title: opts.title,
+    optedIn,
+    permission: getPermission(),
+    isEnabled: isEnabled(),
+    hasFocus: focused,
+    force: !!opts.force,
+  })
+  if (!isEnabled()) {
+    console.warn("[notif-debug] BLOCKED: not enabled (needs optedIn=true AND permission=granted)")
+    return
+  }
+  if (!opts.force && focused) {
+    console.warn("[notif-debug] BLOCKED: window is focused (hasFocus=true)")
+    return
+  }
 
   const options: NotificationOptions = {
     body: opts.body,
@@ -149,11 +165,17 @@ export function notify(opts: NotifyOptions): void {
   // quietly drop the older `new Notification()` constructor even when
   // permission is granted. Fall back to the constructor only if there's no SW.
   if (typeof navigator !== "undefined" && "serviceWorker" in navigator) {
+    console.log("[notif-debug] posting via service worker showNotification()")
     navigator.serviceWorker.ready
       .then((reg) => reg.showNotification(opts.title, options))
-      .catch(() => fallbackNotify(opts, options))
+      .then(() => console.log("[notif-debug] SW showNotification() resolved OK"))
+      .catch((e) => {
+        console.error("[notif-debug] SW showNotification() FAILED, falling back:", e)
+        fallbackNotify(opts, options)
+      })
     return
   }
+  console.log("[notif-debug] no service worker - using new Notification() fallback")
   fallbackNotify(opts, options)
 }
 
