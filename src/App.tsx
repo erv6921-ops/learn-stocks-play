@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 import { ThemeSync } from "@/hooks/useThemeSync";
 import ScenarioPreview from "@/pages/dev/ScenarioPreview";
 import DevTeacherLogin from "@/pages/dev/DevTeacherLogin";
+import DevAutoLogin from "@/components/DevAutoLogin";
 import JeffPreview from "@/pages/dev/JeffPreview";
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
@@ -278,6 +279,8 @@ const App = () => (
               <DashboardPopups />
               <LockedRouteWatcher />
               <ActivityTracker />
+              {/* DEV-ONLY: localhost auto-login (never mounts in production). */}
+              {(import.meta.env.DEV || import.meta.env.VITE_DEV_AUTOLOGIN === "true") && <DevAutoLogin />}
               <AppRoutes />
               {/* Non-essential global widgets. Wrapped in a silent error
                   boundary (fallback=null) so a hiccup in any of them - e.g. the

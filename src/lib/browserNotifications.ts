@@ -10,10 +10,14 @@
 // handle everything while the tab is focused; this only adds an alert for when
 // InvestiPlay isn't the tab the student is looking at.
 //
-// Fully client-side: no service worker / push server, so notifications fire
-// only while a tab is open (foreground or backgrounded). True closed-tab push
-// would need a backend push service (VAPID keys + an edge function to send) -
-// tracked as a follow-up, deliberately out of scope here.
+// Notifications are posted through the app's existing (PWA/Workbox) service
+// worker via registration.showNotification() - the same path WhatsApp/Snapchat
+// use, which browsers show reliably where the older `new Notification()`
+// constructor is quietly dropped. Clicks are handled by a notificationclick
+// listener imported into that SW (public/notif-sw.js). There's still no push
+// SERVER, so notifications fire only while a tab is open (foreground or
+// backgrounded); true closed-tab push would need a backend push service (VAPID
+// keys + an edge function to send) - tracked as a follow-up, out of scope here.
 //
 // Plain external store + useSyncExternalStore so the Settings toggle can
 // reflect the on/off state without a provider. The preference persists to
@@ -129,13 +133,35 @@ export interface NotifyOptions {
 export function notify(opts: NotifyOptions): void {
   if (!isEnabled()) return
   if (!opts.force && typeof document !== "undefined" && document.hasFocus()) return
+
+  const options: NotificationOptions = {
+    body: opts.body,
+    tag: opts.tag,
+    icon: "/favicon.ico",
+    badge: "/favicon.ico",
+    // The service worker's notificationclick handler (public/notif-sw.js) reads
+    // this to focus/navigate the right tab.
+    data: opts.url ? { url: opts.url } : undefined,
+  }
+
+  // Prefer the service worker's showNotification(): browsers treat it as a
+  // first-class notification (the same path WhatsApp/Snapchat use) and several
+  // quietly drop the older `new Notification()` constructor even when
+  // permission is granted. Fall back to the constructor only if there's no SW.
+  if (typeof navigator !== "undefined" && "serviceWorker" in navigator) {
+    navigator.serviceWorker.ready
+      .then((reg) => reg.showNotification(opts.title, options))
+      .catch(() => fallbackNotify(opts, options))
+    return
+  }
+  fallbackNotify(opts, options)
+}
+
+// Last-resort path when no service worker is available. The constructor form
+// handles its own click (focus + navigate) since there's no SW to do it.
+function fallbackNotify(opts: NotifyOptions, options: NotificationOptions): void {
   try {
-    const n = new Notification(opts.title, {
-      body: opts.body,
-      tag: opts.tag,
-      icon: "/favicon.ico",
-      badge: "/favicon.ico",
-    })
+    const n = new Notification(opts.title, options)
     n.onclick = () => {
       try {
         window.focus()

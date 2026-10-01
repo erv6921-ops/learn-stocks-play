@@ -3,22 +3,6 @@ import { lessons } from "@/data/lessons"
 import { getQuizForLesson } from "@/data/lessonQuizzes"
 import { generateStructuredContent } from "@/lib/contentGenerator"
 import { AP_MICRO_QUIZZES } from "@/data/apMicro"
-import { apMicroUnit1Content } from "@/data/apMicroUnit1"
-import { investingFundamentalsContent } from "@/data/investingFundamentalsContent"
-import { businessManagementContent } from "@/data/businessManagementContent"
-import { marketingContent } from "@/data/marketingContent"
-import { consumerBehaviorContent } from "@/data/consumerBehaviorContent"
-import { marketingMixContent } from "@/data/marketingMixContent"
-import { marketResearchContent } from "@/data/marketResearchContent"
-import { leadershipManagementContent } from "@/data/leadershipManagementContent"
-import { strategicAnalysisContent } from "@/data/strategicAnalysisContent"
-import { pestelAnalysisContent } from "@/data/pestelAnalysisContent"
-import { businessEthicsContent } from "@/data/businessEthicsContent"
-import { insuranceContent } from "@/data/insuranceContent"
-import { creditExpansionContent } from "@/data/creditExpansionContent"
-import { incomeExpansionContent } from "@/data/incomeExpansionContent"
-import { budgetExpansionContent } from "@/data/budgetExpansionContent"
-import { savingsInvestExpansionContent } from "@/data/savingsInvestExpansionContent"
 import { deepStocksMarkets } from "@/data/deepStocksMarkets"
 import { deepPortfolioFundsBonds } from "@/data/deepPortfolioFundsBonds"
 import { deepStatementsRatiosVal } from "@/data/deepStatementsRatiosVal"
@@ -1462,7 +1446,7 @@ export function getStructuredContent(
   // deep* content comes FIRST so it wins the `.find()` below for any lessonId
   // that also has an older, thinner entry (e.g. psych-1..10 in
   // structuredLessonContent) - the deepened version is the one we want served.
-  const allContent = [...deepStocksMarkets, ...deepPortfolioFundsBonds, ...deepStatementsRatiosVal, ...deepBehavioralMacro, ...deepOptionsAltPlanSim, ...deepEntreStrategyPsych, ...deepApMicro, ...deepIncome, ...deepBudget, ...deepBankingInsurance, ...deepCredit2, ...deepInvesting2, ...deepBizA, ...deepBizB, ...deepBizC, ...structuredLessonContent, ...investingFundamentalsContent, ...businessManagementContent, ...marketingContent, ...consumerBehaviorContent, ...marketingMixContent, ...marketResearchContent, ...leadershipManagementContent, ...strategicAnalysisContent, ...pestelAnalysisContent, ...businessEthicsContent, ...insuranceContent, ...creditExpansionContent, ...incomeExpansionContent, ...budgetExpansionContent, ...savingsInvestExpansionContent, ...apMicroUnit1Content, ...gullerIntroContent, ...ibEconContent]
+  const allContent = [...deepStocksMarkets, ...deepPortfolioFundsBonds, ...deepStatementsRatiosVal, ...deepBehavioralMacro, ...deepOptionsAltPlanSim, ...deepEntreStrategyPsych, ...deepApMicro, ...deepIncome, ...deepBudget, ...deepBankingInsurance, ...deepCredit2, ...deepInvesting2, ...deepBizA, ...deepBizB, ...deepBizC, ...structuredLessonContent, ...gullerIntroContent, ...ibEconContent]
   const handWritten = allContent.find(c => c.lessonId === lessonId)
   const lesson = lessons.find((l) => l.id === lessonId)
 

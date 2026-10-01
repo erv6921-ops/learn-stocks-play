@@ -3964,5 +3964,77 @@
       "¡No pares, estás muy cerca! 🏁",
       "Energía de protagonista 💫"
     ]
+  },
+  "materials": {
+    "tab": "Materiales",
+    "bankTitle": "Banco de lecciones",
+    "bankHelp": "Selecciona lecciones y luego asígnalas o genera una presentación o actividad de clase (hasta {{cap}}).",
+    "searchPlaceholder": "Buscar lecciones por tema…",
+    "noLessons": "Ninguna lección coincide con tu búsqueda.",
+    "otherUnit": "Otras lecciones",
+    "expand": "Expandir",
+    "collapse": "Contraer",
+    "jeffBuilt": "Creada por Jeff",
+    "selectAllUnit": "Seleccionar toda la unidad",
+    "clearUnit": "Quitar unidad",
+    "selectedCount": "{{count}} seleccionadas",
+    "overCap": "Elige {{cap}} o menos para una presentación o actividad.",
+    "assignAll": "Asignar todas",
+    "makePresentation": "Crear presentación",
+    "makeActivity": "Crear actividad",
+    "clear": "Limpiar",
+    "savedTitle": "Mis presentaciones y actividades",
+    "emptySaved": "Aún no hay nada guardado. Selecciona lecciones arriba para crear una presentación o actividad.",
+    "slidesCount": "{{count}} diapositivas",
+    "lessonsCount": "{{count}} lecciones",
+    "open": "Abrir",
+    "delete": "Eliminar",
+    "present": "Presentar",
+    "downloadPptx": "Descargar .pptx",
+    "exitPresent": "Salir",
+    "deleteSlide": "Eliminar diapositiva",
+    "heading": "Título",
+    "bullets": "Puntos",
+    "onePerLine": "Uno por línea.",
+    "speakerNotes": "Notas del orador",
+    "printPdf": "Imprimir / PDF",
+    "timingMinutes": "Tiempo (minutos)",
+    "teacherInstructions": "Instrucciones para el docente",
+    "scenario": "Escenario",
+    "tasks": "Tareas",
+    "shareOut": "Puesta en común",
+    "discussionPrompts": "Preguntas de debate (una por línea)",
+    "addCard": "Añadir tarjeta",
+    "question": "Pregunta",
+    "answerKey": "Respuesta",
+    "addQuestion": "Añadir pregunta",
+    "pickFormatTitle": "Elige un formato de actividad",
+    "pickFormatDesc": "Basado solo en las lecciones que seleccionaste.",
+    "format": {
+      "team-challenge": {
+        "title": "Reto en equipo",
+        "desc": "Los grupos resuelven un escenario realista con números reales y lo comparten."
+      },
+      "decision-cards": {
+        "title": "Tarjetas de decisión",
+        "desc": "6–10 dilemas de dinero “¿qué preferirías?” para debatir en clase."
+      },
+      "exit-ticket": {
+        "title": "Ticket de salida",
+        "desc": "5 preguntas rápidas con clave de respuestas."
+      }
+    },
+    "assignedToast": "Se asignaron {{count}} lecciones a la clase",
+    "assignedSkipped": "{{count}} ya estaban asignadas.",
+    "assignFailed": "No se pudieron asignar las lecciones",
+    "generateFailed": "Error al generar",
+    "savedToast": "Guardado",
+    "saveFailed": "No se pudo guardar",
+    "confirmDelete": "¿Eliminar “{{title}}”? No se puede deshacer.",
+    "deleteFailed": "No se pudo eliminar",
+    "assigning": "Asignando lecciones…",
+    "buildingDeck": "Creando tu presentación… puede tardar hasta un minuto.",
+    "buildingActivity": "Creando tu actividad… puede tardar hasta un minuto.",
+    "options": "Opciones"
   }
 }
