@@ -10,6 +10,7 @@
 // cases: ranks 2/4/6 stay locked until theirs is closed.
 
 import { useMemo, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -40,14 +41,15 @@ import PeDealRoom from "./PeDealRoom"
 /* ══════════════════════════ Career picker ══════════════════════════ */
 
 function CareerPicker({ onPick }: { onPick: (id: string) => void }) {
+  const { t } = useTranslation()
   const careerXp = useBankStore(s => s.careerXp)
   const careerWeek = useBankStore(s => s.careerWeek)
   return (
     <div className="space-y-5">
       <div className="text-center space-y-1.5">
-        <h2 className="font-display text-2xl font-extrabold">Choose your career</h2>
+        <h2 className="font-display text-2xl font-extrabold">{t("bank.careers.chooseCareer")}</h2>
         <p className="text-sm text-muted-foreground max-w-md mx-auto">
-          Take a real job in finance. Work deals week after week, write real memos, earn a salary, and climb six ranks to the top. Switch anytime - every career remembers your progress.
+          {t("bank.careers.chooseCareerBlurb")}
         </p>
       </div>
       <div className="grid sm:grid-cols-2 gap-4">
@@ -78,7 +80,7 @@ function CareerPicker({ onPick }: { onPick: (id: string) => void }) {
                     <div>
                       <div className="font-display font-extrabold text-white text-lg leading-tight">{career.name}</div>
                       <div className="text-[11px] text-white/75 font-semibold uppercase tracking-wider">
-                        6 ranks · weekly {career.dealNoun.toLowerCase()}s
+                        {t("bank.careers.ranksWeekly", { noun: `${career.dealNoun.toLowerCase()}s` })}
                       </div>
                     </div>
                   </div>
@@ -87,11 +89,11 @@ function CareerPicker({ onPick }: { onPick: (id: string) => void }) {
                   <p className="text-sm text-muted-foreground leading-relaxed">{career.description}</p>
                   {week ? (
                     <Badge variant="secondary" className="gap-1 text-[11px]">
-                      <CalendarDays className="h-3 w-3" /> Week {week} · {xp} Rep - continue
+                      <CalendarDays className="h-3 w-3" /> {t("bank.careers.weekRepContinue", { week, xp })}
                     </Badge>
                   ) : (
                     <span className="inline-flex items-center gap-1 text-xs font-bold" style={{ color: career.accent }}>
-                      Start this career <ChevronRight className="h-3.5 w-3.5" />
+                      {t("bank.careers.startThisCareer")} <ChevronRight className="h-3.5 w-3.5" />
                     </span>
                   )}
                 </div>
@@ -115,6 +117,7 @@ interface PlayerProps {
 }
 
 function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
+  const { t } = useTranslation()
   const { earnJeffs } = useApp()
   const recordDeal = useBankStore(s => s.recordDeal)
   const advanceWeek = useBankStore(s => s.advanceWeek)
@@ -183,7 +186,7 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
   if (phase === "done") {
     const totalPoints = points + MEMO_XP
     const pct = totalPoints / maxPoints
-    const grade = pct >= 0.9 ? "Outstanding" : pct >= 0.65 ? "Strong work" : pct >= 0.4 ? "Getting there" : "Rough one"
+    const grade = pct >= 0.9 ? t("bank.careers.grade.outstanding") : pct >= 0.65 ? t("bank.careers.grade.strongWork") : pct >= 0.4 ? t("bank.careers.grade.gettingThere") : t("bank.careers.grade.roughOne")
     const totalPay = payout.salary + payout.bonus + payout.stipend
 
     const StubRow = ({ label, value, gold }: { label: string; value: string; gold?: boolean }) => (
@@ -200,11 +203,11 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
           {/* stub header */}
           <div className="px-5 py-4 text-center border-b border-dashed" style={{ borderColor: `rgba(var(--brand-rgb),0.267)` }}>
             <p className="text-[10px] font-extrabold uppercase tracking-[0.28em]" style={{ color: ACCENT }}>
-              InvestiBank · {mode === "weekly" ? "Payroll Dept." : "Promotions Board"}
+              {mode === "weekly" ? t("bank.careers.stub.payrollDept") : t("bank.careers.stub.promotionsBoard")}
             </p>
             <h3 className="font-display font-extrabold text-lg mt-1">{deal.title}</h3>
             <p className="text-xs text-muted-foreground">
-              {grade} · {totalPoints}/{maxPoints} pts{mode === "weekly" && ` · Week ${week}`} · memo filed 📁
+              {grade} · {t("bank.careers.stub.pts", { points: totalPoints, max: maxPoints })}{mode === "weekly" && ` · ${t("bank.careers.stub.week", { week })}`} · {t("bank.careers.stub.memoFiled")}
             </p>
           </div>
 
@@ -212,22 +215,22 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
           <div className="p-5 space-y-2.5 relative">
             {mode === "weekly" ? (
               <>
-                <StubRow label="Base salary" value={String(payout.salary)} />
-                <StubRow label="Performance bonus" value={String(payout.bonus)} />
-                <StubRow label="Writing stipend" value={String(payout.stipend)} />
+                <StubRow label={t("bank.careers.stub.baseSalary")} value={String(payout.salary)} />
+                <StubRow label={t("bank.careers.stub.performanceBonus")} value={String(payout.bonus)} />
+                <StubRow label={t("bank.careers.stub.writingStipend")} value={String(payout.stipend)} />
                 <div className="border-t pt-2.5 mt-1" style={{ borderColor: `rgba(var(--brand-rgb),0.2)` }}>
-                  <StubRow label="Total paid" value={`${totalPay} coins`} gold />
+                  <StubRow label={t("bank.careers.stub.totalPaid")} value={t("bank.coinsAmount", { amount: totalPay })} gold />
                 </div>
-                <StubRow label="Rep earned" value={`+${payout.gained}`} />
+                <StubRow label={t("bank.careers.stub.repEarned")} value={`+${payout.gained}`} />
               </>
             ) : payout.bonus > 0 ? (
               <>
-                <StubRow label="Case fee" value={`${payout.bonus} coins`} gold />
-                <StubRow label="Rep earned" value={`+${payout.gained}`} />
+                <StubRow label={t("bank.careers.stub.caseFee")} value={t("bank.coinsAmount", { amount: payout.bonus })} gold />
+                <StubRow label={t("bank.careers.stub.repEarned")} value={`+${payout.gained}`} />
               </>
             ) : (
               <p className="text-xs text-muted-foreground text-center py-1">
-                No new pay - beat your best ({prevBest}/{maxPoints}) to earn more.
+                {t("bank.careers.stub.noNewPay", { best: prevBest, max: maxPoints })}
               </p>
             )}
 
@@ -236,13 +239,13 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
               className="absolute right-4 top-1/2 -translate-y-1/2 rotate-[-14deg] border-[3px] rounded-md px-2.5 py-0.5 font-display font-extrabold text-sm uppercase tracking-widest opacity-60 pointer-events-none"
               style={{ borderColor: mode === "weekly" ? "#34d399" : career.accent, color: mode === "weekly" ? "#34d399" : career.accent }}
             >
-              {mode === "weekly" ? "Paid" : "Closed"}
+              {mode === "weekly" ? t("bank.careers.stub.paid") : t("bank.careers.stub.closed")}
             </div>
           </div>
 
           <div className="px-5 pb-5">
             <Button onClick={onExit} className="w-full press-scale" size="lg">
-              {mode === "weekly" ? "Start next week" : "Back to your desk"}
+              {mode === "weekly" ? t("bank.careers.stub.startNextWeek") : t("bank.careers.stub.backToDesk")}
             </Button>
           </div>
         </div>
@@ -256,10 +259,10 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
       <motion.div initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} className="max-w-3xl mx-auto space-y-3">
         <div className="flex items-center justify-between">
           <span className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-muted-foreground">
-            Final step · the write-up
+            {t("bank.careers.finalStep")}
           </span>
           <Badge variant="outline" className="gap-1 text-[10px]">
-            <PenLine className="h-3 w-3" /> +{MEMO_XP} Rep · +{memoPay(currentIdx)} 🪙
+            <PenLine className="h-3 w-3" /> {t("bank.careers.repPlusCoins", { rep: MEMO_XP, coins: memoPay(currentIdx) })}
           </Badge>
         </div>
         <Card variant="elevated" className="overflow-hidden">
@@ -272,21 +275,21 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
           <CardContent className="p-5 space-y-3">
             <p className="text-sm leading-relaxed text-foreground/90">{memo.prompt}</p>
             <div className="flex items-center justify-between">
-              <label className="text-xs font-bold text-muted-foreground">Your {memo.title.toLowerCase()}</label>
+              <label className="text-xs font-bold text-muted-foreground">{t("bank.careers.yourMemo", { title: memo.title.toLowerCase() })}</label>
               <span className={cn("text-[11px] font-bold tabular-nums", memoOk ? "text-primary" : "text-muted-foreground")}>
-                {words}/{MEMO_MIN_WORDS} words {memoOk && "✓"}
+                {t("bank.careers.wordCount", { words, min: MEMO_MIN_WORDS })} {memoOk && "✓"}
               </span>
             </div>
             <Textarea
               rows={7}
               value={memoText}
               onChange={e => setMemoText(e.target.value)}
-              placeholder={`Think about the choices you just made in "${deal.title}" - what did you decide, and why was it right (or wrong)?`}
+              placeholder={t("bank.careers.memoPlaceholder", { title: deal.title })}
               className={cn("text-sm leading-relaxed", memoOk && "border-primary/50")}
             />
             <Button onClick={submitMemo} disabled={!memoOk} size="lg" className="w-full press-scale gap-1.5">
               <FileSignature className="h-4 w-4" />
-              {memoOk ? (mode === "weekly" ? "File it & close out the week" : "File it & close the case") : `${MEMO_MIN_WORDS - words} more words…`}
+              {memoOk ? (mode === "weekly" ? t("bank.careers.fileCloseWeek") : t("bank.careers.fileCloseCase")) : t("bank.careers.moreWords", { count: MEMO_MIN_WORDS - words })}
             </Button>
           </CardContent>
         </Card>
@@ -299,10 +302,10 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
     <div className="max-w-3xl mx-auto space-y-3">
       <div className="flex items-center justify-between">
         <Button variant="ghost" size="sm" onClick={onExit} className="gap-1 -ml-2">
-          <ArrowLeft className="h-4 w-4" /> Your desk
+          <ArrowLeft className="h-4 w-4" /> {t("bank.careers.yourDesk")}
         </Button>
         <span className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-muted-foreground">
-          Stage {stageIdx + 1} / {deal.stages.length} · then the write-up
+          {t("bank.careers.stageProgress", { current: stageIdx + 1, total: deal.stages.length })}
         </span>
       </div>
 
@@ -315,7 +318,7 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
             style={i < stageIdx || (i === stageIdx && picked !== null) ? { background: career.accent } : i === stageIdx ? { background: `${career.accent}66` } : undefined}
           />
         ))}
-        <span className="h-1.5 w-8 rounded-full bg-muted flex items-center justify-center" title="The write-up">
+        <span className="h-1.5 w-8 rounded-full bg-muted flex items-center justify-center" title={t("bank.careers.theWriteUp")}>
           <PenLine className="h-3 w-3 -mt-2.5 text-muted-foreground" />
         </span>
       </div>
@@ -369,7 +372,7 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
                             variant={choice.points === 2 ? "success" : choice.points === 1 ? "warning" : "destructive"}
                             className="shrink-0 text-[10px]"
                           >
-                            {choice.points === 2 ? "Pro move" : choice.points === 1 ? "Okay" : "Rookie"} · +{choice.points}
+                            {choice.points === 2 ? t("bank.careers.proMove") : choice.points === 1 ? t("bank.careers.okay") : t("bank.careers.rookie")} · +{choice.points}
                           </Badge>
                         )}
                       </div>
@@ -390,7 +393,7 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
               {picked !== null && (
                 <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
                   <Button onClick={nextStage} className="w-full press-scale gap-1" size="lg">
-                    {isLastStage ? "On to the write-up" : "Next"}
+                    {isLastStage ? t("bank.careers.onToWriteUp") : t("bank.careers.next")}
                     <ChevronRight className="h-4 w-4" />
                   </Button>
                 </motion.div>
@@ -410,6 +413,7 @@ function DealPlayer({ career, deal, week, mode, onExit }: PlayerProps) {
 const NO_WEEKS: number[] = []
 
 function OfficeMomentCard({ career, week }: { career: Career; week: number }) {
+  const { t } = useTranslation()
   const momentsDone = useBankStore(s => s.momentsDone[career.id]) ?? NO_WEEKS
   const resolveMoment = useBankStore(s => s.resolveMoment)
   const [reaction, setReaction] = useState<{ text: string; rep: number } | null>(null)
@@ -426,7 +430,7 @@ function OfficeMomentCard({ career, week }: { career: Career; week: number }) {
             <div className="text-sm">
               <p className="text-foreground/90">{reaction.text}</p>
               <Badge variant={reaction.rep >= 0 ? "success" : "destructive"} className="mt-2 text-[10px]">
-                Reputation {reaction.rep >= 0 ? "+" : ""}{reaction.rep}
+                {t("bank.careers.reputation", { value: `${reaction.rep >= 0 ? "+" : ""}${reaction.rep}` })}
               </Badge>
             </div>
           </CardContent>
@@ -442,7 +446,7 @@ function OfficeMomentCard({ career, week }: { career: Career; week: number }) {
           <div className="flex items-center gap-2">
             <span className="text-xl">{moment.emoji}</span>
             <span className="text-[11px] font-extrabold uppercase tracking-[0.16em]" style={{ color: career.accent }}>
-              Office moment
+              {t("bank.careers.officeMoment")}
             </span>
           </div>
           <p className="text-sm text-foreground/90">{moment.text}</p>
@@ -473,6 +477,7 @@ function OfficeMomentCard({ career, week }: { career: Career; week: number }) {
 const NO_MEMOS: never[] = []
 
 function WorkFile({ career }: { career: Career }) {
+  const { t } = useTranslation()
   const allMemos = useBankStore(s => s.memos) ?? NO_MEMOS
   const memos = allMemos.filter(m => m.careerId === career.id)
   const [open, setOpen] = useState<number | null>(null)
@@ -481,11 +486,11 @@ function WorkFile({ career }: { career: Career }) {
     <Card variant="elevated">
       <CardContent className="p-4">
         <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-muted-foreground mb-3 flex items-center gap-1.5">
-          <FolderOpen className="h-3.5 w-3.5" /> Your work file
+          <FolderOpen className="h-3.5 w-3.5" /> {t("bank.careers.yourWorkFile")}
         </p>
         {memos.length === 0 ? (
           <p className="text-xs text-muted-foreground">
-            Every {memoSpec(career.id).title.toLowerCase()} you write gets filed here - your body of work on the {career.name} desk.
+            {t("bank.careers.workFileEmpty", { memoType: memoSpec(career.id).title.toLowerCase(), career: career.name })}
           </p>
         ) : (
           <div className="space-y-1.5 max-h-72 overflow-y-auto pr-1">
@@ -498,7 +503,7 @@ function WorkFile({ career }: { career: Career }) {
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-xs font-bold truncate">{m.dealTitle}</span>
                   <span className="flex items-center gap-1 text-[10px] text-muted-foreground shrink-0">
-                    Wk {m.week} <ChevronDown className={cn("h-3 w-3 transition-transform", open === i && "rotate-180")} />
+                    {t("bank.careers.wk", { week: m.week })} <ChevronDown className={cn("h-3 w-3 transition-transform", open === i && "rotate-180")} />
                   </span>
                 </div>
                 {open === i && (
@@ -516,6 +521,7 @@ function WorkFile({ career }: { career: Career }) {
 /* ══════════════════════════ Job desk ══════════════════════════ */
 
 function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void }) {
+  const { t } = useTranslation()
   const dealResults = useBankStore(s => s.dealResults)
   const xp = useBankStore(s => s.careerXp[career.id] ?? 0)
   const week = useBankStore(s => s.careerWeek[career.id] ?? 1)
@@ -560,7 +566,7 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
               </div>
               <div>
                 <p className="text-[10px] font-extrabold uppercase tracking-[0.22em]" style={{ color: ACCENT }}>
-                  Floor 04 · {career.name}
+                  {t("bank.careers.floor04", { name: career.name })}
                 </p>
                 <p className="font-display text-xl font-extrabold leading-tight flex items-center gap-1.5">
                   {current.title} <Award className="h-4 w-4" style={{ color: ACCENT }} />
@@ -568,12 +574,12 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
               </div>
             </div>
             <div className="flex items-center gap-2 flex-wrap">
-              <BadgeChip icon={CalendarDays} label="Week" value={String(week)} />
-              <BadgeChip icon={Heart} label="Rep" value={String(rep)} color={rep >= 60 ? "#10b981" : rep >= 40 ? "#d97706" : "#ef4444"} />
-              <BadgeChip icon={Coins} label="Salary" value={`${salary}/wk`} />
-              <BadgeChip icon={Star} label="Rep" value={String(xp)} />
+              <BadgeChip icon={CalendarDays} label={t("bank.careers.weekLabel")} value={String(week)} />
+              <BadgeChip icon={Heart} label={t("bank.careers.repLabel")} value={String(rep)} color={rep >= 60 ? "#10b981" : rep >= 40 ? "#d97706" : "#ef4444"} />
+              <BadgeChip icon={Coins} label={t("bank.careers.salaryLabel")} value={t("bank.careers.perWeek", { amount: salary })} />
+              <BadgeChip icon={Star} label={t("bank.careers.repLabel")} value={String(xp)} />
               <Button variant="outline" size="sm" onClick={onSwitch} className="gap-1.5">
-                <ArrowRightLeft className="h-3.5 w-3.5" /> Switch
+                <ArrowRightLeft className="h-3.5 w-3.5" /> {t("bank.careers.switch")}
               </Button>
             </div>
           </div>
@@ -585,9 +591,9 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
               <span>
                 {next
                   ? needsMilestone && xp >= next.minXp
-                    ? `Close your promotion case to become ${next.title}!`
-                    : `${Math.max(0, next.minXp - xp)} Rep to ${next.title}`
-                  : "Top of the ladder 🏆"}
+                    ? t("bank.careers.closeCaseToBecome", { title: next.title })
+                    : t("bank.careers.repToRank", { rep: Math.max(0, next.minXp - xp), title: next.title })
+                  : t("bank.careers.topOfLadder")}
               </span>
             </div>
             <div className="h-2 rounded-full bg-muted overflow-hidden">
@@ -613,7 +619,7 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[11px] font-extrabold uppercase tracking-[0.16em]" style={{ color: career.accent }}>
-                      Promotion case {xp >= (next?.minXp ?? 0) ? "- ready now!" : "- coming up"}
+                      {xp >= (next?.minXp ?? 0) ? t("bank.careers.promotionCaseReady") : t("bank.careers.promotionCaseComing")}
                     </p>
                     <p className="font-display font-extrabold text-sm">{nextMilestone.title}</p>
                     <p className="text-xs text-muted-foreground truncate">{nextMilestone.tagline}</p>
@@ -624,7 +630,7 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
                     disabled={xp < (next?.minXp ?? 0)}
                     onClick={() => setActive({ deal: nextMilestone, mode: "milestone" })}
                   >
-                    {xp >= (next?.minXp ?? 0) ? "Take the case" : `${(next?.minXp ?? 0) - xp} Rep away`}
+                    {xp >= (next?.minXp ?? 0) ? t("bank.careers.takeTheCase") : t("bank.careers.repAway", { rep: (next?.minXp ?? 0) - xp })}
                   </Button>
                 </CardContent>
               </Card>
@@ -634,7 +640,7 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
           {/* this week's deal */}
           <div className="space-y-2">
             <h3 className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-muted-foreground flex items-center gap-1.5">
-              <Briefcase className="h-3.5 w-3.5" /> This week on your desk
+              <Briefcase className="h-3.5 w-3.5" /> {t("bank.careers.thisWeekOnDesk")}
             </h3>
             <Card variant="elevated" className="overflow-hidden">
               <div className={`h-1 bg-gradient-to-r ${career.gradient}`} />
@@ -648,18 +654,18 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
                     <p className="text-sm text-muted-foreground mt-1">{weekDeal.tagline}</p>
                     <div className="flex items-center gap-3 mt-2 text-xs font-semibold flex-wrap">
                       <span className="flex items-center gap-1 text-amber-600 dark:text-amber-400">
-                        <Coins className="h-3.5 w-3.5" /> {salary} salary + up to {Math.round(weekDeal.baseFee * repMultiplier(rep))} bonus
+                        <Coins className="h-3.5 w-3.5" /> {t("bank.careers.salaryPlusBonus", { salary, bonus: Math.round(weekDeal.baseFee * repMultiplier(rep)) })}
                       </span>
                       <span className="flex items-center gap-1 text-sky-500">
-                        <PenLine className="h-3.5 w-3.5" /> +{memoPay(currentIdx)} for the write-up
+                        <PenLine className="h-3.5 w-3.5" /> {t("bank.careers.forTheWriteUp", { amount: memoPay(currentIdx) })}
                       </span>
                       <span className="flex items-center gap-1 text-purple-500">
-                        <Star className="h-3.5 w-3.5" /> up to {dealMaxPoints(weekDeal) + MEMO_XP} Rep
+                        <Star className="h-3.5 w-3.5" /> {t("bank.careers.upToRep", { rep: dealMaxPoints(weekDeal) + MEMO_XP })}
                       </span>
                     </div>
                   </div>
                   <Button size="lg" className="shrink-0 press-scale gap-1" onClick={() => setActive({ deal: weekDeal, mode: "weekly" })}>
-                    Work it <ChevronRight className="h-4 w-4" />
+                    {t("bank.careers.workIt")} <ChevronRight className="h-4 w-4" />
                   </Button>
                 </div>
               </CardContent>
@@ -684,9 +690,9 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
           {/* résumé strip */}
           <div className="grid grid-cols-3 gap-2">
             {[
-              { label: "Weeks worked", value: weeksWorked.toLocaleString(), icon: CalendarDays },
-              { label: "Career earnings", value: careerEarnings.toLocaleString(), icon: Coins },
-              { label: `${career.dealNoun}s closed`, value: completedIds.filter(id => id.startsWith("gen-") || career.deals.some(d => d.id === id)).length.toLocaleString(), icon: CheckCircle2 },
+              { label: t("bank.careers.weeksWorked"), value: weeksWorked.toLocaleString(), icon: CalendarDays },
+              { label: t("bank.careers.careerEarnings"), value: careerEarnings.toLocaleString(), icon: Coins },
+              { label: t("bank.careers.dealsClosed", { noun: career.dealNoun }), value: completedIds.filter(id => id.startsWith("gen-") || career.deals.some(d => d.id === id)).length.toLocaleString(), icon: CheckCircle2 },
             ].map(({ label, value, icon: I }) => (
               <Card key={label} variant="elevated">
                 <CardContent className="p-3 text-center">
@@ -704,7 +710,7 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
           <Card variant="elevated">
             <CardContent className="p-4">
               <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-muted-foreground mb-3 flex items-center gap-1.5">
-                <Gauge className="h-3.5 w-3.5" /> The ladder
+                <Gauge className="h-3.5 w-3.5" /> {t("bank.careers.theLadder")}
               </p>
               <div className="space-y-1.5">
                 {career.ranks.map((r, i) => {
@@ -724,8 +730,8 @@ function JobDesk({ career, onSwitch }: { career: Career; onSwitch: () => void })
                         style={{ background: reached ? career.accent : "hsl(var(--muted))" }}
                       />
                       <span className="flex-1">{r.title}</span>
-                      {isCurrent && <Badge variant="secondary" className="text-[10px]">You</Badge>}
-                      {!reached && <span className="text-[10px] font-semibold">{r.minXp} Rep{[1, 3, 5].includes(i) ? " + case" : ""}</span>}
+                      {isCurrent && <Badge variant="secondary" className="text-[10px]">{t("bank.careers.you")}</Badge>}
+                      {!reached && <span className="text-[10px] font-semibold">{[1, 3, 5].includes(i) ? t("bank.careers.repPlusCase", { rep: r.minXp }) : t("bank.careers.repRequirement", { rep: r.minXp })}</span>}
                     </div>
                   )
                 })}

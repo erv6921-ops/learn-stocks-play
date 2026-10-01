@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import { Link, useSearchParams } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { motion } from "framer-motion"
 import { Trophy, Plus, Coins, Users, Sparkles, Swords } from "lucide-react"
 import GameNav from "@/components/GameNav"
@@ -30,6 +31,7 @@ const hasFlag = (kind: string, id: string) => { try { return localStorage.getIte
 const setFlag = (kind: string, id: string) => { try { localStorage.setItem(flag(kind, id), "1") } catch { /* ignore */ } }
 
 export default function Challenges() {
+  const { t } = useTranslation()
   const { user, jeffsBalance, spendJeffs, awardJeffs, lessonProgress, jeffsHistory } = useApp()
   const { isTeacher } = useAuth()
 
@@ -52,7 +54,7 @@ export default function Challenges() {
   const [duelOpen, setDuelOpen] = useState(false)
   const [creatingDuel, setCreatingDuel] = useState(false)
   const [duelBusyId, setDuelBusyId] = useState<string | null>(null)
-  const partnerNameOf = (id: string | null) => partners.find(p => p.user_id === id)?.name ?? "Partner"
+  const partnerNameOf = (id: string | null) => partners.find(p => p.user_id === id)?.name ?? t("challenges.partnerFallback")
 
   // Latest context values without churning the reload callback identity.
   const ctx = useRef({ user, lessonProgress, jeffsHistory, awardJeffs })
@@ -82,7 +84,7 @@ export default function Challenges() {
       const { data: lb } = await supabase.rpc("get_class_leaderboard", { _class_id: cid })
       for (const r of (lb ?? [])) {
         const name = `${r.first_name || ""} ${(r.last_name || "").charAt(0)}`.trim()
-        nameMap.set(r.user_id, name || "Student")
+        nameMap.set(r.user_id, name || t("challenges.studentFallback"))
       }
     }
 
@@ -90,7 +92,7 @@ export default function Challenges() {
     const { data: pData } = await (supabase as any).rpc("get_partners")
     const partnerOpts: PartnerOption[] = (pData ?? []).map((p: { user_id: string; first_name: string | null; last_name: string | null }) => ({
       user_id: p.user_id,
-      name: `${p.first_name || ""} ${(p.last_name || "").charAt(0)}`.trim() || "Partner",
+      name: `${p.first_name || ""} ${(p.last_name || "").charAt(0)}`.trim() || t("challenges.partnerFallback"),
     }))
     setPartners(partnerOpts)
     for (const p of partnerOpts) nameMap.set(p.user_id, p.name)
@@ -168,7 +170,7 @@ export default function Challenges() {
       const winners = chEntries.filter(e => e.score === max)
       if (!winners.some(w => w.user_id === myId)) continue
       const share = Math.floor(ch.pot / winners.length)
-      if (share > 0) awardJeffs(share, `Won challenge: ${ch.title}`)
+      if (share > 0) awardJeffs(share, t("challenges.ledger.wonChallenge", { title: ch.title }))
       setFlag("award", ch.id)
     }
 
@@ -177,7 +179,7 @@ export default function Challenges() {
       if (ch.status !== "cancelled") continue
       const mine = entries.find(e => e.challenge_id === ch.id && e.user_id === myId)
       if (mine && !hasFlag("refund", ch.id)) {
-        awardJeffs(mine.coins_contributed, `Challenge refund: ${ch.title}`)
+        awardJeffs(mine.coins_contributed, t("challenges.ledger.challengeRefund", { title: ch.title }))
         setFlag("refund", ch.id)
         await supabase.from("challenge_entries").delete().eq("challenge_id", ch.id).eq("user_id", myId)
         entries = entries.filter(e => !(e.challenge_id === ch.id && e.user_id === myId))
@@ -189,7 +191,7 @@ export default function Challenges() {
     for (const ch of list) {
       byChallenge[ch.id] = entries
         .filter(e => e.challenge_id === ch.id)
-        .map(e => ({ userId: e.user_id as string, name: nameMap.get(e.user_id as string) ?? "Student", score: e.score, isMe: e.user_id === myId }))
+        .map(e => ({ userId: e.user_id as string, name: nameMap.get(e.user_id as string) ?? t("challenges.studentFallback"), score: e.score, isMe: e.user_id === myId }))
         .sort((a, b) => b.score - a.score)
     }
     const entered = new Set(entries.filter(e => e.user_id === myId).map(e => e.challenge_id as string))
@@ -201,7 +203,7 @@ export default function Challenges() {
         const winners = chEntries.filter(e => e.score === max)
         return {
           challengeId: ch.id, title: ch.title,
-          name: nameMap.get(ch.winner_user_id as string) ?? "A classmate",
+          name: nameMap.get(ch.winner_user_id as string) ?? t("challenges.classmateFallback"),
           amount: winners.length ? Math.floor(ch.pot / winners.length) : ch.pot,
           iWon: ch.winner_user_id === myId || winners.some(w => w.user_id === myId),
           tie: winners.length > 1,
@@ -214,7 +216,7 @@ export default function Challenges() {
     setBanners(newBanners)
     } catch (err) {
       console.error("[challenges] failed to load", err)
-      toast.error("Couldn't load challenges. Please refresh.")
+      toast.error(t("challenges.toast.loadFailed"))
     } finally {
       setLoading(false)
     }
@@ -242,28 +244,28 @@ export default function Challenges() {
   const confirmEnter = async () => {
     const ch = enterTarget
     if (!ch || !user?.id) return
-    if (jeffsBalance < ch.entry_fee) { toast.error("Not enough InvestiCoins."); return }
+    if (jeffsBalance < ch.entry_fee) { toast.error(t("challenges.toast.notEnoughCoins")); return }
     setSubmitting(true)
     const { error: insErr } = await supabase.from("challenge_entries")
       .insert({ challenge_id: ch.id, user_id: user.id, coins_contributed: ch.entry_fee, score: 0 })
     if (insErr) {
       setSubmitting(false)
-      toast.error(insErr.code === "23505" ? "You're already in this challenge." : "Couldn't enter. Try again.")
+      toast.error(insErr.code === "23505" ? t("challenges.toast.alreadyIn") : t("challenges.toast.enterFailed"))
       return
     }
-    spendJeffs(ch.entry_fee, `Entered challenge: ${ch.title}`)
+    spendJeffs(ch.entry_fee, t("challenges.ledger.enteredChallenge", { title: ch.title }))
     logEvent("class_challenge_joined", { challengeId: ch.id })
     await supabase.from("class_challenges").update({ pot: ch.pot + ch.entry_fee }).eq("id", ch.id)
     setSubmitting(false)
     setEnterOpen(false)
-    toast.success("You're in! Good luck 🏆")
+    toast.success(t("challenges.toast.entered"))
     reload()
   }
 
   const handleCreate = async (payload: NewChallengePayload) => {
     if (!user?.id) return
     const classId = myClassIds[0]
-    if (!classId) { toast.error("No class found to post to."); return }
+    if (!classId) { toast.error(t("challenges.toast.noClassToPost")); return }
     setCreating(true)
     const bonus = isTeacher ? payload.teacher_bonus : 0
     const { error } = await supabase.from("class_challenges").insert({
@@ -276,18 +278,18 @@ export default function Challenges() {
     setCreating(false)
     if (error) {
       console.error("[challenges] create failed", error)
-      toast.error(`Couldn't create challenge: ${error.message}`)
+      toast.error(t("challenges.toast.createFailed", { message: error.message }))
       return
     }
     setCreateOpen(false)
-    toast.success("Challenge created! Students can now enter.")
+    toast.success(t("challenges.toast.created"))
     reload()
   }
 
   // Create a 1v1 duel: post it as pending and stake the challenger's coins now.
   const handleCreateDuel = async (payload: NewDuelPayload) => {
     if (!user?.id) return
-    if (jeffsBalance < payload.entry_fee) { toast.error("Not enough InvestiCoins."); return }
+    if (jeffsBalance < payload.entry_fee) { toast.error(t("challenges.toast.notEnoughCoins")); return }
     setCreatingDuel(true)
     const { data, error } = await supabase.from("class_challenges").insert({
       class_id: null, created_by: user.id, created_by_role: isTeacher ? "teacher" : "student",
@@ -299,7 +301,7 @@ export default function Challenges() {
     if (error || !data) {
       setCreatingDuel(false)
       console.error("[duel] create failed", error)
-      toast.error("Couldn't send the duel. Try again.")
+      toast.error(t("challenges.toast.duelSendFailed"))
       return
     }
     // Stake the challenger's coins immediately (refunded if declined or expired).
@@ -308,33 +310,33 @@ export default function Challenges() {
     if (entryErr) {
       await supabase.from("class_challenges").delete().eq("id", data.id)
       setCreatingDuel(false)
-      toast.error("Couldn't send the duel. Try again.")
+      toast.error(t("challenges.toast.duelSendFailed"))
       return
     }
-    spendJeffs(payload.entry_fee, `Duel stake: ${payload.title}`)
+    spendJeffs(payload.entry_fee, t("challenges.ledger.duelStake", { title: payload.title }))
     await supabase.from("class_challenges").update({ pot: payload.entry_fee }).eq("id", data.id)
     setCreatingDuel(false)
     setDuelOpen(false)
-    toast.success(`Duel sent to ${payload.opponent_name}! ⚔️`)
+    toast.success(t("challenges.toast.duelSent", { name: payload.opponent_name }))
     reload()
   }
 
   // Opponent accepts a duel invite: match the stake and flip it to active.
   const acceptDuel = async (duel: ClassChallenge) => {
     if (!user?.id) return
-    if (jeffsBalance < duel.entry_fee) { toast.error("Not enough InvestiCoins."); return }
+    if (jeffsBalance < duel.entry_fee) { toast.error(t("challenges.toast.notEnoughCoins")); return }
     setDuelBusyId(duel.id)
     const { error: insErr } = await supabase.from("challenge_entries")
       .insert({ challenge_id: duel.id, user_id: user.id, coins_contributed: duel.entry_fee, score: 0 })
     if (insErr) {
       setDuelBusyId(null)
-      toast.error(insErr.code === "23505" ? "You already joined this duel." : "Couldn't accept. Try again.")
+      toast.error(insErr.code === "23505" ? t("challenges.toast.alreadyJoinedDuel") : t("challenges.toast.acceptFailed"))
       return
     }
-    spendJeffs(duel.entry_fee, `Duel stake: ${duel.title}`)
+    spendJeffs(duel.entry_fee, t("challenges.ledger.duelStake", { title: duel.title }))
     await supabase.from("class_challenges").update({ pot: duel.pot + duel.entry_fee, status: "active" }).eq("id", duel.id)
     setDuelBusyId(null)
-    toast.success("Duel on! Good luck 🏆")
+    toast.success(t("challenges.toast.duelOn"))
     reload()
   }
 
@@ -343,15 +345,15 @@ export default function Challenges() {
     setDuelBusyId(duel.id)
     const { error } = await supabase.from("class_challenges").update({ status: "cancelled" }).eq("id", duel.id)
     setDuelBusyId(null)
-    if (error) { toast.error("Couldn't decline the duel."); return }
-    toast("Duel declined.")
+    if (error) { toast.error(t("challenges.toast.declineFailed")); return }
+    toast(t("challenges.toast.duelDeclined"))
     reload()
   }
 
   const handleCancel = async (ch: ClassChallenge) => {
     const { error } = await supabase.from("class_challenges").update({ status: "cancelled" }).eq("id", ch.id)
-    if (error) { toast.error("Couldn't cancel the challenge."); return }
-    toast.success("Challenge cancelled. Entry fees will be refunded.")
+    if (error) { toast.error(t("challenges.toast.cancelFailed")); return }
+    toast.success(t("challenges.toast.cancelled"))
     reload()
   }
 
@@ -376,20 +378,20 @@ export default function Challenges() {
           className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <div>
             <h1 className="text-2xl md:text-3xl font-display font-bold flex items-center gap-2">
-              <Trophy className="w-7 h-7 text-gold" /> Class Challenges
+              <Trophy className="w-7 h-7 text-gold" /> {t("challenges.classChallenges")}
             </h1>
-            <p className="text-sm text-muted-foreground mt-1">Spend InvestiCoins to compete. Winner takes the pot.</p>
+            <p className="text-sm text-muted-foreground mt-1">{t("challenges.pageSubtitle")}</p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
             <span className="inline-flex items-center gap-1.5 bg-gold/10 text-gold px-3 py-1.5 rounded-xl text-sm font-bold border border-gold/15">
               <Coins className="w-4 h-4" /> {formatCoins(jeffsBalance)}
             </span>
             <Button variant="secondary" className="press-scale" onClick={() => setDuelOpen(true)}>
-              <Swords className="w-4 h-4 mr-1" /> Challenge a partner
+              <Swords className="w-4 h-4 mr-1" /> {t("challenges.challengeAPartner")}
             </Button>
             {hasClass && (
               <Button className="press-scale" onClick={() => setCreateOpen(true)}>
-                <Plus className="w-4 h-4 mr-1" /> Create Challenge
+                <Plus className="w-4 h-4 mr-1" /> {t("challenges.createChallenge")}
               </Button>
             )}
           </div>
@@ -401,7 +403,7 @@ export default function Challenges() {
         {!loading && orderedDuels.length > 0 && (
           <section className="mb-8">
             <h2 className="text-lg font-display font-bold flex items-center gap-2 mb-4">
-              <Swords className="w-5 h-5 text-primary" /> Partner Duels
+              <Swords className="w-5 h-5 text-primary" /> {t("challenges.partnerDuels")}
             </h2>
             <div className="grid gap-5 md:grid-cols-2">
               {orderedDuels.map(ch => {
@@ -430,26 +432,26 @@ export default function Challenges() {
         )}
 
         {loading ? (
-          <div className="text-center py-20 text-muted-foreground">Loading challenges…</div>
+          <div className="text-center py-20 text-muted-foreground">{t("challenges.loading")}</div>
         ) : !hasClass ? (
           <div className="text-center py-16 rounded-2xl border border-border/60 bg-card">
             <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
               <Users className="w-7 h-7 text-primary" />
             </div>
-            <p className="font-semibold">Join a class to participate in challenges</p>
-            <p className="text-sm text-muted-foreground mt-1 mb-4">Ask your teacher for a class code.</p>
-            <Link to="/leaderboard"><Button variant="secondary">Enter a class code</Button></Link>
+            <p className="font-semibold">{t("challenges.noClass.title")}</p>
+            <p className="text-sm text-muted-foreground mt-1 mb-4">{t("challenges.noClass.desc")}</p>
+            <Link to="/leaderboard"><Button variant="secondary">{t("challenges.noClass.enterCode")}</Button></Link>
           </div>
         ) : activeChallenges.length === 0 ? (
           <div className="text-center py-16 rounded-2xl border border-border/60 bg-card">
             <div className="w-14 h-14 rounded-2xl bg-gold/10 flex items-center justify-center mx-auto mb-3">
               <Sparkles className="w-7 h-7 text-gold" />
             </div>
-            <p className="font-semibold">No active challenges right now</p>
+            <p className="font-semibold">{t("challenges.empty.title")}</p>
             <p className="text-sm text-muted-foreground mt-1 mb-4">
-              {isTeacher ? "Create one to get your class competing!" : "Start one and challenge your class!"}
+              {isTeacher ? t("challenges.empty.teacherDesc") : t("challenges.empty.studentDesc")}
             </p>
-            <Button ref={anchor("challenge-enter")} onClick={() => setCreateOpen(true)}><Plus className="w-4 h-4 mr-1" /> Create Challenge</Button>
+            <Button ref={anchor("challenge-enter")} onClick={() => setCreateOpen(true)}><Plus className="w-4 h-4 mr-1" /> {t("challenges.createChallenge")}</Button>
           </div>
         ) : (
           <div className="grid gap-5 md:grid-cols-2" ref={anchor("challenge-enter")}>

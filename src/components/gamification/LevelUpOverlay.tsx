@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { useApp } from "@/contexts/AppContext"
@@ -66,6 +67,7 @@ function Confetti() {
 }
 
 function Overlay({ level, onDismiss }: { level: number; onDismiss: () => void }) {
+  const { t } = useTranslation()
   // Auto-dismiss after 5s if the student doesn't tap.
   useEffect(() => {
     const t = setTimeout(onDismiss, 5000)
@@ -90,15 +92,15 @@ function Overlay({ level, onDismiss }: { level: number; onDismiss: () => void })
         transition={{ type: "spring", stiffness: 260, damping: 18 }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div style={{ fontSize: 48, fontWeight: 500, color: "#f59e0b" }}>LEVEL UP!</div>
+        <div style={{ fontSize: 48, fontWeight: 500, color: "#f59e0b" }}>{t("overlays.levelUp")}</div>
         <div style={{ fontSize: 72, fontWeight: 700, color: "#ffffff", lineHeight: 1 }}>{level}</div>
         <JeffAvatar />
-        <div style={{ color: "#ffffff", fontSize: 18 }}>You're now Level {level}!</div>
+        <div style={{ color: "#ffffff", fontSize: 18 }}>{t("overlays.nowLevel", { level })}</div>
         <button
           onClick={onDismiss}
           className="mt-2 px-6 py-3 rounded-xl bg-gold text-gold-foreground font-semibold text-base active:scale-95 transition-transform"
         >
-          Keep going →
+          {t("overlays.keepGoing")}
         </button>
       </motion.div>
     </motion.div>

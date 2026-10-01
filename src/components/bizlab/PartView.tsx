@@ -1,4 +1,6 @@
 import React, { useMemo, useState } from "react"
+import { useTranslation } from "react-i18next"
+import type { TFunction } from "i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   BookOpen, ListChecks, Sparkles, CheckCircle2, Circle, Coins, Timer, Users, Lightbulb,
@@ -19,31 +21,31 @@ import TemplateBox from "./TemplateBox"
 
 type StageId = "brief" | "words" | "learn" | "do" | "build" | "reflect"
 
-const STAGES: { id: StageId; label: string; icon: typeof BookOpen }[] = [
-  { id: "brief", label: "Brief", icon: BookOpen },
-  { id: "words", label: "Words", icon: Sparkles },
-  { id: "learn", label: "Learn", icon: GraduationCap },
-  { id: "do", label: "Do", icon: ListChecks },
-  { id: "build", label: "Build", icon: Hammer },
-  { id: "reflect", label: "Reflect", icon: BookHeart },
+const STAGES: { id: StageId; labelKey: string; icon: typeof BookOpen }[] = [
+  { id: "brief", labelKey: "bizlab.stages.brief", icon: BookOpen },
+  { id: "words", labelKey: "bizlab.stages.words", icon: Sparkles },
+  { id: "learn", labelKey: "bizlab.stages.learn", icon: GraduationCap },
+  { id: "do", labelKey: "bizlab.stages.do", icon: ListChecks },
+  { id: "build", labelKey: "bizlab.stages.build", icon: Hammer },
+  { id: "reflect", labelKey: "bizlab.stages.reflect", icon: BookHeart },
 ]
 
 type JeffMood = "happy" | "thinking" | "excited" | "teaching" | "celebrating"
 
-function jeffFor(stage: StageId, part: BizLabPart): { mood: JeffMood; line: string } {
+function jeffFor(stage: StageId, part: BizLabPart, t: TFunction): { mood: JeffMood; line: string } {
   switch (stage) {
     case "brief":
-      return { mood: "excited", line: part.jeffIntro ?? `Part ${part.number}: ${part.subtitle}!` }
+      return { mood: "excited", line: part.jeffIntro ?? t("bizlab.jeffLines.briefFallback", { number: part.number, subtitle: part.subtitle }) }
     case "words":
-      return { mood: "teaching", line: "Lock in these power-words - flip every card and you'll talk like a real founder! 📚" }
+      return { mood: "teaching", line: t("bizlab.jeffLines.words") }
     case "learn":
-      return { mood: "teaching", line: "Here's the playbook. Tap each card to open it. 🧠" }
+      return { mood: "teaching", line: t("bizlab.jeffLines.learn") }
     case "do":
-      return { mood: "happy", line: "Enough reading - time to take ACTION! Check off each move. 💪" }
+      return { mood: "happy", line: t("bizlab.jeffLines.do") }
     case "build":
-      return { mood: "thinking", line: "Show me what you've built. Stuck? Grab a template to get rolling. 🛠️" }
+      return { mood: "thinking", line: t("bizlab.jeffLines.build") }
     case "reflect":
-      return { mood: "happy", line: "Brain check-in - be honest, how'd it go? 💭" }
+      return { mood: "happy", line: t("bizlab.jeffLines.reflect") }
   }
 }
 
@@ -100,6 +102,7 @@ function LearnAccordion({ part }: { part: BizLabPart }) {
 }
 
 export default function PartView({ part }: { part: BizLabPart }) {
+  const { t } = useTranslation()
   const { toast } = useToast()
   const { earnJeffs } = useApp()
   const [celebrate, setCelebrate] = useState(0)
@@ -117,7 +120,7 @@ export default function PartView({ part }: { part: BizLabPart }) {
   const stage = STAGES[stageIdx]
   const Icon = bizIcon(part.icon)
   const isComplete = completedParts.includes(part.id)
-  const jeff = jeffFor(stage.id, part)
+  const jeff = jeffFor(stage.id, part, t)
 
   // Reset to the first stage when switching parts.
   const partKeyRef = React.useRef(part.id)
@@ -148,10 +151,10 @@ export default function PartView({ part }: { part: BizLabPart }) {
     const newly = completePart(part.id)
     const key = `part:${part.id}`
     if (newly && !hasAwarded(key)) {
-      earnJeffs(part.xp, `Completed Biz Lab ${part.title}`)
+      earnJeffs(part.xp, t("bizlab.complete.reason", { title: part.title }))
       markAwarded(key)
       setCelebrate(c => c + 1) // triggers Jeff's big party flip
-      toast({ title: `Part ${part.number} complete! 🦈`, description: `+${part.xp} InvestiCoins. Badge unlocked!` })
+      toast({ title: t("bizlab.complete.toastTitle", { number: part.number }), description: t("bizlab.complete.toastDescription", { xp: part.xp }) })
     }
   }
 
@@ -178,7 +181,7 @@ export default function PartView({ part }: { part: BizLabPart }) {
           </div>
           <div className="min-w-0 flex-1">
             <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/55">
-              Part {part.number} {isComplete && "· ✓ Complete"}
+              {t("bizlab.partLabel", { number: part.number })} {isComplete && t("bizlab.partComplete")}
             </p>
             <h2 className="font-display text-xl md:text-2xl font-extrabold leading-tight">{part.title}</h2>
           </div>
@@ -220,7 +223,7 @@ export default function PartView({ part }: { part: BizLabPart }) {
               }`}
             >
               {done && !active ? <CheckCircle2 className="w-3.5 h-3.5" /> : <SIcon className="w-3.5 h-3.5" />}
-              {s.label}
+              {t(s.labelKey)}
             </button>
           )
         })}
@@ -247,7 +250,7 @@ export default function PartView({ part }: { part: BizLabPart }) {
                 <div className="rounded-2xl border border-border/60 bg-card p-5">
                   <div className="flex items-center gap-2 mb-3">
                     <Lightbulb className="w-5 h-5 text-gold" />
-                    <h3 className="font-display font-bold">Stuck for ideas? Steal one of these.</h3>
+                    <h3 className="font-display font-bold">{t("bizlab.stuckForIdeas")}</h3>
                   </div>
                   <div className="flex flex-wrap gap-2 max-h-56 overflow-y-auto pr-1">
                     {PROBLEMS_FOR_TEENS.map((p, i) => (
@@ -264,7 +267,7 @@ export default function PartView({ part }: { part: BizLabPart }) {
             <div className="rounded-2xl border border-border/60 bg-card p-5">
               <Flashcards terms={part.vocab} />
               {!allWordsViewed && (
-                <p className="text-xs text-muted-foreground mt-3 text-center">Flip all {part.vocab.length} cards to light up this stage ✨</p>
+                <p className="text-xs text-muted-foreground mt-3 text-center">{t("bizlab.flipAllCards", { count: part.vocab.length })}</p>
               )}
             </div>
           )}
@@ -320,18 +323,18 @@ export default function PartView({ part }: { part: BizLabPart }) {
               <div className="rounded-2xl border border-border/60 bg-muted/30 p-5 text-center">
                 {isComplete ? (
                   <div className="inline-flex items-center gap-2 text-success font-bold">
-                    <CheckCircle2 className="w-5 h-5" /> Part {part.number} complete - nice work!
+                    <CheckCircle2 className="w-5 h-5" /> {t("bizlab.partCompleteNiceWork", { number: part.number })}
                   </div>
                 ) : (
                   <>
                     <PartyPopper className="w-7 h-7 mx-auto text-gold mb-2" />
                     <p className="text-sm text-muted-foreground mb-3">
                       {canComplete
-                        ? "You've finished everything in this part. Lock it in to earn your badge!"
-                        : "Save all your submissions (Build) and reflections to finish this part."}
+                        ? t("bizlab.readyToComplete")
+                        : t("bizlab.saveToFinish")}
                     </p>
                     <Button variant="hero" size="lg" disabled={!canComplete} onClick={handleComplete}>
-                      Complete Part {part.number} (+{part.xp})
+                      {t("bizlab.completeButton", { number: part.number, xp: part.xp })}
                     </Button>
                   </>
                 )}
@@ -344,14 +347,14 @@ export default function PartView({ part }: { part: BizLabPart }) {
       {/* Stage nav */}
       <div className="flex items-center justify-between pt-1">
         <Button variant="outline" size="sm" onClick={goBack} disabled={stageIdx === 0}>
-          <ArrowLeft className="w-4 h-4 mr-1" /> Back
+          <ArrowLeft className="w-4 h-4 mr-1" /> {t("bizlab.nav.back")}
         </Button>
         <span className="text-xs font-semibold text-muted-foreground">
           {stageIdx + 1} / {STAGES.length}
         </span>
         {stageIdx < STAGES.length - 1 ? (
           <Button size="sm" onClick={goNext}>
-            Next <ArrowRight className="w-4 h-4 ml-1" />
+            {t("bizlab.nav.next")} <ArrowRight className="w-4 h-4 ml-1" />
           </Button>
         ) : (
           <span className="w-[72px]" />

@@ -1,5 +1,7 @@
 import React, { useState, useMemo, useEffect, useCallback, useRef } from "react"
 import { Link } from "react-router-dom"
+import { useTranslation, Trans } from "react-i18next"
+import i18n from "@/i18n"
 import { useApp } from "@/contexts/AppContext"
 import { useNetWorth } from "@/hooks/useNetWorth"
 import { supabase } from "@/integrations/supabase/client"
@@ -44,8 +46,8 @@ export function boardDisplayNames(
   people: { id: string; first: string | null | undefined; last: string | null | undefined }[],
 ): Map<string, string> {
   const short = (first: string, last: string) =>
-    `${first} ${last ? `${last.charAt(0)}.` : ""}`.trim() || "Student"
-  const full = (first: string, last: string) => `${first} ${last}`.trim() || "Student"
+    `${first} ${last ? `${last.charAt(0)}.` : ""}`.trim() || i18n.t("leaderboard.studentFallback")
+  const full = (first: string, last: string) => `${first} ${last}`.trim() || i18n.t("leaderboard.studentFallback")
   const clean = people.map((p) => ({ id: p.id, first: (p.first ?? "").trim(), last: (p.last ?? "").trim() }))
   const counts = new Map<string, number>()
   for (const p of clean) {
@@ -64,7 +66,7 @@ type ServerRow = { user_id: string; first_name: string | null; last_name: string
 // Everyone else's row is the RPC's own number, rounded at the boundary.
 const toRows = (rows: ServerRow[]) => {
   const names = boardDisplayNames(rows.map((r) => ({ id: r.user_id, first: r.first_name, last: r.last_name })))
-  return rows.map((r) => ({ id: r.user_id, name: names.get(r.user_id) ?? "Student", xp: roundCoins(r.xp) }))
+  return rows.map((r) => ({ id: r.user_id, name: names.get(r.user_id) ?? i18n.t("leaderboard.studentFallback"), xp: roundCoins(r.xp) }))
 }
 
 interface Entry {
@@ -80,13 +82,14 @@ interface Entry {
 
 // Actionable ways to climb - all link to real features, so the motivation is legit.
 const EARN_ACTIONS = [
-  { icon: BookOpen,      label: "Finish a lesson",     detail: "Biggest, steadiest coins", to: "/lessons",  tint: "var(--brand)" },
-  { icon: CalendarCheck, label: "Daily missions",      detail: "Fresh coins every day",    to: "/daily",    tint: "#E3A008" },
-  { icon: Flame,         label: "Keep your streak",    detail: "Don't break the chain", to: "/lessons",  tint: "#F97316" },
-  { icon: Target,        label: "Ace a unit test",     detail: "Big coins for mastery",    to: "/progress", tint: "#8B5CF6" },
+  { icon: BookOpen,      labelKey: "leaderboard.earn.finishLesson.label",  detailKey: "leaderboard.earn.finishLesson.detail",  to: "/lessons",  tint: "var(--brand)" },
+  { icon: CalendarCheck, labelKey: "leaderboard.earn.dailyMissions.label", detailKey: "leaderboard.earn.dailyMissions.detail", to: "/daily",    tint: "#E3A008" },
+  { icon: Flame,         labelKey: "leaderboard.earn.keepStreak.label",    detailKey: "leaderboard.earn.keepStreak.detail",    to: "/lessons",  tint: "#F97316" },
+  { icon: Target,        labelKey: "leaderboard.earn.aceUnitTest.label",   detailKey: "leaderboard.earn.aceUnitTest.detail",   to: "/progress", tint: "#8B5CF6" },
 ]
 
 export default function Leaderboard() {
+  const { t } = useTranslation()
   const { user: me, jeffsBalance, jeffsHistory, lessonProgress } = useApp()
   const myId = me?.id ?? ""
   const { netWorth: myNetWorth, portfolioValue } = useNetWorth()
@@ -219,7 +222,7 @@ export default function Leaderboard() {
         .single()
 
       if (classError || !classData) {
-        toast({ title: "Invalid code", description: "No class found with this join code.", variant: "destructive" })
+        toast({ title: t("leaderboard.toast.invalidCodeTitle"), description: t("leaderboard.toast.invalidCodeDescription"), variant: "destructive" })
         return
       }
 
@@ -229,17 +232,17 @@ export default function Leaderboard() {
 
       if (joinError) {
         if (joinError.code === "23505") {
-          toast({ title: "Already joined", description: "You're already in this class." })
+          toast({ title: t("leaderboard.toast.alreadyJoinedTitle"), description: t("leaderboard.toast.alreadyJoinedDescription") })
         } else {
           throw joinError
         }
       } else {
-        toast({ title: "Joined!", description: `You've joined ${classData.name}` })
+        toast({ title: t("leaderboard.toast.joinedTitle"), description: t("leaderboard.toast.joinedDescription", { name: classData.name }) })
         setJoinCode("")
         loadMyClasses()
       }
     } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" })
+      toast({ title: t("leaderboard.toast.errorTitle"), description: error.message, variant: "destructive" })
     } finally {
       setJoiningClass(false)
     }
@@ -248,14 +251,14 @@ export default function Leaderboard() {
   const copyInviteLink = () => {
     const url = `${window.location.origin}/onboarding`
     navigator.clipboard.writeText(url)
-    toast({ title: "Link copied!", description: "Share this with partners to invite them." })
+    toast({ title: t("leaderboard.toast.linkCopiedTitle"), description: t("leaderboard.toast.linkCopiedDescription") })
   }
 
   const allEntries = useMemo<Entry[]>(() => {
     const entry = (r: { id: string; name: string; xp: number }, isMe: boolean): Entry => ({
-      id: r.id, name: r.name, score: r.xp, scoreLabel: "Coins", level: getLevel(r.xp), streak: 0, isMe,
+      id: r.id, name: r.name, score: r.xp, scoreLabel: t("leaderboard.coins"), level: getLevel(r.xp), streak: 0, isMe,
     })
-    const meLocal: Entry = entry({ id: myId || "me", name: "You", xp: roundCoins(totalXp) }, true)
+    const meLocal: Entry = entry({ id: myId || "me", name: t("leaderboard.you"), xp: roundCoins(totalXp) }, true)
     // Server-ranked boards: our row is the RPC's own row (same metric as every
     // other row). Only if the server somehow omitted us do we fall back to the
     // local balance.
@@ -277,7 +280,7 @@ export default function Leaderboard() {
     if (showDemo) {
       const demoData = scope === "national" ? DEMO_NATIONAL : DEMO_NATIONAL.slice(0, 5)
       const entries: Entry[] = [
-        ...demoData.map((d, i) => ({ id: `demo-${i}`, name: d.name, score: d.netWorth, scoreLabel: "Coins", level: d.level, streak: d.streak, isMe: false })),
+        ...demoData.map((d, i) => ({ id: `demo-${i}`, name: d.name, score: d.netWorth, scoreLabel: t("leaderboard.coins"), level: d.level, streak: d.streak, isMe: false })),
         meLocal,
       ]
       entries.sort((a, b) => b.score - a.score)
@@ -297,7 +300,7 @@ export default function Leaderboard() {
 
   const hasOtherUsers = allEntries.filter(e => !e.isMe).length > 0
   const myRank = allEntries.findIndex(e => e.isMe) + 1
-  const scoreLabel = allEntries[0]?.scoreLabel ?? "Net Worth"
+  const scoreLabel = allEntries[0]?.scoreLabel ?? t("leaderboard.netWorth")
   const maxScore = allEntries[0]?.score || 1
   const myScore = allEntries.find(e => e.isMe)?.score ?? 0
   const leaderScore = allEntries[0]?.score ?? 0
@@ -346,13 +349,13 @@ export default function Leaderboard() {
   const climbFasterCard = (
     <div className="rounded-3xl border border-border/40 bg-card p-5">
       <p className="text-sm font-extrabold flex items-center gap-1.5 mb-1">
-        <Zap className="w-4 h-4 text-warning" /> Climb faster
+        <Zap className="w-4 h-4 text-warning" /> {t("leaderboard.climbFaster.title")}
       </p>
-      <p className="text-[12px] text-muted-foreground mb-3">Every action earns InvestiCoins and pushes you up the board.</p>
+      <p className="text-[12px] text-muted-foreground mb-3">{t("leaderboard.climbFaster.subtitle")}</p>
       <div className="space-y-2">
         {EARN_ACTIONS.map(a => (
           <Link
-            key={a.label}
+            key={a.labelKey}
             to={a.to}
             className="flex items-center gap-3 p-2.5 rounded-xl border border-border/40 hover:border-primary/40 hover:bg-muted/30 transition-colors press-scale"
           >
@@ -360,8 +363,8 @@ export default function Leaderboard() {
               <a.icon className="w-4.5 h-4.5" style={{ color: a.tint }} />
             </span>
             <div className="min-w-0 flex-1">
-              <p className="text-[13px] font-bold truncate">{a.label}</p>
-              <p className="text-[11px] text-muted-foreground truncate">{a.detail}</p>
+              <p className="text-[13px] font-bold truncate">{t(a.labelKey)}</p>
+              <p className="text-[11px] text-muted-foreground truncate">{t(a.detailKey)}</p>
             </div>
             <ChevronUp className="w-4 h-4 text-muted-foreground rotate-45 shrink-0" />
           </Link>
@@ -373,9 +376,9 @@ export default function Leaderboard() {
   const leagueLadderCard = (
     <div className="rounded-3xl border border-border/40 bg-card p-5">
       <p className="text-sm font-extrabold flex items-center gap-1.5 mb-1">
-        <Gem className="w-4 h-4 text-primary" /> League ladder
+        <Gem className="w-4 h-4 text-primary" /> {t("leaderboard.leagueLadder.title")}
       </p>
-      <p className="text-[12px] text-muted-foreground mb-3">Earn InvestiCoins to rank up through every tier.</p>
+      <p className="text-[12px] text-muted-foreground mb-3">{t("leaderboard.leagueLadder.subtitle")}</p>
       <div className="space-y-1.5">
         {LEAGUES.map((lg, i) => {
           const reached = totalXp >= lg.min
@@ -393,11 +396,11 @@ export default function Leaderboard() {
                   {current && (
                     <>
                       {" "}
-                      <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] font-extrabold align-middle" style={{ color: lg.color, background: `${lg.color}1f` }}>YOU</span>
+                      <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] font-extrabold align-middle" style={{ color: lg.color, background: `${lg.color}1f` }}>{t("leaderboard.you").toUpperCase()}</span>
                     </>
                   )}
                 </p>
-                <p className="text-[11px] text-muted-foreground">{lg.min.toLocaleString()}+ coins</p>
+                <p className="text-[11px] text-muted-foreground">{t("leaderboard.coinsThreshold", { count: lg.min, formatted: lg.min.toLocaleString() })}</p>
               </div>
               {reached && <Sparkles className="w-3.5 h-3.5" style={{ color: lg.color }} />}
             </div>
@@ -426,7 +429,7 @@ export default function Leaderboard() {
             <div>
               <div className="flex items-center gap-2 text-warning mb-2">
                 <Trophy className="w-5 h-5" />
-                <span className="text-xs font-bold uppercase tracking-widest">Leaderboard</span>
+                <span className="text-xs font-bold uppercase tracking-widest">{t("leaderboard.title")}</span>
               </div>
 
               <div className="flex items-center gap-3 flex-wrap">
@@ -434,15 +437,15 @@ export default function Leaderboard() {
                   className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-extrabold border"
                   style={{ background: myLeague.soft, borderColor: `${myLeague.color}66`, color: "#fff" }}
                 >
-                  <span className="text-base leading-none">{myLeague.icon}</span> {myLeague.name} League
+                  <span className="text-base leading-none">{myLeague.icon}</span> {t("leaderboard.leagueName", { name: myLeague.name })}
                 </span>
                 <span className="inline-flex items-center gap-1 text-[11px] font-bold text-primary-foreground/70">
-                  <Star className="w-3.5 h-3.5 text-warning" /> Level {getLevel(totalXp)}
+                  <Star className="w-3.5 h-3.5 text-warning" /> {t("leaderboard.level", { level: getLevel(totalXp) })}
                 </span>
               </div>
 
               <p className="text-xs text-primary-foreground/70 font-semibold uppercase tracking-wider mt-4">
-                Your Coins
+                {t("leaderboard.yourCoins")}
               </p>
               <p className="font-display text-5xl md:text-6xl font-extrabold flex items-center gap-2 mt-1 leading-none">
                 <Coins className="w-8 h-8 md:w-9 md:h-9 text-warning" />
@@ -450,8 +453,8 @@ export default function Leaderboard() {
               </p>
               <p className="text-[11px] text-primary-foreground/60 mt-2">
                 {portfolioValue > 0
-                  ? `Spendable InvestiCoins · ${formatCoins(portfolioValue)} more invested in stocks`
-                  : "Spendable InvestiCoins - this is what the leaderboard ranks on"}
+                  ? t("leaderboard.spendableInvested", { amount: formatCoins(portfolioValue) })
+                  : t("leaderboard.spendableRanks")}
               </p>
 
               {/* League progress bar */}
@@ -460,7 +463,7 @@ export default function Leaderboard() {
                   <span className="text-primary-foreground/70">{myLeague.icon} {myLeague.name}</span>
                   {nextLeague
                     ? <span className="text-primary-foreground/70">{nextLeague.name} {nextLeague.icon}</span>
-                    : <span className="text-warning">Top league 👑</span>}
+                    : <span className="text-warning">{t("leaderboard.topLeague")} 👑</span>}
                 </div>
                 <div className="h-2.5 rounded-full bg-white/15 overflow-hidden">
                   <motion.div
@@ -473,8 +476,8 @@ export default function Leaderboard() {
                 </div>
                 <p className="text-[11px] text-primary-foreground/70 mt-1.5">
                   {nextLeague
-                    ? <><span className="font-bold text-warning">{formatCoins(xpToNextLeague)} coins</span> to reach {nextLeague.name} League</>
-                    : "You've maxed the league ladder - legendary!"}
+                    ? <Trans i18nKey="leaderboard.coinsToReach" values={{ coins: formatCoins(xpToNextLeague), name: nextLeague.name }} components={{ b: <span className="font-bold text-warning" /> }} />
+                    : t("leaderboard.maxedLadder")}
                 </p>
               </div>
             </div>
@@ -483,30 +486,30 @@ export default function Leaderboard() {
             {showLeaderboard && !hasRankActivity ? (
               <div className="rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 p-5 text-center">
                 <BookOpen className="w-8 h-8 mx-auto text-warning mb-2" />
-                <p className="text-sm font-bold">Finish a lesson to get ranked</p>
+                <p className="text-sm font-bold">{t("leaderboard.rankGate.title")}</p>
                 <p className="text-[12px] text-primary-foreground/70 mt-1">
-                  Your rank appears once you've earned coins beyond Jeff's welcome gift.
+                  {t("leaderboard.rankGate.subtitle")}
                 </p>
                 <Link to="/lessons" className="inline-block mt-3">
-                  <Button size="sm" variant="secondary" className="gap-1.5"><BookOpen className="w-4 h-4" /> Start a lesson</Button>
+                  <Button size="sm" variant="secondary" className="gap-1.5"><BookOpen className="w-4 h-4" /> {t("leaderboard.startLesson")}</Button>
                 </Link>
               </div>
             ) : showLeaderboard ? (
               <div className="rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 p-5">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-[10px] uppercase tracking-wider text-primary-foreground/70 font-semibold">Your Rank</p>
+                    <p className="text-[10px] uppercase tracking-wider text-primary-foreground/70 font-semibold">{t("leaderboard.yourRank")}</p>
                     <p className="font-display text-5xl font-extrabold leading-none mt-1">#{myRank}</p>
-                    <p className="text-[11px] text-primary-foreground/60 mt-1">of {allEntries.length} climbers</p>
+                    <p className="text-[11px] text-primary-foreground/60 mt-1">{t("leaderboard.ofClimbers", { count: allEntries.length })}</p>
                   </div>
                   <div className="text-right">
                     {myRank <= PROMO_ZONE ? (
                       <span className="inline-flex items-center gap-1 rounded-full bg-warning/20 text-warning px-2.5 py-1 text-[11px] font-extrabold">
-                        <Crown className="w-3.5 h-3.5" /> Podium!
+                        <Crown className="w-3.5 h-3.5" /> {t("leaderboard.podium")}
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1 rounded-full bg-white/10 text-primary-foreground/80 px-2.5 py-1 text-[11px] font-bold">
-                        <ChevronUp className="w-3.5 h-3.5 text-warning" /> {myRank - PROMO_ZONE} {myRank - PROMO_ZONE === 1 ? "spot" : "spots"} to podium
+                        <ChevronUp className="w-3.5 h-3.5 text-warning" /> {t("leaderboard.spotsToPodium", { count: myRank - PROMO_ZONE })}
                       </span>
                     )}
                   </div>
@@ -517,9 +520,9 @@ export default function Leaderboard() {
                   <div className="mt-5">
                     <div className="flex items-center justify-between text-xs font-semibold mb-1.5">
                       <span className="flex items-center gap-1.5 text-primary-foreground/85">
-                        <Target className="w-3.5 h-3.5 text-warning" /> Catch {rivalAbove.name}
+                        <Target className="w-3.5 h-3.5 text-warning" /> {t("leaderboard.catch", { name: rivalAbove.name })}
                       </span>
-                      <span className="text-warning font-extrabold">{formatCoins(gapToNext)} {scoreLabel} to go</span>
+                      <span className="text-warning font-extrabold">{t("leaderboard.toGo", { coins: formatCoins(gapToNext), label: scoreLabel })}</span>
                     </div>
                     <div className="h-2.5 rounded-full bg-white/15 overflow-hidden">
                       <motion.div
@@ -530,28 +533,28 @@ export default function Leaderboard() {
                       />
                     </div>
                     <p className="text-[11px] text-primary-foreground/60 mt-1.5">
-                      You're at {catchPct}% of their score - one good day could pass them.
+                      {t("leaderboard.catchProgress", { pct: catchPct })}
                     </p>
                   </div>
                 ) : (
                   <div className="mt-5 flex items-center gap-2 rounded-xl bg-warning/15 border border-warning/25 px-3 py-2.5">
                     <Crown className="w-5 h-5 text-warning shrink-0" />
-                    <p className="text-sm font-bold">You're #1 - defend your crown! Every lesson widens the lead.</p>
+                    <p className="text-sm font-bold">{t("leaderboard.number1")}</p>
                   </div>
                 )}
 
                 {myRank > 1 && (
                   <p className="text-[11px] text-primary-foreground/60 mt-3">
-                    <span className="font-bold text-primary-foreground/80">{formatCoins(gapToTop)}</span> {scoreLabel} behind #1
+                    <Trans i18nKey="leaderboard.behindNumber1" values={{ coins: formatCoins(gapToTop), label: scoreLabel }} components={{ b: <span className="font-bold text-primary-foreground/80" /> }} />
                   </p>
                 )}
               </div>
             ) : (
               <div className="rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 p-5 text-center">
                 <Rocket className="w-8 h-8 mx-auto text-warning mb-2" />
-                <p className="text-sm font-bold">Join a class to start climbing</p>
+                <p className="text-sm font-bold">{t("leaderboard.joinToClimb.title")}</p>
                 <p className="text-[12px] text-primary-foreground/70 mt-1">
-                  Rank up against classmates and race to the top league.
+                  {t("leaderboard.joinToClimb.subtitle")}
                 </p>
               </div>
             )}
@@ -568,7 +571,7 @@ export default function Leaderboard() {
               onClick={() => setScope(s)}
               className="press-scale capitalize flex-1 sm:flex-none"
             >
-              {s === "class" ? "My Class" : s === "friends" ? "Partners" : "National"}
+              {s === "class" ? t("leaderboard.scope.class") : s === "friends" ? t("leaderboard.scope.friends") : t("leaderboard.scope.national")}
             </Button>
           ))}
         </div>
@@ -578,10 +581,10 @@ export default function Leaderboard() {
           <div className="flex flex-wrap items-center gap-2 mb-5">
             <span className="inline-flex items-center gap-1.5 text-sm font-bold">
               <Users className="w-4 h-4 text-primary" />
-              {activeClassName ?? "My Class"}
+              {activeClassName ?? t("leaderboard.scope.class")}
             </span>
             {hasOtherUsers && (
-              <Badge variant="outline" className="text-[11px]">{allEntries.length} members</Badge>
+              <Badge variant="outline" className="text-[11px]">{t("leaderboard.membersCount", { count: allEntries.length })}</Badge>
             )}
             {myClasses.length > 1 && (
               <div className="flex flex-wrap gap-1.5 ml-auto">
@@ -621,16 +624,16 @@ export default function Leaderboard() {
               <div className="rounded-3xl border border-border/40 bg-gradient-to-b from-primary/[0.05] to-card p-6 text-center">
                 <Users className="w-12 h-12 mx-auto text-primary/40 mb-3" />
                 <h3 className="text-lg font-bold mb-1.5">
-                  {scope === "class" ? "No classmates yet" : "No partners connected yet"}
+                  {scope === "class" ? t("leaderboard.empty.noClassmates") : t("leaderboard.empty.noPartners")}
                 </h3>
                 <p className="text-sm text-muted-foreground max-w-md mx-auto">
                   {scope === "class"
-                    ? "Join a class to compete with your classmates and race up the leagues - but you can start earning InvestiCoins and climbing the ladder right now."
-                    : "Add partners in the Find Partners directory and they'll show up here to race against - your stats are ready when they are."}
+                    ? t("leaderboard.empty.classDescription")
+                    : t("leaderboard.empty.partnersDescription")}
                 </p>
                 <Link to="/partners">
                   <Button size="sm" className="mt-4 gap-1.5 font-bold">
-                    <UserPlus className="w-4 h-4" /> Find Partners
+                    <UserPlus className="w-4 h-4" /> {t("leaderboard.findPartners")}
                   </Button>
                 </Link>
               </div>
@@ -640,21 +643,21 @@ export default function Leaderboard() {
                   <Card variant="elevated">
                     <CardHeader>
                       <CardTitle className="text-base flex items-center gap-2">
-                        <UserPlus className="w-4 h-4 text-primary" /> Join a Class
+                        <UserPlus className="w-4 h-4 text-primary" /> {t("leaderboard.joinClass.title")}
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
-                      <p className="text-sm text-muted-foreground">Enter the class code your teacher gave you.</p>
+                      <p className="text-sm text-muted-foreground">{t("leaderboard.joinClass.instructions")}</p>
                       <div className="flex gap-2">
                         <Input
-                          placeholder="e.g., ABC123"
+                          placeholder={t("leaderboard.joinClass.placeholder")}
                           value={joinCode}
                           onChange={e => setJoinCode(e.target.value.toUpperCase())}
                           maxLength={6}
                           className="font-mono text-center tracking-widest"
                         />
                         <Button onClick={handleJoinClass} disabled={!joinCode.trim() || joiningClass}>
-                          {joiningClass ? "Joining..." : "Join"}
+                          {joiningClass ? t("leaderboard.joinClass.joining") : t("leaderboard.joinClass.join")}
                         </Button>
                       </div>
                     </CardContent>
@@ -664,13 +667,13 @@ export default function Leaderboard() {
                 <Card variant="elevated">
                   <CardHeader>
                     <CardTitle className="text-base flex items-center gap-2">
-                      <Link2 className="w-4 h-4 text-primary" /> Invite Partners
+                      <Link2 className="w-4 h-4 text-primary" /> {t("leaderboard.invite.title")}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <p className="text-sm text-muted-foreground">Share this link with partners to invite them to InvestiPlay.</p>
+                    <p className="text-sm text-muted-foreground">{t("leaderboard.invite.description")}</p>
                     <Button variant="outline" onClick={copyInviteLink} className="w-full gap-2">
-                      <Copy className="w-4 h-4" /> Copy Invite Link
+                      <Copy className="w-4 h-4" /> {t("leaderboard.invite.copyLink")}
                     </Button>
                   </CardContent>
                 </Card>
@@ -679,7 +682,7 @@ export default function Leaderboard() {
               {scope === "class" && myClasses.length > 0 && (
                 <Card variant="elevated">
                   <CardHeader>
-                    <CardTitle className="text-base">Your Classes</CardTitle>
+                    <CardTitle className="text-base">{t("leaderboard.yourClasses")}</CardTitle>
                   </CardHeader>
                   <CardContent className="grid sm:grid-cols-2 gap-2">
                     {myClasses.map(c => (
@@ -693,7 +696,7 @@ export default function Leaderboard() {
               )}
 
               <div className="flex items-center justify-center gap-3 pt-1">
-                <label htmlFor="demo-toggle" className="text-sm text-muted-foreground cursor-pointer">Preview with demo data</label>
+                <label htmlFor="demo-toggle" className="text-sm text-muted-foreground cursor-pointer">{t("leaderboard.demo.preview")}</label>
                 <Switch id="demo-toggle" checked={showDemo} onCheckedChange={setShowDemo} />
               </div>
             </div>
@@ -710,11 +713,11 @@ export default function Leaderboard() {
             {showDemo && (
               <div className="flex items-center justify-between mb-4 px-3 py-2 rounded-xl bg-warning/5 border border-warning/10">
                 <span className="text-xs text-warning font-medium flex items-center gap-1.5">
-                  <Badge variant="outline" className="text-[10px] border-warning/20 text-warning">Demo Data</Badge>
-                  Sample entries for preview only.
+                  <Badge variant="outline" className="text-[10px] border-warning/20 text-warning">{t("leaderboard.demo.badge")}</Badge>
+                  {t("leaderboard.demo.sample")}
                 </span>
                 <div className="flex items-center gap-2">
-                  <label htmlFor="demo-toggle-2" className="text-xs text-muted-foreground cursor-pointer">Demo</label>
+                  <label htmlFor="demo-toggle-2" className="text-xs text-muted-foreground cursor-pointer">{t("leaderboard.demo.label")}</label>
                   <Switch id="demo-toggle-2" checked={showDemo} onCheckedChange={setShowDemo} />
                 </div>
               </div>
@@ -727,7 +730,7 @@ export default function Leaderboard() {
                 {podium.length >= 3 && (
                   <div className="rounded-3xl border border-border/40 bg-gradient-to-b from-warning/[0.06] to-card p-4 sm:p-6">
                     <p className="text-[11px] font-bold uppercase tracking-wider text-warning flex items-center gap-1.5 mb-4">
-                      <Crown className="w-3.5 h-3.5" /> Promotion zone - top 3
+                      <Crown className="w-3.5 h-3.5" /> {t("leaderboard.promotionZone")}
                     </p>
                     <div className="grid grid-cols-3 gap-2 sm:gap-4 items-end">
                       {[podium[1], podium[0], podium[2]].map((entry, i) => {
@@ -765,7 +768,7 @@ export default function Leaderboard() {
                               <Coins className="w-3.5 h-3.5 text-warning" /> {formatCoins(entry.score)}
                             </p>
                             <span className="text-[10px] text-muted-foreground flex items-center gap-1 mt-0.5">
-                              <Star className="w-2.5 h-2.5" /> Lv {entry.level}
+                              <Star className="w-2.5 h-2.5" /> {t("leaderboard.levelShort", { level: entry.level })}
                             </span>
                           </motion.div>
                         )
@@ -779,7 +782,7 @@ export default function Leaderboard() {
                   <div className="space-y-2">
                     {podium.length >= 3 && (
                       <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground px-1 mb-1">
-                        The pack - climb the ranks
+                        {t("leaderboard.thePack")}
                       </p>
                     )}
                     {restEntries.map((entry, idx) => {
@@ -815,15 +818,15 @@ export default function Leaderboard() {
                           <div className="relative flex-1 min-w-0">
                             <p className={`text-sm font-bold truncate ${entry.isMe ? "text-primary" : ""}`}>
                               {entry.name}
-                              {entry.isMe && <span className="ml-1.5 text-[10px] text-primary/60">(You)</span>}
+                              {entry.isMe && <span className="ml-1.5 text-[10px] text-primary/60">{t("leaderboard.youParen")}</span>}
                             </p>
                             <div className="flex items-center gap-2 mt-0.5">
                               <span className="text-[11px] text-muted-foreground flex items-center gap-1">
-                                <Star className="w-3 h-3" /> Lv {entry.level}
+                                <Star className="w-3 h-3" /> {t("leaderboard.levelShort", { level: entry.level })}
                               </span>
                               {entry.streak > 0 && (
                                 <span className="text-[11px] text-orange-500 flex items-center gap-1">
-                                  <Flame className="w-3 h-3" /> {entry.streak}d
+                                  <Flame className="w-3 h-3" /> {t("leaderboard.streakDays", { count: entry.streak })}
                                 </span>
                               )}
                             </div>
@@ -849,10 +852,10 @@ export default function Leaderboard() {
                 {/* Invite CTA - more rivals = more reasons to climb */}
                 <div className="rounded-3xl border border-primary/20 bg-primary/5 p-5 text-center">
                   <TrendingUp className="w-7 h-7 mx-auto text-primary mb-2" />
-                  <p className="text-sm font-bold">More rivals, more glory</p>
-                  <p className="text-[12px] text-muted-foreground mt-1 mb-3">Invite partners and battle for the crown.</p>
+                  <p className="text-sm font-bold">{t("leaderboard.moreRivals.title")}</p>
+                  <p className="text-[12px] text-muted-foreground mt-1 mb-3">{t("leaderboard.moreRivals.subtitle")}</p>
                   <Button variant="outline" size="sm" onClick={copyInviteLink} className="w-full gap-2">
-                    <Copy className="w-4 h-4" /> Copy invite link
+                    <Copy className="w-4 h-4" /> {t("leaderboard.invite.copyLink")}
                   </Button>
                 </div>
               </aside>

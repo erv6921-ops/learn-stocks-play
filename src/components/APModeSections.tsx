@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { UnitInfo } from "@/types";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -90,6 +91,7 @@ interface APModeSectionsProps {
 }
 
 export default function APModeSections({ allUnits, renderUnit }: APModeSectionsProps) {
+  const { t } = useTranslation();
   const allApIds = useMemo(() => {
     const ids = new Set<string>();
     AP_SECTIONS.forEach((s) => {
@@ -138,10 +140,10 @@ export default function APModeSections({ allUnits, renderUnit }: APModeSectionsP
       {/* AP Banner */}
       <div className="rounded-2xl bg-[hsl(var(--primary))] text-primary-foreground px-6 py-5">
         <h2 className="font-display text-xl md:text-2xl font-extrabold tracking-tight">
-          AP Business with Personal Finance
+          {t("apMode.bannerTitle")}
         </h2>
         <p className="text-primary-foreground/80 text-sm mt-1">
-          Aligned to the official College Board 5-unit framework · Launching fall 2026
+          {t("apMode.bannerSubtitle")}
         </p>
       </div>
 
@@ -153,11 +155,11 @@ export default function APModeSections({ allUnits, renderUnit }: APModeSectionsP
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-0.5">
-              <p className="font-display font-bold text-[15px] text-foreground">Business Canvas Project</p>
-              <Badge variant="outline" className="text-[10px] font-bold border-primary/30 text-primary">AP Required</Badge>
+              <p className="font-display font-bold text-[15px] text-foreground">{t("apMode.businessCanvas")}</p>
+              <Badge variant="outline" className="text-[10px] font-bold border-primary/30 text-primary">{t("apMode.apRequired")}</Badge>
             </div>
             <p className="text-xs text-muted-foreground">
-              Build a complete Business Model Canvas for your own business idea - 9 guided blocks + submission
+              {t("apMode.businessCanvasDesc")}
             </p>
           </div>
           <div className="text-primary shrink-0">
@@ -220,10 +222,10 @@ export default function APModeSections({ allUnits, renderUnit }: APModeSectionsP
                   </div>
                   <div>
                     <h2 className="font-display text-lg md:text-xl font-bold tracking-tight">
-                      Beyond AP - Advanced Content
+                      {t("apMode.beyondAp")}
                     </h2>
                     <p className="text-[11px] text-muted-foreground mt-0.5">
-                      {beyondUnits.length} additional unit{beyondUnits.length !== 1 ? "s" : ""} for advanced exploration
+                      {t("apMode.beyondApCount", { count: beyondUnits.length })}
                     </p>
                   </div>
                 </div>

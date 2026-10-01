@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useApp } from "@/contexts/AppContext";
@@ -20,10 +21,11 @@ interface LessonCard {
 const db = supabase as any;
 
 const StatusBadge: React.FC<{ status: LessonCard["status"] }> = ({ status }) => {
+  const { t } = useTranslation();
   const map = {
-    not_started: { label: "Not started", cls: "bg-slate-100 text-slate-600 border-slate-200" },
-    in_progress: { label: "In progress", cls: "bg-amber-100 text-amber-700 border-amber-200" },
-    completed: { label: "Completed", cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
+    not_started: { label: t("studentLessons.status.notStarted"), cls: "bg-slate-100 text-slate-600 border-slate-200" },
+    in_progress: { label: t("studentLessons.status.inProgress"), cls: "bg-amber-100 text-amber-700 border-amber-200" },
+    completed: { label: t("studentLessons.status.completed"), cls: "bg-emerald-100 text-emerald-700 border-emerald-200" },
   }[status];
   return (
     <span className={cn("inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium", map.cls)}>
@@ -33,6 +35,7 @@ const StatusBadge: React.FC<{ status: LessonCard["status"] }> = ({ status }) => 
 };
 
 export const StudentLessonsSection: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { user } = useApp();
   const [lessons, setLessons] = useState<LessonCard[]>([]);
@@ -131,19 +134,19 @@ export const StudentLessonsSection: React.FC = () => {
     <section className="space-y-3">
       <div className="flex items-center gap-2">
         <BookOpen className="h-5 w-5 text-emerald-600" />
-        <h2 className="text-lg font-semibold text-slate-900">Lessons</h2>
+        <h2 className="text-lg font-semibold text-slate-900">{t("studentLessons.title")}</h2>
       </div>
 
       {loading ? (
         <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white py-6 pl-4 text-sm text-slate-500">
           <Loader2 className="h-4 w-4 animate-spin text-emerald-600" />
-          Loading lessons…
+          {t("studentLessons.loading")}
         </div>
       ) : (
         <div className="grid gap-3 sm:grid-cols-2">
           {lessons.map((l) => {
             const cta =
-              l.status === "completed" ? "Review" : l.status === "in_progress" ? "Resume" : "Start lesson";
+              l.status === "completed" ? t("studentLessons.cta.review") : l.status === "in_progress" ? t("studentLessons.cta.resume") : t("studentLessons.cta.start");
             return (
               <Card key={l.id} className="border-slate-200 transition-shadow hover:shadow-sm">
                 <CardContent className="space-y-3 p-4">
@@ -154,7 +157,7 @@ export const StudentLessonsSection: React.FC = () => {
                   <div className="space-y-1">
                     <Progress value={l.total > 0 ? (l.answered / l.total) * 100 : 0} className="h-2" />
                     <p className="text-xs text-slate-400">
-                      {l.answered}/{l.total} questions answered
+                      {t("studentLessons.questionsAnswered", { answered: l.answered, total: l.total })}
                     </p>
                   </div>
                   <Button

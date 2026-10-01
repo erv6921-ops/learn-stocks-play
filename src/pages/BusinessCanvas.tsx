@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import GameNav from "@/components/GameNav";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -260,6 +261,7 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
 }
 
   export default function BusinessCanvas() {
+  const { t } = useTranslation();
   const { earnJeffs } = useApp();
   const [canvas, setCanvas] = useState<CanvasData>(loadCanvas);
   const [step, setStep] = useState(0); // 0 = intro, 1-9 = blocks, 10 = review
@@ -306,7 +308,7 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
   };
 
   const handleReset = () => {
-    if (!window.confirm("Are you sure you want to reset your entire canvas? This cannot be undone.")) return;
+    if (!window.confirm(t("businessCanvas.resetConfirm"))) return;
     const fresh = getEmptyCanvas();
     setCanvas(fresh);
     setStep(0);
@@ -318,30 +320,30 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
       <div className="min-h-screen bg-background pb-24 md:pb-8">
         <GameNav />
         <main className="container mx-auto px-4 py-8 max-w-3xl">
-          <BackButton fallback="/lessons" label="Back to Missions" />
+          <BackButton fallback="/lessons" label={t("businessCanvas.backToMissions")} />
 
           <div className="mt-6 text-center space-y-4">
             <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto">
               <Briefcase className="w-8 h-8" />
             </div>
             <Badge variant="outline" className="text-xs font-bold border-primary/30 text-primary">
-              AP Required Project
+              {t("businessCanvas.apRequiredProject")}
             </Badge>
             <h1 className="font-display text-3xl md:text-4xl font-extrabold tracking-tight">
-              Business Canvas Project
+              {t("businessCanvas.projectTitle")}
             </h1>
             <p className="text-muted-foreground text-[15px] max-w-xl mx-auto leading-relaxed">
-              Build a complete Business Model Canvas for your own business idea. You'll work through 9 essential blocks that define how a business creates, delivers, and captures value.
+              {t("businessCanvas.projectDesc")}
             </p>
           </div>
 
           {/* Business Name */}
           <Card className="mt-8 p-6 rounded-2xl border shadow-card">
             <label className="text-sm font-bold text-foreground block mb-2">
-              What's your business called?
+              {t("businessCanvas.nameLabel")}
             </label>
             <Input
-              placeholder="Enter your business name…"
+              placeholder={t("businessCanvas.namePlaceholder")}
               value={canvas.businessName}
               onChange={(e) => setCanvas((p) => ({ ...p, businessName: e.target.value }))}
               className="text-base"
@@ -388,9 +390,9 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
                 {canvas.submitted ? <CheckCircle className="w-5 h-5" /> : <FileText className="w-5 h-5" />}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-bold text-[14px] text-foreground">Review & Submit</p>
+                <p className="font-bold text-[14px] text-foreground">{t("businessCanvas.reviewSubmit")}</p>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  {canvas.submitted ? "Submitted ✓" : "View your full canvas and submit"}
+                  {canvas.submitted ? t("businessCanvas.submittedCheck") : t("businessCanvas.viewFullSubmit")}
                 </p>
               </div>
               <ArrowRight className="w-4 h-4 text-muted-foreground/40 shrink-0" />
@@ -399,7 +401,7 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
 
           <div className="mt-6 text-center">
             <p className="text-xs text-muted-foreground">
-              {completedBlocks}/9 blocks started · Progress saves automatically
+              {t("businessCanvas.blocksStarted", { count: completedBlocks })}
             </p>
           </div>
         </main>
@@ -420,9 +422,9 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
           <div className="mb-6">
             <div className="flex items-center justify-between mb-2">
               <button onClick={() => setStep(0)} className="text-sm text-primary font-semibold hover:underline flex items-center gap-1">
-                <ArrowLeft className="w-3.5 h-3.5" /> All Blocks
+                <ArrowLeft className="w-3.5 h-3.5" /> {t("businessCanvas.allBlocks")}
               </button>
-              <span className="text-xs text-muted-foreground font-semibold">Block {block.number} of 9</span>
+              <span className="text-xs text-muted-foreground font-semibold">{t("businessCanvas.blockOf", { number: block.number })}</span>
             </div>
             <Progress value={progress} variant="success" className="h-2" />
           </div>
@@ -452,7 +454,7 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
                   <VocabText text={prompt} />
                 </label>
                 <Textarea
-                  placeholder="Type your answer…"
+                  placeholder={t("businessCanvas.typeAnswer")}
                   value={data.answers[pIdx]}
                   onChange={(e) => updateAnswer(block.id, pIdx, e.target.value)}
                   className="min-h-[80px] text-sm"
@@ -463,10 +465,10 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
 
           {/* Reflection */}
           <Card className="mt-6 p-5 rounded-2xl border-primary/20 bg-primary/3 shadow-card">
-            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">💡 Reflection</p>
+            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">💡 {t("businessCanvas.reflection")}</p>
             <p className="text-sm text-foreground/80 mb-3"><VocabText text={block.reflectionPrompt} /></p>
             <Textarea
-              placeholder="Share your thoughts…"
+              placeholder={t("businessCanvas.shareThoughts")}
               value={data.reflection}
               onChange={(e) => updateReflection(block.id, e.target.value)}
               className="min-h-[70px] text-sm"
@@ -480,13 +482,13 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
               onClick={() => setStep(step - 1)}
               className="gap-1.5"
             >
-              <ArrowLeft className="w-3.5 h-3.5" /> {step === 1 ? "Overview" : "Previous"}
+              <ArrowLeft className="w-3.5 h-3.5" /> {step === 1 ? t("businessCanvas.overview") : t("businessCanvas.previous")}
             </Button>
             <Button
               onClick={() => setStep(step + 1)}
               className="gap-1.5 press-scale"
             >
-              {step === 9 ? "Review Canvas" : "Next Block"} <ArrowRight className="w-3.5 h-3.5" />
+              {step === 9 ? t("businessCanvas.reviewCanvas") : t("businessCanvas.nextBlock")} <ArrowRight className="w-3.5 h-3.5" />
             </Button>
           </div>
         </main>
@@ -502,23 +504,23 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
             <button onClick={() => setStep(0)} className="text-sm text-primary font-semibold hover:underline flex items-center gap-1">
-              <ArrowLeft className="w-3.5 h-3.5" /> All Blocks
+              <ArrowLeft className="w-3.5 h-3.5" /> {t("businessCanvas.allBlocks")}
             </button>
-            <span className="text-xs text-muted-foreground font-semibold">Review & Submit</span>
+            <span className="text-xs text-muted-foreground font-semibold">{t("businessCanvas.reviewSubmit")}</span>
           </div>
           <Progress value={100} variant="success" className="h-2" />
         </div>
 
         <div className="text-center mb-8">
           <h1 className="font-display text-3xl font-extrabold tracking-tight mb-2">
-            {canvas.businessName || "Your Business"} - Business Model Canvas
+            {t("businessCanvas.canvasTitle", { name: canvas.businessName || t("businessCanvas.yourBusiness") })}
           </h1>
           <p className="text-muted-foreground text-sm">
-            {completedBlocks}/9 blocks completed · Review your full canvas below
+            {t("businessCanvas.blocksCompleted", { count: completedBlocks })}
           </p>
           {canvas.submitted && (
             <Badge variant="success" className="mt-2">
-              ✓ Submitted {canvas.submittedAt ? new Date(canvas.submittedAt).toLocaleDateString() : ""}
+              {t("businessCanvas.submittedOn", { date: canvas.submittedAt ? new Date(canvas.submittedAt).toLocaleDateString() : "" })}
             </Badge>
           )}
         </div>
@@ -553,7 +555,7 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
                     ) : null
                   ))}
                   {!hasContent && (
-                    <p className="text-xs text-muted-foreground italic">Not started yet</p>
+                    <p className="text-xs text-muted-foreground italic">{t("businessCanvas.notStartedYet")}</p>
                   )}
                 </div>
               </Card>
@@ -571,21 +573,21 @@ function VocabText({ text, className = "" }: { text: string; className?: string 
               className="gap-2 press-scale"
             >
               <Send className="w-4 h-4" />
-              Submit Canvas (+2,500 coins)
+              {t("businessCanvas.submitCanvas")}
             </Button>
           ) : (
             <div className="text-center space-y-3">
-              <p className="text-sm text-success font-semibold">🎉 Canvas submitted! +2,500 InvestiCoins earned</p>
+              <p className="text-sm text-success font-semibold">{t("businessCanvas.canvasSubmitted")}</p>
             </div>
           )}
           <Button variant="outline" onClick={handleReset} className="gap-1.5">
-            <RotateCcw className="w-3.5 h-3.5" /> Reset
+            <RotateCcw className="w-3.5 h-3.5" /> {t("businessCanvas.reset")}
           </Button>
         </div>
 
         {completedBlocks < 5 && !canvas.submitted && (
           <p className="text-center text-xs text-muted-foreground mt-3">
-            Complete at least 5 of 9 blocks to submit
+            {t("businessCanvas.minBlocksNote")}
           </p>
         )}
       </main>

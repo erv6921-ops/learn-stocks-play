@@ -5,6 +5,7 @@
 // it to collect a success fee; botch it and the deal can break.
 
 import { useMemo, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -41,6 +42,7 @@ export default function DealDetail(props: {
   engagement?: Engagement
   onWork?: (result: StageResult, writeUp: { headline: string; question: string; text: string }) => void
 }) {
+  const { t } = useTranslation()
   const { mode, week, accent, onBack, mandate, onWin, engagement, onWork } = props
   const meta = DEAL_TYPES[(mode === "mandate" ? mandate! : engagement!).dealType]
 
@@ -88,7 +90,7 @@ export default function DealDetail(props: {
   return (
     <motion.div initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} className="space-y-3">
       <button onClick={onBack} className="flex items-center gap-1 text-xs font-bold text-muted-foreground hover:text-foreground -ml-1">
-        <ArrowLeft className="h-4 w-4" /> Back to {mode === "mandate" ? "mandates" : "pipeline"}
+        <ArrowLeft className="h-4 w-4" /> {mode === "mandate" ? t("bankDeals.deal.backToMandates") : t("bankDeals.deal.backToPipeline")}
       </button>
 
       <Card variant="elevated" className="overflow-hidden">
@@ -98,11 +100,11 @@ export default function DealDetail(props: {
               <h3 className="font-display text-lg font-extrabold">{base.project}</h3>
               <Badge variant="outline" className="text-[9px]">{meta.icon} {meta.label}</Badge>
             </div>
-            <p className="text-xs text-muted-foreground mt-0.5 capitalize">Client: {base.client} · {base.sector}</p>
+            <p className="text-xs text-muted-foreground mt-0.5 capitalize">{t("bankDeals.deal.clientLine", { client: base.client, sector: base.sector })}</p>
           </div>
           <div className="text-right shrink-0">
             <p className="text-sm font-extrabold">{base.value.toLocaleString()}</p>
-            <p className="text-[10px] text-muted-foreground">deal size</p>
+            <p className="text-[10px] text-muted-foreground">{t("bankDeals.deal.dealSize")}</p>
           </div>
         </div>
 
@@ -112,18 +114,18 @@ export default function DealDetail(props: {
             <>
               <div className="grid grid-cols-2 gap-2">
                 <div className="rounded-lg border border-border/60 bg-muted/30 px-3 py-2">
-                  <p className="text-[9px] uppercase font-bold text-muted-foreground flex items-center gap-1"><Coins className="h-3 w-3" /> Potential fee</p>
+                  <p className="text-[9px] uppercase font-bold text-muted-foreground flex items-center gap-1"><Coins className="h-3 w-3" /> {t("bankDeals.deal.potentialFee")}</p>
                   <p className="text-sm font-extrabold tabular-nums mt-0.5" style={{ color: accent }}>~{successFee(base.value, 90).toLocaleString()}</p>
-                  <p className="text-[9px] text-muted-foreground">{Math.round(feeRate(base.value) * 100)}% of {base.value.toLocaleString()}, if executed well</p>
+                  <p className="text-[9px] text-muted-foreground">{t("bankDeals.deal.feeOfValue", { pct: Math.round(feeRate(base.value) * 100), value: base.value.toLocaleString() })}</p>
                 </div>
                 <div className="rounded-lg border border-border/60 bg-muted/30 px-3 py-2">
-                  <p className="text-[9px] uppercase font-bold text-muted-foreground flex items-center gap-1"><Swords className="h-3 w-3" /> Competing banks</p>
+                  <p className="text-[9px] uppercase font-bold text-muted-foreground flex items-center gap-1"><Swords className="h-3 w-3" /> {t("bankDeals.deal.competingBanks")}</p>
                   <p className="text-xs font-bold mt-0.5">{mandate!.rivals.join(", ")}</p>
                 </div>
               </div>
 
               <div className="rounded-xl border-2 p-3" style={{ borderColor: `${accent}55` }}>
-                <p className="text-[10px] uppercase font-extrabold tracking-wide mb-1.5 flex items-center gap-1" style={{ color: accent }}><Trophy className="h-3.5 w-3.5" /> Win the mandate</p>
+                <p className="text-[10px] uppercase font-extrabold tracking-wide mb-1.5 flex items-center gap-1" style={{ color: accent }}><Trophy className="h-3.5 w-3.5" /> {t("bankDeals.deal.winMandate")}</p>
                 <p className="text-xs text-foreground/85 leading-relaxed">{mandate!.pitch.situation}</p>
                 <p className="text-xs font-display font-extrabold mt-2">{mandate!.pitch.question}</p>
                 <div className="space-y-1.5 mt-2">
@@ -134,7 +136,7 @@ export default function DealDetail(props: {
                       <button key={i} disabled={revealed} onClick={() => setPitchPick(i)} className={cn("w-full text-left rounded-lg border-2 p-2.5 text-xs transition-all", isPicked ? ch.points === 2 ? "border-primary bg-primary/10" : ch.points === 1 ? "border-amber-500 bg-amber-500/10" : "border-red-500 bg-red-500/10" : revealed ? "border-border/50 opacity-45" : "border-border/60 hover:bg-muted/60")}>
                         <div className="flex items-start justify-between gap-2">
                           <span className="font-medium">{ch.text}</span>
-                          {isPicked && <Badge variant={ch.points === 2 ? "success" : ch.points === 1 ? "warning" : "destructive"} className="shrink-0 text-[9px]">{ch.points === 2 ? "Pro" : ch.points === 1 ? "Okay" : "Rookie"}</Badge>}
+                          {isPicked && <Badge variant={ch.points === 2 ? "success" : ch.points === 1 ? "warning" : "destructive"} className="shrink-0 text-[9px]">{ch.points === 2 ? t("bankDeals.tier.pro") : ch.points === 1 ? t("bankDeals.tier.okay") : t("bankDeals.tier.rookie")}</Badge>}
                         </div>
                         <AnimatePresence>
                           {isPicked && <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="mt-1.5 text-[11px] text-muted-foreground leading-relaxed">{ch.feedback}</motion.p>}
@@ -146,27 +148,27 @@ export default function DealDetail(props: {
 
                 {pitchPick !== null && lostPitch && (
                   <div className="mt-3 rounded-lg bg-red-500/10 border border-red-500/40 px-3 py-2">
-                    <p className="text-xs font-bold text-red-500">You lost this pitch to {mandate!.rivals[0]}.</p>
-                    <p className="text-[11px] text-muted-foreground mt-0.5">Mandates go to the most credible bank in the room. Try a different mandate this week.</p>
-                    <Button size="sm" variant="outline" className="w-full mt-2" onClick={onBack}>Back to mandates</Button>
+                    <p className="text-xs font-bold text-red-500">{t("bankDeals.deal.lostPitch", { rival: mandate!.rivals[0] })}</p>
+                    <p className="text-[11px] text-muted-foreground mt-0.5">{t("bankDeals.deal.lostPitchNote")}</p>
+                    <Button size="sm" variant="outline" className="w-full mt-2" onClick={onBack}>{t("bankDeals.deal.backToMandatesBtn")}</Button>
                   </div>
                 )}
 
                 {pitchPick !== null && !lostPitch && (
                   <div className="mt-3 space-y-1.5">
                     <div className="flex items-center justify-between">
-                      <label className="text-[11px] font-bold text-foreground/90 flex items-center gap-1"><PenLine className="h-3.5 w-3.5" style={{ color: accent }} /> Your pitch to the board</label>
-                      <span className={cn("text-[10px] font-bold tabular-nums", pitchOk ? "text-primary" : "text-muted-foreground")}>{pitchWords}/{IB_PITCH_MIN_WORDS} words {pitchOk && "✓"}</span>
+                      <label className="text-[11px] font-bold text-foreground/90 flex items-center gap-1"><PenLine className="h-3.5 w-3.5" style={{ color: accent }} /> {t("bankDeals.deal.pitchToBoard")}</label>
+                      <span className={cn("text-[10px] font-bold tabular-nums", pitchOk ? "text-primary" : "text-muted-foreground")}>{t("bankDeals.wordsCount", { count: pitchWords, min: IB_PITCH_MIN_WORDS })} {pitchOk && "✓"}</span>
                     </div>
-                    <Textarea rows={3} value={pitchText} onChange={e => setPitchText(e.target.value)} placeholder={`Make your case to ${base.client}'s board: why you, and how you'll run this ${meta.label} deal.`} className={cn("text-xs leading-relaxed", pitchOk && "border-primary/50")} />
+                    <Textarea rows={3} value={pitchText} onChange={e => setPitchText(e.target.value)} placeholder={t("bankDeals.deal.pitchPlaceholder", { client: base.client, dealType: meta.label })} className={cn("text-xs leading-relaxed", pitchOk && "border-primary/50")} />
                     <Button size="lg" className="w-full press-scale gap-1.5" disabled={!pitchOk} onClick={winIt}>
                       <Trophy className="h-4 w-4" />
-                      {pitchOk ? `Win it & kick off (health ${startHealth})` : `Write your pitch first (${IB_PITCH_MIN_WORDS - pitchWords} more words)`}
+                      {pitchOk ? t("bankDeals.deal.winAndKickOff", { health: startHealth }) : t("bankDeals.deal.writePitchFirst", { count: IB_PITCH_MIN_WORDS - pitchWords })}
                     </Button>
                   </div>
                 )}
               </div>
-              <p className="text-[10px] text-muted-foreground text-center">Bankers advise for a fee - you never buy the company. Win the job, then execute it stage by stage.</p>
+              <p className="text-[10px] text-muted-foreground text-center">{t("bankDeals.deal.advisorNote")}</p>
             </>
           )}
 
@@ -174,9 +176,9 @@ export default function DealDetail(props: {
           {mode === "engagement" && engagement && (
             <>
               <div className="grid grid-cols-3 gap-2 text-center">
-                <div><p className="text-[10px] text-muted-foreground uppercase font-bold flex items-center gap-1 justify-center"><Layers className="h-3 w-3" />Stage</p><p className="text-sm font-extrabold">{Math.min(engagement.stageIdx + 1, stageCount())}/{stageCount()}</p></div>
-                <div><p className="text-[10px] text-muted-foreground uppercase font-bold flex items-center gap-1 justify-center"><Heart className="h-3 w-3" />Health</p><p className="text-sm font-extrabold" style={{ color: engagement.health >= 66 ? "#10b981" : engagement.health >= 33 ? "#d97706" : "#ef4444" }}>{engagement.health}</p></div>
-                <div><p className="text-[10px] text-muted-foreground uppercase font-bold flex items-center gap-1 justify-center"><LineChart className="h-3 w-3" />Value</p><p className="text-sm font-extrabold" style={{ color: engagement.value >= engagement.startValue ? "#10b981" : "#ef4444" }}>{engagement.value.toLocaleString()}</p></div>
+                <div><p className="text-[10px] text-muted-foreground uppercase font-bold flex items-center gap-1 justify-center"><Layers className="h-3 w-3" />{t("bankDeals.deal.stage")}</p><p className="text-sm font-extrabold">{Math.min(engagement.stageIdx + 1, stageCount())}/{stageCount()}</p></div>
+                <div><p className="text-[10px] text-muted-foreground uppercase font-bold flex items-center gap-1 justify-center"><Heart className="h-3 w-3" />{t("bankDeals.deal.health")}</p><p className="text-sm font-extrabold" style={{ color: engagement.health >= 66 ? "#10b981" : engagement.health >= 33 ? "#d97706" : "#ef4444" }}>{engagement.health}</p></div>
+                <div><p className="text-[10px] text-muted-foreground uppercase font-bold flex items-center gap-1 justify-center"><LineChart className="h-3 w-3" />{t("bankDeals.deal.value")}</p><p className="text-sm font-extrabold" style={{ color: engagement.value >= engagement.startValue ? "#10b981" : "#ef4444" }}>{engagement.value.toLocaleString()}</p></div>
               </div>
               <HealthBar health={engagement.health} />
 
@@ -192,9 +194,9 @@ export default function DealDetail(props: {
 
               {engagement.events.length > 0 && (
                 <div>
-                  <p className="text-[10px] uppercase font-bold text-muted-foreground mb-1.5">Deal log</p>
+                  <p className="text-[10px] uppercase font-bold text-muted-foreground mb-1.5">{t("bankDeals.dealLog")}</p>
                   <div className="space-y-1 max-h-28 overflow-y-auto pr-1">
-                    {[...engagement.events].reverse().map((e, i) => <p key={i} className="text-[11px] text-muted-foreground"><b className="text-foreground/70">Wk {e.week}:</b> {e.text}</p>)}
+                    {[...engagement.events].reverse().map((e, i) => <p key={i} className="text-[11px] text-muted-foreground"><b className="text-foreground/70">{t("bankDeals.wk", { week: e.week })}</b> {e.text}</p>)}
                   </div>
                 </div>
               )}
@@ -206,13 +208,13 @@ export default function DealDetail(props: {
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-1">
                     <p className="text-xs text-foreground/90 leading-relaxed">{applied.outcome}</p>
                     <div className="flex items-center gap-2 flex-wrap">
-                      {applied.closedFee ? <Badge variant="success" className="text-[10px]">Fee +{applied.closedFee.toLocaleString()} 🪙</Badge> : null}
-                      <Badge variant={applied.repDelta >= 0 ? "success" : "destructive"} className="text-[10px]">Reputation {applied.repDelta >= 0 ? "+" : ""}{applied.repDelta}</Badge>
+                      {applied.closedFee ? <Badge variant="success" className="text-[10px]">{t("bankDeals.deal.feePayout", { amount: applied.closedFee.toLocaleString() })} 🪙</Badge> : null}
+                      <Badge variant={applied.repDelta >= 0 ? "success" : "destructive"} className="text-[10px]">{t("bankDeals.reputation", { delta: `${applied.repDelta >= 0 ? "+" : ""}${applied.repDelta}` })}</Badge>
                     </div>
-                    <Button size="sm" variant="outline" className="w-full mt-1" onClick={onBack}>{applied.closedFee || applied.broke ? "Back to pipeline" : "Back - continue next week"}</Button>
+                    <Button size="sm" variant="outline" className="w-full mt-1" onClick={onBack}>{applied.closedFee || applied.broke ? t("bankDeals.deal.backToPipelineBtn") : t("bankDeals.deal.backContinueNextWeek")}</Button>
                   </motion.div>
                 ) : !canWork ? (
-                  <p className="text-xs text-muted-foreground">You already advanced {engagement.client}'s deal this week. Finish your weekly deal (advance a week) to work the next stage.</p>
+                  <p className="text-xs text-muted-foreground">{t("bankDeals.deal.alreadyAdvanced", { client: engagement.client })}</p>
                 ) : scenario ? (
                   <div className="space-y-2.5">
                     <div>
@@ -228,7 +230,7 @@ export default function DealDetail(props: {
                           <button key={i} disabled={revealed} onClick={() => pickStage(i)} className={cn("w-full text-left rounded-lg border-2 p-2.5 text-xs transition-all", isPicked ? ch.points === 2 ? "border-primary bg-primary/10" : ch.points === 1 ? "border-amber-500 bg-amber-500/10" : "border-red-500 bg-red-500/10" : revealed ? "border-border/50 opacity-45" : "border-border/60 hover:bg-muted/60")}>
                             <div className="flex items-start justify-between gap-2">
                               <span className="font-medium">{ch.text}</span>
-                              {isPicked && <Badge variant={ch.points === 2 ? "success" : ch.points === 1 ? "warning" : "destructive"} className="shrink-0 text-[9px]">{ch.points === 2 ? "Pro" : ch.points === 1 ? "Okay" : "Rookie"}</Badge>}
+                              {isPicked && <Badge variant={ch.points === 2 ? "success" : ch.points === 1 ? "warning" : "destructive"} className="shrink-0 text-[9px]">{ch.points === 2 ? t("bankDeals.tier.pro") : ch.points === 1 ? t("bankDeals.tier.okay") : t("bankDeals.tier.rookie")}</Badge>}
                             </div>
                             <AnimatePresence>
                               {isPicked && <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="mt-1.5 text-[11px] text-muted-foreground leading-relaxed">{ch.feedback}</motion.p>}
@@ -240,11 +242,11 @@ export default function DealDetail(props: {
                     {picked !== null && (
                       <div className="space-y-1.5">
                         <div className="flex items-center justify-between">
-                          <label className="text-[11px] font-bold text-foreground/90 flex items-center gap-1"><PenLine className="h-3.5 w-3.5" style={{ color: accent }} /> Note it in your deal memo</label>
-                          <span className={cn("text-[10px] font-bold tabular-nums", noteOk ? "text-primary" : "text-muted-foreground")}>{noteWords}/{IB_NOTE_MIN_WORDS} words {noteOk && "✓"}</span>
+                          <label className="text-[11px] font-bold text-foreground/90 flex items-center gap-1"><PenLine className="h-3.5 w-3.5" style={{ color: accent }} /> {t("bankDeals.deal.noteDealMemo")}</label>
+                          <span className={cn("text-[10px] font-bold tabular-nums", noteOk ? "text-primary" : "text-muted-foreground")}>{t("bankDeals.wordsCount", { count: noteWords, min: IB_NOTE_MIN_WORDS })} {noteOk && "✓"}</span>
                         </div>
-                        <Textarea rows={3} value={note} onChange={e => setNote(e.target.value)} placeholder={`Record the call for the file: what you advised ${engagement.client} at this stage and why.`} className={cn("text-xs leading-relaxed", noteOk && "border-primary/50")} />
-                        <Button size="sm" className="w-full press-scale" disabled={!noteOk} onClick={work}>{noteOk ? "Make the call" : `Write your reasoning (${IB_NOTE_MIN_WORDS - noteWords} more words)`}</Button>
+                        <Textarea rows={3} value={note} onChange={e => setNote(e.target.value)} placeholder={t("bankDeals.deal.notePlaceholder", { client: engagement.client })} className={cn("text-xs leading-relaxed", noteOk && "border-primary/50")} />
+                        <Button size="sm" className="w-full press-scale" disabled={!noteOk} onClick={work}>{noteOk ? t("bankDeals.deal.makeTheCall") : t("bankDeals.writeReasoning", { count: IB_NOTE_MIN_WORDS - noteWords })}</Button>
                       </div>
                     )}
                   </div>

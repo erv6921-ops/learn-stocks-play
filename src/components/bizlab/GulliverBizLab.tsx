@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { motion } from "framer-motion"
 import { Flame, Coins, Trophy, CheckCircle2, Rocket } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
@@ -27,6 +28,7 @@ const CAPSTONE_XP = 500
  * pitch dates, progress + streak HUD, milestone badges, and the part navigator.
  */
 export default function GulliverBizLab() {
+  const { t } = useTranslation()
   const { toast } = useToast()
   const { earnJeffs } = useApp()
   const completedParts = useBizLabStore(s => s.completedParts)
@@ -65,14 +67,14 @@ export default function GulliverBizLab() {
   // Capstone reward when the whole unit is finished.
   useEffect(() => {
     if (allComplete && !hasAwarded("capstone")) {
-      earnJeffs(CAPSTONE_XP, "Gulliver Biz Lab - Shark Tank Champion!")
+      earnJeffs(CAPSTONE_XP, t("bizlab.capstone.reason"))
       markAwarded("capstone")
       toast({
-        title: "🦈 Shark Tank Champion!",
-        description: `You finished the entire Biz Lab unit. +${CAPSTONE_XP} bonus InvestiCoins!`,
+        title: t("bizlab.capstone.toastTitle"),
+        description: t("bizlab.capstone.toastDescription", { xp: CAPSTONE_XP }),
       })
     }
-  }, [allComplete, hasAwarded, markAwarded, earnJeffs, toast])
+  }, [allComplete, hasAwarded, markAwarded, earnJeffs, toast, t])
 
   const activePart = BIZ_LAB_PARTS.find(p => p.id === activePartId) ?? BIZ_LAB_PARTS[0]
 
@@ -92,18 +94,18 @@ export default function GulliverBizLab() {
             <Rocket className="w-3.5 h-3.5 text-gold" /> Gulliver Biz Lab
           </p>
           <h1 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight leading-tight mt-1">
-            The Shark Tank Project
+            {t("bizlab.hero.title")}
           </h1>
           <p className="text-white/70 text-sm mt-1 max-w-xl">
-            Build a real business - idea, plan, prototype, brand, commercial, and website - then pitch it to the Sharks. Let's get to work, future founder!
+            {t("bizlab.hero.subtitle")}
           </p>
 
           {/* HUD strip */}
           <div className="mt-4 grid grid-cols-3 rounded-2xl bg-white/[0.06] border border-white/10 divide-x divide-white/10">
             {[
-              { Icon: Flame, tint: "text-orange-400", value: `${streak}d`, label: "Streak" },
-              { Icon: CheckCircle2, tint: "text-primary", value: `${completedParts.length}/6`, label: "Parts done" },
-              { Icon: Coins, tint: "text-gold", value: TOTAL_BIZ_LAB_XP.toLocaleString(), label: "Coins to earn" },
+              { Icon: Flame, tint: "text-orange-400", value: `${streak}d`, label: t("bizlab.hud.streak") },
+              { Icon: CheckCircle2, tint: "text-primary", value: `${completedParts.length}/6`, label: t("bizlab.hud.partsDone") },
+              { Icon: Coins, tint: "text-gold", value: TOTAL_BIZ_LAB_XP.toLocaleString(), label: t("bizlab.hud.coinsToEarn") },
             ].map(({ Icon, tint, value, label }) => (
               <div key={label} className="px-3 py-3 sm:px-4 flex items-center gap-2.5 min-w-0">
                 <Icon className={`w-4 h-4 shrink-0 ${tint}`} />
@@ -118,7 +120,7 @@ export default function GulliverBizLab() {
           {/* Progress bar */}
           <div className="mt-4">
             <div className="flex items-center justify-between mb-1.5 text-xs text-white/70">
-              <span>Unit progress</span>
+              <span>{t("bizlab.unitProgress")}</span>
               <span className="font-bold">{percent}%</span>
             </div>
             <div className="h-2.5 rounded-full bg-white/10 overflow-hidden">
@@ -136,7 +138,7 @@ export default function GulliverBizLab() {
       {/* Countdowns */}
       <div>
         <h3 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
-          <Trophy className="w-5 h-5 text-gold" /> Key Dates
+          <Trophy className="w-5 h-5 text-gold" /> {t("bizlab.keyDates")}
         </h3>
         <Countdown />
       </div>
@@ -144,7 +146,7 @@ export default function GulliverBizLab() {
       {/* Badges */}
       <div>
         <h3 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
-          <Trophy className="w-5 h-5 text-gold" /> Milestone Badges
+          <Trophy className="w-5 h-5 text-gold" /> {t("bizlab.milestoneBadges")}
         </h3>
         <BadgeShelf earned={earnedBadges} />
       </div>
@@ -166,7 +168,7 @@ export default function GulliverBizLab() {
               }`}
             >
               {done ? <CheckCircle2 className="w-4 h-4 text-success" /> : <Icon className="w-4 h-4" />}
-              Part {p.number}
+              {t("bizlab.partLabel", { number: p.number })}
             </button>
           )
         })}

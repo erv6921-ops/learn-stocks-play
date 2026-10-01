@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useTranslation, Trans } from "react-i18next"
 import { Coins, CheckCircle2, XCircle, Sparkles } from "lucide-react"
 import { Scenario } from "@/data/scenarioData"
 
@@ -12,6 +13,7 @@ interface DailyScenarioProps {
 const REWARD = 75
 
 export default function DailyScenario({ scenario, onComplete, submitting }: DailyScenarioProps) {
+  const { t } = useTranslation()
   const [selected, setSelected] = useState<number | null>(null)
   const answered = selected !== null
   const correct = answered && selected === scenario.correctIndex
@@ -45,12 +47,12 @@ export default function DailyScenario({ scenario, onComplete, submitting }: Dail
         />
         <div className="relative z-10 flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-extrabold text-white tracking-tight">Daily Scenario</h1>
-            <p className="text-white/50 text-sm mt-1">What would you do?</p>
+            <h1 className="text-2xl font-extrabold text-white tracking-tight">{t("games.dailyScenario.title")}</h1>
+            <p className="text-white/50 text-sm mt-1">{t("games.dailyScenario.subtitle")}</p>
           </div>
           <div className="flex items-center gap-1.5 bg-gold/15 text-gold px-3 py-1.5 rounded-full text-sm font-bold border border-gold/20 whitespace-nowrap">
             <Coins className="w-4 h-4" />
-            +{REWARD} coins
+            {t("games.coinsReward", { reward: REWARD })}
           </div>
         </div>
       </div>
@@ -94,15 +96,18 @@ export default function DailyScenario({ scenario, onComplete, submitting }: Dail
           <div className="rounded-xl p-4 bg-muted/50 border border-border mb-4">
             <p className="text-sm leading-relaxed">
               <span className={`font-bold ${correct ? "text-success" : "text-destructive"}`}>
-                {correct ? "✓ Correct! " : "❌ Incorrect. "}
+                {correct ? t("games.correct") : t("games.incorrect")}
               </span>
               {scenario.explanation}
             </p>
             {/* MODIFIED: a wrong answer must always spell out the correct choice. */}
             {!correct && (
               <p className="text-sm mt-2">
-                ✅ The correct answer is:{" "}
-                <strong className="text-success">{scenario.options[scenario.correctIndex]}</strong>
+                <Trans
+                  i18nKey="games.correctAnswerIs"
+                  values={{ answer: scenario.options[scenario.correctIndex] }}
+                  components={{ b: <strong className="text-success" /> }}
+                />
               </p>
             )}
           </div>
@@ -114,7 +119,7 @@ export default function DailyScenario({ scenario, onComplete, submitting }: Dail
               className="w-full py-4 rounded-xl bg-primary text-primary-foreground font-bold text-base press-scale shadow-glow flex items-center justify-center gap-2 disabled:opacity-60"
             >
               <Sparkles className="w-5 h-5" />
-              {submitting ? "Claiming…" : `Claim reward · +${REWARD} coins`}
+              {submitting ? t("games.claiming") : t("games.claimRewardCoins", { reward: REWARD })}
             </button>
           ) : (
             <button
@@ -122,7 +127,7 @@ export default function DailyScenario({ scenario, onComplete, submitting }: Dail
               onClick={() => onComplete(false, 0)}
               className="w-full py-4 rounded-xl bg-muted text-muted-foreground font-bold text-base press-scale disabled:opacity-60"
             >
-              {submitting ? "Saving…" : "Try again tomorrow"}
+              {submitting ? t("games.saving") : t("games.tryAgainTomorrow")}
             </button>
           )}
         </div>

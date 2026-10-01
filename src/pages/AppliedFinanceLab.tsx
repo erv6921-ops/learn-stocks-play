@@ -8,6 +8,7 @@
 
 import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import GameNav from "@/components/GameNav";
 import { Button } from "@/components/ui/button";
 import taxDocIcon from "@/assets/icons/tax-document.png";
@@ -85,6 +86,7 @@ function totalQuestions(docId: string): number {
 
 /* ── Read-only mock of one form question for the teaser ── */
 function PreviewField({ field, index }: { field: FormField; index: number }) {
+  const { t } = useTranslation()
   return (
     <div className="rounded-xl border border-border bg-background/80 p-3.5">
       <div className="flex items-start gap-2.5">
@@ -107,11 +109,11 @@ function PreviewField({ field, index }: { field: FormField; index: number }) {
             </div>
           ) : field.type === "select" && field.options ? (
             <div className="mt-2 h-9 rounded-lg border border-input bg-muted/40 px-3 flex items-center text-xs text-muted-foreground/70">
-              Choose…
+              {t("lab.choose")}
             </div>
           ) : (
             <div className="mt-2 h-9 rounded-lg border border-input bg-muted/40 px-3 flex items-center text-xs text-muted-foreground/70">
-              {field.placeholder || "Your answer…"}
+              {field.placeholder || t("lab.yourAnswer")}
             </div>
           )}
         </div>
@@ -122,6 +124,7 @@ function PreviewField({ field, index }: { field: FormField; index: number }) {
 
 export default function AppliedFinanceLab() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // Next form = first available doc (catalog order) not yet completed.
   const { nextDoc, nextCat, doneCount } = useMemo(() => {
@@ -165,14 +168,14 @@ export default function AppliedFinanceLab() {
               <FlaskConical className="w-5 h-5" style={{ color: "hsl(42 85% 55%)" }} />
             </div>
             <div>
-              <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">Applied Finance Lab</h1>
+              <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">{t("lab.title")}</h1>
               <p className="text-muted-foreground text-xs font-semibold uppercase tracking-widest">
-                Real documents · safe practice
+                {t("lab.subtitle")}
               </p>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-sm font-bold">{doneCount}/{availableDocs} completed</p>
+            <p className="text-sm font-bold">{t("lab.countCompleted", { done: doneCount, total: availableDocs })}</p>
             <div className="h-1.5 w-40 rounded-full bg-muted overflow-hidden mt-1">
               <div className="h-full rounded-full bg-gold transition-all"
                 style={{ width: `${availableDocs ? (doneCount / availableDocs) * 100 : 0}%` }} />
@@ -193,7 +196,7 @@ export default function AppliedFinanceLab() {
                 <div className="flex items-center gap-2 mb-4">
                   <Sparkles className="w-4 h-4" style={{ color: `hsl(${nextHue} 65% 45%)` }} />
                   <span className="text-[11px] font-extrabold uppercase tracking-[0.2em]" style={{ color: `hsl(${nextHue} 65% 45%)` }}>
-                    Up next in your lab
+                    {t("lab.upNext")}
                   </span>
                 </div>
                 <div className="flex items-center gap-3 mb-3">
@@ -216,18 +219,18 @@ export default function AppliedFinanceLab() {
                 <div className="flex items-center gap-4 mt-4 text-xs font-semibold flex-wrap">
                   <span className="flex items-center gap-1.5">
                     <span className={`w-1.5 h-1.5 rounded-full ${DIFFICULTY_DOT[nextDoc.difficulty]}`} />
-                    <span className={`uppercase ${DIFFICULTY_COLORS[nextDoc.difficulty]}`}>{nextDoc.difficulty}</span>
+                    <span className={`uppercase ${DIFFICULTY_COLORS[nextDoc.difficulty]}`}>{t(`lab.difficulty.${nextDoc.difficulty}`)}</span>
                   </span>
-                  <span className="text-muted-foreground flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{nextDoc.estimatedMinutes} min</span>
-                  <span className="flex items-center gap-1 text-gold"><Coins className="w-3.5 h-3.5" />{nextDoc.reward} coins</span>
+                  <span className="text-muted-foreground flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{t("lab.minutes", { count: nextDoc.estimatedMinutes })}</span>
+                  <span className="flex items-center gap-1 text-gold"><Coins className="w-3.5 h-3.5" />{t("lab.coins", { count: nextDoc.reward })}</span>
                   {questions > 0 && (
-                    <span className="text-muted-foreground flex items-center gap-1"><FileText className="w-3.5 h-3.5" />{questions} questions</span>
+                    <span className="text-muted-foreground flex items-center gap-1"><FileText className="w-3.5 h-3.5" />{t("lab.questions", { count: questions })}</span>
                   )}
                 </div>
 
                 <div className="mt-auto pt-6">
                   <Button size="lg" className="press-scale gap-2 w-full sm:w-auto" onClick={() => navigate(`/lab/${nextDoc.id}`)}>
-                    Start this form <ArrowRight className="w-4 h-4" />
+                    {t("lab.startForm")} <ArrowRight className="w-4 h-4" />
                   </Button>
                 </div>
               </div>
@@ -243,7 +246,7 @@ export default function AppliedFinanceLab() {
                 className="relative bg-muted/30 border-t lg:border-t-0 lg:border-l border-border p-6 md:p-8 cursor-pointer group/preview transition-colors hover:bg-muted/50"
               >
                 <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground mb-3">
-                  A peek at the form - tap to open
+                  {t("lab.peek")}
                 </p>
                 {preview.length > 0 ? (
                   <div
@@ -265,9 +268,9 @@ export default function AppliedFinanceLab() {
                   >
                     {/* No field set yet - tease the education intro as the opening questions */}
                     {[
-                      { q: "When do you fill this out?", a: nextDoc.education?.whenYouFillItOut },
-                      { q: "Why does it matter?", a: nextDoc.education?.whyItMatters },
-                      { q: "What if you get it wrong?", a: nextDoc.education?.whatHappensIfWrong },
+                      { q: t("lab.teaser.whenFillOut"), a: nextDoc.education?.whenYouFillItOut },
+                      { q: t("lab.teaser.whyMatters"), a: nextDoc.education?.whyItMatters },
+                      { q: t("lab.teaser.ifWrong"), a: nextDoc.education?.whatHappensIfWrong },
                     ].filter(x => x.a).map((x, i) => (
                       <div key={i} className="rounded-xl border border-border bg-background/80 p-3.5">
                         <p className="text-sm font-semibold">{x.q}</p>
@@ -282,7 +285,7 @@ export default function AppliedFinanceLab() {
                     onClick={() => navigate(`/lab/${nextDoc.id}`)}
                     className="press-scale rounded-full border border-border bg-card px-4 py-1.5 text-xs font-bold text-muted-foreground shadow-sm hover:text-foreground transition-colors"
                   >
-                    {questions > 3 ? `+ ${questions - 3} more questions - continue inside` : "Continue inside →"}
+                    {questions > 3 ? t("lab.moreQuestions", { count: questions - 3 }) : t("lab.continueInside")}
                   </button>
                 </div>
               </div>
@@ -294,10 +297,9 @@ export default function AppliedFinanceLab() {
         {!nextDoc && (
           <section className="rounded-2xl border border-success/40 bg-success/5 p-6 md:p-8 mb-8 text-center">
             <CheckCircle2 className="w-10 h-10 text-success mx-auto mb-2" />
-            <h2 className="font-display text-xl font-extrabold">All caught up!</h2>
+            <h2 className="font-display text-xl font-extrabold">{t("lab.allCaughtUp")}</h2>
             <p className="text-sm text-muted-foreground mt-1 max-w-md mx-auto">
-              You've completed every form in the lab - {doneCount}/{availableDocs}. New documents unlock soon;
-              revisit any form below for a refresher.
+              {t("lab.allCaughtUpDesc", { done: doneCount, total: availableDocs })}
             </p>
           </section>
         )}
@@ -306,7 +308,7 @@ export default function AppliedFinanceLab() {
             All 12 topics visible at once as a chip grid (no scrolling to
             find one); tapping a chip shows just that topic's documents. */}
         <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground mb-3">
-          All case files · {labCategories.length} topics · {totalDocs} documents
+          {t("lab.allCaseFiles", { topics: labCategories.length, documents: totalDocs })}
         </p>
 
         {/* topic chips - the whole catalog in two-ish rows */}
@@ -333,7 +335,7 @@ export default function AppliedFinanceLab() {
                 </div>
                 <p className={`text-[11px] font-bold mt-1.5 leading-tight truncate ${isActive ? "" : "text-muted-foreground"}`}>{cat.title}</p>
                 <p className="text-[10px] text-muted-foreground">
-                  {avail.length > 0 ? `${done}/${avail.length}` : "soon"}
+                  {avail.length > 0 ? `${done}/${avail.length}` : t("lab.soon")}
                 </p>
                 {hasNext && (
                   <span className="absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full animate-pulse" style={{ background: `hsl(${hue} 65% 45%)` }} />
@@ -383,8 +385,8 @@ export default function AppliedFinanceLab() {
                         </p>
                         <p className="text-[11px] text-muted-foreground truncate">
                           {doc.available
-                            ? <>{doc.estimatedMinutes}m · <span className="text-gold font-semibold">{doc.reward} 🪙</span>{isNext && <span className="font-bold ml-1" style={{ color: `hsl(${hue} 60% 40%)` }}>· Up next</span>}</>
-                            : "Coming soon"}
+                            ? <>{t("lab.minutesShort", { count: doc.estimatedMinutes })} · <span className="text-gold font-semibold">{doc.reward} 🪙</span>{isNext && <span className="font-bold ml-1" style={{ color: `hsl(${hue} 60% 40%)` }}>{t("lab.upNextTag")}</span>}</>
+                            : t("lab.comingSoon")}
                         </p>
                       </div>
                       {doc.available && <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />}

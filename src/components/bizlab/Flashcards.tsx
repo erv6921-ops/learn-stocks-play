@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight, RotateCw, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -11,6 +12,7 @@ import { useBizLabStore } from "@/stores/bizLabStore"
  * can show flashcard progress.
  */
 export default function Flashcards({ terms }: { terms: VocabTerm[] }) {
+  const { t } = useTranslation()
   const [idx, setIdx] = useState(0)
   const [flipped, setFlipped] = useState(false)
   const viewTerm = useBizLabStore(s => s.viewTerm)
@@ -33,10 +35,10 @@ export default function Flashcards({ terms }: { terms: VocabTerm[] }) {
     <div>
       <div className="flex items-center justify-between mb-3">
         <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          Card {idx + 1} of {terms.length}
+          {t("bizlab.flashcards.cardCount", { current: idx + 1, total: terms.length })}
         </span>
         <span className="text-xs font-semibold text-primary">
-          {viewedCount}/{terms.length} learned
+          {t("bizlab.flashcards.learnedCount", { count: viewedCount, total: terms.length })}
         </span>
       </div>
 
@@ -44,7 +46,7 @@ export default function Flashcards({ terms }: { terms: VocabTerm[] }) {
         <button
           onClick={flip}
           className="block w-full text-left"
-          aria-label={`Flip flashcard for ${current.term}`}
+          aria-label={t("bizlab.flashcards.flipAria", { term: current.term })}
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
@@ -59,7 +61,7 @@ export default function Flashcards({ terms }: { terms: VocabTerm[] }) {
                 <div className="text-center">
                   <Sparkles className="w-6 h-6 mx-auto text-gold mb-3" />
                   <h4 className="font-display text-2xl font-extrabold">{current.term}</h4>
-                  <p className="text-xs text-muted-foreground mt-3">Tap to reveal the definition</p>
+                  <p className="text-xs text-muted-foreground mt-3">{t("bizlab.flashcards.tapToReveal")}</p>
                 </div>
               ) : (
                 <div>
@@ -67,7 +69,7 @@ export default function Flashcards({ terms }: { terms: VocabTerm[] }) {
                   <p className="text-sm text-foreground leading-relaxed">{current.definition}</p>
                   {current.example && (
                     <p className="text-sm text-muted-foreground italic mt-3 border-l-2 border-primary/40 pl-3">
-                      e.g. {current.example}
+                      {t("bizlab.flashcards.example", { example: current.example })}
                     </p>
                   )}
                 </div>
@@ -79,13 +81,13 @@ export default function Flashcards({ terms }: { terms: VocabTerm[] }) {
 
       <div className="flex items-center justify-between mt-4">
         <Button variant="outline" size="sm" onClick={() => go(-1)}>
-          <ChevronLeft className="w-4 h-4 mr-1" /> Prev
+          <ChevronLeft className="w-4 h-4 mr-1" /> {t("bizlab.flashcards.prev")}
         </Button>
         <Button variant="ghost" size="sm" onClick={flip}>
-          <RotateCw className="w-4 h-4 mr-1" /> Flip
+          <RotateCw className="w-4 h-4 mr-1" /> {t("bizlab.flashcards.flip")}
         </Button>
         <Button variant="outline" size="sm" onClick={() => go(1)}>
-          Next <ChevronRight className="w-4 h-4 ml-1" />
+          {t("bizlab.flashcards.next")} <ChevronRight className="w-4 h-4 ml-1" />
         </Button>
       </div>
     </div>

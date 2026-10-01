@@ -9,6 +9,8 @@
 // leaderboard's trophy styling and the bank's engraved panels.
 
 import { useState, useEffect, useCallback, useRef } from "react"
+import { useTranslation } from "react-i18next"
+import i18n from "@/i18n"
 import { motion, AnimatePresence } from "framer-motion"
 import GameNav from "@/components/GameNav"
 import { supabase } from "@/integrations/supabase/client"
@@ -65,7 +67,7 @@ interface Snapshot {
 }
 
 const fullName = (s: { first_name: string | null; last_name: string | null }) =>
-  [s.first_name, s.last_name].filter(Boolean).join(" ") || "Student"
+  [s.first_name, s.last_name].filter(Boolean).join(" ") || i18n.t("partners.studentFallback")
 
 const fmtMoney = (n: number) =>
   n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 })
@@ -96,6 +98,7 @@ function StudentCard({
   onRemove?: () => void
   busy: boolean
 }) {
+  const { t } = useTranslation()
   return (
     <motion.div layout initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
       <button
@@ -124,7 +127,7 @@ function StudentCard({
               <span className="inline-flex items-center gap-1"><School className="w-3 h-3" />{s.school_name}</span>
             )}
             {s.grade != null && (
-              <span className="inline-flex items-center gap-1"><GraduationCap className="w-3 h-3" />Grade {s.grade}</span>
+              <span className="inline-flex items-center gap-1"><GraduationCap className="w-3 h-3" />{t("partners.grade", { grade: s.grade })}</span>
             )}
           </p>
         </div>
@@ -136,12 +139,12 @@ function StudentCard({
             disabled={busy}
             onClick={(e) => { e.stopPropagation(); onInvite() }}
           >
-            {busy ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <UserPlus className="w-3.5 h-3.5" />} Invite
+            {busy ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <UserPlus className="w-3.5 h-3.5" />} {t("partners.invite")}
           </Button>
         )}
         {onInvite && s.partner_status === "pending_out" && (
           <Badge variant="outline" className="shrink-0 gap-1 text-muted-foreground">
-            <Clock className="w-3 h-3" /> Invited
+            <Clock className="w-3 h-3" /> {t("partners.invited")}
           </Badge>
         )}
         {onAccept && s.partner_status === "pending_in" && (
@@ -153,7 +156,7 @@ function StudentCard({
               disabled={busy}
               onClick={(e) => { e.stopPropagation(); onAccept() }}
             >
-              {busy ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <UserCheck className="w-3.5 h-3.5" />} Accept
+              {busy ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <UserCheck className="w-3.5 h-3.5" />} {t("partners.accept")}
             </Button>
             {onDecline && (
               <Button
@@ -162,7 +165,7 @@ function StudentCard({
                 className="text-muted-foreground hover:text-destructive px-2"
                 disabled={busy}
                 onClick={(e) => { e.stopPropagation(); onDecline() }}
-                title="Decline invite"
+                title={t("partners.declineInvite")}
               >
                 <X className="w-4 h-4" />
               </Button>
@@ -171,7 +174,7 @@ function StudentCard({
         )}
         {onInvite && s.partner_status === "accepted" && (
           <Badge variant="outline" className="shrink-0 gap-1" style={{ color: ACCENT, borderColor: ACCENT }}>
-            <UserCheck className="w-3 h-3" /> Partner
+            <UserCheck className="w-3 h-3" /> {t("partners.partnerBadge")}
           </Badge>
         )}
         {onRemove && (
@@ -181,7 +184,7 @@ function StudentCard({
             className="shrink-0 text-muted-foreground hover:text-destructive"
             disabled={busy}
             onClick={(e) => { e.stopPropagation(); onRemove() }}
-            title="Remove partner"
+            title={t("partners.removePartner")}
           >
             <UserMinus className="w-4 h-4" />
           </Button>
@@ -194,6 +197,7 @@ function StudentCard({
 export default function Partners() {
   const { user } = useApp()
   const { toast } = useToast()
+  const { t } = useTranslation()
 
   // search
   const [query, setQuery] = useState("")
@@ -258,15 +262,15 @@ export default function Partners() {
     const { data, error } = await (supabase as any).rpc("send_partner_request", { _to: s.user_id })
     setBusyId(null)
     if (error) {
-      toast({ title: "Couldn't send invite", description: error.message, variant: "destructive" })
+      toast({ title: t("partners.toasts.inviteFailed"), description: error.message, variant: "destructive" })
       return
     }
     if (data === "accepted") {
       // They had already invited us - inviting back seals the partnership.
-      toast({ title: "You're partners! 🤝", description: `${fullName(s)} had already invited you.` })
+      toast({ title: t("partners.toasts.nowPartnersTitle"), description: t("partners.toasts.hadAlreadyInvited", { name: fullName(s) }) })
       setResultStatus(s.user_id, "accepted")
     } else {
-      toast({ title: "Invite sent! ✉️", description: `${fullName(s)} has to accept before you're partners.` })
+      toast({ title: t("partners.toasts.inviteSentTitle"), description: t("partners.toasts.inviteSentDesc", { name: fullName(s) }) })
       setResultStatus(s.user_id, "pending_out")
     }
     loadPartners()
@@ -278,10 +282,10 @@ export default function Partners() {
     const { error } = await (supabase as any).rpc("respond_partner_request", { _from: s.user_id, _accept: accept })
     setBusyId(null)
     if (error) {
-      toast({ title: "Something went wrong", description: error.message, variant: "destructive" })
+      toast({ title: t("partners.toasts.somethingWrong"), description: error.message, variant: "destructive" })
       return
     }
-    if (accept) toast({ title: "You're partners! 🤝", description: `${fullName(s)} is now on your team.` })
+    if (accept) toast({ title: t("partners.toasts.nowPartnersTitle"), description: t("partners.toasts.nowOnTeam", { name: fullName(s) }) })
     setRequests(r => r.filter(x => x.user_id !== s.user_id))
     setResultStatus(s.user_id, accept ? "accepted" : "none")
     if (accept) loadPartners()
@@ -293,7 +297,7 @@ export default function Partners() {
     const { error } = await (supabase as any).rpc("remove_partner", { _other: s.user_id })
     setBusyId(null)
     if (error) {
-      toast({ title: "Couldn't remove partner", description: error.message, variant: "destructive" })
+      toast({ title: t("partners.toasts.removeFailed"), description: error.message, variant: "destructive" })
       return
     }
     setPartners(p => p.filter(x => x.user_id !== s.user_id))
@@ -344,7 +348,7 @@ export default function Partners() {
                   <Input
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search students by name…"
+                    placeholder={t("partners.searchPlaceholder")}
                     className="pl-9"
                   />
                 </div>
@@ -352,12 +356,12 @@ export default function Partners() {
                   <div className="space-y-2">
                     {searching && (
                       <p className="text-xs text-muted-foreground flex items-center gap-2 px-1">
-                        <Loader2 className="w-3 h-3 animate-spin" /> Searching…
+                        <Loader2 className="w-3 h-3 animate-spin" /> {t("partners.searching")}
                       </p>
                     )}
                     {!searching && results.length === 0 && (
                       <p className="text-xs text-muted-foreground px-1">
-                        No students found for "{query.trim()}". Check the spelling!
+                        {t("partners.noStudentsFound", { query: query.trim() })}
                       </p>
                     )}
                     <AnimatePresence>
@@ -378,7 +382,7 @@ export default function Partners() {
                 )}
                 {query.trim().length < 2 && (
                   <p className="text-xs text-muted-foreground px-1">
-                    Type at least 2 letters of a first or last name.
+                    {t("partners.typeAtLeast")}
                   </p>
                 )}
               </CardContent>
@@ -388,7 +392,7 @@ export default function Partners() {
             {requests.length > 0 && (
               <div>
                 <h2 className="font-extrabold text-sm uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-2">
-                  <Mail className="w-4 h-4" style={{ color: ACCENT }} /> Invites ({requests.length})
+                  <Mail className="w-4 h-4" style={{ color: ACCENT }} /> {t("partners.invitesCount", { count: requests.length })}
                   <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: ACCENT }} />
                 </h2>
                 <div className="space-y-2">
@@ -411,18 +415,18 @@ export default function Partners() {
 
             <div>
               <h2 className="font-extrabold text-sm uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-2">
-                <Users className="w-4 h-4" style={{ color: ACCENT }} /> My Partners ({partners.length})
+                <Users className="w-4 h-4" style={{ color: ACCENT }} /> {t("partners.myPartnersCount", { count: partners.length })}
               </h2>
               {loadingPartners ? (
                 <p className="text-sm text-muted-foreground flex items-center gap-2">
-                  <Loader2 className="w-4 h-4 animate-spin" /> Loading…
+                  <Loader2 className="w-4 h-4 animate-spin" /> {t("partners.loading")}
                 </p>
               ) : partners.length === 0 ? (
                 <Card>
                   <CardContent className="p-5 text-center">
                     <Handshake className="w-8 h-8 mx-auto mb-2 text-muted-foreground/50" />
-                    <p className="text-sm font-semibold">No partners yet</p>
-                    <p className="text-xs text-muted-foreground">Search a classmate's name above and send your first invite.</p>
+                    <p className="text-sm font-semibold">{t("partners.noPartnersYet")}</p>
+                    <p className="text-xs text-muted-foreground">{t("partners.noPartnersHint")}</p>
                   </CardContent>
                 </Card>
               ) : (
@@ -450,23 +454,22 @@ export default function Partners() {
               <Card className="border-dashed">
                 <CardContent className="p-10 text-center">
                   <Users className="w-12 h-12 mx-auto mb-3 text-muted-foreground/40" />
-                  <p className="font-bold">Pick a student</p>
+                  <p className="font-bold">{t("partners.pickStudent")}</p>
                   <p className="text-sm text-muted-foreground">
-                    Select someone from the search results or your partner list to see their stocks,
-                    micro-business and rank.
+                    {t("partners.pickStudentHint")}
                   </p>
                 </CardContent>
               </Card>
             ) : loadingSnapshot ? (
               <Card>
                 <CardContent className="p-10 flex items-center justify-center gap-2 text-muted-foreground">
-                  <Loader2 className="w-5 h-5 animate-spin" /> Loading profile…
+                  <Loader2 className="w-5 h-5 animate-spin" /> {t("partners.loadingProfile")}
                 </CardContent>
               </Card>
             ) : !snapshot?.profile ? (
               <Card>
                 <CardContent className="p-10 text-center text-sm text-muted-foreground">
-                  Couldn't load this student's profile.
+                  {t("partners.profileLoadFailed")}
                 </CardContent>
               </Card>
             ) : (
@@ -487,6 +490,7 @@ function SnapshotView({
   livePrices: Map<string, number>
   fallbackRow: StudentRow | null
 }) {
+  const { t } = useTranslation()
   const p = snap.profile!
   const xp = roundCoins(snap.xp ?? fallbackRow?.xp ?? 0)
   const leagueIdx = getLeagueIdx(xp)
@@ -521,7 +525,7 @@ function SnapshotView({
                   <span className="flex items-center gap-1.5"><School className="w-4 h-4" />{p.school_name}</span>
                 )}
                 {p.grade != null && (
-                  <span className="flex items-center gap-1.5"><GraduationCap className="w-4 h-4" />Grade {p.grade}</span>
+                  <span className="flex items-center gap-1.5"><GraduationCap className="w-4 h-4" />{t("partners.grade", { grade: p.grade })}</span>
                 )}
               </div>
               <div className="flex flex-wrap items-center gap-2 mt-3">
@@ -529,12 +533,12 @@ function SnapshotView({
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-extrabold"
                   style={{ color: league.color, background: league.soft }}
                 >
-                  {league.icon} {league.name} League
+                  {league.icon} {t("partners.leagueLabel", { league: league.name })}
                 </span>
-                <Badge variant="outline" className="gap-1"><Star className="w-3 h-3 text-warning" /> Level {level}</Badge>
-                <Badge variant="outline" className="gap-1"><Coins className="w-3 h-3 text-warning" /> {Math.round(xp).toLocaleString()} InvestiCoins</Badge>
+                <Badge variant="outline" className="gap-1"><Star className="w-3 h-3 text-warning" /> {t("partners.levelLabel", { level })}</Badge>
+                <Badge variant="outline" className="gap-1"><Coins className="w-3 h-3 text-warning" /> {t("partners.investiCoinsLabel", { amount: Math.round(xp).toLocaleString() })}</Badge>
                 <Badge variant="outline" className="gap-1" style={{ color: ACCENT, borderColor: ACCENT }}>
-                  <Handshake className="w-3 h-3" /> {Number(snap.partner_count ?? 0).toLocaleString()} {Number(snap.partner_count ?? 0) === 1 ? "partner" : "partners"}
+                  <Handshake className="w-3 h-3" /> {t("partners.partnerCount", { count: Number(snap.partner_count ?? 0) })}
                 </Badge>
               </div>
             </div>
@@ -547,7 +551,7 @@ function SnapshotView({
         <CardContent className="p-5">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-extrabold flex items-center gap-2">
-              <LineChart className="w-4 h-4" style={{ color: ACCENT }} /> Stock Portfolio
+              <LineChart className="w-4 h-4" style={{ color: ACCENT }} /> {t("partners.stockPortfolio")}
             </h3>
             {snap.holdings.length > 0 && (
               <Badge variant="outline" className="gap-1 font-bold">
@@ -556,7 +560,7 @@ function SnapshotView({
             )}
           </div>
           {snap.holdings.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No stocks yet - their portfolio is empty.</p>
+            <p className="text-sm text-muted-foreground">{t("partners.noStocks")}</p>
           ) : (
             <div className="divide-y divide-border">
               {snap.holdings.map(h => {
@@ -575,7 +579,7 @@ function SnapshotView({
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="font-bold text-sm">{h.symbol}</p>
-                      <p className="text-xs text-muted-foreground">{h.shares.toLocaleString()} shares</p>
+                      <p className="text-xs text-muted-foreground">{t("partners.shares", { count: h.shares, formatted: h.shares.toLocaleString() })}</p>
                     </div>
                     <div className="text-right">
                       <p className="font-bold text-sm">{fmtMoney(value)}</p>
@@ -598,22 +602,22 @@ function SnapshotView({
       <Card>
         <CardContent className="p-5">
           <h3 className="font-extrabold flex items-center gap-2 mb-3">
-            <Store className="w-4 h-4" style={{ color: ACCENT }} /> Micro-Business
+            <Store className="w-4 h-4" style={{ color: ACCENT }} /> {t("partners.microBusiness")}
           </h3>
           {!biz || biz.week == null ? (
-            <p className="text-sm text-muted-foreground">They haven't started a micro-business yet.</p>
+            <p className="text-sm text-muted-foreground">{t("partners.noMicroBusiness")}</p>
           ) : (
             <>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <BizStat label="Week" value={`${biz.week}`} />
-                <BizStat label="Revenue" value={fmtMoney(Number(biz.revenue ?? 0))} />
-                <BizStat label="Credit Score" value={`${biz.credit_score ?? "-"}`} />
-                <BizStat label="Rating" value={`${Number(biz.star_rating ?? 0).toFixed(1)} ★`} />
+                <BizStat label={t("partners.bizStats.week")} value={`${biz.week}`} />
+                <BizStat label={t("partners.bizStats.revenue")} value={fmtMoney(Number(biz.revenue ?? 0))} />
+                <BizStat label={t("partners.bizStats.creditScore")} value={`${biz.credit_score ?? "-"}`} />
+                <BizStat label={t("partners.bizStats.rating")} value={`${Number(biz.star_rating ?? 0).toFixed(1)} ★`} />
               </div>
               <div className="flex flex-wrap gap-2 mt-3">
-                <Badge variant="outline" className="gap-1"><Users className="w-3 h-3" /> {biz.employees ?? 0} employees</Badge>
-                {biz.plan_approved && <Badge variant="outline" className="gap-1" style={{ color: ACCENT, borderColor: ACCENT }}><BadgeCheck className="w-3 h-3" /> Plan approved</Badge>}
-                {biz.investor_funded && <Badge variant="outline" className="gap-1 text-warning border-warning"><Sparkles className="w-3 h-3" /> Investor funded</Badge>}
+                <Badge variant="outline" className="gap-1"><Users className="w-3 h-3" /> {t("partners.employees", { count: biz.employees ?? 0 })}</Badge>
+                {biz.plan_approved && <Badge variant="outline" className="gap-1" style={{ color: ACCENT, borderColor: ACCENT }}><BadgeCheck className="w-3 h-3" /> {t("partners.planApproved")}</Badge>}
+                {biz.investor_funded && <Badge variant="outline" className="gap-1 text-warning border-warning"><Sparkles className="w-3 h-3" /> {t("partners.investorFunded")}</Badge>}
               </div>
             </>
           )}

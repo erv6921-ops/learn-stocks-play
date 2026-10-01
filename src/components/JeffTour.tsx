@@ -1,5 +1,7 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { createPortal } from "react-dom"
+import { useTranslation } from "react-i18next"
+import type { TFunction } from "i18next"
 import { useLocation, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useApp } from "@/contexts/AppContext"
@@ -37,20 +39,20 @@ interface Step {
 // in GameNav on every screen), so we stay on /dashboard and never page-hop. The
 // greeting and sign-off are folded into the first and last slides to keep it to
 // exactly five taps.
-const STEPS: Step[] = [
+const buildSteps = (t: TFunction): Step[] => [
   // Centered welcome (no anchor -> Jeff sits in the middle of the screen, then
   // glides to the side on the next slide).
-  { route: "/dashboard", icon: Sparkles, title: "Hey, I'm Jeff! 👋", body: "I'm your money coach. Quick tour of the app, then we'll do your first lesson together. Let's go!", mood: "happy" },
+  { route: "/dashboard", icon: Sparkles, title: t("jeffTour.welcome.title"), body: t("jeffTour.welcome.body"), mood: "happy" },
   // Tabs are pointed out in the order a student meets them: what's due
   // (Homework), how they stack up (Leaderboard), the trading floor (Stocks),
   // and finally Missions - which is where the tour drops them to start lesson #1.
-  { route: "/dashboard", anchor: "nav-homework", icon: NotebookPen, title: "Homework", body: "Any assignments your teacher sets land right here, so you always know what's due.", mood: "excited" },
-  { route: "/dashboard", anchor: "nav-leaderboard", icon: Trophy, title: "Leaderboard", body: "See how you rank against your class. Tap me in the corner anytime you need a hand!", mood: "happy" },
-  { route: "/dashboard", anchor: "nav-stocks", icon: LineChart, title: "Stocks", body: "Trade real companies using InvestiCoins and watch your portfolio grow to earn even more coins.", mood: "thinking" },
-  { route: "/dashboard", anchor: "nav-lessons", icon: BookOpen, title: "Missions", body: "This is the heart of the app - your lessons. Finish them to earn InvestiCoins and level up. Let's start your first one right now!", mood: "excited" },
+  { route: "/dashboard", anchor: "nav-homework", icon: NotebookPen, title: t("jeffTour.homework.title"), body: t("jeffTour.homework.body"), mood: "excited" },
+  { route: "/dashboard", anchor: "nav-leaderboard", icon: Trophy, title: t("jeffTour.leaderboard.title"), body: t("jeffTour.leaderboard.body"), mood: "happy" },
+  { route: "/dashboard", anchor: "nav-stocks", icon: LineChart, title: t("jeffTour.stocks.title"), body: t("jeffTour.stocks.body"), mood: "thinking" },
+  { route: "/dashboard", anchor: "nav-lessons", icon: BookOpen, title: t("jeffTour.missions.title"), body: t("jeffTour.missions.body"), mood: "excited" },
   // Reward slide (centered, no anchor). Finishing here pays out the coins and
   // then sends the student straight into their first lesson (see finish()).
-  { route: "/dashboard", icon: Coins, title: "You're all set! 🎉", body: "Here's 10 InvestiCoins for finishing the tour. Now let's do your very first lesson!", mood: "celebrating" },
+  { route: "/dashboard", icon: Coins, title: t("jeffTour.allSet.title"), body: t("jeffTour.allSet.body"), mood: "celebrating" },
 ]
 
 interface Rect { top: number; left: number; width: number; height: number }
@@ -58,9 +60,11 @@ interface Rect { top: number; left: number; width: number; height: number }
 const close = (a: number, b: number) => Math.abs(a - b) < 0.5
 
 export default function JeffTour() {
+  const { t } = useTranslation()
   const { user, awardJeffs, jeffsHistory } = useApp()
   const location = useLocation()
   const navigate = useNavigate()
+  const STEPS = useMemo(() => buildSteps(t), [t])
 
   const [open, setOpen] = useState(false)
   const [i, setI] = useState(0)
@@ -339,7 +343,7 @@ export default function JeffTour() {
       onKeyDown={onKeyDown}
       role="dialog"
       aria-modal="true"
-      aria-label="App tour"
+      aria-label={t("jeffTour.tourAria")}
       className="fixed inset-0 z-[100]"
       style={{ pointerEvents: "none" }}
     >
@@ -374,7 +378,7 @@ export default function JeffTour() {
         <div className="relative rounded-2xl bg-card border border-border shadow-xl p-4">
           {arrow && <div style={arrow} />}
 
-          <button onClick={() => finish(false)} aria-label="Skip tour"
+          <button onClick={() => finish(false)} aria-label={t("jeffTour.skipTourAria")}
             className="absolute top-2.5 right-2.5 w-7 h-7 rounded-lg text-muted-foreground hover:bg-muted/60 flex items-center justify-center">
             <X className="w-4 h-4" />
           </button>
@@ -417,12 +421,12 @@ export default function JeffTour() {
               )}
               <Button size="lg" onClick={() => finish(true)}
                 className="press-scale h-12 flex-1 text-[15px] font-bold shadow-lg shadow-primary/30">
-                Start my first lesson 🚀
+                {t("jeffTour.startFirstLesson")}
               </Button>
             </div>
           ) : (
             <div className="flex items-center justify-between gap-2">
-              <button onClick={() => finish(false)} className="text-xs font-semibold text-muted-foreground hover:text-foreground">Skip</button>
+              <button onClick={() => finish(false)} className="text-xs font-semibold text-muted-foreground hover:text-foreground">{t("jeffTour.skip")}</button>
               <div className="flex items-center gap-2">
                 {i > 0 && (
                   <Button variant="outline" size="sm" onClick={() => setI(n => n - 1)} className="press-scale h-8 px-2.5">
@@ -430,7 +434,7 @@ export default function JeffTour() {
                   </Button>
                 )}
                 <Button size="sm" onClick={() => setI(n => n + 1)} className="press-scale h-8">
-                  Next <ArrowRight className="w-4 h-4 ml-1" />
+                  {t("jeffTour.next")} <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </div>
             </div>

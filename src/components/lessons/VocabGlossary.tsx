@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { BookMarked, Search } from "lucide-react"
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger,
@@ -10,6 +11,7 @@ import { INTRO_VOCAB } from "@/data/introVocab"
 // its plain-language definition and the chapter it comes from. Same green words
 // students tap inside a lesson, gathered in one place to review.
 export default function VocabGlossary() {
+  const { t } = useTranslation()
   const [query, setQuery] = useState("")
 
   const results = useMemo(() => {
@@ -36,10 +38,10 @@ export default function VocabGlossary() {
           </span>
           <span className="min-w-0 flex-1">
             <span className="block font-display font-extrabold text-[15px] text-foreground leading-tight">
-              Vocab glossary
+              {t("vocab.title")}
             </span>
             <span className="block text-[13px] text-muted-foreground mt-0.5">
-              {INTRO_VOCAB.length} business terms Jeff teaches — tap to review
+              {t("vocab.termCount", { count: INTRO_VOCAB.length })}
             </span>
           </span>
         </button>
@@ -48,11 +50,10 @@ export default function VocabGlossary() {
       <DialogContent className="max-w-lg max-h-[85vh] p-0 overflow-hidden flex flex-col">
         <DialogHeader className="px-5 pt-5 pb-3 shrink-0">
           <DialogTitle className="flex items-center gap-2 font-display">
-            <BookMarked className="w-5 h-5 text-success" /> Vocab glossary
+            <BookMarked className="w-5 h-5 text-success" /> {t("vocab.title")}
           </DialogTitle>
           <DialogDescription>
-            Every term Jeff highlights in green. Tap a green word in a lesson to see its
-            definition, or look one up here.
+            {t("vocab.description")}
           </DialogDescription>
           {/* Search */}
           <div className="relative mt-2">
@@ -60,7 +61,7 @@ export default function VocabGlossary() {
             <input
               value={query}
               onChange={e => setQuery(e.target.value)}
-              placeholder="Search terms…"
+              placeholder={t("vocab.searchPlaceholder")}
               className="w-full rounded-xl border border-border bg-background pl-9 pr-3 py-2 text-sm outline-none focus:border-primary"
             />
           </div>
@@ -68,7 +69,7 @@ export default function VocabGlossary() {
 
         <div className="px-5 pb-5 overflow-y-auto space-y-2.5">
           {results.length === 0 ? (
-            <p className="text-sm text-muted-foreground py-6 text-center">No terms match "{query}".</p>
+            <p className="text-sm text-muted-foreground py-6 text-center">{t("vocab.noMatch", { query })}</p>
           ) : (
             results.map(v => (
               <div

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react"
+import { useTranslation, Trans } from "react-i18next"
 import { useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { useApp } from "@/contexts/AppContext"
@@ -72,17 +73,17 @@ function JeffCheer({ color }: { color: string }) {
   )
 }
 
-interface Prize { emoji: string; label: string; coins: number }
+interface Prize { emoji: string; labelKey: string; coins: number }
 
-const PRIZE_POOL: { emoji: string; label: string; base: number }[] = [
-  { emoji: "💰", label: "Treasure Chest", base: 1000 },
-  { emoji: "💎", label: "Gem Haul", base: 1500 },
-  { emoji: "👑", label: "Royal Bounty", base: 2000 },
-  { emoji: "🚀", label: "Rocket Fuel", base: 2500 },
-  { emoji: "⭐", label: "Lucky Star", base: 750 },
-  { emoji: "🎁", label: "Mystery Bonus", base: 1250 },
-  { emoji: "🔥", label: "Hot Streak", base: 1750 },
-  { emoji: "🪙", label: "Coin Vault", base: 900 },
+const PRIZE_POOL: { emoji: string; labelKey: string; base: number }[] = [
+  { emoji: "💰", labelKey: "overlays.prizes.treasureChest", base: 1000 },
+  { emoji: "💎", labelKey: "overlays.prizes.gemHaul", base: 1500 },
+  { emoji: "👑", labelKey: "overlays.prizes.royalBounty", base: 2000 },
+  { emoji: "🚀", labelKey: "overlays.prizes.rocketFuel", base: 2500 },
+  { emoji: "⭐", labelKey: "overlays.prizes.luckyStar", base: 750 },
+  { emoji: "🎁", labelKey: "overlays.prizes.mysteryBonus", base: 1250 },
+  { emoji: "🔥", labelKey: "overlays.prizes.hotStreak", base: 1750 },
+  { emoji: "🪙", labelKey: "overlays.prizes.coinVault", base: 900 },
 ]
 
 // Three distinct choices, scaled up for higher leagues so they stay generous.
@@ -95,19 +96,21 @@ function rollPrizes(leagueIdx: number): Prize[] {
   const mult = 1 + Math.max(0, leagueIdx) * 0.3
   return pool.slice(0, 3).map(p => ({
     emoji: p.emoji,
-    label: p.label,
+    labelKey: p.labelKey,
     coins: Math.round((p.base * mult) / 50) * 50,
   }))
 }
 
 function GiftBox({ prize, index, picked, chosen, onPick }: { prize: Prize; index: number; picked: boolean; chosen: boolean; onPick: () => void }) {
+  const { t } = useTranslation()
+  const label = t(prize.labelKey)
   const letter = TILE_LABELS[index] ?? String(index + 1)
   return (
     <div className="flex flex-col items-center gap-2 w-24">
       <motion.button
         onClick={onPick}
         disabled={picked}
-        aria-label={picked ? `Gift ${letter}: ${prize.label}, ${prize.coins} coins` : `Open gift ${letter}`}
+        aria-label={picked ? t("overlays.giftPicked", { letter, label, coins: prize.coins }) : t("overlays.giftOpen", { letter })}
         className="relative w-24 h-24 rounded-2xl flex items-center justify-center"
         style={{
           opacity: picked && !chosen ? 0.4 : 1,
@@ -145,13 +148,13 @@ function GiftBox({ prize, index, picked, chosen, onPick }: { prize: Prize; index
         <AnimatePresence>
           {picked && (
             <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="text-[11px] font-bold text-white/70 leading-tight">{prize.label}</div>
+              <div className="text-[11px] font-bold text-white/70 leading-tight">{label}</div>
               {/* Every tile shows its value once the choice is made, so the
                   student sees what the other boxes held. */}
               <div className="text-sm font-extrabold" style={{ color: chosen ? "#FCD34D" : "rgba(255,255,255,0.45)" }}>
                 +{prize.coins.toLocaleString()} 🪙
               </div>
-              <div className="text-[10px]" style={{ color: chosen ? "#FCD34D" : "rgba(255,255,255,0.4)" }}>{chosen ? "yours" : "not picked"}</div>
+              <div className="text-[10px]" style={{ color: chosen ? "#FCD34D" : "rgba(255,255,255,0.4)" }}>{chosen ? t("overlays.yours") : t("overlays.notPicked")}</div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -166,6 +169,7 @@ function lowestPrizeIdx(prizes: Prize[]): number {
 }
 
 function Overlay({ leagueIdx, onDismiss }: { leagueIdx: number; onDismiss: () => void }) {
+  const { t } = useTranslation()
   const { awardJeffs } = useApp()
   const league = LEAGUES[leagueIdx] ?? LEAGUES[LEAGUES.length - 1]
   const prizes = useMemo(() => rollPrizes(leagueIdx), [leagueIdx])
@@ -223,16 +227,16 @@ function Overlay({ leagueIdx, onDismiss }: { leagueIdx: number; onDismiss: () =>
         <JeffCheer color={league.color} />
 
         <div className="flex flex-col items-center gap-0.5">
-          <div className="font-display font-extrabold tracking-wide" style={{ fontSize: 16, color: "#ffffff", opacity: 0.75 }}>LEAGUE UP!</div>
+          <div className="font-display font-extrabold tracking-wide" style={{ fontSize: 16, color: "#ffffff", opacity: 0.75 }}>{t("overlays.leagueUp")}</div>
           <div id={titleId} className="font-display font-extrabold flex items-center gap-2" style={{ fontSize: 34, color: league.color, lineHeight: 1 }}>
             <span>{league.icon}</span> {league.name}
           </div>
         </div>
 
         <div className="text-white/85 text-sm font-semibold -mb-1">
-          {picked ? "Nice pick - enjoy your reward! 🎉" : "Pick ONE gift to claim your reward"}
+          {picked ? t("overlays.nicePick") : t("overlays.pickOne")}
         </div>
-        {!picked && <div className="text-white/55 text-xs -mt-2">One gift, picked at random.</div>}
+        {!picked && <div className="text-white/55 text-xs -mt-2">{t("overlays.pickedAtRandom")}</div>}
 
         <div className="flex items-start justify-center gap-4">
           {prizes.map((p, i) => (
@@ -246,7 +250,7 @@ function Overlay({ leagueIdx, onDismiss }: { leagueIdx: number; onDismiss: () =>
           className="mt-1 px-7 py-3 rounded-xl font-bold text-base transition-transform disabled:opacity-40 active:scale-95"
           style={{ background: picked ? league.color : "rgba(255,255,255,0.14)", color: picked ? "#1a1205" : "#ffffff" }}
         >
-          {picked ? "Keep going →" : "Pick a gift first"}
+          {picked ? t("overlays.keepGoing") : t("overlays.pickFirst")}
         </button>
         {!picked && (
           <button
@@ -254,7 +258,7 @@ function Overlay({ leagueIdx, onDismiss }: { leagueIdx: number; onDismiss: () =>
             onClick={skip}
             className="text-white/60 hover:text-white text-sm underline-offset-4 hover:underline"
           >
-            Skip (take the smallest gift)
+            {t("overlays.skipSmallest")}
           </button>
         )}
       </motion.div>
@@ -268,6 +272,7 @@ function Overlay({ leagueIdx, onDismiss }: { leagueIdx: number; onDismiss: () =>
  * make the celebration vanish; this keeps the moment and still pays out.
  */
 function FallbackCard({ leagueIdx, onDismiss }: { leagueIdx: number; onDismiss: () => void }) {
+  const { t } = useTranslation()
   const { awardJeffs } = useApp()
   const league = LEAGUES[leagueIdx] ?? LEAGUES[LEAGUES.length - 1]
   const prize = useMemo(() => {
@@ -287,12 +292,16 @@ function FallbackCard({ leagueIdx, onDismiss }: { leagueIdx: number; onDismiss: 
       style={{ zIndex: 10000, background: "rgba(0,0,0,0.9)" }}
     >
       <div className="max-w-sm w-full rounded-2xl p-6 text-center text-white" style={{ background: "#1a2330", border: `2px solid ${league.color}` }}>
-        <div className="text-xs font-bold tracking-wide opacity-75">LEAGUE UP!</div>
+        <div className="text-xs font-bold tracking-wide opacity-75">{t("overlays.leagueUp")}</div>
         <h2 id="league-up-fallback-title" className="font-display font-extrabold text-2xl mt-1" style={{ color: league.color }}>
-          You moved up a league!
+          {t("overlays.movedUp")}
         </h2>
         <p className="mt-2 text-sm text-white/80">
-          Welcome to {league.icon} {league.name}. Your reward: <b style={{ color: "#FCD34D" }}>+{prize.coins.toLocaleString()} 🪙</b>
+          <Trans
+            i18nKey="overlays.welcomeReward"
+            values={{ icon: league.icon, name: league.name, coins: prize.coins.toLocaleString() }}
+            components={{ b: <b style={{ color: "#FCD34D" }} /> }}
+          />
         </p>
         <button
           type="button"
@@ -300,7 +309,7 @@ function FallbackCard({ leagueIdx, onDismiss }: { leagueIdx: number; onDismiss: 
           className="mt-5 px-7 py-3 rounded-xl font-bold text-base active:scale-95"
           style={{ background: league.color, color: "#1a1205" }}
         >
-          Continue
+          {t("overlays.continue")}
         </button>
       </div>
     </div>

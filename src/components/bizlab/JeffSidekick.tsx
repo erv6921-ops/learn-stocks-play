@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import type { TFunction } from "i18next"
 import { motion, useAnimationControls, AnimatePresence } from "framer-motion"
 
 const MASCOT_SRC = "/brand/mascot-character.png?v=2"
@@ -26,11 +28,18 @@ const ACTIONS = [
 const PARTY = { y: [0, -60, 0, -60, 0], rotate: [0, -360, -360, -720, -720], transition: { duration: 1.6, times: [0, 0.3, 0.5, 0.8, 1], ease: "easeOut" as const } }
 const REST = { x: 0, y: 0, rotate: 0, scale: 1, scaleX: 1, scaleY: 1 }
 
-const CHEERS = [
-  "You've got this! 💪", "Looking good, founder! ✨", "Sharks love hustle! 🦈",
-  "Big brain energy! 🧠", "This could be HUGE 🚀", "I believe in you! ⭐",
-  "Future CEO vibes 😎", "One step closer to the Tank! 🏆", "Keep it going! 🔥",
-  "Wheee! 🤸", "Watch this! 😄",
+const cheersFor = (t: TFunction): string[] => [
+  t("bizlab.jeff.cheers.gotThis"),
+  t("bizlab.jeff.cheers.lookingGood"),
+  t("bizlab.jeff.cheers.sharksLoveHustle"),
+  t("bizlab.jeff.cheers.bigBrain"),
+  t("bizlab.jeff.cheers.couldBeHuge"),
+  t("bizlab.jeff.cheers.believeInYou"),
+  t("bizlab.jeff.cheers.futureCeo"),
+  t("bizlab.jeff.cheers.closerToTank"),
+  t("bizlab.jeff.cheers.keepGoing"),
+  t("bizlab.jeff.cheers.wheee"),
+  t("bizlab.jeff.cheers.watchThis"),
 ]
 
 const pick = <T,>(a: T[]): T => a[Math.floor(Math.random() * a.length)]
@@ -53,6 +62,7 @@ export default function JeffSidekick({
   variant?: "side" | "compact"
   celebrateKey?: number
 }) {
+  const { t } = useTranslation()
   const controls = useAnimationControls()
   const [bubble, setBubble] = useState(message)
   const busy = useRef(false)
@@ -70,7 +80,7 @@ export default function JeffSidekick({
       timer = setTimeout(async () => {
         if (!alive) return
         busy.current = true
-        setBubble(pick(CHEERS))
+        setBubble(pick(cheersFor(t)))
         try {
           await controls.start(pick(ACTIONS))
           await controls.start(REST)
@@ -93,7 +103,7 @@ export default function JeffSidekick({
     let alive = true
     ;(async () => {
       busy.current = true
-      setBubble("WOOHOO! You did it! 🎉🦈")
+      setBubble(t("bizlab.jeff.celebrate"))
       try {
         await controls.start(PARTY)
         await controls.start(REST)
@@ -120,7 +130,7 @@ export default function JeffSidekick({
         >
           <motion.img
             src={MASCOT_SRC}
-            alt="Jeff, your Biz Lab coach"
+            alt={t("bizlab.jeff.alt")}
             animate={controls}
             draggable={false}
             className={`${imgClass} select-none drop-shadow-[0_10px_18px_rgba(0,0,0,0.18)]`}

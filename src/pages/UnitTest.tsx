@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react"
 import { useParams, useNavigate } from "react-router-dom"
+import { useTranslation, Trans } from "react-i18next"
 import { useApp } from "@/contexts/AppContext"
 import { getUnitTestByCategory } from "@/data/unitTestQuestions"
 import { categoryInfo } from "@/data/lessons"
@@ -20,6 +21,7 @@ import {
 } from "lucide-react"
 
 export default function UnitTest() {
+  const { t } = useTranslation()
   const { category } = useParams<{ category: string }>()
   const navigate = useNavigate()
   const { unitTestProgress, updateUnitTestProgress, earnJeffs } = useApp()
@@ -45,8 +47,8 @@ export default function UnitTest() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-2">Unit test not found</h2>
-          <Button onClick={() => navigate("/lessons")}>Back to Lessons</Button>
+          <h2 className="text-2xl font-bold mb-2">{t("unitTest.notFound")}</h2>
+          <Button onClick={() => navigate("/lessons")}>{t("unitTest.backToLessons")}</Button>
         </div>
       </div>
     )
@@ -127,7 +129,7 @@ export default function UnitTest() {
             <CardHeader className="text-center">
               <JeffMascot
                 size="sm"
-                message="Ready to prove your knowledge?"
+                message={t("unitTest.preMascot")}
                 className="mb-4"
               />
               <CardTitle className="text-2xl">{unitTest.title}</CardTitle>
@@ -140,11 +142,11 @@ export default function UnitTest() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-muted/50 rounded-xl p-4 text-center">
                   <p className="text-3xl font-bold text-primary">{unitTest.questions.length}</p>
-                  <p className="text-sm text-muted-foreground">Questions</p>
+                  <p className="text-sm text-muted-foreground">{t("unitTest.questions")}</p>
                 </div>
                 <div className="bg-muted/50 rounded-xl p-4 text-center">
                   <p className="text-3xl font-bold text-warning">{unitTest.passingScore}%</p>
-                  <p className="text-sm text-muted-foreground">To Pass</p>
+                  <p className="text-sm text-muted-foreground">{t("unitTest.toPass")}</p>
                 </div>
               </div>
 
@@ -152,10 +154,10 @@ export default function UnitTest() {
                 <div className="bg-success/10 border border-success/20 rounded-xl p-4 text-center">
                   <CheckCircle className="w-8 h-8 text-success mx-auto mb-2" />
                   <p className="font-medium text-success">
-                    You've already passed with {existingProgress.score}%!
+                    {t("unitTest.alreadyPassed", { score: existingProgress.score })}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    You can retake to improve your score
+                    {t("unitTest.canRetake")}
                   </p>
                 </div>
               )}
@@ -164,18 +166,18 @@ export default function UnitTest() {
                 <div className="flex gap-3">
                   <AlertTriangle className="w-5 h-5 text-warning flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-medium text-warning">Exam Rules</p>
+                    <p className="font-medium text-warning">{t("unitTest.examRules")}</p>
                     <ul className="text-sm text-muted-foreground mt-1 space-y-1">
-                      <li>• Answer each question before moving on</li>
-                      <li>• You'll see feedback after each answer</li>
-                      <li>• Score {unitTest.passingScore}% or higher to pass and earn {unitTest.reward} InvestiCoins</li>
+                      <li>• {t("unitTest.rule1")}</li>
+                      <li>• {t("unitTest.rule2")}</li>
+                      <li>• {t("unitTest.rule3", { score: unitTest.passingScore, reward: unitTest.reward })}</li>
                     </ul>
                   </div>
                 </div>
               </div>
 
               <Button variant="hero" size="lg" className="w-full" onClick={handleStartTest}>
-                Start Exam
+                {t("unitTest.startExam")}
                 <ArrowRight className="ml-2" />
               </Button>
             </CardContent>
@@ -187,12 +189,11 @@ export default function UnitTest() {
               <div className="mb-6">
                 <div className="flex justify-between text-sm mb-2">
                   <span>
-                    Question {currentQuestion + 1} of {unitTest.questions.length}
+                    {t("unitTest.questionProgress", { current: currentQuestion + 1, total: unitTest.questions.length })}
                   </span>
                   <span className="text-muted-foreground">
                     {/* Compare against the SHUFFLED set - answers were recorded against it */}
-                    {answers.filter((a, i) => a === shuffledQuestions[i]?.correctAnswer).length}{" "}
-                    correct
+                    {t("unitTest.correctCount", { count: answers.filter((a, i) => a === shuffledQuestions[i]?.correctAnswer).length })}
                   </span>
                 </div>
                 <Progress
@@ -245,19 +246,22 @@ export default function UnitTest() {
                       isCorrectAnswer ? "text-success" : "text-amber-600"
                     }`}
                   >
-                    {isCorrectAnswer ? "✓ Correct!" : "✗ Not quite right"}
+                    {isCorrectAnswer ? t("unitTest.correct") : t("unitTest.notQuite")}
                   </p>
                   {!isCorrectAnswer && (
                     <div className="mt-3 space-y-3">
                       <div className="bg-background/50 rounded-lg p-3">
-                        <p className="text-sm font-medium text-foreground">💡 Why this matters:</p>
+                        <p className="text-sm font-medium text-foreground">{t("unitTest.whyMatters")}</p>
                         <p className="text-sm text-muted-foreground mt-1">
                           {currentQ.explanation}
                         </p>
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        ✅ The correct answer is:{" "}
-                        <strong className="text-foreground">{currentQ.options[currentQ.correctAnswer]}</strong>
+                        <Trans
+                          i18nKey="unitTest.correctAnswerIs"
+                          values={{ answer: currentQ.options[currentQ.correctAnswer] }}
+                          components={{ b: <strong className="text-foreground" /> }}
+                        />
                       </p>
                     </div>
                   )}
@@ -269,11 +273,11 @@ export default function UnitTest() {
                   <Button onClick={handleNextQuestion}>
                     {currentQuestion < unitTest.questions.length - 1 ? (
                       <>
-                        Next Question <ArrowRight className="ml-2 w-4 h-4" />
+                        {t("unitTest.nextQuestion")} <ArrowRight className="ml-2 w-4 h-4" />
                       </>
                     ) : (
                       <>
-                        See Results <CheckCircle className="ml-2 w-4 h-4" />
+                        {t("unitTest.seeResults")} <CheckCircle className="ml-2 w-4 h-4" />
                       </>
                     )}
                   </Button>
@@ -287,11 +291,11 @@ export default function UnitTest() {
             <CardHeader className="text-center">
               <JeffMascot
                 size="sm"
-                message={passed ? "Amazing work!" : "Keep practicing!"}
+                message={passed ? t("unitTest.resultMascotPass") : t("unitTest.resultMascotFail")}
                 className="mb-4"
               />
               <CardTitle className="text-2xl">
-                {passed ? "🎉 Congratulations!" : "Almost there!"}
+                {passed ? t("unitTest.congrats") : t("unitTest.almostThere")}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -299,8 +303,10 @@ export default function UnitTest() {
                 <p className="text-5xl font-bold text-primary">{finalScore}%</p>
                 <p className="text-muted-foreground">
                   {/* Compare against the SHUFFLED set - answers were recorded against it */}
-                  {answers.filter((a, i) => a === shuffledQuestions[i]?.correctAnswer).length} of{" "}
-                  {shuffledQuestions.length} correct
+                  {t("unitTest.scoreOf", {
+                    correct: answers.filter((a, i) => a === shuffledQuestions[i]?.correctAnswer).length,
+                    total: shuffledQuestions.length,
+                  })}
                 </p>
               </div>
 
@@ -310,18 +316,18 @@ export default function UnitTest() {
                     <Coins className="w-8 h-8 text-warning" />
                     <span className="text-3xl font-bold text-warning">+{unitTest.reward}</span>
                   </div>
-                  <p className="text-success font-medium">Jeff's earned!</p>
+                  <p className="text-success font-medium">{t("unitTest.jeffsEarned")}</p>
                   <p className="text-sm text-muted-foreground mt-1">
-                    You passed the {catInfo.title} Unit Test
+                    {t("unitTest.youPassed", { title: catInfo.title })}
                   </p>
                 </div>
               ) : (
                 <div className="bg-warning/10 border border-warning/20 rounded-xl p-6 text-center">
                   <p className="text-warning font-medium">
-                    You need {unitTest.passingScore}% to pass
+                    {t("unitTest.youNeed", { score: unitTest.passingScore })}
                   </p>
                   <p className="text-sm text-muted-foreground mt-1">
-                    Review the lessons and try again!
+                    {t("unitTest.reviewAndRetry")}
                   </p>
                 </div>
               )}
@@ -333,7 +339,7 @@ export default function UnitTest() {
                   onClick={() => navigate("/lessons")}
                 >
                   <ArrowLeft className="mr-2 w-4 h-4" />
-                  Back to Lessons
+                  {t("unitTest.backToLessons")}
                 </Button>
                 {!passed && (
                   <Button
@@ -348,7 +354,7 @@ export default function UnitTest() {
                       setTestComplete(false)
                     }}
                   >
-                    Try Again
+                    {t("unitTest.tryAgain")}
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
                 )}

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 import { useApp } from "@/contexts/AppContext";
 import { DEV_LOCAL_BYPASS } from "@/lib/devBypass";
@@ -21,6 +22,7 @@ interface SGContent { questions: SGQuestion[]; scenarios: SGScenario[]; activiti
 const StudentStudyGuideView: React.FC = () => {
   const { studyGuideId = "" } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user } = useApp();
 
   const [loading, setLoading] = useState(true);
@@ -46,7 +48,7 @@ const StudentStudyGuideView: React.FC = () => {
         ]);
         if (cancelled) return;
         if (e) throw new Error(e.message);
-        setName(sg?.name ?? "Study guide");
+        setName(sg?.name ?? t("studyGuide.defaultName"));
         setContent((sg?.content ?? { questions: [], scenarios: [], activities: [] }) as SGContent);
         const r: Record<string, string> = {};
         for (const row of (respRes?.data ?? []) as { item_key: string; response: string | null }[]) {
@@ -55,7 +57,7 @@ const StudentStudyGuideView: React.FC = () => {
         setResponses(r);
       } catch (err) {
         if (cancelled) return;
-        setError(err instanceof Error ? err.message : "Could not load this study guide.");
+        setError(err instanceof Error ? err.message : t("studyGuide.loadError"));
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -88,7 +90,7 @@ const StudentStudyGuideView: React.FC = () => {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background text-sm text-muted-foreground">
-        <Loader2 className="mr-2 h-5 w-5 animate-spin text-indigo-600" /> Loading study guide…
+        <Loader2 className="mr-2 h-5 w-5 animate-spin text-indigo-600" /> {t("studyGuide.loading")}
       </div>
     );
   }
@@ -111,12 +113,12 @@ const StudentStudyGuideView: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-b from-indigo-50 via-white to-emerald-50 px-4 py-8 sm:px-6">
       <div className="mx-auto w-full max-w-2xl space-y-5">
         <button type="button" onClick={() => navigate("/homework")} className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700">
-          <ArrowLeft className="h-4 w-4" /> Homework
+          <ArrowLeft className="h-4 w-4" /> {t("studyGuide.homework")}
         </button>
 
         <div className="space-y-1">
           <p className="inline-flex items-center gap-1.5 rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-semibold text-indigo-700">
-            <Sparkles className="h-3.5 w-3.5" /> Review practice · ungraded
+            <Sparkles className="h-3.5 w-3.5" /> {t("studyGuide.reviewPractice")}
           </p>
           <h1 className="text-2xl font-bold text-slate-900">{name}</h1>
         </div>
@@ -157,7 +159,7 @@ const StudentStudyGuideView: React.FC = () => {
                 </div>
                 {answered && q.explanation && (
                   <p className="rounded-md bg-slate-50 p-2.5 text-xs text-slate-600">
-                    <span className="font-semibold">Why: </span>{q.explanation}
+                    <span className="font-semibold">{t("studyGuide.why")} </span>{q.explanation}
                   </p>
                 )}
               </CardContent>
@@ -171,17 +173,17 @@ const StudentStudyGuideView: React.FC = () => {
           return (
             <Card key={s.id} className="border-amber-200 bg-amber-50/30">
               <CardContent className="space-y-2 p-4">
-                <p className="text-sm font-semibold text-slate-900">Scenario: {s.title}</p>
+                <p className="text-sm font-semibold text-slate-900">{t("studyGuide.scenario", { title: s.title })}</p>
                 <p className="text-sm text-slate-700">{s.narrative}</p>
                 <p className="text-xs italic text-slate-500">{s.prompt}</p>
                 <Textarea
                   value={responses[key] ?? ""}
                   onChange={(e) => setResponses((r) => ({ ...r, [key]: e.target.value }))}
                   onBlur={() => void saveResponse(key)}
-                  placeholder="Write your reflection…"
+                  placeholder={t("studyGuide.writeReflection")}
                   rows={3}
                 />
-                <p className="text-right text-xs text-slate-400">{savingKey === key ? "Saving…" : "Saved on blur"}</p>
+                <p className="text-right text-xs text-slate-400">{savingKey === key ? t("studyGuide.saving") : t("studyGuide.savedOnBlur")}</p>
               </CardContent>
             </Card>
           );
@@ -193,23 +195,23 @@ const StudentStudyGuideView: React.FC = () => {
           return (
             <Card key={a.id} className="border-indigo-200 bg-indigo-50/30">
               <CardContent className="space-y-2 p-4">
-                <p className="text-sm font-semibold text-slate-900">Activity: {a.title}</p>
+                <p className="text-sm font-semibold text-slate-900">{t("studyGuide.activity", { title: a.title })}</p>
                 <p className="text-sm text-slate-700">{a.task}</p>
                 <Textarea
                   value={responses[key] ?? ""}
                   onChange={(e) => setResponses((r) => ({ ...r, [key]: e.target.value }))}
                   onBlur={() => void saveResponse(key)}
-                  placeholder="Your work…"
+                  placeholder={t("studyGuide.yourWork")}
                   rows={3}
                 />
-                <p className="text-right text-xs text-slate-400">{savingKey === key ? "Saving…" : "Saved on blur"}</p>
+                <p className="text-right text-xs text-slate-400">{savingKey === key ? t("studyGuide.saving") : t("studyGuide.savedOnBlur")}</p>
               </CardContent>
             </Card>
           );
         })}
 
         <Button variant="outline" onClick={() => navigate("/homework")} className="w-full">
-          Done
+          {t("studyGuide.done")}
         </Button>
       </div>
     </div>

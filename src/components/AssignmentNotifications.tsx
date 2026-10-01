@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react"
 import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { supabase } from "@/integrations/supabase/client"
 import { useAuth } from "@/hooks/useAuth"
 import { lessons } from "@/data/lessons"
@@ -64,6 +65,7 @@ export function AssignmentNotifications() {
   // Gate on isTeacher (a confirmed teacher), NOT isStudent. A student whose
   // user_roles lookup is missing/slow resolves to role=null; class membership
   // (queried below) is the real signal that this is a student.
+  const { t } = useTranslation()
   const { user, isTeacher } = useAuth()
   const navigate = useNavigate()
   const [classwork, setClasswork] = useState<PendingAssignment[]>([])
@@ -246,11 +248,10 @@ export function AssignmentNotifications() {
                 <AlertCircle className="w-11 h-11 text-primary" />
               </div>
               <DialogTitle className="text-center text-3xl font-display">
-                📚 New classwork from your teacher!
+                {t("homework.notifications.classwork.title")}
               </DialogTitle>
               <DialogDescription className="text-center text-base">
-                You have {classwork.length} lesson{classwork.length === 1 ? "" : "s"} to complete.
-                Tap a lesson below to get started. You can’t skip this.
+                {t("homework.notifications.classwork.desc", { count: classwork.length })}
               </DialogDescription>
             </DialogHeader>
 
@@ -271,7 +272,7 @@ export function AssignmentNotifications() {
                         <p className="font-semibold truncate">{lesson?.title || genNames.get(a.lesson_id) || a.lesson_id}</p>
                         <div className="flex items-center gap-2 mt-1">
                           {lesson?.level && (
-                            <Badge variant="secondary" className="text-xs">Level {lesson.level}</Badge>
+                            <Badge variant="secondary" className="text-xs">{t("homework.level", { level: lesson.level })}</Badge>
                           )}
                           <span className="text-xs text-muted-foreground flex items-center gap-1">
                             <Clock className="w-3 h-3" />
@@ -281,7 +282,7 @@ export function AssignmentNotifications() {
                       </div>
                     </div>
                     <span className="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground group-hover:brightness-110 shrink-0">
-                      <Play className="w-3.5 h-3.5" /> Start
+                      <Play className="w-3.5 h-3.5" /> {t("homework.start")}
                     </span>
                   </button>
                 )
@@ -300,11 +301,10 @@ export function AssignmentNotifications() {
                 <NotebookPen className="w-11 h-11 text-primary" />
               </div>
               <DialogTitle className="text-center text-3xl font-display">
-                📒 New homework from your teacher!
+                {t("homework.notifications.homework.title")}
               </DialogTitle>
               <DialogDescription className="text-center text-base">
-                You have {homework.length} homework lesson{homework.length === 1 ? "" : "s"}. Start now, or
-                do it later - it'll be waiting on your Homework page.
+                {t("homework.notifications.homework.desc", { count: homework.length })}
               </DialogDescription>
             </DialogHeader>
 
@@ -324,12 +324,12 @@ export function AssignmentNotifications() {
                       <span className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
                         <Clock className="w-3 h-3" />
                         {a.due_date
-                          ? <span className="font-semibold text-foreground">Due {fmtDue(a.due_date, a.due_time)}</span>
-                          : <>No due date</>}
+                          ? <span className="font-semibold text-foreground">{t("homework.notifications.due", { date: fmtDue(a.due_date, a.due_time) })}</span>
+                          : <>{t("homework.notifications.noDueDate")}</>}
                       </span>
                     </div>
                     <Button size="sm" onClick={() => homeworkDoNow(a.lesson_id)} className="shrink-0">
-                      <Play className="w-3.5 h-3.5 mr-1" /> Do now
+                      <Play className="w-3.5 h-3.5 mr-1" /> {t("homework.notifications.doNow")}
                     </Button>
                   </div>
                 )
@@ -338,7 +338,7 @@ export function AssignmentNotifications() {
 
             <DialogFooter>
               <Button variant="outline" className="w-full" onClick={homeworkDoLater}>
-                Do later
+                {t("homework.notifications.doLater")}
               </Button>
             </DialogFooter>
           </DialogContent>
@@ -355,11 +355,10 @@ export function AssignmentNotifications() {
                 <BookOpen className="w-11 h-11 text-indigo-600" />
               </div>
               <DialogTitle className="text-center text-3xl font-display">
-                ✨ New review practice!
+                {t("homework.notifications.review.title")}
               </DialogTitle>
               <DialogDescription className="text-center text-base">
-                Your teacher shared {reviewGuides.length} optional study guide{reviewGuides.length === 1 ? "" : "s"} —
-                extra practice, not graded. Try it now or find it later under Review on your Homework page.
+                {t("homework.notifications.review.desc", { count: reviewGuides.length })}
               </DialogDescription>
             </DialogHeader>
 
@@ -371,7 +370,7 @@ export function AssignmentNotifications() {
                   </div>
                   <p className="flex-1 min-w-0 font-semibold truncate">{g.name}</p>
                   <Button size="sm" onClick={() => openReview(g.id)} className="shrink-0">
-                    <Play className="w-3.5 h-3.5 mr-1" /> Open
+                    <Play className="w-3.5 h-3.5 mr-1" /> {t("homework.notifications.open")}
                   </Button>
                 </div>
               ))}
@@ -379,7 +378,7 @@ export function AssignmentNotifications() {
 
             <DialogFooter>
               <Button variant="outline" className="w-full" onClick={laterReview}>
-                Later
+                {t("homework.notifications.later")}
               </Button>
             </DialogFooter>
           </DialogContent>

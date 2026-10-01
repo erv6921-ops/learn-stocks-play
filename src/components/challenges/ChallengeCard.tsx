@@ -1,4 +1,5 @@
 import React from "react"
+import { useTranslation } from "react-i18next"
 import { Coins, Clock, Users, Trophy, Check, Target, Crown, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export default function ChallengeCard({ challenge, entries, entered, canManage, onEnter, onCancel }: Props) {
+  const { t } = useTranslation()
   const meta = metricMeta(challenge.metric)
   const top5 = entries.slice(0, 5)
 
@@ -36,7 +38,7 @@ export default function ChallengeCard({ challenge, entries, entered, canManage, 
           <div className="text-2xl font-bold text-gold flex items-center justify-center gap-1 leading-none">
             <Coins className="w-5 h-5" /> {challenge.pot}
           </div>
-          <div className="text-[11px] text-muted-foreground mt-1">pot</div>
+          <div className="text-[11px] text-muted-foreground mt-1">{t("challenges.card.pot")}</div>
         </div>
         <div className="text-center border-x border-border/60">
           <div className="text-sm font-semibold flex items-center justify-center gap-1 leading-none mt-1">
@@ -48,17 +50,17 @@ export default function ChallengeCard({ challenge, entries, entered, canManage, 
           <div className="text-2xl font-bold flex items-center justify-center gap-1 leading-none">
             <Users className="w-5 h-5 text-primary" /> {entries.length}
           </div>
-          <div className="text-[11px] text-muted-foreground mt-1">entered</div>
+          <div className="text-[11px] text-muted-foreground mt-1">{t("challenges.card.entered")}</div>
         </div>
       </div>
 
       {/* Live standings */}
       <div className="p-5 flex-1">
         <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-muted-foreground mb-2.5">
-          <Trophy className="w-3.5 h-3.5 text-gold" /> Standings
+          <Trophy className="w-3.5 h-3.5 text-gold" /> {t("challenges.card.standings")}
         </div>
         {top5.length === 0 ? (
-          <p className="text-sm text-muted-foreground py-2">No one's entered yet - be the first!</p>
+          <p className="text-sm text-muted-foreground py-2">{t("challenges.card.noOneEntered")}</p>
         ) : (
           <div className="space-y-1.5">
             {top5.map((e, i) => (
@@ -66,7 +68,7 @@ export default function ChallengeCard({ challenge, entries, entered, canManage, 
                 <span className={`w-5 text-center text-sm font-bold ${i === 0 ? "text-gold" : "text-muted-foreground"}`}>
                   {i === 0 ? <Crown className="w-4 h-4 text-gold inline" /> : i + 1}
                 </span>
-                <span className="flex-1 text-sm font-medium truncate">{e.isMe ? "You" : e.name}</span>
+                <span className="flex-1 text-sm font-medium truncate">{e.isMe ? t("challenges.you") : e.name}</span>
                 <span className="text-sm font-bold tabular-nums">{e.score.toLocaleString()}<span className="text-[11px] text-muted-foreground ml-1">{meta.unit}</span></span>
               </div>
             ))}
@@ -77,21 +79,21 @@ export default function ChallengeCard({ challenge, entries, entered, canManage, 
       {/* Footer action */}
       <div className="p-4 pt-0 space-y-2">
         <div className="flex items-center justify-between text-xs text-muted-foreground px-1">
-          <span className="flex items-center gap-1"><Coins className="w-3.5 h-3.5 text-gold" /> {challenge.entry_fee} to enter</span>
-          {challenge.teacher_bonus > 0 && <span>+{challenge.teacher_bonus} bonus from teacher</span>}
+          <span className="flex items-center gap-1"><Coins className="w-3.5 h-3.5 text-gold" /> {t("challenges.card.toEnter", { fee: challenge.entry_fee })}</span>
+          {challenge.teacher_bonus > 0 && <span>{t("challenges.card.teacherBonus", { bonus: challenge.teacher_bonus })}</span>}
         </div>
         {entered ? (
           <div className="w-full h-9 rounded-lg bg-muted text-muted-foreground text-sm font-semibold flex items-center justify-center gap-1.5">
-            <Check className="w-4 h-4" /> You're in
+            <Check className="w-4 h-4" /> {t("challenges.youreIn")}
           </div>
         ) : (
           <Button className="w-full press-scale" onClick={() => onEnter(challenge)}>
-            Enter Challenge · {challenge.entry_fee} <Coins className="w-4 h-4 ml-1" />
+            {t("challenges.card.enterChallenge", { fee: challenge.entry_fee })} <Coins className="w-4 h-4 ml-1" />
           </Button>
         )}
         {canManage && (
           <Button variant="ghost" size="sm" className="w-full text-destructive hover:text-destructive press-scale" onClick={() => onCancel(challenge)}>
-            <X className="w-4 h-4 mr-1" /> Cancel & refund
+            <X className="w-4 h-4 mr-1" /> {t("challenges.cancelAndRefund")}
           </Button>
         )}
       </div>

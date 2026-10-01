@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react"
+import { useTranslation } from "react-i18next"
 import { Coins, ArrowRight, Trophy } from "lucide-react"
 import { HoLSet } from "@/data/higherOrLowerData"
 
@@ -12,6 +13,7 @@ const ROUND_SECONDS = 10
 const REWARD = 75
 
 export default function HigherOrLower({ set, onComplete, submitting }: HigherOrLowerProps) {
+  const { t } = useTranslation()
   const rounds = set.rounds
   const [roundIdx, setRoundIdx] = useState(0)
   const [score, setScore] = useState(0)
@@ -91,19 +93,19 @@ export default function HigherOrLower({ set, onComplete, submitting }: HigherOrL
             <div className="w-16 h-16 rounded-2xl bg-gold/15 border border-gold/20 flex items-center justify-center mx-auto mb-4">
               <Trophy className="w-8 h-8 text-gold" />
             </div>
-            <h2 className="text-2xl font-extrabold text-white mb-1">Round complete!</h2>
+            <h2 className="text-2xl font-extrabold text-white mb-1">{t("games.higherOrLower.roundComplete")}</h2>
             <p className="text-white/50 text-sm mb-5">
-              You got {score} of {rounds.length} right
+              {t("games.higherOrLower.gotRight", { score, total: rounds.length })}
             </p>
             <div className="inline-flex items-center gap-2 bg-gold/15 text-gold px-5 py-3 rounded-xl text-lg font-bold border border-gold/20 mb-6">
-              <Coins className="w-5 h-5" />+{coins} coins
+              <Coins className="w-5 h-5" />{t("games.coinsReward", { reward: coins })}
             </div>
             <button
               disabled={submitting}
               onClick={() => onComplete(score, coins)}
               className="w-full py-4 rounded-xl bg-primary text-primary-foreground font-bold text-base press-scale shadow-glow disabled:opacity-60"
             >
-              {submitting ? "Claiming…" : "Claim reward"}
+              {submitting ? t("games.claiming") : t("games.claimReward")}
             </button>
           </div>
         </div>
@@ -122,12 +124,12 @@ export default function HigherOrLower({ set, onComplete, submitting }: HigherOrL
       >
         <div className="relative z-10 flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-extrabold text-white tracking-tight">Higher or Lower</h1>
-            <p className="text-white/50 text-sm mt-1">Which number is bigger? 5 rounds</p>
+            <h1 className="text-2xl font-extrabold text-white tracking-tight">{t("games.higherOrLower.title")}</h1>
+            <p className="text-white/50 text-sm mt-1">{t("games.higherOrLower.subtitle")}</p>
           </div>
           <div className="flex items-center gap-1.5 bg-gold/15 text-gold px-3 py-1.5 rounded-full text-sm font-bold border border-gold/20 whitespace-nowrap">
             <Coins className="w-4 h-4" />
-            +{REWARD} coins
+            {t("games.coinsReward", { reward: REWARD })}
           </div>
         </div>
       </div>
@@ -135,10 +137,10 @@ export default function HigherOrLower({ set, onComplete, submitting }: HigherOrL
       {/* Round + score badges */}
       <div className="flex items-center justify-between mb-3">
         <span className="text-sm font-bold text-muted-foreground">
-          Round {roundIdx + 1} / {rounds.length}
+          {t("games.higherOrLower.round", { current: roundIdx + 1, total: rounds.length })}
         </span>
         <span className="text-sm font-bold bg-primary/10 text-primary px-3 py-1 rounded-full border border-primary/15">
-          Score {score}
+          {t("games.higherOrLower.score", { score })}
         </span>
       </div>
 
@@ -185,7 +187,7 @@ export default function HigherOrLower({ set, onComplete, submitting }: HigherOrL
             onClick={() => handlePick(side)}
             className={`py-4 rounded-xl font-bold text-base press-scale transition-all ${buttonClasses(side)} ${revealed ? "cursor-default" : ""}`}
           >
-            Pick {side}
+            {t("games.higherOrLower.pick", { side })}
           </button>
         ))}
       </div>
@@ -196,7 +198,7 @@ export default function HigherOrLower({ set, onComplete, submitting }: HigherOrL
           onClick={goNext}
           className="mt-4 w-full py-3 rounded-xl bg-muted text-foreground font-semibold press-scale flex items-center justify-center gap-2 animate-in fade-in duration-200"
         >
-          {roundIdx + 1 >= rounds.length ? "See results" : "Next round"}
+          {roundIdx + 1 >= rounds.length ? t("games.higherOrLower.seeResults") : t("games.higherOrLower.nextRound")}
           <ArrowRight className="w-4 h-4" />
         </button>
       )}
