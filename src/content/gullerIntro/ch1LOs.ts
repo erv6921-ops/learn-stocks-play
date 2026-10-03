@@ -175,7 +175,7 @@ export const gulliverLO1_2: StructuredLessonContent = {
       title: "Entrepreneurship, Knowledge, and the Five Factors of Production",
       paragraphs: [
         "Working for someone else has real advantages: a steady paycheck and benefits like paid vacation and health insurance that come from someone else taking on the business risk. **Entrepreneurs** trade those guaranteed benefits away, taking on more risk and losing those safety nets, in exchange for the freedom to make their own decisions, more opportunity, and the chance at real wealth if the business succeeds.",
-        "Every business, no matter how big or small, is built from the same five ingredients, called the **factors of production**: **land** (natural resources like soil, water, oil, timber), **labor** (the workers who do the work), **capital** (money, tools, equipment, and buildings, which are the resources needed to operate and grow), **entrepreneurship** (people willing to risk their time and money to start and manage a business), and **knowledge** (the information and skill needed to combine the other four factors effectively).",
+        "Every business, no matter how big or small, is built from the same five ingredients, called the **factors of production**: **land** (natural resources like soil, water, oil, timber), **labor** (the workers who do the work), **capital** (the tools, equipment, and buildings used to operate and grow, not the money itself), **entrepreneurship** (people willing to risk their time and money to start and manage a business), and **knowledge** (the information and skill needed to combine the other four factors effectively).",
         "Of those five, **entrepreneurship** and **knowledge** are widely considered the most important today. A country can have abundant land, labor, and capital and still stay poor if nobody knows how to combine them productively, and nobody is willing to take the risk of trying. What actually makes rich countries rich today is a combination of entrepreneurship and the effective use of knowledge, not just having more raw resources sitting around.",
         "That's really the definition of how wealth gets created: it doesn't come from resources just existing. Land, labor, and capital sitting idle create nothing. Wealth is created the moment an entrepreneur uses knowledge to combine land, labor, and capital into something people actually want, which is exactly why entrepreneurship is often called the 'spark' factor of production."
       ],
@@ -196,7 +196,7 @@ export const gulliverLO1_2: StructuredLessonContent = {
         pairs: [
           { term: "Land", definition: "Natural resources like soil, water, oil, and timber" },
           { term: "Labor", definition: "The workers who actually do the work" },
-          { term: "Capital", definition: "Money, tools, equipment, and buildings used to operate and grow" },
+          { term: "Capital", definition: "The tools, equipment, and buildings used to operate and grow, not the money itself" },
           { term: "Entrepreneurship", definition: "People who risk their time and money to start and run a business" },
           { term: "Knowledge", definition: "The information and skill to combine the other four factors" },
         ],
@@ -277,10 +277,10 @@ export const gulliverLO1_2: StructuredLessonContent = {
         {
           id: "glo12-mx-2",
           difficulty: -1.0,
-          question: "Which factor of production is 'the money, tools, equipment, and buildings needed to operate and grow a business'?",
+          question: "Which factor of production is 'the tools, equipment, and buildings needed to operate and grow a business'?",
           options: ["Capital", "Land", "Entrepreneurship", "Labor"],
           correctAnswer: 0,
-          explanation: "Capital is the money and physical resources (tools, equipment, buildings) a business needs to operate.",
+          explanation: "Capital is the physical resources (tools, equipment, buildings) a business needs to operate, not the money itself.",
           concept: "factors-of-production"
         },
         {

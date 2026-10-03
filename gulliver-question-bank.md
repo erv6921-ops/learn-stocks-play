@@ -103,12 +103,12 @@ _Answer: A — Ava is the entrepreneur, the person willing to risk time and mone
 - D) Knowledge
 _Answer: B — Land refers to natural resources used to produce goods and services._
 
-**5. [mastery-check · easy (-1)]** Which factor of production is 'the money, tools, equipment, and buildings needed to operate and grow a business'?
+**5. [mastery-check · easy (-1)]** Which factor of production is 'the tools, equipment, and buildings needed to operate and grow a business'?
 - A) Capital  ✓
 - B) Land
 - C) Entrepreneurship
 - D) Labor
-_Answer: A — Capital is the money and physical resources (tools, equipment, buildings) a business needs to operate._
+_Answer: A — Capital is the physical resources (tools, equipment, buildings) a business needs to operate, not the money itself._
 
 **6. [mastery-check · medium (0.5)]** Why are entrepreneurship and knowledge considered the most important factors of production today?
 - A) Because land, labor, and capital are worthless unless someone can combine them well  ✓

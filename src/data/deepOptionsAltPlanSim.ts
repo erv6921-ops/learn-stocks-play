@@ -2824,7 +2824,7 @@ export const deepOptionsAltPlanSim: StructuredLessonContent[] = [
           "Real return = nominal return minus inflation.",
           "A 1% savings rate with 3% inflation is a negative 2% real return."
         ],
-        realWorldExample: "A movie ticket that cost about $5 in 1990 costs roughly $12 today. The ticket didn't get better - the dollar got weaker. Someone who kept $5 in cash all those years watched it go from 'one movie' to less than half a movie in buying power."
+        realWorldExample: "A movie ticket that cost about $8 in 2010 costs roughly $12 today. The ticket didn't get better - the dollar got weaker. Someone who kept $8 in cash all those years watched it go from 'one movie' to two-thirds of a movie in buying power."
       },
       {
         type: "concept",
