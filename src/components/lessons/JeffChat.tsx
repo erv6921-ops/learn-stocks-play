@@ -6,8 +6,9 @@
 // buttons. Conversation history still drives the AI (via the jeff-chat edge
 // function) and persists to localStorage so closing mid-lesson resumes.
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { useContentTranslation } from "@/i18n/contentTranslation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { JeffMascot } from "@/components/Jeff/JeffMascot"
@@ -23,7 +24,7 @@ import {
   generateInterrupter, randomInterrupterType, type Interrupter,
 } from "@/lib/jeffInterrupter"
 import {
-  jeffChatTurn, initialJeffMessage, initialOptions, END_SIGNAL,
+  jeffChatTurn, initialJeffMessage, initialOptions, endSignalFor,
   loadChat, saveChat, scriptOptions, isDeepLesson, isGulliverIntroLesson, isCurriculumLesson, CURRICULUM_TURNS, type JeffVocab,
   GULLIVER_DEEP_TURNS,
   type ChatMessage,
@@ -418,7 +419,10 @@ interface JeffChatProps {
 }
 
 export default function JeffChat({ lesson, script = [], source, mustCover, vocabulary, chatKey, onQuizReady, onClose, reviewMode = false, onCoins }: JeffChatProps) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  // The lesson-end signal Jeff emits, in the active UI language (Jeff teaches in
+  // that language), so both the forced wrap-up and end detection match.
+  const END_SIGNAL = endSignalFor(i18n.language)
   const SAFE_OPTIONS = SAFE_OPTION_KEYS.map(k => t(k))
   const storageKey = chatKey ?? lesson.id
   // Deeper, longer teaching for the Gulliver Intro academic course.
@@ -427,6 +431,20 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
   // Gulliver Intro lessons get the green, tappable business-vocab glossary.
   const vocab = isGulliverIntroLesson(lesson)
   const expectedTurns = curriculum ? CURRICULUM_TURNS : deep ? GULLIVER_DEEP_TURNS : EXPECTED_TURNS
+
+  // Runtime content translation for Jeff's STATIC scripted pieces only: the
+  // hardcoded opener, its reply chips, and the scripted-fallback option labels
+  // (all authored in English). Live AI turns come back already in the active
+  // language from jeffChatTurn, so they are never fed to the hook - and since
+  // `tc` only returns a translation for strings it was given (English source),
+  // wrapping a render site in `tc` leaves any already-translated AI text as-is.
+  const staticContent = useMemo(() => [
+    initialJeffMessage(lesson),
+    ...initialOptions(lesson),
+    ...[0, 1, 2].flatMap(i => scriptOptions(i)),
+  ], [lesson])
+  const { tc } = useContentTranslation(staticContent)
+
   // Resume a saved conversation, otherwise open with Jeff's hardcoded hook.
   const [messages, setMessages] = useState<ChatMessage[]>(() =>
     loadChat(storageKey)?.messages ?? [{ role: "assistant", content: initialJeffMessage(lesson) }]
@@ -746,7 +764,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
                 <div className={`max-w-[85%] rounded-2xl px-3.5 py-2 text-sm ${
                   m.role === "assistant" ? "bg-white/80 border border-border text-foreground" : "bg-primary text-primary-foreground"
                 }`}>
-                  {m.role === "assistant" ? <HighlightedText text={m.content} vocab={vocab} /> : m.content}
+                  {m.role === "assistant" ? <HighlightedText text={tc(m.content)} vocab={vocab} /> : tc(m.content)}
                 </div>
               </div>
             ))}
@@ -761,7 +779,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                   className="text-xs text-muted-foreground text-right mb-2 italic"
                 >
-                  {t("jeff.youSaid", { choice: lastChoice })}
+                  {t("jeff.youSaid", { choice: tc(lastChoice) })}
                 </motion.p>
               )}
               <AnimatePresence mode="wait">
@@ -799,7 +817,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
                     </div>
                   ) : (
                     <p className="text-[17px] sm:text-lg leading-relaxed text-foreground whitespace-pre-wrap">
-                      <HighlightedText text={current} vocab={vocab} />
+                      <HighlightedText text={tc(current)} vocab={vocab} />
                     </p>
                   )}
                   {/* bubble tail pointing down at Jeff */}
@@ -891,7 +909,7 @@ export default function JeffChat({ lesson, script = [], source, mustCover, vocab
                   onClick={() => send(opt)}
                   className="press-scale w-full rounded-2xl border-2 border-primary/30 bg-white px-4 py-3 text-[15px] font-semibold text-foreground text-left hover:border-primary hover:bg-primary/5 transition-colors"
                 >
-                  {opt}
+                  {tc(opt)}
                 </motion.button>
               ))}
               {thinking && (

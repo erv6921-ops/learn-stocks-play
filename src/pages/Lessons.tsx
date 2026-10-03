@@ -11,6 +11,7 @@ import { roundCoins } from "@/lib/formatCoins";
 import { getUnitTestByCategory } from "@/data/unitTestQuestions";
 import { AP_UNIT_CHALLENGES } from "@/data/apMicro";
 import { getAdaptiveCurriculum, AdaptiveLessonInfo } from "@/lib/curriculumEngine";
+import { useContentTranslation } from "@/i18n/contentTranslation";
 import {
   getStreak, getBestStreak, getCurriculumLevel, getTotalEarned, getCoinsThisWeek,
 } from "@/lib/playerStats";
@@ -191,6 +192,21 @@ export default function Lessons() {
       50
     );
   }, [user?.benchmarkCategoryScores, user?.benchmarkScores, user?.assessmentScore]);
+
+  // ── Runtime content translation of displayed unit/lesson titles ──
+  // Collect every unit title and lesson title the page can render (plus the
+  // next-lesson one-liners), so the hook can batch-translate them when the UI
+  // is Spanish. English is a no-op pass-through. Logic keeps using the raw
+  // English values everywhere - only display sites are wrapped in `tc(...)`.
+  const contentStrings = useMemo(() => {
+    const strings: string[] = [];
+    for (const u of unitInfo) strings.push(u.title);
+    for (const [, adaptive] of adaptiveCurriculum) {
+      for (const al of adaptive.lessons) strings.push(al.lesson.title);
+    }
+    return strings;
+  }, [adaptiveCurriculum]);
+  const { tc } = useContentTranslation(contentStrings);
 
   // Prerequisite gating - scoped to the units of the active track.
   const unlockedUnits = useMemo(() => {
@@ -473,7 +489,7 @@ export default function Lessons() {
                   </span>
                 )}
               </div>
-              <h3 className="font-display font-bold text-lg leading-snug tracking-tight">{unit.title}</h3>
+              <h3 className="font-display font-bold text-lg leading-snug tracking-tight">{tc(unit.title)}</h3>
               <div className="flex items-center gap-4 mt-2">
                 <span className="text-xs text-muted-foreground">{t("lessons.lessonsCount", { count: reqLessons.length })}</span>
                 {valLessons.length > 0 && <span className="text-xs text-success">{t("lessons.validatedCount", { count: valLessons.length })}</span>}
@@ -522,9 +538,11 @@ export default function Lessons() {
   const isMapView = activeTrack !== "gulliver-biz-lab" && !(effectiveApMode && activeTrack === "regular");
 
   // Live station + stats data shared by the small coaster and the fullscreen one.
+  // id stays the raw English lesson id (routing/logic); only the displayed title
+  // is translated.
   const coasterStations = activeLessons.map(al => ({
     id: al.lesson.id,
-    title: al.lesson.title,
+    title: tc(al.lesson.title),
     done: al.status === "validated" || !!isLessonCompleted(al.lesson.id),
     unlocked: isLessonUnlocked(activeUnitId, al.lesson.id),
   }));
@@ -532,7 +550,7 @@ export default function Lessons() {
     <div className="fixed inset-0 z-[60] bg-background">
       <FullScreenCoaster
         unitNumber={activeUnit?.unitNumber}
-        unitTitle={activeUnit?.title ?? t("lessons.yourRide")}
+        unitTitle={activeUnit ? tc(activeUnit.title) : t("lessons.yourRide")}
         unitReward={Math.round(unitTotalPts * multiplier)}
         stations={coasterStations}
         currentIdx={currentLessonIdx}
@@ -565,7 +583,7 @@ export default function Lessons() {
           <FullScreenCoaster
             embedded
             unitNumber={activeUnit?.unitNumber}
-            unitTitle={activeUnit?.title ?? t("lessons.introToBusiness")}
+            unitTitle={activeUnit ? tc(activeUnit.title) : t("lessons.introToBusiness")}
             unitReward={Math.round(unitTotalPts * multiplier)}
             stations={coasterStations}
             currentIdx={currentLessonIdx}
@@ -595,11 +613,11 @@ export default function Lessons() {
             <FullScreenCoaster
               embedded
               unitNumber={activeUnit?.unitNumber}
-              unitTitle={activeUnit?.title ?? t("lessons.yourRide")}
+              unitTitle={activeUnit ? tc(activeUnit.title) : t("lessons.yourRide")}
               unitReward={Math.round(unitTotalPts * multiplier)}
               stations={activeLessons.map(al => ({
                 id: al.lesson.id,
-                title: al.lesson.title,
+                title: tc(al.lesson.title),
                 done: al.status === "validated" || !!isLessonCompleted(al.lesson.id),
                 unlocked: isLessonUnlocked(activeUnitId, al.lesson.id),
               }))}
@@ -738,7 +756,7 @@ export default function Lessons() {
                     {activeUnit ? t("dashboard.unitYourRide", { unit: activeUnit.unitNumber }) : t("lessons.yourRide")}
                   </p>
                   <p className="font-display font-extrabold text-foreground tracking-tight leading-tight mt-0.5 text-lg truncate">
-                    {activeUnit?.title ?? "-"}
+                    {activeUnit ? tc(activeUnit.title) : "-"}
                   </p>
                 </div>
                 <div className="text-right shrink-0">
@@ -848,7 +866,7 @@ export default function Lessons() {
                           </span>
                         </div>
                         <span className="text-[12.5px] font-bold block mt-1 leading-snug line-clamp-2 min-h-[2.4em]" style={{ color: titleColor }}>
-                          {unit.title}
+                          {tc(unit.title)}
                         </span>
                         <div className="mt-2.5 flex items-center gap-2">
                           <div className="h-1.5 flex-1 rounded-full overflow-hidden" style={{ background: track }}>
@@ -878,7 +896,7 @@ export default function Lessons() {
                     <Lock className="w-3 h-3" /> {t("lessons.locked")}
                   </span>
                 </div>
-                <h3 className="font-display font-bold text-lg leading-snug tracking-tight">{previewUnit.title}</h3>
+                <h3 className="font-display font-bold text-lg leading-snug tracking-tight">{tc(previewUnit.title)}</h3>
                 <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
                   {unitSummaryFor(previewUnit.id, previewUnit.title)}
                 </p>
@@ -921,7 +939,7 @@ export default function Lessons() {
                     {t("lessons.nextLesson", { lesson: nextLessonInUnit.lesson.lessonNumber })}
                   </p>
                   <p className="text-white font-bold text-[15px]">
-                    {nextLessonInUnit.lesson.title}
+                    {tc(nextLessonInUnit.lesson.title)}
                   </p>
                   {/* #4 One-line lesson description */}
                   <p className="text-[13px] mt-0.5" style={{ color: "rgba(255,255,255,0.55)" }}>
@@ -980,7 +998,7 @@ export default function Lessons() {
                         </span>
                       </div>
                       <span className="text-[12.5px] font-bold block mt-1 leading-snug line-clamp-2 min-h-[2.4em]" style={{ color: titleColor }}>
-                        {lesson.title}
+                        {tc(lesson.title)}
                       </span>
                       <div className="mt-2.5 flex items-center justify-end gap-2">
                         {!completed && !locked && (
@@ -1155,6 +1173,9 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
   const [hovered, setHovered] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
+  // Translate only the DISPLAYED station labels (hover tooltip + aria-label);
+  // all routing/logic keeps using the raw English lesson id.
+  const { tc } = useContentTranslation(lessons.map(l => l.lesson.title));
   const n = lessons.length;
 
   // Geometry in viewBox units, then rendered at a fixed pixel height so Jeff's
@@ -1357,7 +1378,7 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
                 border: done ? "2.5px solid #fff" : unlocked ? "2.5px solid var(--brand)" : "2.5px solid hsl(45 10% 82%)",
                 boxShadow: done ? "0 3px 8px rgba(var(--brand-rgb),0.4)" : "0 2px 5px rgba(0,0,0,0.14)",
               }}
-              aria-label={al.lesson.title}
+              aria-label={tc(al.lesson.title)}
             >
               {done ? <CheckCircle className="w-5 h-5 text-white" />
                 : unlocked ? <span className="text-[14px] font-extrabold" style={{ color: "var(--brand)" }}>{i + 1}</span>
@@ -1365,7 +1386,7 @@ export function CoasterTrack({ lessons, currentIdx, unitTotalPts, isUnlocked, is
               {hovered === i && (
                 <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 max-w-[200px] truncate whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[12px] font-bold text-white pointer-events-none"
                   style={{ background: "#2C2C2A", zIndex: 10 }}>
-                  {al.lesson.title}
+                  {tc(al.lesson.title)}
                 </span>
               )}
             </button>

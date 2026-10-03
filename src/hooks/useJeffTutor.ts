@@ -22,6 +22,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import type { SupabaseClient } from "@supabase/supabase-js"
 import { supabase } from "@/integrations/supabase/client"
+import { currentLanguage } from "@/i18n"
 import { useApp } from "@/contexts/AppContext"
 
 /** Coins charged per answered question — mirrors JEFF_CHAT_COST in the edge function. */
@@ -132,7 +133,7 @@ export function useJeffTutor() {
     setLoading(true)
     try {
       const { data, error } = await supabase.functions.invoke("jeff-chat", {
-        body: { session_id: sessionId, message, history },
+        body: { session_id: sessionId, message, history, language: currentLanguage() },
       })
       const res = !error && data && typeof data === "object" ? (data as TutorResponse) : null
       if (!res || typeof res.reply !== "string" || !res.reply.trim()) {

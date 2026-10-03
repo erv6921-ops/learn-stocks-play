@@ -35,6 +35,7 @@ import {
 } from "lucide-react"
 import { toast } from "sonner"
 import { HighlightedText } from "@/lib/highlightTerms"
+import { useContentTranslation } from "@/i18n/contentTranslation"
 import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
 import { useHints } from "@/components/lesson/HintContext"
 import { useQuizSession } from "@/components/lesson/QuizSessionContext"
@@ -85,6 +86,10 @@ interface QuizAnswerProps {
 
 function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue, coins = 20, onAnswered, shuffleOptions = false }: QuizAnswerProps) {
   const { t } = useTranslation()
+  // Runtime content translation: wrap only the displayed question text, options,
+  // and explanation. All grading stays on the ORIGINAL English values below
+  // (correctAnswer is an index; comparisons use shuffledQ.options/correctAnswer).
+  const { tc } = useContentTranslation([question.question, ...question.options, question.explanation])
   // Questions are already shuffled & validated by the MCQ engine in LessonDetail.
   // When shuffleOptions is set (mastery check), we shuffle the option order once
   // more per mount so each attempt presents the choices in a fresh position -
@@ -344,7 +349,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
 
       {/* Question, with a checkmark badge that pops in on a correct answer. */}
       <div className="relative">
-        <p className="font-semibold text-foreground text-base pr-12">{shuffledQ.question}</p>
+        <p className="font-semibold text-foreground text-base pr-12">{tc(shuffledQ.question)}</p>
         <AnimatePresence>
           {revealed && isCorrect && (
             <motion.div
@@ -402,7 +407,7 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
             >
               {showGreen && <CheckCircle className="w-4 h-4 flex-shrink-0" />}
               {showRed && <XCircle className="w-4 h-4 flex-shrink-0" />}
-              <span className="flex-1">{opt}</span>
+              <span className="flex-1">{tc(opt)}</span>
               {isEliminated && <span className="text-[10px] font-semibold shrink-0">{t("lessonPlayer.ruledOut")}</span>}
             </motion.button>
           )
@@ -463,15 +468,15 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
                 <p className="text-xs font-medium text-foreground flex items-center gap-1.5">
                   <Lightbulb className="w-3.5 h-3.5" /> {t("lessonPlayer.whyThisMatters")}
                 </p>
-                <p className="text-xs text-muted-foreground mt-1">{shuffledQ.explanation}</p>
+                <p className="text-xs text-muted-foreground mt-1">{tc(shuffledQ.explanation)}</p>
               </div>
               <p className="text-xs text-muted-foreground">
-                {t("lessonPlayer.correctAnswerLabel")} <strong className="text-foreground">{shuffledQ.options[shuffledQ.correctAnswer]}</strong>
+                {t("lessonPlayer.correctAnswerLabel")} <strong className="text-foreground">{tc(shuffledQ.options[shuffledQ.correctAnswer])}</strong>
               </p>
             </div>
           )}
           {isCorrect && shuffledQ.explanation && (
-            <p className="text-xs text-muted-foreground mt-1">{shuffledQ.explanation}</p>
+            <p className="text-xs text-muted-foreground mt-1">{tc(shuffledQ.explanation)}</p>
           )}
         </div>
       )}
@@ -491,6 +496,12 @@ function QuizAnswer({ question, onCorrect, onIncorrect, onContinue, showContinue
 
 export function ConceptRenderer({ section, onContinue }: { section: ConceptSection; onContinue: () => void }) {
   const { t } = useTranslation()
+  const { tc } = useContentTranslation([
+    section.title,
+    ...section.paragraphs,
+    ...(section.bullets ?? []),
+    section.realWorldExample,
+  ])
   return (
     <Card variant="elevated" className="overflow-hidden">
       <div className="bg-primary/5 border-b border-border px-6 py-3 flex items-center gap-2">
@@ -498,16 +509,16 @@ export function ConceptRenderer({ section, onContinue }: { section: ConceptSecti
         <span className="text-xs font-semibold text-primary uppercase tracking-wider">{t("lessonPlayer.concept")}</span>
       </div>
       <CardContent className="p-6 space-y-4">
-        <h2 className="text-xl font-bold text-foreground">{section.title}</h2>
+        <h2 className="text-xl font-bold text-foreground">{tc(section.title)}</h2>
         {section.paragraphs.map((p, i) => (
-          <p key={i} className="text-sm text-muted-foreground leading-relaxed"><HighlightedText text={p} /></p>
+          <p key={i} className="text-sm text-muted-foreground leading-relaxed"><HighlightedText text={tc(p)} /></p>
         ))}
         {section.bullets && (
           <ul className="space-y-2 pl-1">
             {section.bullets.map((b, i) => (
               <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
                 <span className="text-primary mt-1">•</span>
-                <span><HighlightedText text={b} /></span>
+                <span><HighlightedText text={tc(b)} /></span>
               </li>
             ))}
           </ul>
@@ -517,7 +528,7 @@ export function ConceptRenderer({ section, onContinue }: { section: ConceptSecti
             <p className="text-xs font-semibold text-foreground flex items-center gap-1.5 mb-1.5">
               <Lightbulb className="w-3.5 h-3.5 text-gold" /> {t("lessonPlayer.realWorldExample")}
             </p>
-            <p className="text-sm text-muted-foreground leading-relaxed"><HighlightedText text={section.realWorldExample} /></p>
+            <p className="text-sm text-muted-foreground leading-relaxed"><HighlightedText text={tc(section.realWorldExample)} /></p>
           </div>
         )}
         <div className="pt-2">
@@ -564,6 +575,7 @@ export function MicroCheckRenderer({ section, onContinue }: { section: MicroChec
 
 export function ScenarioRenderer({ section, onContinue }: { section: ScenarioSection; onContinue: () => void }) {
   const { t } = useTranslation()
+  const { tc } = useContentTranslation([section.title, section.narrative, ...(section.details ?? [])])
   return (
     <Card variant="elevated" className="overflow-hidden">
       <div className="bg-warning/10 border-b border-border px-6 py-3 flex items-center gap-2">
@@ -571,14 +583,14 @@ export function ScenarioRenderer({ section, onContinue }: { section: ScenarioSec
         <span className="text-xs font-semibold text-warning uppercase tracking-wider">{t("lessonPlayer.appliedScenario")}</span>
       </div>
       <CardContent className="p-6 space-y-4">
-        <h3 className="text-lg font-bold text-foreground">{section.title}</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed"><HighlightedText text={section.narrative} /></p>
+        <h3 className="text-lg font-bold text-foreground">{tc(section.title)}</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed"><HighlightedText text={tc(section.narrative)} /></p>
         {section.details && (
           <ul className="space-y-2 pl-1">
             {section.details.map((d, i) => (
               <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
                 <span className="text-warning mt-1">▸</span>
-                <span><HighlightedText text={d} /></span>
+                <span><HighlightedText text={tc(d)} /></span>
               </li>
             ))}
           </ul>
@@ -617,6 +629,7 @@ export function AppliedQuestionRenderer({ section, onContinue }: { section: Appl
 
 export function RecapRenderer({ section, onContinue }: { section: RecapSection; onContinue: () => void }) {
   const { t } = useTranslation()
+  const { tc } = useContentTranslation([...section.takeaways])
   return (
     <Card variant="elevated" className="overflow-hidden">
       <div className="bg-primary/5 border-b border-border px-6 py-3 flex items-center gap-2">
@@ -624,10 +637,10 @@ export function RecapRenderer({ section, onContinue }: { section: RecapSection; 
         <span className="text-xs font-semibold text-primary uppercase tracking-wider">{t("lessonPlayer.keyTakeaways")}</span>
       </div>
       <CardContent className="p-6 space-y-3">
-        {section.takeaways.map((t, i) => (
+        {section.takeaways.map((takeaway, i) => (
           <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
             <span className="bg-primary text-primary-foreground rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">{i + 1}</span>
-            <p className="text-sm text-foreground">{t}</p>
+            <p className="text-sm text-foreground">{tc(takeaway)}</p>
           </div>
         ))}
         <div className="pt-2">

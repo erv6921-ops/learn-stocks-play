@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { BrainCircuit, ArrowRight, Lightbulb } from "lucide-react"
 import { useQuizSession } from "@/components/lesson/QuizSessionContext"
+import { useContentTranslation } from "@/i18n/contentTranslation"
 import type {
   ActivityCheckSection,
   ActivityCheck,
@@ -94,6 +95,8 @@ export function ActivityCheckRenderer({
   }
 
   const explanation = activityExplanation(section.activity)
+  // Translate the displayed section title + the post-resolution explanation.
+  const { tc } = useContentTranslation([section.title, explanation])
 
   return (
     <Card variant="elevated" className="overflow-hidden">
@@ -103,7 +106,7 @@ export function ActivityCheckRenderer({
         <Badge variant="outline" className="ml-auto text-xs">{activityLabel(section.activity.kind)}</Badge>
       </div>
       <CardContent className="p-6 space-y-4">
-        {section.title && <h3 className="text-base font-bold text-foreground">{section.title}</h3>}
+        {section.title && <h3 className="text-base font-bold text-foreground">{tc(section.title)}</h3>}
 
         <ActivityBody activity={section.activity} onResolve={handleResolve} />
 
@@ -116,7 +119,7 @@ export function ActivityCheckRenderer({
               {explanation && (
                 <p className="text-xs text-muted-foreground mt-1.5 flex items-start gap-1.5">
                   <Lightbulb className="w-3.5 h-3.5 mt-0.5 shrink-0" />
-                  <span>{explanation}</span>
+                  <span>{tc(explanation)}</span>
                 </p>
               )}
             </div>
@@ -164,6 +167,7 @@ type BodyProps<T> = { data: T; onResolve: (clean: boolean) => void }
 // Solved when every pair is locked; clean only if no wrong tap happened.
 function VocabMatch({ data, onResolve }: BodyProps<VocabMatchActivity>) {
   const { t } = useTranslation()
+  const { tc } = useContentTranslation(data.pairs.flatMap(p => [p.term, p.definition]))
   const termOrder = useMemo(() => shuffled(data.pairs.map((_, i) => i)), [data.pairs])
   const defOrder = useMemo(() => shuffled(data.pairs.map((_, i) => i)), [data.pairs])
   const [selected, setSelected] = useState<number | null>(null) // pair index of picked term
@@ -223,7 +227,7 @@ function VocabMatch({ data, onResolve }: BodyProps<VocabMatchActivity>) {
                   isSel ? "border-primary bg-primary/10 shadow-sm shadow-primary/20" : stateClass[s]
                 }`}
               >
-                {data.pairs[i].term}
+                {tc(data.pairs[i].term)}
               </motion.button>
             )
           })}
@@ -244,7 +248,7 @@ function VocabMatch({ data, onResolve }: BodyProps<VocabMatchActivity>) {
                 style={{ minHeight: 44 }}
                 className={`w-full text-left px-3 py-2 rounded-xl border-2 text-[13px] leading-snug transition-colors ${stateClass[s]}`}
               >
-                {data.pairs[i].definition}
+                {tc(data.pairs[i].definition)}
               </motion.button>
             )
           })}
@@ -259,6 +263,9 @@ function FillBlank({ data, onResolve }: BodyProps<FillBlankActivity>) {
   const options = useMemo(() => shuffled(data.options), [data.options])
   const [chosen, setChosen] = useState<string | null>(null)
   const parts = data.sentence.split("[BLANK]")
+  // Translate only displayed text: the two sentence fragments and each option
+  // label. Grading stays on the raw option strings (opt === data.answer).
+  const { tc } = useContentTranslation([parts[0], parts[1], ...data.options])
 
   const pick = (opt: string) => {
     if (chosen !== null) return
@@ -270,13 +277,13 @@ function FillBlank({ data, onResolve }: BodyProps<FillBlankActivity>) {
   return (
     <div>
       <p className="text-[15px] font-medium text-foreground leading-relaxed mb-3">
-        {parts[0]}
+        {tc(parts[0])}
         <span className={`inline-block min-w-[3.5rem] text-center font-extrabold ${
           chosen === null ? "text-primary" : correct ? "text-success" : "text-destructive"
         }`}>
-          {chosen ?? "______"}
+          {chosen === null ? "______" : tc(chosen)}
         </span>
-        {parts[1] ?? ""}
+        {tc(parts[1] ?? "")}
       </p>
       <div className="flex flex-wrap gap-2">
         {options.map(opt => {
@@ -291,7 +298,7 @@ function FillBlank({ data, onResolve }: BodyProps<FillBlankActivity>) {
               style={{ minHeight: 44 }}
               className={`px-4 rounded-full border-2 font-semibold text-sm transition-colors ${stateClass[s]}`}
             >
-              {opt}
+              {tc(opt)}
             </motion.button>
           )
         })}
@@ -305,6 +312,7 @@ function FillBlank({ data, onResolve }: BodyProps<FillBlankActivity>) {
 // pick flashes and clears so they retry. Clean only if no wrong pick.
 function Categorize({ data, onResolve }: BodyProps<CategorizeActivity>) {
   const { t } = useTranslation()
+  const { tc } = useContentTranslation([...data.bins, ...data.items.map(it => it.text)])
   const [choice, setChoice] = useState<(number | null)[]>(() => data.items.map(() => null))
   const [wrongItem, setWrongItem] = useState<number | null>(null)
   const erred = useRef(false)
@@ -344,7 +352,7 @@ function Categorize({ data, onResolve }: BodyProps<CategorizeActivity>) {
                 locked ? "border-success bg-success/10" : "border-border"
               }`}
             >
-              <span className="flex-1 text-[13px] font-medium leading-tight">{it.text}</span>
+              <span className="flex-1 text-[13px] font-medium leading-tight">{tc(it.text)}</span>
               <div className="flex gap-1 shrink-0">
                 {data.bins.map((b, bi) => {
                   const isChoice = choice[i] === bi
@@ -361,7 +369,7 @@ function Categorize({ data, onResolve }: BodyProps<CategorizeActivity>) {
                       style={{ minHeight: 44 }}
                       className={`px-3 rounded-lg border-2 text-xs font-bold transition-colors ${stateClass[s]}`}
                     >
-                      {b}
+                      {tc(b)}
                     </motion.button>
                   )
                 })}
@@ -379,6 +387,7 @@ function Categorize({ data, onResolve }: BodyProps<CategorizeActivity>) {
 // resets. Clean only if the first completed order is correct.
 function Sequence({ data, onResolve }: BodyProps<SequenceActivity>) {
   const { t } = useTranslation()
+  const { tc } = useContentTranslation([data.prompt, ...data.steps])
   // Display order is shuffled; `data.steps` is the correct order. Each rendered
   // item carries its correct rank (index in data.steps).
   const items = useMemo(
@@ -416,7 +425,7 @@ function Sequence({ data, onResolve }: BodyProps<SequenceActivity>) {
 
   return (
     <div>
-      <p className="text-sm font-semibold text-foreground mb-1">{data.prompt}</p>
+      <p className="text-sm font-semibold text-foreground mb-1">{tc(data.prompt)}</p>
       <p className="text-xs text-muted-foreground mb-3">{t("lessonPlayer.tapInOrder")}</p>
       <div className="space-y-2">
         {items.map((item, i) => {
@@ -440,7 +449,7 @@ function Sequence({ data, onResolve }: BodyProps<SequenceActivity>) {
               }`}>
                 {placed ? pos + 1 : "•"}
               </span>
-              {item.text}
+              {tc(item.text)}
             </motion.button>
           )
         })}
@@ -451,6 +460,7 @@ function Sequence({ data, onResolve }: BodyProps<SequenceActivity>) {
 
 // ─── Odd one out ── (single pick)
 function OddOneOut({ data, onResolve }: BodyProps<OddOneOutActivity>) {
+  const { tc } = useContentTranslation([data.prompt, ...data.options])
   // Shuffle display order while tracking which display slot is the odd one.
   const order = useMemo(() => shuffled(data.options.map((_, i) => i)), [data.options])
   const [chosen, setChosen] = useState<number | null>(null) // original index
@@ -463,7 +473,7 @@ function OddOneOut({ data, onResolve }: BodyProps<OddOneOutActivity>) {
 
   return (
     <div>
-      <p className="text-sm font-semibold text-foreground mb-3">{data.prompt}</p>
+      <p className="text-sm font-semibold text-foreground mb-3">{tc(data.prompt)}</p>
       <div className="grid gap-2">
         {order.map(origIdx => {
           const s: TapState =
@@ -481,7 +491,7 @@ function OddOneOut({ data, onResolve }: BodyProps<OddOneOutActivity>) {
               style={{ minHeight: 44 }}
               className={`w-full text-left px-4 py-2.5 rounded-xl border-2 text-sm font-medium transition-colors ${stateClass[s]}`}
             >
-              {data.options[origIdx]}
+              {tc(data.options[origIdx])}
             </motion.button>
           )
         })}
@@ -493,6 +503,7 @@ function OddOneOut({ data, onResolve }: BodyProps<OddOneOutActivity>) {
 // ─── Two truths and a lie ── (single pick)
 function TwoTruths({ data, onResolve }: BodyProps<TwoTruthsActivity>) {
   const { t } = useTranslation()
+  const { tc } = useContentTranslation([data.prompt, ...data.statements])
   const order = useMemo(() => shuffled(data.statements.map((_, i) => i)), [data.statements])
   const [chosen, setChosen] = useState<number | null>(null) // original index
 
@@ -504,7 +515,7 @@ function TwoTruths({ data, onResolve }: BodyProps<TwoTruthsActivity>) {
 
   return (
     <div>
-      <p className="text-sm font-semibold text-foreground mb-3">{data.prompt ?? t("lessonPlayer.twoTruthsPrompt")}</p>
+      <p className="text-sm font-semibold text-foreground mb-3">{data.prompt ? tc(data.prompt) : t("lessonPlayer.twoTruthsPrompt")}</p>
       <div className="grid gap-2">
         {order.map(origIdx => {
           const s: TapState =
@@ -522,7 +533,7 @@ function TwoTruths({ data, onResolve }: BodyProps<TwoTruthsActivity>) {
               style={{ minHeight: 44 }}
               className={`w-full text-left px-4 py-2.5 rounded-xl border-2 text-sm leading-snug transition-colors ${stateClass[s]}`}
             >
-              {data.statements[origIdx]}
+              {tc(data.statements[origIdx])}
             </motion.button>
           )
         })}
