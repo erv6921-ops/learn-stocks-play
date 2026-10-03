@@ -16,7 +16,7 @@ export const f1040Grading: Record<string, IRSGradeSpec> = {
   f1040_line2b: { boxLabel: "2b", kind: "currency", hint: "Line 2b — taxable interest (from a 1099-INT). $0 if you earned no interest." },
   f1040_line9: { boxLabel: "9", kind: "currency", hint: "Line 9 — total income: add lines 1a, 2b, and 8." },
   f1040_line11: { boxLabel: "11", kind: "currency", hint: "Line 11 — adjusted gross income (AGI). With no adjustments (line 10 = 0), it equals line 9." },
-  f1040_line12: { boxLabel: "12", kind: "currency", hint: "Line 12 — the standard deduction. For a Single filer in 2024 it's $14,600." },
+  f1040_line12: { boxLabel: "12", kind: "currency", hint: "Line 12 — the standard deduction. For a Single filer in 2026 it's $16,100." },
   f1040_line15: { boxLabel: "15", kind: "currency", hint: "Line 15 — taxable income: line 11 minus line 12. If that's below zero, enter 0." },
   f1040_line16: { boxLabel: "16", kind: "currency", hint: "Line 16 — the tax on line 15, from the IRS tax tables (given in the scenario)." },
   f1040_line24: { boxLabel: "24", kind: "currency", hint: "Line 24 — total tax. In this simple return it equals line 16." },
@@ -37,7 +37,7 @@ export default function Form1040({ values, setValue, prefill, feedback, checked 
     <IRSFormShell
       formNumber="1040"
       formTitle="U.S. Individual Income Tax Return"
-      year="2024"
+      year="2026"
       omb="1545-0074"
     >
       <FormSection title="Filing Status">
@@ -88,8 +88,8 @@ export default function Form1040({ values, setValue, prefill, feedback, checked 
 
       <FormSection title="Deduction & Tax">
         <BoxRow>
-          <Box span={12} boxLabel="12" label="Standard deduction (Single 2024 = $14,600)" kind="currency"
-            value={v("f1040_line12")} onChange={set("f1040_line12")} readOnly={ro("f1040_line12")} placeholder="14,600.00"
+          <Box span={12} boxLabel="12" label="Standard deduction (Single 2026 = $16,100)" kind="currency"
+            value={v("f1040_line12")} onChange={set("f1040_line12")} readOnly={ro("f1040_line12")} placeholder="16,100.00"
             why="The chunk of income that isn't taxed at all. For most students it wipes out most of their tax."
             feedback={fb("f1040_line12")} />
         </BoxRow>

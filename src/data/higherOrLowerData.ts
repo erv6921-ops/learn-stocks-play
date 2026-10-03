@@ -61,7 +61,7 @@ export const higherOrLowerSets: HoLSet[] = [
       { aLabel: "Federal income tax top rate", aValue: "37%", bLabel: "Florida state income tax", bValue: "0%", winner: "A" },
       { aLabel: "Social Security tax rate", aValue: "6.2%", bLabel: "Medicare tax rate", bValue: "1.45%", winner: "A" },
       { aLabel: "Capital gains short-term", aValue: "37%", bLabel: "Capital gains long-term", bValue: "20%", winner: "A" },
-      { aLabel: "Standard deduction single", aValue: "$14,600", bLabel: "Standard deduction married", bValue: "$29,200", winner: "B" },
+      { aLabel: "Standard deduction single", aValue: "$16,100", bLabel: "Standard deduction married", bValue: "$32,200", winner: "B" },
       { aLabel: "Corporate tax rate", aValue: "21%", bLabel: "Self-employment tax", bValue: "15.3%", winner: "A" },
     ],
   },
