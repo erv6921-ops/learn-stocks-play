@@ -9,6 +9,7 @@ import { benchmarkQuestions, BenchmarkQuestion, calculateLiteracyLevel, getLevel
 import { computeBenchmarkScores } from "@/lib/curriculumEngine"
 import { deriveDomainAbilities, domainStartingPoints, conceptLabel, TIER_LABEL, type StartingTier } from "@/lib/benchmarkSeeding"
 import { shuffleQuestion } from "@/lib/mcqEngine"
+import { useContentTranslation } from "@/i18n/contentTranslation"
 import { saveBenchmarkProgress, loadBenchmarkProgress, clearBenchmarkProgress } from "@/lib/benchmarkProgress"
 import { DEV_LOCAL_BYPASS } from "@/lib/devBypass"
 import { eligibleForFloridaTracks, US_STATES } from "@/lib/geography"
@@ -846,6 +847,17 @@ export default function Onboarding() {
     answeredQuestions as any,
     answers
   )
+
+  // Runtime content translation of the CURRENTLY-displayed benchmark question.
+  // currentQuestion is already shuffled, so its options array is in display
+  // order; we translate each string as rendered. Grading, difficulty/IRT
+  // selection, scoring, and persistence all stay on the original English values
+  // (indices + correctAnswer) and never touch these translations.
+  const { tc } = useContentTranslation([
+    currentQuestion.question,
+    ...currentQuestion.options,
+    currentQuestion.explanation,
+  ])
 
   const categoryGroups = [
     { label: t("onboarding.categories.moneyFoundations"), cats: ["psychology-of-money", "income-earning", "budgeting"] },
@@ -1708,7 +1720,7 @@ export default function Onboarding() {
               <Card variant="elevated" className="flex-1">
                 <CardHeader>
                   <CardTitle className="text-lg leading-relaxed">
-                    {currentQuestion.question}
+                    {tc(currentQuestion.question)}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
@@ -1736,7 +1748,7 @@ export default function Onboarding() {
                         <div className="flex items-start justify-between gap-3">
                           <span className="font-medium text-sm leading-relaxed">
                             <span className="text-muted-foreground mr-2">{String.fromCharCode(65 + index)}.</span>
-                            {option}
+                            {tc(option)}
                           </span>
                           {answered && isCorrect && (
                             <CheckCircle className="text-success flex-shrink-0 mt-0.5" />
@@ -1756,7 +1768,7 @@ export default function Onboarding() {
                       className="mt-4 p-4 bg-muted rounded-xl"
                     >
                       <p className="text-sm text-muted-foreground">
-                        <strong>{t("onboarding.explanation")}</strong> {currentQuestion.explanation}
+                        <strong>{t("onboarding.explanation")}</strong> {tc(currentQuestion.explanation)}
                       </p>
                       <Button onClick={handleNextQuestion} className="mt-4 w-full">
                         {answeredCount + 1 < totalQuestions ? t("onboarding.nextQuestion") : t("onboarding.seeResults")}

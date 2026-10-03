@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { useTranslation, Trans } from "react-i18next"
 import { Coins, CheckCircle2, XCircle, Sparkles } from "lucide-react"
 import { Scenario } from "@/data/scenarioData"
+import { useContentTranslation } from "@/i18n/contentTranslation"
 
 interface DailyScenarioProps {
   scenario: Scenario
@@ -14,6 +15,11 @@ const REWARD = 75
 
 export default function DailyScenario({ scenario, onComplete, submitting }: DailyScenarioProps) {
   const { t } = useTranslation()
+  const { tc } = useContentTranslation([
+    scenario.prompt,
+    ...scenario.options,
+    scenario.explanation,
+  ])
   const [selected, setSelected] = useState<number | null>(null)
   const answered = selected !== null
   const correct = answered && selected === scenario.correctIndex
@@ -63,7 +69,7 @@ export default function DailyScenario({ scenario, onComplete, submitting }: Dail
         style={{ backgroundColor: "#f0f5f3" }}
       >
         <p className="text-[hsl(var(--primary))] text-base font-medium leading-relaxed">
-          {scenario.prompt}
+          {tc(scenario.prompt)}
         </p>
       </div>
 
@@ -79,7 +85,7 @@ export default function DailyScenario({ scenario, onComplete, submitting }: Dail
             <span className="w-7 h-7 rounded-lg bg-muted/60 flex items-center justify-center text-sm font-bold shrink-0">
               {String.fromCharCode(65 + i)}
             </span>
-            <span className="text-sm font-medium flex-1">{opt}</span>
+            <span className="text-sm font-medium flex-1">{tc(opt)}</span>
             {answered && i === scenario.correctIndex && (
               <CheckCircle2 className="w-5 h-5 text-success shrink-0" />
             )}
@@ -98,14 +104,14 @@ export default function DailyScenario({ scenario, onComplete, submitting }: Dail
               <span className={`font-bold ${correct ? "text-success" : "text-destructive"}`}>
                 {correct ? t("games.correct") : t("games.incorrect")}
               </span>
-              {scenario.explanation}
+              {tc(scenario.explanation)}
             </p>
             {/* MODIFIED: a wrong answer must always spell out the correct choice. */}
             {!correct && (
               <p className="text-sm mt-2">
                 <Trans
                   i18nKey="games.correctAnswerIs"
-                  values={{ answer: scenario.options[scenario.correctIndex] }}
+                  values={{ answer: tc(scenario.options[scenario.correctIndex]) }}
                   components={{ b: <strong className="text-success" /> }}
                 />
               </p>

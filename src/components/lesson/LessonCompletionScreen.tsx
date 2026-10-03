@@ -9,6 +9,7 @@ import { JeffMascot } from "@/components/JeffMascot"
 import Confetti from "@/components/Confetti"
 import { useQuizSession } from "./QuizSessionContext"
 import { DailyMissionScreen } from "./DailyMissionScreen"
+import { useContentTranslation } from "@/i18n/contentTranslation"
 
 // The satisfying end-of-lesson screen. Numbers roll up from zero (accuracy,
 // coins gained, coins lost), Jeff celebrates above the card, and confetti fires
@@ -49,6 +50,10 @@ export function LessonCompletionScreen({
   onScore?: (pct: number) => void
 }) {
   const { t } = useTranslation()
+  // The only content-derived string here is the next lesson's title (everything
+  // else is UI chrome via t(...)/<Trans>). Translate it, then feed the result
+  // into the t(...) template below.
+  const { tc } = useContentTranslation([nextTitle])
   const { coinsGained, coinsLost, answeredTotal, answeredCorrect, getAttempts, difficultySpread } = useQuizSession()
   // Only claim the questions "adapted to your level" when the served set
   // actually spanned more than one difficulty value - a flat single-difficulty
@@ -213,7 +218,7 @@ export function LessonCompletionScreen({
 
           {nextTitle && onNext && (
             <Button size="lg" className="w-full font-bold" onClick={onNext}>
-              {t("lessons.nextLesson", { lesson: nextTitle })} <ArrowRight className="ml-2 w-4 h-4" />
+              {t("lessons.nextLesson", { lesson: tc(nextTitle) })} <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           )}
 

@@ -735,6 +735,7 @@ async function handleTutor(req: Request, body: Record<string, unknown>, anthropi
   // 2) Validate input.
   const sessionId = typeof body.session_id === "string" ? body.session_id.trim() : "";
   const message = clampStr(body.message, TUTOR_MAX_MESSAGE_CHARS).trim();
+  const tutorLang = body.language === "es" ? "es" : "en";
   if (!UUID_RE.test(sessionId)) return tutorJson({ error: "session_id must be a UUID" }, 400);
   if (!message) return tutorJson({ error: "message is required" }, 400);
   const rawHistory = Array.isArray(body.history) ? body.history.slice(-TUTOR_HISTORY_TURNS) : [];
@@ -860,6 +861,9 @@ async function handleTutor(req: Request, body: Record<string, unknown>, anthropi
     const system = [
       { type: "text" as const, text: `${TUTOR_RULES}\n\n${buildCatalogBlock(whitelist)}`, cache_control: { type: "ephemeral" as const } },
       { type: "text" as const, text: buildMaterialBlock(chunks, literacyLevel) },
+      ...(tutorLang === "es"
+        ? [{ type: "text" as const, text: `LANGUAGE: Write the "reply" field in natural, neutral Latin American Spanish, using the informal "tú". Keep the JSON keys and all other fields exactly as specified in English; only the student-facing "reply" text is in Spanish. Keep brand names (InvestiPlay, InvestiCoins, Jeff) and stock tickers as-is.` }]
+        : []),
     ];
     const messages: Msg[] = [...history, { role: "user", content: message }];
     const rawText = await callAnthropic(anthropicKey, system, messages, TUTOR_MAX_TOKENS);
@@ -930,6 +934,11 @@ serve(async (req) => {
     // things Jeff can answer from the material (never a question he then refuses).
     const chipTitle = clampStr(body.title, MAX_CHIP_TITLE).trim();
     const chipSource = clampStr(body.source, MAX_CHIP_SOURCE).trim();
+    // Language of the lesson. Jeff teaches in it (the client builds the system
+    // prompt accordingly), so end-detection must look for the localized signal
+    // and the tappable reply options must be written in the same language.
+    const language = body.language === "es" ? "es" : "en";
+    const endSignal = clampStr(body.endSignal, 120).trim() || END_SIGNAL;
     const rawMessages = Array.isArray(body.messages) ? body.messages.slice(-MAX_MESSAGES) : [];
     const messages: Msg[] = rawMessages
       .map((m: { role?: string; content?: string }) => ({
@@ -964,16 +973,23 @@ serve(async (req) => {
 
     // 2) Suggested student replies — skipped once the lesson wraps up.
     let options: string[] = [];
-    if (!text.includes(END_SIGNAL)) {
+    if (!text.includes(endSignal)) {
       try {
+        const langRule = language === "es"
+          ? "Write the reply options in natural, neutral Latin American Spanish, informal \"tú\"."
+          : "";
         const chipSystem = [
           `You write reply suggestions for a high-school student chatting with Jeff, a friendly financial literacy guide, during the lesson '${chipTitle || "this lesson"}'.`,
           chipSource ? `Lesson material (excerpt):\n"""\n${chipSource}\n"""` : "",
           "Only suggest replies Jeff can answer from this material. Never suggest a reply that steers to a topic outside it.",
+          langRule,
         ].filter(Boolean).join("\n\n");
+        const example = language === "es"
+          ? `["Cuéntame más","Dame un ejemplo","Entendido, sigue"]`
+          : `["Tell me more","Give me an example","What does that mean"]`;
         const optText = await call(chipSystem, [{
           role: "user",
-          content: `Jeff just said: '${text.slice(0, 800)}'. Generate exactly 3 short reply options the student might tap to continue naturally: a follow-up about what Jeff just said, a request for an example, or a "got it, keep going". Return ONLY a JSON array of 3 strings, each under 8 words, no punctuation. Example: ["Tell me more","Give me an example","What does that mean"]`,
+          content: `Jeff just said: '${text.slice(0, 800)}'. Generate exactly 3 short reply options the student might tap to continue naturally: a follow-up about what Jeff just said, a request for an example, or a "got it, keep going". Return ONLY a JSON array of 3 strings, each under 8 words, no punctuation. Example: ${example}`,
         }], 150);
         const m = optText.match(/\[[\s\S]*\]/);
         if (m) {
@@ -986,7 +1002,11 @@ serve(async (req) => {
         console.error("options generation failed:", e);
       }
       // Never leave the student without a way to continue.
-      if (options.length === 0) options = ["Tell me more", "Give me an example", "Got it, what's next"];
+      if (options.length === 0) {
+        options = language === "es"
+          ? ["Cuéntame más", "Dame un ejemplo", "Entendido, ¿qué sigue?"]
+          : ["Tell me more", "Give me an example", "Got it, what's next"];
+      }
     }
 
     return new Response(JSON.stringify({ text, options }), {

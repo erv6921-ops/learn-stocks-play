@@ -6,6 +6,7 @@ import { getUnitTestByCategory } from "@/data/unitTestQuestions"
 import { categoryInfo } from "@/data/lessons"
 import { LessonCategory } from "@/types"
 import { shuffleQuestionSet } from "@/lib/mcqEngine"
+import { useContentTranslation } from "@/i18n/contentTranslation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -41,6 +42,14 @@ export default function UnitTest() {
   const shuffledQuestions = useMemo(
     () => unitTest ? shuffleQuestionSet(unitTest.questions) : [],
     [unitTest]
+  )
+
+  // Runtime content translation of the CURRENTLY-displayed question only.
+  // Grading stays index-based on the original English values below; we only
+  // translate the strings the student actually reads.
+  const currentQ = shuffledQuestions[currentQuestion]
+  const { tc } = useContentTranslation(
+    currentQ ? [currentQ.question, ...currentQ.options, currentQ.explanation] : []
   )
 
   if (!unitTest || !catInfo) {
@@ -91,7 +100,6 @@ export default function UnitTest() {
     }
   }
 
-  const currentQ = shuffledQuestions[currentQuestion]
   const isCorrectAnswer = selectedAnswer === currentQ?.correctAnswer
   const finalScore = testComplete
     ? Math.round(
@@ -201,7 +209,7 @@ export default function UnitTest() {
                 />
               </div>
 
-              <h3 className="text-lg font-bold mb-6">{currentQ.question}</h3>
+              <h3 className="text-lg font-bold mb-6">{tc(currentQ.question)}</h3>
 
               <div className="space-y-3">
                 {currentQ.options.map((option, index) => {
@@ -227,7 +235,7 @@ export default function UnitTest() {
                     >
                       {showAsCorrect && <CheckCircle className="w-5 h-5 flex-shrink-0" />}
                       {showAsWrong && <XCircle className="w-5 h-5 flex-shrink-0" />}
-                      <span>{option}</span>
+                      <span>{tc(option)}</span>
                     </button>
                   )
                 })}
@@ -253,13 +261,13 @@ export default function UnitTest() {
                       <div className="bg-background/50 rounded-lg p-3">
                         <p className="text-sm font-medium text-foreground">{t("unitTest.whyMatters")}</p>
                         <p className="text-sm text-muted-foreground mt-1">
-                          {currentQ.explanation}
+                          {tc(currentQ.explanation)}
                         </p>
                       </div>
                       <p className="text-sm text-muted-foreground">
                         <Trans
                           i18nKey="unitTest.correctAnswerIs"
-                          values={{ answer: currentQ.options[currentQ.correctAnswer] }}
+                          values={{ answer: tc(currentQ.options[currentQ.correctAnswer]) }}
                           components={{ b: <strong className="text-foreground" /> }}
                         />
                       </p>

@@ -5,13 +5,34 @@ import { supabase } from "@/integrations/supabase/client"
 import type { Lesson, LessonSection } from "@/types"
 import { stripDashes } from "@/lib/text"
 import { getQuizForLesson } from "@/data/lessonQuizzes"
+import { currentLanguage } from "@/i18n"
 
 export interface ChatMessage {
   role: "user" | "assistant"
   content: string
 }
 
-export const END_SIGNAL = "Ready to test what you learned?"
+// The phrase Jeff ends a finished lesson with - the client and the edge
+// function both detect it to reveal the quiz button. It is localized so a
+// Spanish lesson ends in Spanish; the English value stays the default for
+// back-compat with callers that don't pass a language.
+export const END_SIGNALS: Record<string, string> = {
+  en: "Ready to test what you learned?",
+  es: "¿Listo para probar lo que aprendiste?",
+}
+export function endSignalFor(lang?: string): string {
+  return END_SIGNALS[(lang ?? "en").slice(0, 2)] ?? END_SIGNALS.en
+}
+export const END_SIGNAL = END_SIGNALS.en
+
+// Prepended to a lesson system prompt when the UI is in Spanish so Jeff teaches
+// entirely in Spanish. The teaching rules themselves stay in English (the model
+// follows meta-instructions fine and still writes its output in Spanish).
+function langDirective(lang?: string): string {
+  return (lang ?? "en").startsWith("es")
+    ? "IMPORTANT LANGUAGE RULE: Write every single message to the student in natural, neutral Latin American Spanish, using the informal \"tú\". Bolded vocabulary terms are in Spanish too. Never switch to English. Keep brand names (InvestiPlay, InvestiCoins, Jeff) and stock tickers (e.g. AAPL) exactly as written.\n\n"
+    : ""
+}
 
 // Opening hook questions per lesson topic, each with reply options that
 // actually ANSWER that question (so the first tap never feels irrelevant).
@@ -866,7 +887,8 @@ export const SNAPPY_TURNS = 8
 /** Message budget when there is no source to cover: one idea, land it fast. */
 const SNAPPY_UNGROUNDED_TURNS = 6
 
-function buildSnappyPrompt(lesson: Lesson, sentCount: number, source?: string, mustCover?: string[]): string {
+function buildSnappyPrompt(lesson: Lesson, sentCount: number, source?: string, mustCover?: string[], lang: string = "en"): string {
+  const endPhrase = `${endSignalFor(lang)} 🎯`
   const concepts = testedConcepts(lesson, mustCover)
   // Hard length budget so lessons never balloon to 15+ messages; grounded
   // lessons get about 8 turns so every tested idea actually gets taught.
@@ -900,7 +922,7 @@ function buildSnappyPrompt(lesson: Lesson, sentCount: number, source?: string, m
     ? `\n\nLESSON NOTES (for you only; the quiz is written from them). Teach the ideas they contain and do not contradict them. ${NOTES_PRIVACY_RULE}\n"""\n${source.slice(0, 5000)}\n"""`
     : ""
 
-  return `You are Jeff, the friendly mascot and financial literacy guide for InvestiPlay, an app that teaches high school students personal finance through gamification. You are teaching a lesson called '${lesson.title}' which covers '${lesson.description}'.
+  return `${langDirective(lang)}You are Jeff, the friendly mascot and financial literacy guide for InvestiPlay, an app that teaches high school students personal finance through gamification. You are teaching a lesson called '${lesson.title}' which covers '${lesson.description}'.
 
 Your personality: enthusiastic, encouraging, uses casual teen-friendly language, occasional light humor, never condescending. You explain concepts in a few short sentences per message, never long paragraphs. You use real-world examples that resonate with teenagers (jobs, sneakers, streaming services, gaming, college).
 
@@ -908,7 +930,7 @@ ${job} ${budgetNote}${coverage}
 
 ${FOLLOW_UP_RULE}
 
-Always end your final message with exactly: 'Ready to test what you learned? 🎯' - this is the signal to show the quiz button.
+Always end your final message with exactly: '${endPhrase}' - this is the signal to show the quiz button.
 
 The student already knows you - never introduce yourself or say "I'm Jeff." Just dive into teaching.
 
@@ -920,7 +942,8 @@ ${SOFT_DASH_RULE}${material}`
 // ── Deep prompt (Gulliver Intro): a real, rigorous mini-lecture ──
 // Teaches thoroughly from the authored curriculum, covers every key idea in the
 // lesson, and goes into the "why"/mechanisms instead of landing one point.
-function buildDeepPrompt(lesson: Lesson, sentCount: number, source?: string, mustCoverIn?: string[]): string {
+function buildDeepPrompt(lesson: Lesson, sentCount: number, source?: string, mustCoverIn?: string[], lang: string = "en"): string {
+  const endPhrase = `${endSignalFor(lang)} 🎯`
   const mustCover = testedConcepts(lesson, mustCoverIn)
   const remaining = Math.max(1, GULLIVER_DEEP_TURNS - sentCount)
   const budgetNote = sentCount >= GULLIVER_DEEP_TURNS - 2
@@ -942,7 +965,7 @@ function buildDeepPrompt(lesson: Lesson, sentCount: number, source?: string, mus
     ? `\n\nLESSON NOTES (for you only): the authoritative curriculum for this lesson. Teach from it, cover every key idea in it in a sensible order, and do not contradict it. ${NOTES_PRIVACY_RULE}\n"""\n${source.slice(0, 4000)}\n"""`
     : ""
 
-  return `You are Jeff, the teacher for this lesson in the ${deepCourseLabel(lesson)}. You are teaching '${lesson.title}', which covers '${lesson.description}'.
+  return `${langDirective(lang)}You are Jeff, the teacher for this lesson in the ${deepCourseLabel(lesson)}. You are teaching '${lesson.title}', which covers '${lesson.description}'.
 
 This is a real course, not a quick tip. Your job is to actually TEACH the whole lesson - explain the mechanisms and the WHY behind each idea, and cover ALL of the key concepts in it (not just one). But you deliver it in SMALL, readable steps that build on each other.
 
@@ -958,7 +981,7 @@ CRITICAL - message length and pacing:
 
 Style: clear, precise, and genuinely interesting - like a great teacher, not a textbook and not a hype account. Occasionally use one vivid real-world example a 14-year-old knows (part-time jobs, phones, sneakers, food trucks, streaming, games) to make an idea concrete - but keep even the example to one short message. Plain language; do not dumb the content down. ${FOLLOW_UP_RULE} ${budgetNote}${coverage}
 
-When you have taught the full lesson, give a one-sentence synthesis of how the ideas fit together, then end your final message with exactly: 'Ready to test what you learned? 🎯' - this is the signal to show the quiz button.
+When you have taught the full lesson, give a one-sentence synthesis of how the ideas fit together, then end your final message with exactly: '${endPhrase}' - this is the signal to show the quiz button.
 
 The student already knows you - never introduce yourself. Do not use bullet points or headers; teach in short prose messages.
 
@@ -970,7 +993,8 @@ ${SOFT_DASH_RULE}${material}`
 // them) within CURRICULUM_TURNS short messages, grouping closely related
 // concepts into one message when there are more concepts than messages, and
 // lighting up the teacher-approved vocabulary with **markers** on first use.
-function buildCurriculumPrompt(lesson: Lesson, sentCount: number, source?: string, mustCover?: string[], vocab?: JeffVocab[]): string {
+function buildCurriculumPrompt(lesson: Lesson, sentCount: number, source?: string, mustCover?: string[], vocab?: JeffVocab[], lang: string = "en"): string {
+  const endPhrase = `${endSignalFor(lang)} 🎯`
   const remaining = Math.max(1, CURRICULUM_TURNS - sentCount)
   // Keep the lists compact so they always fit inside the function's prompt clamp.
   const trim = (t: string, n: number) => (t.length > n ? `${t.slice(0, n - 1).replace(/\s+\S*$/, "")}…` : t)
@@ -998,7 +1022,7 @@ function buildCurriculumPrompt(lesson: Lesson, sentCount: number, source?: strin
     ? `\n\nLESSON NOTES (for you only): the teacher's own pages; the concepts and questions come from here. Teach from them and never contradict them. ${NOTES_PRIVACY_RULE}\n"""\n${source.slice(0, 5000)}\n"""`
     : ""
 
-  return `You are Jeff, the friendly mascot who teaches high-school students on InvestiPlay. You are teaching '${lesson.title}', a lesson built from the teacher's own material.
+  return `${langDirective(lang)}You are Jeff, the friendly mascot who teaches high-school students on InvestiPlay. You are teaching '${lesson.title}', a lesson built from the teacher's own material.
 
 Your job: teach the WHOLE lesson in a short back-and-forth conversation of about ${targetTurns} messages (never more than ${CURRICULUM_TURNS}). Every REQUIRED CONCEPT below must be taught; nothing may be skipped, because the questions afterwards cover all of them. ${concepts.length <= 4 ? "With only a few concepts, go deeper on each: teach it, give one concrete example, and check the student understood before moving on. Do not end early." : ""}
 
@@ -1012,18 +1036,18 @@ Rules for each message:
 
 ${budgetNote}${coverage}${vocabList}
 
-When every required concept is taught, give a one-sentence synthesis of how they fit together and end your final message with exactly: 'Ready to test what you learned? 🎯' - this is the signal to show the quiz button.
+When every required concept is taught, give a one-sentence synthesis of how they fit together and end your final message with exactly: '${endPhrase}' - this is the signal to show the quiz button.
 
 The student already knows you - never introduce yourself. No bullet points or headers; teach in short prose messages.
 
 ${SOFT_DASH_RULE}${material}`
 }
 
-export function buildSystemPrompt(lesson: Lesson, sentCount = 0, source?: string, mustCover?: string[], vocab?: JeffVocab[]): string {
-  if (isCurriculumLesson(lesson)) return buildCurriculumPrompt(lesson, sentCount, source, mustCover, vocab)
+export function buildSystemPrompt(lesson: Lesson, sentCount = 0, source?: string, mustCover?: string[], vocab?: JeffVocab[], lang: string = currentLanguage()): string {
+  if (isCurriculumLesson(lesson)) return buildCurriculumPrompt(lesson, sentCount, source, mustCover, vocab, lang)
   return isDeepLesson(lesson)
-    ? buildDeepPrompt(lesson, sentCount, source, mustCover)
-    : buildSnappyPrompt(lesson, sentCount, source, mustCover)
+    ? buildDeepPrompt(lesson, sentCount, source, mustCover, lang)
+    : buildSnappyPrompt(lesson, sentCount, source, mustCover, lang)
 }
 
 /** One chat turn: full history in, Jeff's reply + next tap options out. */
@@ -1035,14 +1059,19 @@ export async function jeffChatTurn(
   vocab?: JeffVocab[],
 ): Promise<{ text: string; options: string[] }> {
   const sentCount = messages.filter(m => m.role === "assistant").length
+  const lang = currentLanguage()
   const { data, error } = await supabase.functions.invoke("jeff-chat", {
     body: {
-      system: buildSystemPrompt(lesson, sentCount, source, mustCover, vocab),
+      system: buildSystemPrompt(lesson, sentCount, source, mustCover, vocab, lang),
       messages,
       // Context for the server's reply-chip generation, so it only suggests
       // replies Jeff can actually answer from this lesson.
       title: lesson.title,
       source: source ? source.slice(0, 1500) : undefined,
+      // Language of Jeff's teaching: makes the server detect the localized end
+      // signal and generate the tappable reply options in the same language.
+      language: lang,
+      endSignal: endSignalFor(lang),
     },
   })
   if (error) throw new Error(error.message || "AI request failed")
@@ -1086,7 +1115,8 @@ function chunkText(text: string, maxWords: number = CHUNK_WORDS): string[] {
  * is unavailable). `deep` (Gulliver Intro) walks the full authored curriculum -
  * every concept section, in order - instead of the snappy 7-beat summary.
  */
-export function buildScript(sections: LessonSection[], deep = false): string[] {
+export function buildScript(sections: LessonSection[], deep = false, lang: string = currentLanguage()): string[] {
+  const endSignal = endSignalFor(lang)
   const w = deep ? DEEP_CHUNK_WORDS : CHUNK_WORDS
   const out: string[] = []
   for (const s of sections) {
@@ -1097,7 +1127,7 @@ export function buildScript(sections: LessonSection[], deep = false): string[] {
   }
   const script = out.slice(0, deep ? 12 : 7)
   if (script.length === 0) return []
-  script[script.length - 1] += deep ? ` ${END_SIGNAL} 🎯` : ` That's the big idea! ${END_SIGNAL} 🎯`
+  script[script.length - 1] += deep ? ` ${endSignal} 🎯` : ` That's the big idea! ${endSignal} 🎯`
   return script
 }
 

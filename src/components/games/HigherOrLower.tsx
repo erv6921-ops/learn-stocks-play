@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { Coins, ArrowRight, Trophy } from "lucide-react"
 import { HoLSet } from "@/data/higherOrLowerData"
+import { useContentTranslation } from "@/i18n/contentTranslation"
 
 interface HigherOrLowerProps {
   set: HoLSet
@@ -15,6 +16,12 @@ const REWARD = 75
 export default function HigherOrLower({ set, onComplete, submitting }: HigherOrLowerProps) {
   const { t } = useTranslation()
   const rounds = set.rounds
+  // Only the item LABELS the student reads are translated. Values (prices,
+  // salaries, percentages) are numbers/currency and the `winner`/`picked`
+  // sides drive grading, so those stay in their raw form.
+  const { tc } = useContentTranslation(
+    rounds.flatMap((r) => [r.aLabel, r.bLabel])
+  )
   const [roundIdx, setRoundIdx] = useState(0)
   const [score, setScore] = useState(0)
   const [picked, setPicked] = useState<"A" | "B" | null>(null)
@@ -168,7 +175,7 @@ export default function HigherOrLower({ set, onComplete, submitting }: HigherOrL
               style={{ backgroundColor: revealed ? undefined : "hsl(var(--primary))" }}
             >
               <p className={`text-sm font-semibold mb-3 ${revealed ? "" : "text-white/70"}`}>
-                {label}
+                {tc(label)}
               </p>
               <p className={`text-2xl font-extrabold ${revealed ? "" : "text-white/30"}`}>
                 {revealed ? value : "???"}

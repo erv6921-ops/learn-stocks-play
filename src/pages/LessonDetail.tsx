@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useApp } from "@/contexts/AppContext"
+import { useContentTranslation } from "@/i18n/contentTranslation"
 import { getLessonById } from "@/data/lessons"
 import { getNextLessonId } from "@/lib/lessonNavigation"
 import { getStructuredContent } from "@/data/lessonContent"
@@ -97,6 +98,8 @@ function LessonHeader({
 }) {
   const pct = step && step.total > 0 ? (step.current / step.total) * 100 : 0
   const { t } = useTranslation()
+  // Translate only the displayed lesson title; share payload keeps the raw title.
+  const { tc } = useContentTranslation([lesson.title])
   return (
     <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
       {previewMode && <TeacherPreviewBanner onExit={onPreviewExit} />}
@@ -108,7 +111,7 @@ function LessonHeader({
             </Button>
           )}
           <div className="flex-1 min-w-0">
-            <h1 className="font-semibold text-sm truncate">{lesson.title}</h1>
+            <h1 className="font-semibold text-sm truncate">{tc(lesson.title)}</h1>
             {step && (
               <div className="flex items-center gap-2 mt-0.5">
                 <Progress value={pct} className="h-1 flex-1 max-w-[120px]" />
@@ -302,6 +305,10 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
     return nextId ? getLessonById(nextId) : null
   }, [lesson?.id, lessonProgress, user])
 
+  // Translate the displayed lesson title/description + the next-lesson title
+  // shown on the completion/replay screen. Routing/ids stay on the raw values.
+  const { tc } = useContentTranslation([lesson?.title, lesson?.description, nextLesson?.title])
+
   if (!lesson) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -385,7 +392,7 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
               reflectionBonus={REFLECTION_BONUS}
               onContinue={() => exit("/lessons?category=" + lesson.category)}
               onRetake={startFresh}
-              nextTitle={nextLesson?.title}
+              nextTitle={nextLesson ? tc(nextLesson.title) : undefined}
               onNext={nextLesson ? () => exit("/lessons/" + nextLesson.id) : undefined}
             />
             {getScenarioSet(lesson.id) && <ScenarioResponse lessonId={lesson.id} />}
@@ -406,7 +413,7 @@ export default function LessonDetail({ previewMode = false, lessonId: lessonIdPr
                     </p>
                   </div>
                 </div>
-                <p className="text-muted-foreground">{lesson.description}</p>
+                <p className="text-muted-foreground">{tc(lesson.description)}</p>
                 {isCompleted && (
                   <p className="text-sm font-semibold text-success mt-3">
                     {t("lessons.detail.completedScore", { score: progress?.quizScore != null ? t("lessons.detail.yourScore", { pct: Math.round(progress.quizScore) }) : "" })}
@@ -494,6 +501,9 @@ function LessonRunPlayer({
 }: LessonRunPlayerProps) {
   const { updateLessonProgress, earnJeffs, awardJeffs } = useApp()
   const { t } = useTranslation()
+  // Translate the displayed next-lesson title on the completion screen; the
+  // lesson title itself is translated inside LessonHeader. Ids/routing stay raw.
+  const { tc } = useContentTranslation([nextLesson?.title])
 
   // Reshuffles the GENERATED question selection on a genuine mastery retry
   // (fail → recap → retry) and the reinforcement round. Rereading with Jeff
@@ -1114,7 +1124,7 @@ function LessonRunPlayer({
               reflectionBonus={REFLECTION_BONUS}
               onContinue={() => exit("/lessons?category=" + lesson.category)}
               onRetake={handleRetake}
-              nextTitle={nextLesson?.title}
+              nextTitle={nextLesson ? tc(nextLesson.title) : undefined}
               onNext={nextLesson ? () => exit("/lessons/" + nextLesson.id) : undefined}
             />
             {/* Optional, ungraded scenario writing (teacher-review only). */}

@@ -11,6 +11,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import { useContentTranslation } from "@/i18n/contentTranslation"
 import type { Interrupter } from "@/lib/jeffInterrupter"
 
 /** What the student did, summarized for Jeff's follow-up acknowledgment. */
@@ -182,6 +183,7 @@ function TrueFalse({
   onComplete: (result: InterrupterResult) => void
 }) {
   const { t } = useTranslation()
+  const { tc } = useContentTranslation([data.statement, data.explanation])
   const [chosen, setChosen] = useState<boolean | null>(null)
   const correct = chosen !== null && chosen === data.answer
 
@@ -200,7 +202,7 @@ function TrueFalse({
 
   return (
     <div>
-      <p className="text-[17px] font-semibold text-foreground leading-snug mb-3">{data.statement}</p>
+      <p className="text-[17px] font-semibold text-foreground leading-snug mb-3">{tc(data.statement)}</p>
       <div className="grid grid-cols-2 gap-2">
         {[true, false].map(value => {
           const s = state(value)
@@ -229,7 +231,7 @@ function TrueFalse({
       </div>
       {chosen !== null && (
         <Footer
-          explanation={data.explanation}
+          explanation={tc(data.explanation)}
           coinLabel={correct ? t("jeff.coins25") : undefined}
           onContinue={() =>
             onComplete({
@@ -254,6 +256,7 @@ function FillBlank({
   onComplete: (result: InterrupterResult) => void
 }) {
   const { t } = useTranslation()
+  const { tc } = useContentTranslation([data.sentence, data.answer, data.explanation, ...data.options])
   const [chosen, setChosen] = useState<string | null>(null)
   const correct = chosen !== null && chosen === data.answer
   // Shuffle once so the correct answer isn't always the first pill.
@@ -280,7 +283,7 @@ function FillBlank({
   return (
     <div>
       <p className="text-[17px] font-semibold text-foreground leading-relaxed mb-3">
-        {parts[0]}
+        {tc(parts[0])}
         <span
           className={`inline-block min-w-[3.5rem] text-center font-extrabold ${
             filled ? (correct ? "text-green-600" : "") : "text-primary"
@@ -289,16 +292,16 @@ function FillBlank({
           {!filled ? (
             "______"
           ) : correct ? (
-            chosen
+            tc(chosen)
           ) : (
             // Wrong: reveal the correct word in green with the student's struck through.
             <>
-              <span className="text-green-600">{data.answer}</span>{" "}
-              <span className="text-red-600 line-through decoration-2">{chosen}</span>
+              <span className="text-green-600">{tc(data.answer)}</span>{" "}
+              <span className="text-red-600 line-through decoration-2">{tc(chosen)}</span>
             </>
           )}
         </span>
-        {parts[1] ?? ""}
+        {tc(parts[1] ?? "")}
       </p>
       <div className="flex flex-wrap gap-2">
         {options.map(opt => {
@@ -323,14 +326,14 @@ function FillBlank({
                       : "border-primary/30 hover:border-primary hover:bg-primary/5"
               }`}
             >
-              {opt}
+              {tc(opt)}
             </motion.button>
           )
         })}
       </div>
       {chosen !== null && (
         <Footer
-          explanation={data.explanation}
+          explanation={tc(data.explanation)}
           coinLabel={correct ? t("jeff.coins25") : undefined}
           onContinue={() =>
             onComplete({
@@ -355,6 +358,7 @@ function PollActivity({
   onComplete: (result: InterrupterResult) => void
 }) {
   const { t } = useTranslation()
+  const { tc } = useContentTranslation([data.question, ...data.options])
   const [chosen, setChosen] = useState<number | null>(null)
 
   const pick = (i: number) => {
@@ -365,7 +369,7 @@ function PollActivity({
 
   return (
     <div>
-      <p className="text-[17px] font-semibold text-foreground leading-snug mb-3">{data.question}</p>
+      <p className="text-[17px] font-semibold text-foreground leading-snug mb-3">{tc(data.question)}</p>
       <div className="grid gap-2">
         {data.options.map((opt, i) => {
           const revealed = chosen !== null
@@ -391,7 +395,7 @@ function PollActivity({
                   transition={{ type: "spring", stiffness: 120, damping: 20 }}
                 />
               )}
-              <span className="relative z-10">{opt}</span>
+              <span className="relative z-10">{tc(opt)}</span>
               {revealed && (
                 <motion.span
                   initial={{ opacity: 0 }}
@@ -434,6 +438,7 @@ function SpotMistake({
   onComplete: (result: InterrupterResult) => void
 }) {
   const { t } = useTranslation()
+  const { tc } = useContentTranslation([...data.scenarios, data.explanation])
   const [solved, setSolved] = useState(false)
   const [wrongIdx, setWrongIdx] = useState<number | null>(null)
   const awarded = useRef(false)
@@ -475,7 +480,7 @@ function SpotMistake({
                     : "border-primary/30 hover:border-primary hover:bg-primary/5"
               }`}
             >
-              {s}
+              {tc(s)}
             </motion.button>
           )
         })}
@@ -485,7 +490,7 @@ function SpotMistake({
       )}
       {solved && (
         <Footer
-          explanation={data.explanation}
+          explanation={tc(data.explanation)}
           coinLabel={t("jeff.coins25")}
           onContinue={() =>
             onComplete({ description: "spotting the money mistake", outcome: "correct" })
@@ -510,6 +515,7 @@ function SortIt({
   onComplete: (result: InterrupterResult) => void
 }) {
   const { t } = useTranslation()
+  const { tc } = useContentTranslation([...data.items.map(it => it.text), ...data.bins, data.explanation])
   const [choice, setChoice] = useState<(number | null)[]>(() => data.items.map(() => null))
   const [misses, setMisses] = useState(0)
   const awarded = useRef(false)
@@ -547,7 +553,7 @@ function SortIt({
               }`}
             >
               <div className="flex items-center gap-2">
-                <span className="flex-1 text-[14px] font-medium leading-tight">{it.text}</span>
+                <span className="flex-1 text-[14px] font-medium leading-tight">{tc(it.text)}</span>
                 <div className="flex gap-1 shrink-0">
                   {data.bins.map((b, bi) => {
                     const chosen = choice[i] === bi
@@ -569,7 +575,7 @@ function SortIt({
                               : "border-primary/30 hover:border-primary hover:bg-primary/5"
                         }`}
                       >
-                        {b}
+                        {tc(b)}
                       </motion.button>
                     )
                   })}
@@ -582,7 +588,7 @@ function SortIt({
       </div>
       {solved && (
         <Footer
-          explanation={data.explanation}
+          explanation={tc(data.explanation)}
           coinLabel={earned ? t("jeff.coins25") : undefined}
           onContinue={() => onComplete({ description: "sorting into the right groups", outcome: "correct" })}
         />
@@ -606,6 +612,7 @@ function RankIt({
   onComplete: (result: InterrupterResult) => void
 }) {
   const { t } = useTranslation()
+  const { tc } = useContentTranslation([data.prompt, data.explanation, ...data.items])
   const [sequence, setSequence] = useState<number[]>([])
   const [misses, setMisses] = useState(0)
   const [revealed, setRevealed] = useState(false)
@@ -647,7 +654,7 @@ function RankIt({
 
   return (
     <div>
-      <p className="text-[15px] font-semibold text-foreground mb-1">{data.prompt}</p>
+      <p className="text-[15px] font-semibold text-foreground mb-1">{tc(data.prompt)}</p>
       <p className="text-xs text-muted-foreground mb-3">{t("jeff.tapInOrder")}</p>
       <div className="grid gap-2">
         {data.items.map((s, i) => {
@@ -681,7 +688,7 @@ function RankIt({
               >
                 {placed ? pos + 1 : "•"}
               </span>
-              {s}
+              {tc(s)}
             </motion.button>
           )
         })}
@@ -707,7 +714,7 @@ function RankIt({
       )}
       {solved && (
         <Footer
-          explanation={data.explanation}
+          explanation={tc(data.explanation)}
           coinLabel={solvedCorrectly ? t("jeff.coins25") : undefined}
           onContinue={() =>
             onComplete({ description: data.prompt, outcome: solvedCorrectly ? "correct" : "wrong" })
@@ -730,6 +737,7 @@ function SmartMove({
   onComplete: (result: InterrupterResult) => void
 }) {
   const { t } = useTranslation()
+  const { tc } = useContentTranslation([data.scenario, data.explanation, ...data.options])
   const [chosen, setChosen] = useState<number | null>(null)
   const correct = chosen !== null && chosen === data.answer
 
@@ -742,7 +750,7 @@ function SmartMove({
   return (
     <div>
       <p className="text-[15px] text-foreground leading-snug mb-3 rounded-lg bg-muted/40 px-3 py-2">
-        {data.scenario}
+        {tc(data.scenario)}
       </p>
       <div className="grid gap-2">
         {data.options.map((opt, i) => {
@@ -772,14 +780,14 @@ function SmartMove({
                       : "border-primary/30 hover:border-primary hover:bg-primary/5"
               }`}
             >
-              {opt}
+              {tc(opt)}
             </motion.button>
           )
         })}
       </div>
       {chosen !== null && (
         <Footer
-          explanation={data.explanation}
+          explanation={tc(data.explanation)}
           coinLabel={correct ? t("jeff.coins25") : undefined}
           onContinue={() =>
             onComplete({
