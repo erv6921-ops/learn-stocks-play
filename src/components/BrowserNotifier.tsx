@@ -7,75 +7,37 @@ import { notify } from "@/lib/browserNotifications"
 
 const LESSON_TITLE = new Map(lessons.map((l) => [l.id, l.title]))
 
-// [notif-debug] TEMPORARY - module-level counter to tell remount from re-render.
-// A fresh instance id on each cycle => the component is remounting (parent/tree
-// problem). Same id but effects re-run => a dependency changed.
+// [notif-debug] TEMPORARY - remount vs re-render counter.
 let NOTIF_INSTANCE_SEQ = 0
 
 // App-wide bridge from Supabase realtime events to native OS notifications, for
-// signed-in students who opted in from Settings. The realtime channel must
-// subscribe ONCE per user and stay SUBSCRIBED; a teardown/recreate gap drops any
-// event that lands during the reconnect. See [notif-debug] logging below.
+// signed-in students who opted in from Settings.
+//
+// Realtime's postgres_changes RLS check only reliably evaluates direct
+// column = auth.uid() policies (confirmed: lesson_progress delivers, but
+// assigned_lessons' class-scoped policy - even rewritten to an inline EXISTS -
+// does not). So:
+//   - Own-row tables (lesson_grades, partners, friend_messages) are subscribed
+//     directly with a user_id/recipient/partner filter.
+//   - Events behind a function/cross-table policy (new assignments, business
+//     grades) are fanned out by DB triggers into public.student_notifications,
+//     a per-student table with a plain user_id = auth.uid() policy that realtime
+//     delivers reliably. We subscribe to that table filtered by user_id.
+//
+// The channel subscribes ONCE per user (deps: uid, isTeacher) and the socket is
+// authenticated (realtime.setAuth) BEFORE binding, so postgres_changes isn't
+// bound as anon.
 export function BrowserNotifier() {
   const { user, isTeacher } = useAuth()
   const { t } = useTranslation()
   const uid = user?.id ?? null
 
-  // [notif-debug] stable per-mount id + change tracking.
   const idRef = useRef<number>(0)
   if (idRef.current === 0) idRef.current = ++NOTIF_INSTANCE_SEQ
-  const prevRef = useRef<{ uid: string | null; isTeacher: boolean; userObj: unknown } | null>(null)
-  const changed =
-    prevRef.current === null
-      ? "first-render"
-      : [
-          prevRef.current.uid !== uid ? "uid" : null,
-          prevRef.current.isTeacher !== isTeacher ? "isTeacher" : null,
-          prevRef.current.userObj !== user ? "user-object-identity" : null,
-        ]
-          .filter(Boolean)
-          .join(",") || "none"
-  prevRef.current = { uid, isTeacher, userObj: user }
-  console.log("[notif-debug] render", { instance: idRef.current, uid, isTeacher, changed })
+  console.log("[notif-debug] render", { instance: idRef.current, uid, isTeacher })
 
-  // Empty-dep mount/unmount logger: fires exactly once per real mount. If this
-  // logs repeatedly, the component is being REMOUNTED by a parent.
-  useEffect(() => {
-    console.log("[notif-debug] >>> MOUNT instance", idRef.current)
-    return () => console.log("[notif-debug] <<< UNMOUNT instance", idRef.current)
-  }, [])
-
-  // Latest t() without making it a subscription dependency.
   const tRef = useRef(t)
   tRef.current = t
-
-  // Student's class ids in a ref so membership loading updates the matcher
-  // WITHOUT tearing down the realtime channel.
-  const classIdsRef = useRef<Set<string>>(new Set())
-  useEffect(() => {
-    if (!uid || isTeacher) {
-      classIdsRef.current = new Set()
-      return
-    }
-    let cancelled = false
-    console.log("[notif-debug] class_members effect RUN", { instance: idRef.current, uid })
-    supabase
-      .from("class_members")
-      .select("class_id")
-      .eq("user_id", uid)
-      .then(({ data, error }) => {
-        if (cancelled) return
-        classIdsRef.current = new Set((data || []).map((m) => m.class_id).filter(Boolean))
-        console.log("[notif-debug] class_members loaded", {
-          instance: idRef.current,
-          classIds: [...classIdsRef.current],
-          error: error?.message ?? null,
-        })
-      })
-    return () => {
-      cancelled = true
-    }
-  }, [uid, isTeacher])
 
   useEffect(() => {
     if (!uid || isTeacher) {
@@ -87,11 +49,8 @@ export function BrowserNotifier() {
     let cancelled = false
     let channel: ReturnType<typeof supabase.channel> | null = null
 
-    // Authenticate the realtime SOCKET with the student's JWT BEFORE binding the
-    // channel. supabase-js sets realtime auth asynchronously at startup and does
-    // not re-propagate on INITIAL_SESSION, so a channel that binds postgres_changes
-    // before that lands stays bound as anon - RLS then sees auth.uid()=NULL and
-    // silently drops every row (the "SUBSCRIBED but nothing delivered" symptom).
+    // Authenticate the realtime SOCKET with the student's JWT BEFORE binding, so
+    // postgres_changes isn't bound as anon (which silently drops RLS'd rows).
     ;(async () => {
       const {
         data: { session },
@@ -99,8 +58,6 @@ export function BrowserNotifier() {
       console.log(
         "[notif-debug] pre-subscribe session: hasToken=" +
           String(!!session?.access_token) +
-          " tokenLen=" +
-          String(session?.access_token?.length ?? 0) +
           " instance=" +
           String(idRef.current),
       )
@@ -115,125 +72,116 @@ export function BrowserNotifier() {
       if (cancelled) return
 
       channel = supabase
-      .channel(`push-notify-${uid}`)
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "lesson_grades", filter: `user_id=eq.${uid}` },
-        (payload) => {
-          const row = payload.new as { lesson_id?: string; grade?: string | null; feedback?: string | null }
-          console.log("[notif-debug] lesson_grades event", row)
-          if (!row || (!row.grade && !row.feedback)) return
-          const lessonTitle = row.lesson_id ? LESSON_TITLE.get(row.lesson_id) : undefined
-          notify({
-            title: tRef.current("push.gradeTitle"),
-            body: lessonTitle
-              ? tRef.current("push.lessonGradeBodyNamed", { lesson: lessonTitle })
-              : tRef.current("push.lessonGradeBody"),
-            tag: `lesson-grade-${row.lesson_id ?? ""}`,
-            url: "/dashboard",
-          })
-        },
-      )
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "business_grades", filter: `user_id=eq.${uid}` },
-        (payload) => {
-          const row = payload.new as { grade?: string | null; feedback?: string | null }
-          console.log("[notif-debug] business_grades event", row)
-          if (!row || (!row.grade && !row.feedback)) return
-          notify({
-            title: tRef.current("push.gradeTitle"),
-            body: tRef.current("push.businessGradeBody"),
-            tag: "business-grade",
-            url: "/dashboard",
-          })
-        },
-      )
-      // [notif-debug] ISOLATION TEST - simple auth.uid()=user_id policy, on the
-      // SAME channel. The student self-triggers it by opening/doing a lesson
-      // (writes lesson_progress). If THIS delivers but assigned_lessons doesn't,
-      // realtime + socket auth are fine and the is_class_member class-scoped
-      // policy is what realtime can't evaluate. If this ALSO never fires,
-      // realtime delivery is broken for this session regardless of policy.
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "lesson_progress", filter: `user_id=eq.${uid}` },
-        (payload) => {
-          console.log(
-            "[notif-debug] ISOLATION lesson_progress event received:",
-            payload.eventType,
-            payload.new,
-          )
-        },
-      )
-      // New classwork / homework assigned to one of the student's classes.
-      // No server-side filter: assignments are class-level and RLS ("Class
-      // members view assignments") already scopes realtime delivery.
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "assigned_lessons" },
-        (payload) => {
-          const row = payload.new as { class_id?: string; assignment_type?: string }
-          const matches = !!row?.class_id && classIdsRef.current.has(row.class_id)
-          console.log("[notif-debug] assigned_lessons INSERT received", {
-            instance: idRef.current,
-            row,
-            myClassIds: [...classIdsRef.current],
-            matches,
-          })
-          if (!matches) return
-          const isHomework = row.assignment_type === "homework"
-          notify({
-            title: isHomework ? tRef.current("push.homeworkTitle") : tRef.current("push.classworkTitle"),
-            body: isHomework ? tRef.current("push.homeworkBody") : tRef.current("push.classworkBody"),
-            tag: `assignment-${row.class_id}`,
-            url: "/dashboard",
-          })
-        },
-      )
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "partners", filter: `partner_id=eq.${uid}` },
-        (payload) => {
-          console.log("[notif-debug] partners INSERT received", payload.new)
-          notify({
-            title: tRef.current("push.friendTitle"),
-            body: tRef.current("push.friendBody"),
-            tag: "friend-request",
-            url: "/partners",
-          })
-        },
-      )
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "friend_messages", filter: `recipient_id=eq.${uid}` },
-        (payload) => {
-          const row = payload.new as { type?: string; note?: string | null; reference_label?: string | null }
-          console.log("[notif-debug] friend_messages INSERT received", row)
-          const body =
-            row?.type === "note" && row.note
-              ? row.note
-              : row?.reference_label
-                ? tRef.current("push.messageBodyLabeled", { label: row.reference_label })
-                : tRef.current("push.messageBody")
-          notify({
-            title: tRef.current("push.messageTitle"),
-            body,
-            tag: "friend-message",
-            url: "/friends",
-          })
-        },
-      )
-      .subscribe((status, err) => {
-        console.log(
-          "[notif-debug] SUBSCRIBE CALLBACK status=" +
-            String(status) +
-            " err=" +
-            (err ? String(err.message || err) : "none") +
-            " instance=" +
-            String(idRef.current),
+        .channel(`push-notify-${uid}`)
+        // Per-student notifications: new assignments (fanned out from class-level
+        // assigned_lessons) and business grades land here via DB triggers. Plain
+        // user_id = auth.uid() policy -> realtime delivers reliably.
+        .on(
+          "postgres_changes",
+          { event: "INSERT", schema: "public", table: "student_notifications", filter: `user_id=eq.${uid}` },
+          (payload) => {
+            const row = payload.new as {
+              id?: string
+              type?: string
+              title?: string | null
+              body?: string | null
+              link?: string | null
+            }
+            console.log("[notif-debug] student_notifications INSERT received", row)
+            const T = tRef.current
+            let title: string
+            let body: string | undefined
+            switch (row?.type) {
+              case "homework":
+                title = T("push.homeworkTitle")
+                body = T("push.homeworkBody")
+                break
+              case "classwork":
+                title = T("push.classworkTitle")
+                body = T("push.classworkBody")
+                break
+              case "business_grade":
+                title = T("push.gradeTitle")
+                body = T("push.businessGradeBody")
+                break
+              default:
+                title = row?.title || T("push.classworkTitle")
+                body = row?.body || undefined
+            }
+            notify({
+              title,
+              body,
+              tag: row?.id ? `sn-${row.id}` : "student-notification",
+              url: row?.link || "/dashboard",
+            })
+          },
         )
-      })
+        // Lesson grade posted / updated - own-row table (user_id = auth.uid()).
+        .on(
+          "postgres_changes",
+          { event: "*", schema: "public", table: "lesson_grades", filter: `user_id=eq.${uid}` },
+          (payload) => {
+            const row = payload.new as { lesson_id?: string; grade?: string | null; feedback?: string | null }
+            console.log("[notif-debug] lesson_grades event", row)
+            if (!row || (!row.grade && !row.feedback)) return
+            const lessonTitle = row.lesson_id ? LESSON_TITLE.get(row.lesson_id) : undefined
+            notify({
+              title: tRef.current("push.gradeTitle"),
+              body: lessonTitle
+                ? tRef.current("push.lessonGradeBodyNamed", { lesson: lessonTitle })
+                : tRef.current("push.lessonGradeBody"),
+              tag: `lesson-grade-${row.lesson_id ?? ""}`,
+              url: "/dashboard",
+            })
+          },
+        )
+        // Incoming friend / partner request - direct-column policy
+        // (auth.uid() = user_id OR auth.uid() = partner_id).
+        .on(
+          "postgres_changes",
+          { event: "INSERT", schema: "public", table: "partners", filter: `partner_id=eq.${uid}` },
+          (payload) => {
+            console.log("[notif-debug] partners INSERT received", payload.new)
+            notify({
+              title: tRef.current("push.friendTitle"),
+              body: tRef.current("push.friendBody"),
+              tag: "friend-request",
+              url: "/partners",
+            })
+          },
+        )
+        // A card a partner sent me - direct-column policy
+        // (sender_id = auth.uid() OR recipient_id = auth.uid()).
+        .on(
+          "postgres_changes",
+          { event: "INSERT", schema: "public", table: "friend_messages", filter: `recipient_id=eq.${uid}` },
+          (payload) => {
+            const row = payload.new as { type?: string; note?: string | null; reference_label?: string | null }
+            console.log("[notif-debug] friend_messages INSERT received", row)
+            const body =
+              row?.type === "note" && row.note
+                ? row.note
+                : row?.reference_label
+                  ? tRef.current("push.messageBodyLabeled", { label: row.reference_label })
+                  : tRef.current("push.messageBody")
+            notify({
+              title: tRef.current("push.messageTitle"),
+              body,
+              tag: "friend-message",
+              url: "/friends",
+            })
+          },
+        )
+        .subscribe((status, err) => {
+          console.log(
+            "[notif-debug] SUBSCRIBE CALLBACK status=" +
+              String(status) +
+              " err=" +
+              (err ? String(err.message || err) : "none") +
+              " instance=" +
+              String(idRef.current),
+          )
+        })
     })()
 
     return () => {
